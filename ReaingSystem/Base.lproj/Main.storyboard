@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="cFq-13-7g5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="6uz-x3-J5q">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -170,9 +170,6 @@
                                         <integer key="value" value="25"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <segue destination="6uz-x3-J5q" kind="presentation" id="VJO-RU-tVt"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ce3-Ns-2fe">
                                 <rect key="frame" x="261" y="551" width="78" height="29"/>
@@ -442,37 +439,37 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lrj-BP-DaS">
-                                <rect key="frame" x="139" y="240" width="120" height="120"/>
+                                <rect key="frame" x="164" y="250" width="100" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="MLL-fY-eLV"/>
+                                    <constraint firstAttribute="width" constant="100" id="MLL-fY-eLV"/>
                                     <constraint firstAttribute="width" secondItem="lrj-BP-DaS" secondAttribute="height" multiplier="1:1" id="R9Q-2n-iXn"/>
                                 </constraints>
-                                <state key="normal" backgroundImage="01"/>
+                                <state key="normal" backgroundImage="leading_男"/>
                                 <connections>
                                     <action selector="sexSelectAction:" destination="6uz-x3-J5q" eventType="touchUpInside" id="KaO-xh-6gW"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="soz-Th-h38">
-                                <rect key="frame" x="341" y="240" width="120" height="120"/>
+                                <rect key="frame" x="336" y="250" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="soz-Th-h38" secondAttribute="height" multiplier="1:1" id="187-H3-eHs"/>
-                                    <constraint firstAttribute="width" constant="120" id="njf-Ln-3Q3"/>
+                                    <constraint firstAttribute="width" constant="100" id="njf-Ln-3Q3"/>
                                 </constraints>
                                 <size key="titleShadowOffset" width="0.0" height="2.2250738585072014e-308"/>
-                                <state key="normal" backgroundImage="02"/>
+                                <state key="normal" backgroundImage="leading_女"/>
                                 <connections>
                                     <action selector="sexSelectAction:" destination="6uz-x3-J5q" eventType="touchUpInside" id="MMi-ij-FkV"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="女" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LNh-Je-XhA">
-                                <rect key="frame" x="388" y="392" width="26" height="32"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <rect key="frame" x="375" y="382" width="22" height="27"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请选择性别" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ser-fa-BUO">
-                                <rect key="frame" x="245" y="149" width="110" height="27"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <rect key="frame" x="255" y="164" width="90" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -484,17 +481,17 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uyb-fD-3i3">
-                                <rect key="frame" x="279" y="300" width="42" height="0.0"/>
+                                <rect key="frame" x="284" y="300" width="32" height="0.0"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="42" id="zXL-X1-PZs"/>
+                                    <constraint firstAttribute="width" constant="32" id="zXL-X1-PZs"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="男" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="30" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VkZ-g6-m1t">
-                                <rect key="frame" x="186" y="392" width="26" height="32"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <rect key="frame" x="203" y="382" width="22" height="27"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -541,30 +538,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请选择感兴趣的类别" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhM-e4-ODP">
-                                <rect key="frame" x="201" y="49" width="198" height="27"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <rect key="frame" x="219" y="49" width="162" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QeN-iZ-6h8">
-                                <rect key="frame" x="32" y="43" width="40" height="40"/>
+                                <rect key="frame" x="22" y="40" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="Ole-LV-ffQ"/>
                                     <constraint firstAttribute="height" constant="40" id="YhR-Xj-Kfr"/>
                                 </constraints>
-                                <state key="normal" backgroundImage="01"/>
+                                <state key="normal" backgroundImage="leading_女"/>
                                 <connections>
                                     <action selector="backAction:" destination="ZqK-df-VdE" eventType="touchUpInside" id="pNx-2c-f2I"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q7S-JF-HNB">
-                                <rect key="frame" x="192" y="432" width="216" height="50"/>
+                                <rect key="frame" x="153" y="427" width="294" height="41"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="KW2-l1-V8i"/>
-                                    <constraint firstAttribute="width" constant="216" id="fpy-DJ-2C5"/>
+                                    <constraint firstAttribute="height" constant="41" id="KW2-l1-V8i"/>
+                                    <constraint firstAttribute="width" constant="294" id="fpy-DJ-2C5"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <state key="normal" title="开启我的阅读之旅" backgroundImage="06">
+                                <state key="normal" title="开启我的阅读之旅" backgroundImage="leading_开始我的阅读">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -573,7 +570,7 @@
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Tvn-1K-vkS">
-                                <rect key="frame" x="0.0" y="102" width="600" height="300"/>
+                                <rect key="frame" x="0.0" y="97" width="600" height="300"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="29u-Pa-Uwl"/>
@@ -592,7 +589,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="142" height="139"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test" translatesAutoresizingMaskIntoConstraints="NO" id="Em9-Jn-bx5">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="兴趣选择2" translatesAutoresizingMaskIntoConstraints="NO" id="Em9-Jn-bx5">
                                                     <rect key="frame" x="41" y="8" width="60" height="60"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="60" id="sof-Rx-v5S"/>
@@ -602,10 +599,10 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gxy-Sj-iOy">
                                                     <rect key="frame" x="46" y="68" width="50" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test2" translatesAutoresizingMaskIntoConstraints="NO" id="KOO-oU-T6z">
+                                                <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="选中" translatesAutoresizingMaskIntoConstraints="NO" id="KOO-oU-T6z">
                                                     <rect key="frame" x="41" y="8" width="60" height="60"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="60" id="X3g-FA-vQJ"/>
@@ -641,7 +638,7 @@
                             <constraint firstItem="fhM-e4-ODP" firstAttribute="leading" secondItem="gT8-HX-of6" secondAttribute="leadingMargin" constant="26" id="Bgd-cQ-FWR"/>
                             <constraint firstItem="QeN-iZ-6h8" firstAttribute="centerY" secondItem="fhM-e4-ODP" secondAttribute="centerY" id="F7s-4O-TOX"/>
                             <constraint firstItem="fhM-e4-ODP" firstAttribute="top" secondItem="CCJ-ft-Zy1" secondAttribute="bottom" constant="29" id="FT8-Kh-kkw"/>
-                            <constraint firstItem="QeN-iZ-6h8" firstAttribute="leading" secondItem="gT8-HX-of6" secondAttribute="leadingMargin" constant="12" id="FtP-B3-DaR"/>
+                            <constraint firstItem="QeN-iZ-6h8" firstAttribute="leading" secondItem="gT8-HX-of6" secondAttribute="leadingMargin" constant="2" id="FtP-B3-DaR"/>
                             <constraint firstAttribute="trailingMargin" secondItem="QeN-iZ-6h8" secondAttribute="trailing" constant="6" id="IOL-PO-3oi"/>
                             <constraint firstItem="Q7S-JF-HNB" firstAttribute="centerX" secondItem="gT8-HX-of6" secondAttribute="centerX" id="Iwk-rj-Ehe"/>
                             <constraint firstItem="Tvn-1K-vkS" firstAttribute="top" secondItem="fhM-e4-ODP" secondAttribute="bottom" constant="26" id="WB3-rK-2OZ"/>
@@ -682,7 +679,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NvF-EF-bBE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-341" y="-1207"/>
+            <point key="canvasLocation" x="-215" y="-1207"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="oVA-Qx-Fr9">
@@ -902,17 +899,17 @@
         </scene>
     </scenes>
     <resources>
-        <image name="01" width="241" height="241"/>
-        <image name="02" width="241" height="241"/>
-        <image name="06" width="433" height="101"/>
+        <image name="leading_女" width="241" height="241"/>
+        <image name="leading_开始我的阅读" width="585" height="82"/>
+        <image name="leading_男" width="241" height="241"/>
         <image name="line" width="314" height="1"/>
         <image name="marks" width="352" height="275"/>
         <image name="password" width="16" height="20"/>
-        <image name="test" width="64" height="64"/>
-        <image name="test2" width="75" height="75"/>
         <image name="username" width="20" height="21"/>
+        <image name="兴趣选择2" width="100" height="100"/>
         <image name="立即注册" width="549" height="89"/>
         <image name="立即登录" width="549" height="89"/>
+        <image name="选中" width="100" height="100"/>
         <image name="重设密码" width="549" height="89"/>
         <image name="飞鸟阅读" width="750" height="1334"/>
         <image name="验证码" width="123" height="60"/>

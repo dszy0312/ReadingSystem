@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="AXg-pD-zyg">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -63,13 +64,13 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="FOx-DI-ATq">
                                     <size key="itemSize" width="155" height="172"/>
-                                    <size key="headerReferenceSize" width="50" height="171"/>
+                                    <size key="headerReferenceSize" width="50" height="156"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="Vy0-SW-guq" customClass="CustomBookCollectionViewCell" customModule="ReaingSystem" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="171" width="155" height="172"/>
+                                        <rect key="frame" x="0.0" y="156" width="155" height="172"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="155" height="172"/>
@@ -85,7 +86,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="书名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="psW-OW-57D">
                                                     <rect key="frame" x="61" y="131" width="34" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -104,18 +105,18 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HeadView" id="TM5-im-Qru" customClass="CustomBookCollectionReusableView" customModule="ReaingSystem" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="171"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="156"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最近阅读" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xbX-0U-OSD">
-                                            <rect key="frame" x="35" y="10" width="84" height="26"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                            <rect key="frame" x="35" y="12" width="72" height="22"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                             <color key="textColor" red="0.17166809099999999" green="0.60106250000000006" blue="0.41501602580000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="共9本" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtS-Th-Twk">
-                                            <rect key="frame" x="509" y="13" width="45" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="共9本" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtS-Th-Twk">
+                                            <rect key="frame" x="514" y="15" width="40" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -130,27 +131,27 @@
                                             </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="book" translatesAutoresizingMaskIntoConstraints="NO" id="KJY-Ac-Meu">
-                                            <rect key="frame" x="26" y="35" width="109" height="128"/>
+                                            <rect key="frame" x="26" y="36" width="90" height="110"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="109" id="4qn-Im-Na0"/>
-                                                <constraint firstAttribute="height" constant="128" id="BDC-7Z-mqM"/>
+                                                <constraint firstAttribute="width" constant="90" id="4qn-Im-Na0"/>
+                                                <constraint firstAttribute="height" constant="110" id="BDC-7Z-mqM"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="书名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SVx-ff-nVt">
-                                            <rect key="frame" x="155" y="35" width="42" height="26"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <rect key="frame" x="136" y="36" width="36" height="22"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第一章 头脑特工队" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHn-jp-PiX">
-                                            <rect key="frame" x="155" y="69" width="166" height="24"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <rect key="frame" x="136" y="66" width="133" height="20"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今天 09:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TiH-gT-ADd">
-                                            <rect key="frame" x="155" y="101" width="101" height="24"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <rect key="frame" x="136" y="94" width="80" height="20"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -168,7 +169,7 @@
                                         <constraint firstItem="6So-e0-h9o" firstAttribute="centerY" secondItem="xbX-0U-OSD" secondAttribute="centerY" id="bBD-DA-x6S"/>
                                         <constraint firstItem="xbX-0U-OSD" firstAttribute="leading" secondItem="TM5-im-Qru" secondAttribute="leadingMargin" constant="27" id="cS2-xH-kQM"/>
                                         <constraint firstItem="VHn-jp-PiX" firstAttribute="leading" secondItem="SVx-ff-nVt" secondAttribute="leading" id="fGL-Ct-gIT"/>
-                                        <constraint firstItem="KJY-Ac-Meu" firstAttribute="top" secondItem="xbX-0U-OSD" secondAttribute="bottom" constant="-1" id="hpL-Vz-eGg"/>
+                                        <constraint firstItem="KJY-Ac-Meu" firstAttribute="top" secondItem="xbX-0U-OSD" secondAttribute="bottom" constant="2" id="hpL-Vz-eGg"/>
                                         <constraint firstItem="KJY-Ac-Meu" firstAttribute="leading" secondItem="TM5-im-Qru" secondAttribute="leadingMargin" constant="18" id="jsn-cE-mId"/>
                                         <constraint firstItem="6So-e0-h9o" firstAttribute="leading" secondItem="dtS-Th-Twk" secondAttribute="trailing" id="pUt-ag-9on"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="6So-e0-h9o" secondAttribute="trailing" constant="8" id="waX-gO-OWf"/>
@@ -213,69 +214,84 @@
         <scene sceneID="X7F-Z7-VJr">
             <objects>
                 <tableViewController id="K1W-aj-6dV" customClass="ReadBookListTableViewController" customModule="ReaingSystem" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="197" sectionHeaderHeight="28" sectionFooterHeight="28" id="FQL-3O-0aL">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="150" sectionHeaderHeight="28" sectionFooterHeight="28" id="FQL-3O-0aL">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="197" id="dCG-DV-kZW" customClass="ReadBookTableViewCell" customModule="ReaingSystem" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="600" height="197"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="150" id="dCG-DV-kZW" customClass="ReadBookTableViewCell" customModule="ReaingSystem" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dCG-DV-kZW" id="q6m-Dq-3kT">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="197"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mNA-Qz-XK9">
+                                            <rect key="frame" x="3" y="2" width="594" height="146"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="4"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="书名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGF-pN-9Bi">
-                                            <rect key="frame" x="171" y="24" width="38" height="23"/>
+                                            <rect key="frame" x="133" y="20" width="38" height="23"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="book" translatesAutoresizingMaskIntoConstraints="NO" id="mG8-dX-t74">
-                                            <rect key="frame" x="42" y="24" width="109" height="150"/>
+                                            <rect key="frame" x="23" y="20" width="90" height="110"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="150" id="Xxq-Dp-9Jy"/>
-                                                <constraint firstAttribute="width" constant="109" id="Z3L-k3-6Kg"/>
+                                                <constraint firstAttribute="height" constant="110" id="Xxq-Dp-9Jy"/>
+                                                <constraint firstAttribute="width" constant="90" id="Z3L-k3-6Kg"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第一章 头脑特工队" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iYO-eq-hdF">
-                                            <rect key="frame" x="171" y="84" width="141" height="21"/>
+                                            <rect key="frame" x="133" y="80" width="141" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="作者" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OZ3-qi-bFA">
-                                            <rect key="frame" x="171" y="55" width="34" height="21"/>
+                                            <rect key="frame" x="133" y="51" width="34" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最近阅读：07-06 09:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVD-A9-r0d">
-                                            <rect key="frame" x="171" y="153" width="183" height="21"/>
+                                            <rect key="frame" x="133" y="109" width="183" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="mG8-dX-t74" firstAttribute="centerY" secondItem="q6m-Dq-3kT" secondAttribute="centerY" id="7H9-rM-P3f"/>
                                         <constraint firstItem="iYO-eq-hdF" firstAttribute="leading" secondItem="OZ3-qi-bFA" secondAttribute="leading" id="8ag-yE-cZ0"/>
+                                        <constraint firstItem="mNA-Qz-XK9" firstAttribute="leading" secondItem="q6m-Dq-3kT" secondAttribute="leading" constant="3" id="BnA-Ce-8R4"/>
                                         <constraint firstItem="tGF-pN-9Bi" firstAttribute="leading" secondItem="mG8-dX-t74" secondAttribute="trailing" constant="20" id="D3g-CX-IEA"/>
+                                        <constraint firstItem="mNA-Qz-XK9" firstAttribute="leading" secondItem="tGF-pN-9Bi" secondAttribute="trailing" constant="2" id="D4l-4a-mT3"/>
                                         <constraint firstItem="OZ3-qi-bFA" firstAttribute="top" secondItem="tGF-pN-9Bi" secondAttribute="bottom" constant="8" id="EqS-32-HUb"/>
                                         <constraint firstItem="tGF-pN-9Bi" firstAttribute="leading" secondItem="mG8-dX-t74" secondAttribute="trailing" constant="47" id="IyC-4t-JYm"/>
                                         <constraint firstItem="OZ3-qi-bFA" firstAttribute="leading" secondItem="tGF-pN-9Bi" secondAttribute="leading" id="LbD-cY-Ap7"/>
                                         <constraint firstItem="iYO-eq-hdF" firstAttribute="top" secondItem="OZ3-qi-bFA" secondAttribute="bottom" constant="8" id="Lwl-ls-swU"/>
+                                        <constraint firstItem="mNA-Qz-XK9" firstAttribute="top" secondItem="q6m-Dq-3kT" secondAttribute="top" constant="2" id="Rcn-VP-5Ek"/>
                                         <constraint firstItem="tGF-pN-9Bi" firstAttribute="top" secondItem="mG8-dX-t74" secondAttribute="top" id="cP5-p8-kU8"/>
+                                        <constraint firstAttribute="trailing" secondItem="mNA-Qz-XK9" secondAttribute="trailing" constant="3" id="lZl-DU-1zO"/>
                                         <constraint firstItem="tGF-pN-9Bi" firstAttribute="top" secondItem="mG8-dX-t74" secondAttribute="top" id="mtW-jZ-Dov"/>
                                         <constraint firstItem="NVD-A9-r0d" firstAttribute="leading" secondItem="iYO-eq-hdF" secondAttribute="leading" id="pou-66-XHz"/>
+                                        <constraint firstAttribute="bottom" secondItem="mNA-Qz-XK9" secondAttribute="bottom" constant="2" id="uNz-h5-A3R"/>
                                         <constraint firstItem="NVD-A9-r0d" firstAttribute="bottom" secondItem="mG8-dX-t74" secondAttribute="bottom" id="v3B-Ak-qzy"/>
-                                        <constraint firstItem="mG8-dX-t74" firstAttribute="leading" secondItem="q6m-Dq-3kT" secondAttribute="leadingMargin" constant="34" id="x1Y-DL-KsA"/>
+                                        <constraint firstItem="mG8-dX-t74" firstAttribute="leading" secondItem="q6m-Dq-3kT" secondAttribute="leadingMargin" constant="15" id="x1Y-DL-KsA"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
+                                            <exclude reference="D4l-4a-mT3"/>
                                             <exclude reference="IyC-4t-JYm"/>
                                             <exclude reference="mtW-jZ-Dov"/>
                                         </mask>
@@ -287,6 +303,7 @@
                                     <outlet property="bookImageView" destination="mG8-dX-t74" id="Rdp-KE-FIQ"/>
                                     <outlet property="bookTitleLabel" destination="tGF-pN-9Bi" id="ih1-bt-vUC"/>
                                     <outlet property="bookWriterLabel" destination="OZ3-qi-bFA" id="PMB-Mz-8fx"/>
+                                    <outlet property="cardView" destination="mNA-Qz-XK9" id="ZvK-VO-UMO"/>
                                     <outlet property="readTimeLabel" destination="NVD-A9-r0d" id="RPC-e9-J7Y"/>
                                 </connections>
                             </tableViewCell>

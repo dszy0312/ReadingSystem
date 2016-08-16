@@ -51,7 +51,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zGB-xK-gqx">
                     <rect key="frame" x="120" y="0.0" width="120" height="600"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleAspectFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Btj-pZ-DU2">
+                        <button opaque="NO" tag="1" contentMode="scaleAspectFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Btj-pZ-DU2">
                             <rect key="frame" x="44" y="276" width="32" height="32"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="Btj-pZ-DU2" secondAttribute="height" multiplier="1:1" id="9hf-7d-MNM"/>
@@ -80,7 +80,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O3l-sm-xPE">
                     <rect key="frame" x="240" y="0.0" width="120" height="600"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleAspectFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="llr-d1-FPi">
+                        <button opaque="NO" tag="2" contentMode="scaleAspectFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="llr-d1-FPi">
                             <rect key="frame" x="44" y="276" width="32" height="32"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="llr-d1-FPi" secondAttribute="height" multiplier="1:1" id="0mF-cI-SaQ"/>
@@ -109,7 +109,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xuo-1X-JxG">
                     <rect key="frame" x="360" y="0.0" width="120" height="600"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleAspectFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="osP-Cu-1kC">
+                        <button opaque="NO" tag="3" contentMode="scaleAspectFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="osP-Cu-1kC">
                             <rect key="frame" x="44" y="276" width="32" height="32"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="32" id="X9c-T7-REb"/>
@@ -138,7 +138,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ilF-F4-r4L">
                     <rect key="frame" x="480" y="0.0" width="120" height="600"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleAspectFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rTP-sy-ym5">
+                        <button opaque="NO" tag="4" contentMode="scaleAspectFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rTP-sy-ym5">
                             <rect key="frame" x="44" y="276" width="32" height="32"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="32" id="IVG-2u-p20"/>

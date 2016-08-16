@@ -60,12 +60,17 @@ class CustomBookViewController: UIViewController, UICollectionViewDelegate, UICo
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! CustomBookCollectionViewCell
         cell.bookNameLabel.text = "测试"
-        
+        cell.bookImageView.layer.shadowOpacity = 0.5
+        cell.bookImageView.layer.shadowOffset = CGSize(width: 0, height: 3)
+        cell.bookImageView.layer.shadowRadius = 2
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         let headView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "HeadView", forIndexPath: indexPath) as! CustomBookCollectionReusableView
+        headView.bookImageView.layer.shadowOpacity = 0.5
+        headView.bookImageView.layer.shadowOffset = CGSize(width: 0, height: 3)
+        headView.bookImageView.layer.shadowRadius = 2
         return headView
     }
     

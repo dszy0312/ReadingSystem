@@ -20,6 +20,8 @@ class ReadBookTableViewCell: UITableViewCell {
     //最近阅读时间
     @IBOutlet weak var readTimeLabel: UILabel!
 
+    @IBOutlet weak var cardView: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

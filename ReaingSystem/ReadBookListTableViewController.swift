@@ -49,6 +49,13 @@ class ReadBookListTableViewController: UITableViewController {
         cell.bookImageView?.layer.shadowOpacity = 0.5
         cell.bookImageView?.layer.shadowOffset = CGSize(width: 0, height: 3)
         cell.bookImageView?.layer.shadowRadius = 5
+        
+//        cell.cardView?.layer.shadowOpacity = 0.5
+//        cell.cardView?.layer.shadowOffset = CGSize(width: 0, height: 1)
+//        cell.cardView?.layer.shadowRadius = 2
+//        cell.cardView.layer.borderWidth = 1
+//        cell.cardView.layer.borderColor = UIColor.blackColor().CGColor
+        
         cell.bookTitleLabel.text = "这是"
         cell.bookWriterLabel.text = "一次"
         cell.bookChapterLabel.text = "测试"
@@ -68,7 +75,7 @@ class ReadBookListTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 180
+        return 120
     }
     
 

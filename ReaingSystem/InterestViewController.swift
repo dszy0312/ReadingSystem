@@ -39,11 +39,9 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
         collectionView.dataSource = self
         //根据性别修改背景颜色
         if sex {
-            startButton.setBackgroundImage(UIImage(named: "06"), forState: .Normal)
-            sexButton.setBackgroundImage(UIImage(named: "01"), forState: .Normal)
+            sexButton.setBackgroundImage(UIImage(named: "leading_男"), forState: .Normal)
         } else {
-            startButton.setBackgroundImage(UIImage(named: "07"), forState: .Normal)
-            sexButton.setBackgroundImage(UIImage(named: "02"), forState: .Normal)
+            sexButton.setBackgroundImage(UIImage(named: "leading_女"), forState: .Normal)
         }
         // Do any additional setup after loading the view.
     }
@@ -119,6 +117,7 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
         } else {
             cell.isChosed = true
             cell.selectedImageView.alpha = 1
+            
             nameArray.insert(cell.nameLabel.text!)
         }
         

@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ChangeTabBarDelegate {
+    func changeIndex(index: Int)
+}
+
 class PersonalTabBar: UIView {
     
     
