@@ -25,12 +25,7 @@ class SexViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        let rect = self.view.convertRect(womanImageButton.frame, toView: womanImageButton.superview)
-//        let rect2 = womanImageButton.superview?.convertRect(womanImageButton.frame, toView: self.view)
-//
-//        print(rect)
-//        print(rect2)
+
         // Do any additional setup after loading the view.
     }
 

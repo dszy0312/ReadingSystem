@@ -38,7 +38,7 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         collectionView.delegate = self
         collectionView.dataSource = self
         //根据性别修改背景颜色
@@ -58,7 +58,7 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
         // Dispose of any resources that can be recreated.
     }
     
-    //专场准备
+    //转场准备
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == segueIdentifier {
             let newVC = segue.destinationViewController as! UITabBarController
@@ -98,8 +98,8 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
             cell.imageView.image = images![rows![indexPath.row].categoryName]
             cell.nameLabel.text = rows![indexPath.row].categoryName
         } else {
-//            cell.imageView.image = UIImage(named: "标题")
-//            cell.nameLabel.text = ""
+            cell.imageView.image = UIImage(named: "标题")
+            cell.nameLabel.text = ""
         }
         
         return cell
@@ -175,19 +175,5 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
         }
     }
     
-
-    
-//
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
