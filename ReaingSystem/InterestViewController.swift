@@ -16,8 +16,12 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
     var selected = false
     //选中兴趣标题存储
     private var nameArray: Set<String> = []
-    //测试数据
-    var testArray = ["这","是","一","个","测","式","只","是","为","了","凑","字"]
+    //网络请求设置
+    var networkHealper = LeadingNetworkHealper()
+    //兴趣列表数据
+    var rows: [Row]?
+    //兴趣列表对应图片的字典
+    var images: [String: UIImage]? = [:]
     
     //详情页转场标示
     private let segueIdentifier = "DetailSegue"
@@ -43,6 +47,9 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
         } else {
             sexButton.setBackgroundImage(UIImage(named: "leading_女"), forState: .Normal)
         }
+        
+        //网络请求兴趣列表
+        getInterests()
         // Do any additional setup after loading the view.
     }
 
@@ -87,7 +94,13 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! InterestCollectionViewCell
-        cell.nameLabel.text = testArray[indexPath.row]
+        if rows != nil {
+            cell.imageView.image = images![rows![indexPath.row].categoryName]
+            cell.nameLabel.text = rows![indexPath.row].categoryName
+        } else {
+//            cell.imageView.image = UIImage(named: "标题")
+//            cell.nameLabel.text = ""
+        }
         
         return cell
     }
@@ -109,7 +122,6 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! InterestCollectionViewCell
         
-        
         if cell.isChosed {
             cell.isChosed = false
             cell.selectedImageView.alpha = 0
@@ -129,6 +141,40 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
     }
     
 
+    //MARK:网络请求
+    //请求兴趣标题数据
+    func getInterests() {
+
+        networkHealper.getInterestingTitle { (rows, error) in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            
+            self.rows = rows
+            self.collectionView.reloadData()
+            
+            for row in self.rows! {
+                self.images![row.categoryName] = UIImage(named: "标题")
+                self.getImage(row)
+            }
+        }
+    }
+    //请求兴趣标题图片
+    func getImage(row: Row) {
+
+        let imageURL = baseURl + row.categoryImg
+        
+        networkHealper.getInterestsImage(imageURL) { (image, error) in
+            if let image = image {
+                self.images![row.categoryName] = image
+            } else {
+                print(error)
+            }
+            self.collectionView.reloadData()
+        }
+    }
+    
 
     
 //
