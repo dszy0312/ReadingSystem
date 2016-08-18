@@ -22,7 +22,28 @@ enum NetworkHealper {
         var dic: NSDictionary?
         switch self {
         case .Get:
+            
             Alamofire.request(.GET, url).responseJSON { (response) in
+                let cookies = self.GetCookieArray()
+//                print(cookies)
+//                print(response)
+                switch response.result {
+                case .Success:
+                    //确保返回值是一个json字符串，并能转换成NSDictionary
+                    guard let jsonDic = response.result.value as? NSDictionary else {
+                        error = "不是一个json字符串"
+                        completion(dic, error)
+                        return
+                    }
+                    dic = jsonDic
+                case .Failure(let e):
+                    error = "服务器出错"
+                    print(e)
+                }
+                completion(dic, error)
+            }
+        case .Post:
+            Alamofire.request(.POST, url, parameters: parameter, encoding: .JSON).responseJSON(completionHandler: { (response) in
                 switch response.result {
                 case .Success:
                     //确保返回值是一个json字符串，并能转换成NSDictionary
@@ -36,10 +57,7 @@ enum NetworkHealper {
                     error = "服务器出错"
                 }
                 completion(dic, error)
-            }
-        case .Post:
-            print("暂时没有")
-            completion(nil, nil)
+            })
         }
     }
     //获取NSData数据
@@ -63,6 +81,20 @@ enum NetworkHealper {
             print("暂时没有")
             completion(nil, nil)
         }
+    }
+    
+    func GetCookieStorage()->NSHTTPCookieStorage{
+        return NSHTTPCookieStorage.sharedHTTPCookieStorage()
+    }
+    
+    func GetCookieArray()->[NSHTTPCookie]{
+        
+        let cookieStorage = GetCookieStorage()
+        let cookieArray = cookieStorage.cookies
+        if let co = cookieArray {
+            return cookieArray!
+        }
+        return []
     }
     
 }

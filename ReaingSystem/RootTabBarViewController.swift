@@ -71,7 +71,7 @@ class RootTabBarViewController: UITabBarController, ChangeTabBarDelegate, Hidden
     //初始化内容
     func initViewController() {
         
-        let testViewController1 = UIStoryboard.init(name: "Custom", bundle: nil).instantiateInitialViewController() as! CustomBookViewController
+        let testViewController1 = UIStoryboard.init(name: "Custom", bundle: nil).instantiateInitialViewController() as! MyShelfViewController
         
         
         let testViewController2 = UIStoryboard.init(name: "Selecting", bundle: nil).instantiateInitialViewController() as! SelectingViewController

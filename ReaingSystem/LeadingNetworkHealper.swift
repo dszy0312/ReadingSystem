@@ -1,7 +1,7 @@
 //
 //  LeadingNetworkHealper.swift
 //  ReaingSystem
-//
+// 引导页网络请求
 //  Created by 魏辉 on 16/8/17.
 //  Copyright © 2016年 魏辉. All rights reserved.
 //
@@ -9,10 +9,12 @@
 import Foundation
 import UIKit
 
-//引导页网络请求
+
 struct LeadingNetworkHealper {
     //兴趣列表获取地址
     let interestsURL = baseURl + "story/GetStoryFirstCategory"
+    //兴趣选择返回地址
+    let interestsSendURL = baseURl + "user/SaveSexAndInterests"
     //网络请求
     var networkHealper: NetworkHealper?
     
@@ -52,5 +54,19 @@ struct LeadingNetworkHealper {
             completion(image, error)
         })
     
+    }
+    
+    mutating func sendInterests(param: [String: AnyObject], completion: (NSDictionary?, String?) -> Void) {
+        var error: String?
+        var dic: NSDictionary?
+        networkHealper = NetworkHealper.Post
+        networkHealper?.receiveJSON(interestsSendURL, parameter: param,  completion: { (dictionary, e) in
+            if let e = e {
+                error = e
+            } else {
+                dic = dictionary
+            }
+            completion(dic, error)
+        })
     }
 }

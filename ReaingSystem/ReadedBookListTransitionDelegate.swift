@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomShowListTransitionDelegate: NSObject, UIViewControllerTransitioningDelegate {
+class ReadedBookListTransitionDelegate: NSObject, UIViewControllerTransitioningDelegate {
 
     var animationTransition: CoverTransitionAnimation!
     

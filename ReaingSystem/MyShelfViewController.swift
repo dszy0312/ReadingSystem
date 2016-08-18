@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Alamofire
 
-class CustomBookViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class MyShelfViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
 
     @IBOutlet weak var titleBarView: UIView!
@@ -17,7 +18,9 @@ class CustomBookViewController: UIViewController, UICollectionViewDelegate, UICo
     //详情页转场标示
     private let segueIdentifier = "ListSegue"
     //自定义转场代理
-    var transitionDelegate = CustomShowListTransitionDelegate()
+    var transitionDelegate = ReadedBookListTransitionDelegate()
+    //网络请求设置
+    var networkHealper = MyShelfNetworkHealper()
     
 
     override func viewDidLoad() {
@@ -25,7 +28,8 @@ class CustomBookViewController: UIViewController, UICollectionViewDelegate, UICo
         collectionView.delegate = self
         collectionView.dataSource = self
         
- 
+        //网络请求
+        getCustomBooks()
 
         // Do any additional setup after loading the view.
     }
@@ -58,7 +62,7 @@ class CustomBookViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! CustomBookCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! MyShelfCollectionViewCell
         cell.bookNameLabel.text = "测试"
         cell.bookImageView.layer.shadowOpacity = 0.5
         cell.bookImageView.layer.shadowOffset = CGSize(width: 0, height: 3)
@@ -67,7 +71,7 @@ class CustomBookViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        let headView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "HeadView", forIndexPath: indexPath) as! CustomBookCollectionReusableView
+        let headView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "HeadView", forIndexPath: indexPath) as! MyShelfCollectionReusableView
         headView.bookImageView.layer.shadowOpacity = 0.5
         headView.bookImageView.layer.shadowOffset = CGSize(width: 0, height: 3)
         headView.bookImageView.layer.shadowRadius = 2
@@ -103,7 +107,18 @@ class CustomBookViewController: UIViewController, UICollectionViewDelegate, UICo
         return true
     }
     
-    
+    //MARK:网络请求
+    func getCustomBooks() {
+        networkHealper.getMyShelf { (dic, error) in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            
+            print("dic = \(dic)")
+        }
+        
+    }
 
 
     

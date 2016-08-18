@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomBookCollectionViewCell: UICollectionViewCell {
+class MyShelfCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var bookImageView: UIImageView!
     

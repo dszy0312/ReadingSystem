@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomBookCollectionReusableView: UICollectionReusableView {
+class MyShelfCollectionReusableView: UICollectionReusableView {
     //图书封面
     @IBOutlet weak var bookImageView: UIImageView!
     //图书名

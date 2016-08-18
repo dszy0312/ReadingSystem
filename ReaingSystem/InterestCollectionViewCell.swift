@@ -12,6 +12,8 @@ import UIKit
 class InterestCollectionViewCell: UICollectionViewCell {
     //是否被选中
     var isChosed = false
+    //标题ID
+    var nameID = ""
     //标题图
     @IBOutlet weak var imageView: UIImageView!
     //选中图

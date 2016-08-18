@@ -15,9 +15,11 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
     //兴趣标题是否选中
     var selected = false
     //选中兴趣标题存储
-    private var nameArray: Set<String> = []
+    private var interestChosedSet: Set<String> = []
+    //
     //网络请求设置
     var networkHealper = LeadingNetworkHealper()
+
     //兴趣列表数据
     var rows: [Row]?
     //兴趣列表对应图片的字典
@@ -70,12 +72,16 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
     //输出选中兴趣标题
     @IBAction func startAction(sender: UIButton) {
         
-        for i in nameArray {
+        for i in interestChosedSet {
             print(i)
         }
         
     }
     
+    @IBAction func begainReadingClick(sender: UIButton) {
+        sendResult(sex, interestChosedSet: interestChosedSet)
+        
+    }
     //返回上一级
     @IBAction func backAction(sender: UIButton) {
         
@@ -97,6 +103,7 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
         if rows != nil {
             cell.imageView.image = images![rows![indexPath.row].categoryName]
             cell.nameLabel.text = rows![indexPath.row].categoryName
+            cell.nameID = rows![indexPath.row].categoryID
         } else {
             cell.imageView.image = UIImage(named: "标题")
             cell.nameLabel.text = ""
@@ -125,12 +132,12 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
         if cell.isChosed {
             cell.isChosed = false
             cell.selectedImageView.alpha = 0
-            nameArray.remove(cell.nameLabel.text!)
+            interestChosedSet.remove(cell.nameID)
         } else {
             cell.isChosed = true
             cell.selectedImageView.alpha = 1
             
-            nameArray.insert(cell.nameLabel.text!)
+            interestChosedSet.insert(cell.nameID)
         }
         
         
@@ -173,6 +180,40 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
             }
             self.collectionView.reloadData()
         }
+    }
+    //发送兴趣选择结果，跳转页面
+    func sendResult(sex: Bool, interestChosedSet: Set<String>) {
+        var interestChosedArray: [String] = []
+        //唯一标识码
+        let str = UIDevice.currentDevice().identifierForVendor! as NSUUID
+        //兴趣选中数组
+        for name in interestChosedSet {
+            interestChosedArray.append(name)
+        }
+        
+        let parameters: [String: AnyObject] = [
+            "uuid": str.UUIDString,
+            "sex": sex == true ? 1 : 0,
+            "interests": interestChosedArray
+        ]
+        print(str.UUIDString)
+        print(interestChosedArray)
+        
+        networkHealper.sendInterests(parameters) { (dictionary, error) in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            if let flag = dictionary!["flag"] as? Int {
+                if flag == 1 {
+                    self.performSegueWithIdentifier("DetailSegue", sender: self)
+                } else {
+                    
+                }
+            }
+            
+        }
+        
     }
     
 

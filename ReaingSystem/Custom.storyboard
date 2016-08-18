@@ -24,10 +24,10 @@
             </objects>
             <point key="canvasLocation" x="2018" y="-465"/>
         </scene>
-        <!--Custom Book View Controller-->
+        <!--My Shelf View Controller-->
         <scene sceneID="cbp-XP-zt6">
             <objects>
-                <viewController id="AXg-pD-zyg" customClass="CustomBookViewController" customModule="ReaingSystem" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="AXg-pD-zyg" customClass="MyShelfViewController" customModule="ReaingSystem" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jwn-bL-q5u"/>
                         <viewControllerLayoutGuide type="bottom" id="tlP-dI-0GT"/>
@@ -69,7 +69,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="Vy0-SW-guq" customClass="CustomBookCollectionViewCell" customModule="ReaingSystem" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="Vy0-SW-guq" customClass="MyShelfCollectionViewCell" customModule="ReaingSystem" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="156" width="155" height="172"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -104,7 +104,7 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HeadView" id="TM5-im-Qru" customClass="CustomBookCollectionReusableView" customModule="ReaingSystem" customModuleProvider="target">
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HeadView" id="TM5-im-Qru" customClass="MyShelfCollectionReusableView" customModule="ReaingSystem" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="156"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>

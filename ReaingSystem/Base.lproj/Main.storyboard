@@ -565,8 +565,8 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="begainReadingClick:" destination="ZqK-df-VdE" eventType="touchUpInside" id="FgN-oe-wo6"/>
                                     <action selector="startAction:" destination="ZqK-df-VdE" eventType="touchUpInside" id="ugb-Ad-Elv"/>
-                                    <segue destination="eA4-AM-lYf" kind="presentation" identifier="DetailSegue" id="wpr-pT-Tnj"/>
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Tvn-1K-vkS">
@@ -661,6 +661,7 @@
                         <outlet property="collectionView" destination="Tvn-1K-vkS" id="cas-rt-tAa"/>
                         <outlet property="sexButton" destination="QeN-iZ-6h8" id="Eyf-Or-7Ly"/>
                         <outlet property="startButton" destination="Q7S-JF-HNB" id="YdX-bc-fn2"/>
+                        <segue destination="eA4-AM-lYf" kind="presentation" identifier="DetailSegue" id="1ge-Bi-JPc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YGd-Py-9BA" userLabel="First Responder" sceneMemberID="firstResponder"/>
