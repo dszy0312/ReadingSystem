@@ -21,6 +21,10 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     var transitionDelegate = ReadedBookListTransitionDelegate()
     //网络请求设置
     var networkHealper = MyShelfNetworkHealper()
+    //我的书架书目
+    var myBooks: [MyBook]?
+    //最近阅读的书
+    var readedBook: [ReadedBook]?
     
 
     override func viewDidLoad() {
@@ -29,7 +33,7 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
         collectionView.dataSource = self
         
         //网络请求
-        getCustomBooks()
+        getMyShelf()
 
         // Do any additional setup after loading the view.
     }
@@ -54,7 +58,7 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     //MARK: collectionView dataSource delegate flowLayout
     //dataSource
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 12
+        return myBooks == nil ? 1 : myBooks!.count + 1
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -63,7 +67,21 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! MyShelfCollectionViewCell
-        cell.bookNameLabel.text = "测试"
+        if indexPath.row == collectionView.numberOfItemsInSection(0) - 1 {
+            cell.bookNameLabel.text = "跳转书城"
+            cell.bookImageView.image = UIImage(named: "book")
+        } else {
+            //显示书架数据
+            if let myBooks = self.myBooks {
+                cell.bookNameLabel.text = myBooks[indexPath.row].bookName
+                cell.bookImageView.image = myBooks[indexPath.row].bookImgData
+                
+            }
+            
+        }
+        
+        
+        //阴影设置
         cell.bookImageView.layer.shadowOpacity = 0.5
         cell.bookImageView.layer.shadowOffset = CGSize(width: 0, height: 3)
         cell.bookImageView.layer.shadowRadius = 2
@@ -72,6 +90,15 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         let headView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "HeadView", forIndexPath: indexPath) as! MyShelfCollectionReusableView
+        //UI配置
+        if let readedBook = self.readedBook {
+            headView.bookImageView.image = readedBook.first?.bookImgData
+            headView.bookTitleLabel.text = readedBook.first?.bookName
+            headView.bookSubTitleLabel.text = readedBook.first?.chapterName
+            headView.timeLabel.text = "最后阅读时间：" + readedBook.first!.recentReadDate
+            headView.totalLabel.text = "共\(readedBook.first!.num)本"
+        }
+        //阴影设置
         headView.bookImageView.layer.shadowOpacity = 0.5
         headView.bookImageView.layer.shadowOffset = CGSize(width: 0, height: 3)
         headView.bookImageView.layer.shadowRadius = 2
@@ -108,17 +135,57 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     //MARK:网络请求
-    func getCustomBooks() {
-        networkHealper.getMyShelf { (dic, error) in
+    //请求书架页面数据
+    func getMyShelf() {
+        networkHealper.getMyShelf { (myBooks, readedBook, error) in
+            //查询错误
             guard error == nil else {
                 print(error)
                 return
             }
+            //获取数据
+            self.myBooks = myBooks
+            self.readedBook = readedBook
+            self.collectionView.reloadData()
+            //获取最近阅读图片
+            for i in 0..<readedBook!.count {
+                self.getImage(readedBook![i], index: i)
+            }
+            //获取我的书架书本图片
+            for i in 0..<myBooks!.count {
+                self.getImage(myBooks![i], index: i)
+            }
             
-            print("dic = \(dic)")
+            
         }
-        
     }
+    //请求兴趣标题图片
+    func getImage<T>(book: T, index: Int){
+
+        if let myBook = book as? MyBook {
+            let imageURL = baseURl + myBook.bookImg
+            networkHealper.getBookImage(imageURL) { (image, error) in
+                guard error == nil else {
+                    print(error)
+                    return
+                }
+                self.myBooks![index].bookImgData = image
+                self.collectionView.reloadData()
+                
+            }
+        } else if let readedBook = book as? ReadedBook {
+            let imageURL = baseURl + readedBook.bookImg
+            networkHealper.getBookImage(imageURL) { (image, error) in
+                guard error == nil else {
+                    print(error)
+                    return
+                }
+                self.readedBook![index].bookImgData = image
+                self.collectionView.reloadData()
+            }
+        }
+    }
+
 
 
     

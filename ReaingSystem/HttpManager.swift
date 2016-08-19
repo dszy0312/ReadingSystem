@@ -15,6 +15,7 @@ let baseURl = "http://172.16.8.250:8036/"
 enum NetworkHealper {
     case Get
     case Post
+    case GetTest
 
     //获取JSON数据
     func receiveJSON(url: String,parameter: [String: AnyObject]? = [:], completion: (NSDictionary?, String?) -> Void) {
@@ -31,11 +32,13 @@ enum NetworkHealper {
                 case .Success:
                     //确保返回值是一个json字符串，并能转换成NSDictionary
                     guard let jsonDic = response.result.value as? NSDictionary else {
+                        
                         error = "不是一个json字符串"
                         completion(dic, error)
                         return
                     }
                     dic = jsonDic
+
                 case .Failure(let e):
                     error = "服务器出错"
                     print(e)
@@ -44,6 +47,7 @@ enum NetworkHealper {
             }
         case .Post:
             Alamofire.request(.POST, url, parameters: parameter, encoding: .JSON).responseJSON(completionHandler: { (response) in
+                
                 switch response.result {
                 case .Success:
                     //确保返回值是一个json字符串，并能转换成NSDictionary
@@ -53,9 +57,16 @@ enum NetworkHealper {
                         return
                     }
                     dic = jsonDic
+                    
                 case .Failure(let _):
                     error = "服务器出错"
                 }
+                completion(dic, error)
+            })
+        case .GetTest:
+            Alamofire.request(.GET, url).responseData(completionHandler: { (response) in
+                let str = NSString(data: response.result.value!, encoding: NSUTF8StringEncoding)
+                print(str)
                 completion(dic, error)
             })
         }
@@ -74,12 +85,27 @@ enum NetworkHealper {
                 case .Failure(let e):
                     error = "服务器出错"
                 }
-                
+            
                 completion(data, error)
             })
         case .Post:
             print("暂时没有")
             completion(nil, nil)
+        case .GetTest:
+            Alamofire.request(.GET, url).responseData(completionHandler: { (response) in
+                let str = NSString(data: response.result.value!, encoding: NSUTF8StringEncoding)
+                print(str)
+                switch response.result {
+                case .Success:
+                    data = response.data
+                    
+                case .Failure(let e):
+                    error = "服务器出错"
+                }
+                
+                completion(data, error)
+            })
+
         }
     }
     

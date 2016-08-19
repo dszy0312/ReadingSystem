@@ -185,19 +185,18 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
     func sendResult(sex: Bool, interestChosedSet: Set<String>) {
         var interestChosedArray: [String] = []
         //唯一标识码
-        let str = UIDevice.currentDevice().identifierForVendor! as NSUUID
+        let uuid = checkUuid()
+        print(uuid)
         //兴趣选中数组
         for name in interestChosedSet {
             interestChosedArray.append(name)
         }
         
         let parameters: [String: AnyObject] = [
-            "uuid": str.UUIDString,
+            "uuid": uuid!,
             "sex": sex == true ? 1 : 0,
             "interests": interestChosedArray
         ]
-        print(str.UUIDString)
-        print(interestChosedArray)
         
         networkHealper.sendInterests(parameters) { (dictionary, error) in
             guard error == nil else {
@@ -213,6 +212,43 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
             }
             
         }
+        
+    }
+    //UUID数据持久化，加入钥匙串
+    func checkUuid() -> String?{
+        // keyChain group
+        var service = "com.weihui.ReaingSystem"
+        // access group
+        var group = ""
+        // 查询name
+        let kReadingUUIDKey = "UUIDKey"
+        var keychain: KeychainUtility?
+        // 发布者身份检查 可以实现不同APP调用
+        guard let appIdPrefix = NSBundle.mainBundle().infoDictionary!["AppIdentifierPrefix"] as? String else {
+            print("No AppIdPrefix")
+            return nil
+        }
+        group = appIdPrefix + service
+        keychain = KeychainUtility(service: service, group: group)
+        // 查询钥匙串中是否有存储的UUID
+        if let data = keychain?.query(kReadingUUIDKey) {
+            return NSString(data: data, encoding: NSUTF8StringEncoding) as? String
+        } else {
+            //唯一标识码
+            let str = (UIDevice.currentDevice().identifierForVendor! as NSUUID).UUIDString
+            //加载UUID到钥匙串
+            guard let data = str.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true) else {
+                print("data转换失败")
+                return nil
+            }
+            guard let result = keychain?.insert(data, key: kReadingUUIDKey) else {
+                print("加载UUID失败")
+                return nil
+            }
+            return str
+        }
+        
+        
         
     }
     

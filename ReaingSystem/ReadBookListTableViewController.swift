@@ -7,19 +7,20 @@
 //
 
 import UIKit
+import Alamofire
 
 class ReadBookListTableViewController: UITableViewController {
+    
+    //网络请求设置
+    var networkHealper = MyShelfNetworkHealper()
+    var bookListData: [BookListData]?
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        //网络请求
+        getReadedBooks()
 
-//        hiddenTabBarDelegate?.hiddenTabBar(true)
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,26 +41,23 @@ class ReadBookListTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        return bookListData != nil ? bookListData!.count : 0
     }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! ReadBookTableViewCell
         cell.bookImageView?.layer.shadowOpacity = 0.5
         cell.bookImageView?.layer.shadowOffset = CGSize(width: 0, height: 3)
         cell.bookImageView?.layer.shadowRadius = 5
-        
-//        cell.cardView?.layer.shadowOpacity = 0.5
-//        cell.cardView?.layer.shadowOffset = CGSize(width: 0, height: 1)
-//        cell.cardView?.layer.shadowRadius = 2
-//        cell.cardView.layer.borderWidth = 1
-//        cell.cardView.layer.borderColor = UIColor.blackColor().CGColor
-        
-        cell.bookTitleLabel.text = "这是"
-        cell.bookWriterLabel.text = "一次"
-        cell.bookChapterLabel.text = "测试"
-        cell.readTimeLabel.text = "真的"
+        if let bookListData = self.bookListData {
+            cell.bookTitleLabel.text = bookListData[indexPath.row].bookName
+            cell.bookWriterLabel.text = bookListData[indexPath.row].author
+            cell.bookChapterLabel.text = bookListData[indexPath.row].chapterName
+            cell.readTimeLabel.text = bookListData[indexPath.row].recentReadDate
+            cell.bookImageView.image = bookListData[indexPath.row].bookImgData
+        }
 
         // Configure the cell...
 
@@ -78,50 +76,45 @@ class ReadBookListTableViewController: UITableViewController {
         return 120
     }
     
+    //MARK: 网络请求
+    //获取最近阅读信息
+    func getReadedBooks() {
+        networkHealper.getReadedBooks { (data, error) in
+            //查询错误
+            guard error == nil else {
+                print(error)
+                return
+            }
+            //获取数据
+            self.bookListData = data
+            self.tableView.reloadData()
+            //获取图片
+            for i in 0..<data!.count {
+                self.getImage(data![i], index: i)
+            }
+            
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    //请求兴趣标题图片
+    func getImage<T>(book: T, index: Int){
+        
+        if let book = book as? BookListData {
+            let imageURL = baseURl + book.bookImg
+            networkHealper.getBookImage(imageURL) { (image, error) in
+                guard error == nil else {
+                    print(error)
+                    return
+                }
+                self.bookListData![index].bookImgData = image
+                self.tableView.reloadData()
+                
+            }
+        }
     }
-    */
+    
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
 
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
