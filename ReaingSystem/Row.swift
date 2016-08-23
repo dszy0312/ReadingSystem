@@ -18,7 +18,7 @@ struct Row{
 	var categoryName : String!
 	var categoryState : Int!
 	var categoryStateText : String!
-    var image: UIImage = UIImage(named: "标题")!
+    var imageData: UIImage = UIImage(named: "leading_loading")!
 
 
 	/**

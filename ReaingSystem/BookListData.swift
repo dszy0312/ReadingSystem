@@ -18,7 +18,7 @@ struct BookListData{
 	var chapterName : String!
 	var isOnShelf : Int!
 	var recentReadDate : String!
-    var bookImgData = UIImage(named: "book")
+    var bookImgData = UIImage(named: "bookLoading")
 
 	/**
 	 * 用字典来初始化一个实例并设置各个属性值

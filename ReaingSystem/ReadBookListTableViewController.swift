@@ -11,9 +11,9 @@ import Alamofire
 
 class ReadBookListTableViewController: UITableViewController {
     
-    //网络请求设置
-    var networkHealper = MyShelfNetworkHealper()
     var bookListData: [BookListData]?
+    
+    var selectedBook: BookListData?
 
 
     override func viewDidLoad() {
@@ -30,6 +30,15 @@ class ReadBookListTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "DetailSegue" {
+            
+            let toVC = segue.destinationViewController as! BookIntroduceViewController
+            toVC.selectedBook = selectedBook
+            
+        }
     }
 
     // MARK: - Table view data source
@@ -64,6 +73,14 @@ class ReadBookListTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        selectedBook = bookListData![indexPath.row]
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        performSegueWithIdentifier("DetailSegue", sender: self)
+        
+        
+    }
+    
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
     }
@@ -79,39 +96,43 @@ class ReadBookListTableViewController: UITableViewController {
     //MARK: 网络请求
     //获取最近阅读信息
     func getReadedBooks() {
-        networkHealper.getReadedBooks { (data, error) in
+        NetworkHealper.Get.receiveJSON(URLHealper.readedBooksURL.introduce(), completion: { (dictionary, error) in
             //查询错误
             guard error == nil else {
                 print(error)
                 return
             }
             //获取数据
-            self.bookListData = data
+            let bookListBook = BookListBook(fromDictionary: dictionary!)
+            
+            self.bookListData = bookListBook.data
             self.tableView.reloadData()
             //获取图片
-            for i in 0..<data!.count {
-                self.getImage(data![i], index: i)
+            for i in 0..<self.bookListData!.count {
+                let imageURL = baseURl + self.bookListData![i].bookImg
+                self.getImage(i, url: imageURL)
             }
-            
 
-        }
+        })
     }
     
     //请求兴趣标题图片
-    func getImage<T>(book: T, index: Int){
-        
-        if let book = book as? BookListData {
-            let imageURL = baseURl + book.bookImg
-            networkHealper.getBookImage(imageURL) { (image, error) in
-                guard error == nil else {
-                    print(error)
-                    return
-                }
+    func getImage(index: Int, url: String){
+
+        NetworkHealper.Get.receiveData(url, completion: { (data, error) in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            if let image = UIImage(data: data!) {
                 self.bookListData![index].bookImgData = image
                 self.tableView.reloadData()
                 
+            } else {
+                print("不是图片")
             }
-        }
+        })
+        
     }
     
 

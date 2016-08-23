@@ -10,7 +10,7 @@ struct MyBook{
 	var bookID : String!
 	var bookImg : String!
 	var bookName : String!
-    var bookImgData = UIImage(named: "book")
+    var bookImgData = UIImage(named: "bookLoading")
 
 
 	/**

@@ -16,14 +16,9 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
     var selected = false
     //选中兴趣标题存储
     private var interestChosedSet: Set<String> = []
-    //
-    //网络请求设置
-    var networkHealper = LeadingNetworkHealper()
 
     //兴趣列表数据
     var rows: [Row]?
-    //兴趣列表对应图片的字典
-    var images: [String: UIImage]? = [:]
     
     //详情页转场标示
     private let segueIdentifier = "DetailSegue"
@@ -79,6 +74,10 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
     }
     
     @IBAction func begainReadingClick(sender: UIButton) {
+        guard interestChosedSet != [] else {
+            return
+        }
+        
         sendResult(sex, interestChosedSet: interestChosedSet)
         
     }
@@ -101,7 +100,7 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! InterestCollectionViewCell
         if rows != nil {
-            cell.imageView.image = images![rows![indexPath.row].categoryName]
+            cell.imageView.image = rows![indexPath.row].imageData
             cell.nameLabel.text = rows![indexPath.row].categoryName
             cell.nameID = rows![indexPath.row].categoryID
         } else {
@@ -151,42 +150,54 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
     //MARK:网络请求
     //请求兴趣标题数据
     func getInterests() {
-
-        networkHealper.getInterestingTitle { (rows, error) in
+        
+        NetworkHealper.Get.receiveJSON(URLHealper.interestsURL.introduce()) { (dictionary, error) in
             guard error == nil else {
                 print(error)
                 return
             }
+            let interests = Interests(fromDictionary: dictionary!)
+            //保证数据存在
+            guard interests.rows.count > 0 else {
+                print("没有数据")
+                return
+            }
             
-            self.rows = rows
+            self.rows = interests.rows
             self.collectionView.reloadData()
             
-            for row in self.rows! {
-                self.images![row.categoryName] = UIImage(named: "标题")
-                self.getImage(row)
+            //获取图片
+            for i in 0..<self.rows!.count {
+                let imageURL = baseURl + self.rows![i].categoryImg
+                self.getImage(i, url: imageURL)
             }
+
+            
+
         }
     }
     //请求兴趣标题图片
-    func getImage(row: Row) {
-
-        let imageURL = baseURl + row.categoryImg
-        
-        networkHealper.getInterestsImage(imageURL) { (image, error) in
-            if let image = image {
-                self.images![row.categoryName] = image
-            } else {
+    func getImage(index: Int, url: String) {
+        NetworkHealper.Get.receiveData(url) { (data, error) in
+            guard error == nil else {
                 print(error)
+                return
             }
-            self.collectionView.reloadData()
+            if let image = UIImage(data: data!) {
+                self.rows![index].imageData = image
+                self.collectionView.reloadData()
+                
+            } else {
+                print("不是图片")
+            }
         }
+
     }
     //发送兴趣选择结果，跳转页面
     func sendResult(sex: Bool, interestChosedSet: Set<String>) {
         var interestChosedArray: [String] = []
         //唯一标识码
         let uuid = checkUuid()
-        print(uuid)
         //兴趣选中数组
         for name in interestChosedSet {
             interestChosedArray.append(name)
@@ -197,8 +208,7 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
             "sex": sex == true ? 1 : 0,
             "interests": interestChosedArray
         ]
-        
-        networkHealper.sendInterests(parameters) { (dictionary, error) in
+        NetworkHealper.Post.receiveJSON(URLHealper.interestsSendURL.introduce(), parameter: parameters) { (dictionary, error) in
             guard error == nil else {
                 print(error)
                 return
@@ -207,12 +217,11 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
                 if flag == 1 {
                     self.performSegueWithIdentifier("DetailSegue", sender: self)
                 } else {
-                    
+                    print("发送失败")
                 }
             }
-            
+
         }
-        
     }
     //UUID数据持久化，加入钥匙串
     func checkUuid() -> String?{

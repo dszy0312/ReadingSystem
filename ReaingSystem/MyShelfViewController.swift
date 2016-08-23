@@ -19,8 +19,6 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     private let segueIdentifier = "ListSegue"
     //自定义转场代理
     var transitionDelegate = ReadedBookListTransitionDelegate()
-    //网络请求设置
-    var networkHealper = MyShelfNetworkHealper()
     //我的书架书目
     var myBooks: [MyBook]?
     //最近阅读的书
@@ -68,8 +66,8 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! MyShelfCollectionViewCell
         if indexPath.row == collectionView.numberOfItemsInSection(0) - 1 {
-            cell.bookNameLabel.text = "跳转书城"
-            cell.bookImageView.image = UIImage(named: "book")
+            cell.bookNameLabel.text = ""
+            cell.bookImageView.image = UIImage(named: "addbook")
         } else {
             //显示书架数据
             if let myBooks = self.myBooks {
@@ -137,67 +135,58 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     //MARK:网络请求
     //请求书架页面数据
     func getMyShelf() {
-        networkHealper.getMyShelf { (myBooks, readedBook, error) in
+        
+        NetworkHealper.Get.receiveJSON(URLHealper.myShelfURL.introduce()) { (dictionary, error) in
             //查询错误
             guard error == nil else {
                 print(error)
                 return
             }
             //获取数据
-            self.myBooks = myBooks
-            self.readedBook = readedBook
+            let myShelf = MyShelf(fromDictionary: dictionary!)
+            
+            self.myBooks = myShelf.rows
+            self.readedBook = myShelf.data
             self.collectionView.reloadData()
             //获取最近阅读图片
-            for i in 0..<readedBook!.count {
-                self.getImage(readedBook![i], index: i)
+            for i in 0..<self.readedBook!.count {
+                let id = 0
+                let imageURL = baseURl + self.readedBook![i].bookImg
+                self.getImage(id, index: i, url: imageURL)
             }
             //获取我的书架书本图片
-            for i in 0..<myBooks!.count {
-                self.getImage(myBooks![i], index: i)
+            for i in 0..<self.myBooks!.count {
+                let id = 1
+                let imageURL = baseURl + self.myBooks![i].bookImg
+                self.getImage(id, index: i, url: imageURL)
             }
-            
-            
+
         }
     }
     //请求兴趣标题图片
-    func getImage<T>(book: T, index: Int){
-
-        if let myBook = book as? MyBook {
-            let imageURL = baseURl + myBook.bookImg
-            networkHealper.getBookImage(imageURL) { (image, error) in
-                guard error == nil else {
-                    print(error)
-                    return
-                }
-                self.myBooks![index].bookImgData = image
-                self.collectionView.reloadData()
+    func getImage(id: Int, index: Int, url: String){
+        NetworkHealper.Get.receiveData(url) { (data, error) in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            if let image = UIImage(data: data!) {
                 
-            }
-        } else if let readedBook = book as? ReadedBook {
-            let imageURL = baseURl + readedBook.bookImg
-            networkHealper.getBookImage(imageURL) { (image, error) in
-                guard error == nil else {
-                    print(error)
-                    return
+                if id == 1 {
+                    self.myBooks![index].bookImgData = image
+                } else if id == 0 {
+                    self.readedBook![index].bookImgData = image
+                    
                 }
-                self.readedBook![index].bookImgData = image
-                self.collectionView.reloadData()
+            } else {
+                print("不是图片")
             }
+            self.collectionView.reloadData()
+
         }
     }
 
 
 
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

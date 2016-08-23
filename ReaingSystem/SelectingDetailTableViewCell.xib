@@ -26,7 +26,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ic-06-NRI">
                         <rect key="frame" x="0.0" y="33" width="146" height="179"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="book" translatesAutoresizingMaskIntoConstraints="NO" id="0ch-uT-9Gd">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookLoading" translatesAutoresizingMaskIntoConstraints="NO" id="0ch-uT-9Gd">
                                 <rect key="frame" x="28" y="30" width="90" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="90" id="OCQ-eW-h8V"/>
@@ -43,7 +43,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pJu-ca-MpX">
                         <rect key="frame" x="146" y="33" width="146" height="179"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="book" translatesAutoresizingMaskIntoConstraints="NO" id="vsd-Bc-dax">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookLoading" translatesAutoresizingMaskIntoConstraints="NO" id="vsd-Bc-dax">
                                 <rect key="frame" x="28" y="30" width="90" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="vsd-Bc-dax" secondAttribute="height" multiplier="90:120" id="AbK-ea-cSG"/>
@@ -77,7 +77,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nmt-KP-SKr">
                         <rect key="frame" x="292" y="33" width="146" height="179"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="book" translatesAutoresizingMaskIntoConstraints="NO" id="TfU-JX-NNZ">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookLoading" translatesAutoresizingMaskIntoConstraints="NO" id="TfU-JX-NNZ">
                                 <rect key="frame" x="28" y="30" width="90" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="90" id="eSO-gt-c91"/>
@@ -124,6 +124,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="book" width="420" height="568"/>
+        <image name="bookLoading" width="228" height="310"/>
     </resources>
 </document>

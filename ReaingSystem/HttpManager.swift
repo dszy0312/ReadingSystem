@@ -14,6 +14,7 @@ let baseURl = "http://172.16.8.250:8036/"
 
 enum NetworkHealper {
     case Get
+    case GetWithParm
     case Post
     case GetTest
 
@@ -25,9 +26,6 @@ enum NetworkHealper {
         case .Get:
             
             Alamofire.request(.GET, url).responseJSON { (response) in
-                let cookies = self.GetCookieArray()
-//                print(cookies)
-//                print(response)
                 switch response.result {
                 case .Success:
                     //确保返回值是一个json字符串，并能转换成NSDictionary
@@ -45,6 +43,27 @@ enum NetworkHealper {
                 }
                 completion(dic, error)
             }
+        case .GetWithParm:
+            
+            Alamofire.request(.GET, url, parameters: parameter, encoding: .URL).responseJSON { (response) in
+                switch response.result {
+                case .Success:
+                    //确保返回值是一个json字符串，并能转换成NSDictionary
+                    guard let jsonDic = response.result.value as? NSDictionary else {
+                        
+                        error = "不是一个json字符串"
+                        completion(dic, error)
+                        return
+                    }
+                    dic = jsonDic
+                    
+                case .Failure(let e):
+                    error = "服务器出错"
+                    print(e)
+                }
+                completion(dic, error)
+            }
+
         case .Post:
             Alamofire.request(.POST, url, parameters: parameter, encoding: .JSON).responseJSON(completionHandler: { (response) in
                 
@@ -88,6 +107,18 @@ enum NetworkHealper {
             
                 completion(data, error)
             })
+        case .GetWithParm:
+            Alamofire.request(.GET, url, parameters: parameter).responseData(completionHandler: { (response) in
+                switch response.result {
+                case .Success:
+                    data = response.data
+                    
+                case .Failure(let e):
+                    error = "服务器出错"
+                }
+                
+                completion(data, error)
+            })
         case .Post:
             print("暂时没有")
             completion(nil, nil)
@@ -108,7 +139,7 @@ enum NetworkHealper {
 
         }
     }
-    
+    //获取cookie
     func GetCookieStorage()->NSHTTPCookieStorage{
         return NSHTTPCookieStorage.sharedHTTPCookieStorage()
     }

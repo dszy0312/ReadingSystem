@@ -20,7 +20,7 @@ struct ReadedBook{
 	var chapterName : String!
 	var num : Int!
 	var recentReadDate : String!
-    var bookImgData = UIImage(named: "book")
+    var bookImgData = UIImage(named: "bookLoading")
 
 
 	/**
