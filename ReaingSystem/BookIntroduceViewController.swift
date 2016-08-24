@@ -117,7 +117,7 @@ class BookIntroduceViewController: UIViewController {
         ]
         print(selectedBook!.bookID)
         //用POST出错，未知原因
-        NetworkHealper.GetWithParm.receiveJSON(addToShelfURL, parameter: parm, completion: { (dictionary, error) in
+        NetworkHealper.GetWithParm.receiveJSON(URLHealper.addToShelfURL.introduce(), parameter: parm, completion: { (dictionary, error) in
             if let flag = dictionary!["flag"] as? Int {
                 print(flag)
             }

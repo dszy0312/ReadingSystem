@@ -52,6 +52,10 @@
 		98C186611D6AA845008FCB15 /* SummarySelectedBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C1865D1D6AA845008FCB15 /* SummarySelectedBook.swift */; };
 		98C186651D6AD2E3008FCB15 /* SummaryListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C186641D6AD2E3008FCB15 /* SummaryListTableViewController.swift */; };
 		98C186691D6ADCAA008FCB15 /* SummaryListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C186681D6ADCAA008FCB15 /* SummaryListTableViewCell.swift */; };
+		98C186731D6C3426008FCB15 /* DeleteMyShelfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C186721D6C3426008FCB15 /* DeleteMyShelfViewController.swift */; };
+		98C186771D6C3E65008FCB15 /* DeleteMyShelfCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C186761D6C3E65008FCB15 /* DeleteMyShelfCollectionViewCell.swift */; };
+		98C186791D6C4402008FCB15 /* AppearTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C186781D6C4402008FCB15 /* AppearTransitionAnimation.swift */; };
+		98C1867B1D6C4507008FCB15 /* DeleteMyShelfTransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C1867A1D6C4507008FCB15 /* DeleteMyShelfTransitionDelegate.swift */; };
 		98C7ACC31D640C740077DDAB /* URLHealper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C7ACC21D640C740077DDAB /* URLHealper.swift */; };
 		98D9CB2D1D6157F400510E08 /* SelectingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D9CB2C1D6157F400510E08 /* SelectingViewController.swift */; };
 		98D9CB301D615EA500510E08 /* SelectingDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98D9CB2E1D615EA500510E08 /* SelectingDetailTableViewCell.swift */; };
@@ -185,6 +189,10 @@
 		98C1865D1D6AA845008FCB15 /* SummarySelectedBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummarySelectedBook.swift; sourceTree = "<group>"; };
 		98C186641D6AD2E3008FCB15 /* SummaryListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryListTableViewController.swift; sourceTree = "<group>"; };
 		98C186681D6ADCAA008FCB15 /* SummaryListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryListTableViewCell.swift; sourceTree = "<group>"; };
+		98C186721D6C3426008FCB15 /* DeleteMyShelfViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteMyShelfViewController.swift; sourceTree = "<group>"; };
+		98C186761D6C3E65008FCB15 /* DeleteMyShelfCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteMyShelfCollectionViewCell.swift; sourceTree = "<group>"; };
+		98C186781D6C4402008FCB15 /* AppearTransitionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearTransitionAnimation.swift; sourceTree = "<group>"; };
+		98C1867A1D6C4507008FCB15 /* DeleteMyShelfTransitionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteMyShelfTransitionDelegate.swift; sourceTree = "<group>"; };
 		98C7ACC21D640C740077DDAB /* URLHealper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLHealper.swift; sourceTree = "<group>"; };
 		98D9CB2C1D6157F400510E08 /* SelectingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectingViewController.swift; sourceTree = "<group>"; };
 		98D9CB2E1D615EA500510E08 /* SelectingDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectingDetailTableViewCell.swift; sourceTree = "<group>"; };
@@ -226,6 +234,7 @@
 			children = (
 				980E916E1D531FAB000A19CA /* BubbleAnimation.swift */,
 				984C764C1D5C5D9D00B3588D /* CoverTransitionAnimation.swift */,
+				98C186781D6C4402008FCB15 /* AppearTransitionAnimation.swift */,
 				984C76531D5C6DBA00B3588D /* DisappearTransitionAnimation.swift */,
 				980E91921D543FBF000A19CA /* ItemTransitionAnimation.swift */,
 				980E91721D533065000A19CA /* MaskPresentTationController.swift */,
@@ -248,6 +257,8 @@
 			isa = PBXGroup;
 			children = (
 				980E91601D5174B3000A19CA /* MyShelfViewController.swift */,
+				98C1867A1D6C4507008FCB15 /* DeleteMyShelfTransitionDelegate.swift */,
+				98C186721D6C3426008FCB15 /* DeleteMyShelfViewController.swift */,
 				984C764E1D5C633100B3588D /* ReadedBookListTransitionDelegate.swift */,
 				98B1EB191D50946F00DD494A /* ReadBookListTableViewController.swift */,
 				98C186501D6A962C008FCB15 /* BookIntroduceViewController.swift */,
@@ -260,6 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				984C76481D5C26F500B3588D /* MyShelfCollectionViewCell.swift */,
+				98C186761D6C3E65008FCB15 /* DeleteMyShelfCollectionViewCell.swift */,
 				984C764A1D5C2A5300B3588D /* MyShelfCollectionReusableView.swift */,
 				980E91621D51942D000A19CA /* ReadBookTableViewCell.swift */,
 				98C186681D6ADCAA008FCB15 /* SummaryListTableViewCell.swift */,
@@ -607,6 +619,7 @@
 				98C186601D6AA845008FCB15 /* SummaryRow.swift in Sources */,
 				98C1865F1D6AA845008FCB15 /* SummaryReturnData.swift in Sources */,
 				984C764F1D5C633100B3588D /* ReadedBookListTransitionDelegate.swift in Sources */,
+				98C186771D6C3E65008FCB15 /* DeleteMyShelfCollectionViewCell.swift in Sources */,
 				980E919C1D54906B000A19CA /* LeadingTransitionDelegate.swift in Sources */,
 				98C7ACC31D640C740077DDAB /* URLHealper.swift in Sources */,
 				980E916D1D52E42B000A19CA /* LoginViewController.swift in Sources */,
@@ -629,11 +642,14 @@
 				98C186611D6AA845008FCB15 /* SummarySelectedBook.swift in Sources */,
 				984C764B1D5C2A5300B3588D /* MyShelfCollectionReusableView.swift in Sources */,
 				98EE33D51D66DE6A00FD2CC3 /* MyShelf.swift in Sources */,
+				98C186731D6C3426008FCB15 /* DeleteMyShelfViewController.swift in Sources */,
 				980E91991D548D6E000A19CA /* ReplaceViewController.swift in Sources */,
 				98C186211D6704ED008FCB15 /* BookListData.swift in Sources */,
 				980E91661D51D11C000A19CA /* InterestViewController.swift in Sources */,
+				98C1867B1D6C4507008FCB15 /* DeleteMyShelfTransitionDelegate.swift in Sources */,
 				980E91631D51942D000A19CA /* ReadBookTableViewCell.swift in Sources */,
 				98D9CB2D1D6157F400510E08 /* SelectingViewController.swift in Sources */,
+				98C186791D6C4402008FCB15 /* AppearTransitionAnimation.swift in Sources */,
 				98B1EB1A1D50946F00DD494A /* ReadBookListTableViewController.swift in Sources */,
 				984C76561D5C701000B3588D /* DisappearTransitionDelegate.swift in Sources */,
 				980E91971D548D42000A19CA /* RegisterViewController.swift in Sources */,

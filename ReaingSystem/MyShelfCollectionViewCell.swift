@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class MyShelfCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var bookImageView: UIImageView!

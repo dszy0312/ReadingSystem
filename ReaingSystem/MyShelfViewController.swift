@@ -9,16 +9,21 @@
 import UIKit
 import Alamofire
 
-class MyShelfViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class MyShelfViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DeleteMyShelfDelegate {
     
 
     @IBOutlet weak var titleBarView: UIView!
     
     @IBOutlet weak var collectionView: UICollectionView!
     //详情页转场标示
-    private let segueIdentifier = "ListSegue"
+    private let listSegue = "ListSegue"
+    //删除页转场标示
+    private let delegateSegue = "DeleteSegue"
     //自定义转场代理
+    //跳转阅读列表
     var transitionDelegate = ReadedBookListTransitionDelegate()
+    //跳转删除页面
+    var deleteTransitionDelegate = DeleteMyShelfTransitionDelegate()
     //我的书架书目
     var myBooks: [MyBook]?
     //最近阅读的书
@@ -32,6 +37,13 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         //网络请求
         getMyShelf()
+        
+        //创建长按手势监听
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(collectionViewCellLongPress(_:)))
+        collectionView.addGestureRecognizer(longPress)
+        //点击事件监听
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTap(_:)))
+        collectionView.addGestureRecognizer(tapGesture)
 
         // Do any additional setup after loading the view.
     }
@@ -42,9 +54,19 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == segueIdentifier {
+        if segue.identifier == listSegue {
             let newVC = segue.destinationViewController as! UINavigationController
             newVC.transitioningDelegate = transitionDelegate
+            newVC.modalPresentationStyle = .Custom
+        } else if segue.identifier == delegateSegue {
+            
+            let newVC = segue.destinationViewController as! DeleteMyShelfViewController
+            newVC.myBooks = self.myBooks
+            newVC.readedBook = self.readedBook
+            newVC.contentOffset = self.collectionView.contentOffset
+            newVC.delegate = self
+            
+            newVC.transitioningDelegate = deleteTransitionDelegate
             newVC.modalPresentationStyle = .Custom
         }
     }
@@ -131,6 +153,43 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
+    
+    //MARK： 自定义delegate
+    func valueOfContentOffSet(value: CGPoint) {
+        collectionView.setContentOffset(value, animated: false)
+    }
+    func deleteItem(index: Set<Int>) {
+        for i in index {
+            myBooks?.removeAtIndex(i)
+        }
+        collectionView.reloadData()
+    }
+    //MARK: 响应事件
+    //长按监听
+    func collectionViewCellLongPress(gesture: UILongPressGestureRecognizer) {
+        switch gesture.state {
+        case UIGestureRecognizerState.Began:
+            let indexPath = collectionView.indexPathForItemAtPoint(gesture.locationInView(collectionView))
+            let cell = collectionView.cellForItemAtIndexPath(indexPath!) as! MyShelfCollectionViewCell
+            UIView.animateWithDuration(0.5, animations: {
+            })
+            UIView.animateWithDuration(0.5, animations: {
+                cell.bookImageView.alpha = 0.5
+                
+                }, completion: { (_) in
+                    cell.bookImageView.alpha = 1
+                    self.performSegueWithIdentifier(self.delegateSegue, sender: self)
+            })
+            
+        default:
+            break
+        }
+    }
+    //点击监听
+    func didTap(gesture: UITapGestureRecognizer) {
+        let indexPath = collectionView.indexPathForItemAtPoint(gesture.locationInView(collectionView))
+    }
+    
     
     //MARK:网络请求
     //请求书架页面数据
