@@ -28,7 +28,7 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
     var contentOffset: CGPoint?
     //设置代理
     weak var delegate: DeleteMyShelfDelegate!
-    //要删除的book位置数组
+    //要删除的book位值集合
     var index: Set<Int>? = []
     
     override func viewDidLoad() {

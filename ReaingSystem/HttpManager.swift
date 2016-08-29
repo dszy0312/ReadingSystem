@@ -55,7 +55,13 @@ enum NetworkHealper {
                         completion(dic, error)
                         return
                     }
-                    dic = jsonDic
+                    if let flag = jsonDic["flag"] as? Int {
+                        if flag == 1 {
+                            dic = jsonDic
+                        } else {
+                            print("数据获取失败")
+                        }
+                    }
                     
                 case .Failure(let e):
                     error = "服务器出错"

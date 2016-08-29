@@ -5,7 +5,7 @@ import Foundation
 struct Interests{
 
 	var footer : [AnyObject]!
-	var otherParam : AnyObject!
+//	var otherParam : AnyObject!
 	var rows : [Row]!
 	var test : String!
 	var total : Int!
@@ -16,7 +16,7 @@ struct Interests{
 	 */
 	init(fromDictionary dictionary: NSDictionary){
 		footer = dictionary["footer"] as? [AnyObject]
-		otherParam = dictionary["otherParam"]
+//		otherParam = dictionary["otherParam"]
 		rows = [Row]()
 		if let rowsArray = dictionary["rows"] as? [NSDictionary]{
 			for dic in rowsArray{

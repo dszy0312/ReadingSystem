@@ -100,15 +100,27 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! InterestCollectionViewCell
         if rows != nil {
-            cell.imageView.image = rows![indexPath.row].imageData
-            cell.nameLabel.text = rows![indexPath.row].categoryName
-            cell.nameID = rows![indexPath.row].categoryID
+            if rows?.count == 12 {
+                cell.imageView.image = rows![indexPath.row].imageData
+                cell.nameLabel.text = rows![indexPath.row].categoryName
+                cell.nameID = rows![indexPath.row].categoryID
+            } else {
+                if indexPath.row <= rows!.count - 1 {
+                    cell.imageView.image = rows![indexPath.row].imageData
+                    cell.nameLabel.text = rows![indexPath.row].categoryName
+                    cell.nameID = rows![indexPath.row].categoryID
+                } else {
+                    cell.imageView.image = UIImage(named: "标题")
+                    cell.nameLabel.text = ""
+                }
+            }
         } else {
             cell.imageView.image = UIImage(named: "标题")
             cell.nameLabel.text = ""
         }
         
         return cell
+
     }
     //flowLayout
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {

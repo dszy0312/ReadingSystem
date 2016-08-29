@@ -76,7 +76,7 @@ class RootTabBarViewController: UITabBarController, ChangeTabBarDelegate, Hidden
         
         let testViewController2 = UIStoryboard.init(name: "Selecting", bundle: nil).instantiateInitialViewController() as! SelectingViewController
         
-        let testViewController3 = UIStoryboard.init(name: "Category", bundle: nil).instantiateInitialViewController() as! UINavigationController
+        let testViewController3 = UIStoryboard.init(name: "Category", bundle: nil).instantiateInitialViewController() as! CategoryViewController
         
         let testViewController4 = UIStoryboard.init(name: "Paper", bundle: nil).instantiateInitialViewController() as! UINavigationController
         
