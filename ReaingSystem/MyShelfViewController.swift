@@ -21,9 +21,9 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     private let delegateSegue = "DeleteSegue"
     //自定义转场代理
     //跳转阅读列表
-    var transitionDelegate = ReadedBookListTransitionDelegate()
+    weak var transitionDelegate = ReadedBookListTransitionDelegate()
     //跳转删除页面
-    var deleteTransitionDelegate = DeleteMyShelfTransitionDelegate()
+    weak var deleteTransitionDelegate = DeleteMyShelfTransitionDelegate()
     //我的书架书目
     var myBooks: [MyBook]?
     //最近阅读的书

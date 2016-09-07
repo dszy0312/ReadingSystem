@@ -15,7 +15,7 @@ enum Direction {
 }
 
 
-class SelectingViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource, ImagesShowDelegate {
+class SelectingViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource, ImagesShowDelegate, UISearchBarDelegate {
 
     //页面跳转控制器
     @IBOutlet weak var pageController: UIPageControl!
@@ -23,6 +23,14 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var tableView: UITableView!
+    //搜索框
+    @IBOutlet weak var searchBar: UISearchBar!
+    
+    //搜索页转场标示
+    private let delegateSegue = "SearchingSegue"
+    //跳转搜索页面
+    var searchingTransitionDelegate = SearchingTransitionDelegate()
+    
     
     //轮播图
     var imagesRow: [SelectRow]? = []
@@ -42,6 +50,9 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         super.viewWillAppear(animated)
         collectionView.delegate = self
         collectionView.dataSource = self
+        searchBar.delegate = self
+        searchBar.resignFirstResponder()
+        
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -64,10 +75,16 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         // Dispose of any resources that can be recreated.
     }
     
+    
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ImagesSegue" {
             let toVC = segue.destinationViewController as! SelectingImagePageViewController
             toVC.customDelegate = self
+        } else if segue.identifier == delegateSegue {
+            let toVC = segue.destinationViewController as! SearchingDefaultViewController
+            toVC.transitioningDelegate = searchingTransitionDelegate
+            toVC.modalPresentationStyle = .Custom
         }
 
     }
@@ -109,6 +126,7 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     // delegate
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! SelectingTitleCollectionViewCell
+        
         
         print("点击事件")
         
@@ -170,6 +188,16 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
             pageController.currentPage = index
         }
     }
+    
+    //MARK: searchbar delegate
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        performSegueWithIdentifier(delegateSegue, sender: self)
+//        searchBar.resignFirstResponder()
+    
+    }
+    
+    
+
     
     //网络请求
     func getReadedAdvice() {

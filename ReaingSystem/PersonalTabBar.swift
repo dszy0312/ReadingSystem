@@ -60,6 +60,7 @@ class PersonalTabBar: UIView {
                 itemBackgroundImage.center = itemBackgroundView2.center
             }
             break
+        
         case 2:
             if numberArray[2] {
                 defaultChange()
@@ -87,8 +88,6 @@ class PersonalTabBar: UIView {
                 itemBackgroundImage.center = itemBackgroundView5.center
             }
             break
-            
-            
         default:
             break
         }
@@ -97,7 +96,9 @@ class PersonalTabBar: UIView {
     }
     
     func defaultChange() {
-        numberArray = [true, true, true, true, true]
+        numberArray = numberArray.map({ (_)  in
+            false
+        })
         
         selectionChange(itemButton1, imageName: "shujia_normal",isSelected: false)
         selectionChange(itemButton2, imageName: "jingxuan_normal",isSelected: false)
@@ -109,7 +110,7 @@ class PersonalTabBar: UIView {
     
     func selectionChange(button: UIButton, imageName: String, isSelected: Bool) {
         button.selected = isSelected
-        //        button.imageView?.image = UIImage(named: imageName)
+//        button.imageView?.image = UIImage(named: imageName)
         button.setBackgroundImage(UIImage(named: imageName), forState: .Normal)
     }
 

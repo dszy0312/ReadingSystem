@@ -80,7 +80,7 @@ class RootTabBarViewController: UITabBarController, ChangeTabBarDelegate, Hidden
         
         let testViewController4 = UIStoryboard.init(name: "Paper", bundle: nil).instantiateInitialViewController() as! UINavigationController
         
-        let testViewController5 = UIStoryboard.init(name: "Find", bundle: nil).instantiateInitialViewController() as! UINavigationController
+        let testViewController5 = UIStoryboard.init(name: "Find", bundle: nil).instantiateInitialViewController() as! FindViewController
         
         let tabBarControllers = [testViewController1, testViewController2,testViewController3,testViewController4,testViewController5]
         self.setViewControllers(tabBarControllers, animated: true)
@@ -95,8 +95,10 @@ class RootTabBarViewController: UITabBarController, ChangeTabBarDelegate, Hidden
         tabBarView?.delegate = self
         tabBarView?.itemButton1.selected = true
         tabBarView?.itemButton1.setBackgroundImage(UIImage(named: "shujia_heighLight"), forState: .Normal)
+        self.selectedIndex = 0
         tabBarView?.frame = CGRect(x: 0, y: self.view.frame.height - 49, width: self.view.frame.width, height: 49)
         self.view.addSubview(tabBarView!)
+//        self.tabBar.hidden = true
 //        homeVC?.hiddenTabBar = self
     }
 //    

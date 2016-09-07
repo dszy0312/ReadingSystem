@@ -12,9 +12,19 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var storyBoard: UIStoryboard?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+        window?.makeKeyAndVisible()
+        
+        storyBoard = UIStoryboard(name: "Journal", bundle: nil)
+        let rootController = storyBoard?.instantiateViewControllerWithIdentifier("Journal")
+        
+        if let window = self.window {
+            window.rootViewController = rootController
+        }
         
     
 //        UITabBar.appearance().tintColor = UIColor(patternImage: UIImage(named: "shujia_heighLight")!)
