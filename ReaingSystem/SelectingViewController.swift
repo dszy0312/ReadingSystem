@@ -126,9 +126,27 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     // delegate
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! SelectingTitleCollectionViewCell
-        
-        
-        print("点击事件")
+        //页面跳转选择
+        switch indexPath.row {
+        case 0,1:
+            self.transitionToVC("Selecting", vcName: "SearchingSex")
+        case 2:
+            print("出版页面开发中。。")
+        case 3:
+            self.transitionToVC("Listen", vcName: "Listen")
+        case 4:
+            self.transitionToVC("Selecting", vcName: "TopList")
+        case 5:
+            self.transitionToVC("Journal", vcName: "Journal")
+        case 6:
+            print("书摘页面开发中。。")
+//            self.transitionToVC("", vcName: "")
+        case 7:
+            print("手游页面开发中。。")
+//                self.transitionToVC("", vcName: "")
+        default:
+            print("点击事件\(indexPath.row)")
+        }
         
         
     }
@@ -194,6 +212,14 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         performSegueWithIdentifier(delegateSegue, sender: self)
 //        searchBar.resignFirstResponder()
     
+    }
+    
+    //MARK：私有方法
+    //页面跳转方法
+    func transitionToVC(sbName: String, vcName: String) {
+        var sb = UIStoryboard(name: sbName, bundle: nil)
+        var vc = sb.instantiateViewControllerWithIdentifier(vcName)
+        self.presentViewController(vc, animated: true, completion: nil)
     }
     
     

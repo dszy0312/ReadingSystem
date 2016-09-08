@@ -57,6 +57,7 @@ class JournalTabBarController: UITabBarController{
         let testViewController3 = UIStoryboard.init(name: "Journal", bundle: nil).instantiateViewControllerWithIdentifier("Category") as! JournalCategoryCollectionViewController
         
         let testViewController4 = UIStoryboard.init(name: "Journal", bundle: nil).instantiateViewControllerWithIdentifier("Sequence") as! JournalSequenceCollectionViewController
+        testViewController4.collectionView?.frame = self.view.bounds
         
         
         let tabBarControllers = [testViewController1, testViewController2,testViewController3,testViewController4]

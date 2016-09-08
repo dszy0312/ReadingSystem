@@ -30,6 +30,12 @@ class ListenViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func backClick(sender: UIButton) {
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
     
     @IBAction func changeItem(sender: UIButton) {
         switch sender.tag {

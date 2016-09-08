@@ -115,8 +115,8 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
             headView.bookImageView.image = readedBook.first?.bookImgData
             headView.bookTitleLabel.text = readedBook.first?.bookName
             headView.bookSubTitleLabel.text = readedBook.first?.chapterName
-            headView.timeLabel.text = "最后阅读时间：" + readedBook.first!.recentReadDate
-            headView.totalLabel.text = "共\(readedBook.first!.num)本"
+//            headView.timeLabel.text = "最后阅读时间：" + readedBook.first!.recentReadDate
+//            headView.totalLabel.text = "共\(readedBook.first!.num)本"
         }
         //阴影设置
         headView.bookImageView.layer.shadowOpacity = 0.5

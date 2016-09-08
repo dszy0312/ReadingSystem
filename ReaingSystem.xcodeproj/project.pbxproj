@@ -23,6 +23,10 @@
 		980301DA1D800CB700180FDA /* ListenFamousCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301D91D800CB700180FDA /* ListenFamousCollectionViewCell.swift */; };
 		980301DC1D800CF100180FDA /* ListenFamousHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301DB1D800CF100180FDA /* ListenFamousHeaderCollectionReusableView.swift */; };
 		980301DE1D80F2E900180FDA /* TopListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301DD1D80F2E900180FDA /* TopListViewController.swift */; };
+		980301E41D80F97100180FDA /* TopListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301E31D80F97100180FDA /* TopListTableViewCell.swift */; };
+		980301E61D8107CB00180FDA /* SelectingSexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301E51D8107CB00180FDA /* SelectingSexViewController.swift */; };
+		980301E81D81094F00180FDA /* SelectingSexCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301E71D81094F00180FDA /* SelectingSexCollectionViewCell.swift */; };
+		980301EA1D81096600180FDA /* SelectingSexHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301E91D81096600180FDA /* SelectingSexHeaderCollectionReusableView.swift */; };
 		980E91611D5174B3000A19CA /* MyShelfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980E91601D5174B3000A19CA /* MyShelfViewController.swift */; };
 		980E91631D51942D000A19CA /* ReadBookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980E91621D51942D000A19CA /* ReadBookTableViewCell.swift */; };
 		980E91661D51D11C000A19CA /* InterestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980E91651D51D11C000A19CA /* InterestViewController.swift */; };
@@ -213,6 +217,10 @@
 		980301D91D800CB700180FDA /* ListenFamousCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenFamousCollectionViewCell.swift; sourceTree = "<group>"; };
 		980301DB1D800CF100180FDA /* ListenFamousHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenFamousHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		980301DD1D80F2E900180FDA /* TopListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopListViewController.swift; sourceTree = "<group>"; };
+		980301E31D80F97100180FDA /* TopListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopListTableViewCell.swift; sourceTree = "<group>"; };
+		980301E51D8107CB00180FDA /* SelectingSexViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectingSexViewController.swift; sourceTree = "<group>"; };
+		980301E71D81094F00180FDA /* SelectingSexCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectingSexCollectionViewCell.swift; sourceTree = "<group>"; };
+		980301E91D81096600180FDA /* SelectingSexHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectingSexHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		980E91601D5174B3000A19CA /* MyShelfViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyShelfViewController.swift; sourceTree = "<group>"; };
 		980E91621D51942D000A19CA /* ReadBookTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadBookTableViewCell.swift; sourceTree = "<group>"; };
 		980E91651D51D11C000A19CA /* InterestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterestViewController.swift; sourceTree = "<group>"; };
@@ -700,6 +708,7 @@
 				98123D8B1D77C13E00F416EA /* SearchingSelectViewController.swift */,
 				98C186901D6D7F99008FCB15 /* SelectingImagePageViewController.swift */,
 				980301DD1D80F2E900180FDA /* TopListViewController.swift */,
+				980301E51D8107CB00180FDA /* SelectingSexViewController.swift */,
 				98F0280F1D6EA18E00B8ECCE /* ImagesViewController.swift */,
 			);
 			name = controller;
@@ -717,6 +726,9 @@
 				98949D611D767D20001FD433 /* SearchingHistoryCollectionViewCell.swift */,
 				98949D631D767D86001FD433 /* SearchingDefaultListCollectionViewCell.swift */,
 				98949D651D767F43001FD433 /* SearchingHeaderCollectionReusableView.swift */,
+				980301E31D80F97100180FDA /* TopListTableViewCell.swift */,
+				980301E71D81094F00180FDA /* SelectingSexCollectionViewCell.swift */,
+				980301E91D81096600180FDA /* SelectingSexHeaderCollectionReusableView.swift */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -944,6 +956,7 @@
 				980301DE1D80F2E900180FDA /* TopListViewController.swift in Sources */,
 				980E91931D543FBF000A19CA /* ItemTransitionAnimation.swift in Sources */,
 				980301DC1D800CF100180FDA /* ListenFamousHeaderCollectionReusableView.swift in Sources */,
+				980301E61D8107CB00180FDA /* SelectingSexViewController.swift in Sources */,
 				98123DC41D79247800F416EA /* JournalFocusTableViewController.swift in Sources */,
 				980E91681D51D128000A19CA /* SexViewController.swift in Sources */,
 				980301D41D7FFE3A00180FDA /* ListenCategoryHeaderCollectionReusableView.swift in Sources */,
@@ -951,6 +964,7 @@
 				98123DBB1D782C5000F416EA /* JournalTabBarController.swift in Sources */,
 				98C186201D6704ED008FCB15 /* BookListBook.swift in Sources */,
 				98710BAB1D7429B8000614E0 /* CategoryViewController.swift in Sources */,
+				980301E81D81094F00180FDA /* SelectingSexCollectionViewCell.swift in Sources */,
 				98EE33DE1D66DF0600FD2CC3 /* MyBook.swift in Sources */,
 				980301D61D8000FB00180FDA /* ListenSequenceTableViewCell.swift in Sources */,
 				98123D921D77C85F00F416EA /* SearchingResultTableViewCell.swift in Sources */,
@@ -973,6 +987,7 @@
 				98C1868E1D6D704C008FCB15 /* SelectRow.swift in Sources */,
 				98949D3F1D757C8C001FD433 /* FindHeaderCollectionReusableView.swift in Sources */,
 				98C1868B1D6D704C008FCB15 /* SelectData.swift in Sources */,
+				980301E41D80F97100180FDA /* TopListTableViewCell.swift in Sources */,
 				98C186731D6C3426008FCB15 /* DeleteMyShelfViewController.swift in Sources */,
 				98949D3D1D757C20001FD433 /* FindListenCollectionViewCell.swift in Sources */,
 				98123DCD1D79563F00F416EA /* JournalCategoryCollectionViewController.swift in Sources */,
@@ -981,6 +996,7 @@
 				98F028531D6EEDFB00B8ECCE /* ReadedAdvice.swift in Sources */,
 				980301D01D7FF7BF00180FDA /* ListenAdviceHeaderCollectionReusableView.swift in Sources */,
 				980301DA1D800CB700180FDA /* ListenFamousCollectionViewCell.swift in Sources */,
+				980301EA1D81096600180FDA /* SelectingSexHeaderCollectionReusableView.swift in Sources */,
 				98C186211D6704ED008FCB15 /* BookListData.swift in Sources */,
 				98949D661D767F43001FD433 /* SearchingHeaderCollectionReusableView.swift in Sources */,
 				98F028101D6EA18E00B8ECCE /* ImagesViewController.swift in Sources */,

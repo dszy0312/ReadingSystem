@@ -16,15 +16,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        window?.makeKeyAndVisible()
-        
-        storyBoard = UIStoryboard(name: "Listen", bundle: nil)
-        let rootController = storyBoard?.instantiateViewControllerWithIdentifier("Listen")
-        
-        if let window = self.window {
-            window.rootViewController = rootController
-        }
+//        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+//        window?.makeKeyAndVisible()
+//        
+//        storyBoard = UIStoryboard(name: "Listen", bundle: nil)
+//        let rootController = storyBoard?.instantiateViewControllerWithIdentifier("Listen")
+//        
+//        if let window = self.window {
+//            window.rootViewController = rootController
+//        }
         
     
 //        UITabBar.appearance().tintColor = UIColor(patternImage: UIImage(named: "shujia_heighLight")!)
