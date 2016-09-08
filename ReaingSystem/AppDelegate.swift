@@ -19,8 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         window?.makeKeyAndVisible()
         
-        storyBoard = UIStoryboard(name: "Journal", bundle: nil)
-        let rootController = storyBoard?.instantiateViewControllerWithIdentifier("Journal")
+        storyBoard = UIStoryboard(name: "Listen", bundle: nil)
+        let rootController = storyBoard?.instantiateViewControllerWithIdentifier("Listen")
         
         if let window = self.window {
             window.rootViewController = rootController

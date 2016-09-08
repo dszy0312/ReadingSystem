@@ -8,6 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		980301BA1D7FB99500180FDA /* Listen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 980301B91D7FB99500180FDA /* Listen.storyboard */; };
+		980301C01D7FF0A700180FDA /* ListenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301BF1D7FF0A700180FDA /* ListenViewController.swift */; };
+		980301C21D7FF0FC00180FDA /* ListenTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301C11D7FF0FC00180FDA /* ListenTabViewController.swift */; };
+		980301C41D7FF41100180FDA /* ListenAdviceCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301C31D7FF41100180FDA /* ListenAdviceCollectionViewController.swift */; };
+		980301C61D7FF44F00180FDA /* ListenCategoryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301C51D7FF44F00180FDA /* ListenCategoryCollectionViewController.swift */; };
+		980301CA1D7FF4BB00180FDA /* ListenSequenceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301C91D7FF4BB00180FDA /* ListenSequenceTableViewController.swift */; };
+		980301CC1D7FF4EA00180FDA /* ListenFamousViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301CB1D7FF4EA00180FDA /* ListenFamousViewController.swift */; };
+		980301CE1D7FF79600180FDA /* ListenAdviceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301CD1D7FF79600180FDA /* ListenAdviceCollectionViewCell.swift */; };
+		980301D01D7FF7BF00180FDA /* ListenAdviceHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301CF1D7FF7BF00180FDA /* ListenAdviceHeaderCollectionReusableView.swift */; };
+		980301D21D7FFE1300180FDA /* ListenCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301D11D7FFE1300180FDA /* ListenCategoryCollectionViewCell.swift */; };
+		980301D41D7FFE3A00180FDA /* ListenCategoryHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301D31D7FFE3A00180FDA /* ListenCategoryHeaderCollectionReusableView.swift */; };
+		980301D61D8000FB00180FDA /* ListenSequenceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301D51D8000FB00180FDA /* ListenSequenceTableViewCell.swift */; };
+		980301D81D8006E400180FDA /* ListenImagePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301D71D8006E400180FDA /* ListenImagePageViewController.swift */; };
+		980301DA1D800CB700180FDA /* ListenFamousCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301D91D800CB700180FDA /* ListenFamousCollectionViewCell.swift */; };
+		980301DC1D800CF100180FDA /* ListenFamousHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301DB1D800CF100180FDA /* ListenFamousHeaderCollectionReusableView.swift */; };
+		980301DE1D80F2E900180FDA /* TopListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301DD1D80F2E900180FDA /* TopListViewController.swift */; };
 		980E91611D5174B3000A19CA /* MyShelfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980E91601D5174B3000A19CA /* MyShelfViewController.swift */; };
 		980E91631D51942D000A19CA /* ReadBookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980E91621D51942D000A19CA /* ReadBookTableViewCell.swift */; };
 		980E91661D51D11C000A19CA /* InterestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980E91651D51D11C000A19CA /* InterestViewController.swift */; };
@@ -60,7 +75,6 @@
 		98949D641D767D86001FD433 /* SearchingDefaultListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98949D631D767D86001FD433 /* SearchingDefaultListCollectionViewCell.swift */; };
 		98949D661D767F43001FD433 /* SearchingHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98949D651D767F43001FD433 /* SearchingHeaderCollectionReusableView.swift */; };
 		98949D681D76D272001FD433 /* SearchingTransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98949D671D76D272001FD433 /* SearchingTransitionDelegate.swift */; };
-		98A8C6031D7E6D1B00B130C9 /* JournalPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A8C6021D7E6D1B00B130C9 /* JournalPageViewController.swift */; };
 		98B1679B1D4993E80001EDAC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B1679A1D4993E80001EDAC /* AppDelegate.swift */; };
 		98B167A01D4993E80001EDAC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98B1679E1D4993E80001EDAC /* Main.storyboard */; };
 		98B167A21D4993E80001EDAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98B167A11D4993E80001EDAC /* Assets.xcassets */; };
@@ -184,6 +198,21 @@
 
 /* Begin PBXFileReference section */
 		980301B91D7FB99500180FDA /* Listen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Listen.storyboard; sourceTree = "<group>"; };
+		980301BF1D7FF0A700180FDA /* ListenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenViewController.swift; sourceTree = "<group>"; };
+		980301C11D7FF0FC00180FDA /* ListenTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenTabViewController.swift; sourceTree = "<group>"; };
+		980301C31D7FF41100180FDA /* ListenAdviceCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenAdviceCollectionViewController.swift; sourceTree = "<group>"; };
+		980301C51D7FF44F00180FDA /* ListenCategoryCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenCategoryCollectionViewController.swift; sourceTree = "<group>"; };
+		980301C91D7FF4BB00180FDA /* ListenSequenceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenSequenceTableViewController.swift; sourceTree = "<group>"; };
+		980301CB1D7FF4EA00180FDA /* ListenFamousViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenFamousViewController.swift; sourceTree = "<group>"; };
+		980301CD1D7FF79600180FDA /* ListenAdviceCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenAdviceCollectionViewCell.swift; sourceTree = "<group>"; };
+		980301CF1D7FF7BF00180FDA /* ListenAdviceHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenAdviceHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		980301D11D7FFE1300180FDA /* ListenCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		980301D31D7FFE3A00180FDA /* ListenCategoryHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenCategoryHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		980301D51D8000FB00180FDA /* ListenSequenceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenSequenceTableViewCell.swift; sourceTree = "<group>"; };
+		980301D71D8006E400180FDA /* ListenImagePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenImagePageViewController.swift; sourceTree = "<group>"; };
+		980301D91D800CB700180FDA /* ListenFamousCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenFamousCollectionViewCell.swift; sourceTree = "<group>"; };
+		980301DB1D800CF100180FDA /* ListenFamousHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenFamousHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		980301DD1D80F2E900180FDA /* TopListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopListViewController.swift; sourceTree = "<group>"; };
 		980E91601D5174B3000A19CA /* MyShelfViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyShelfViewController.swift; sourceTree = "<group>"; };
 		980E91621D51942D000A19CA /* ReadBookTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadBookTableViewCell.swift; sourceTree = "<group>"; };
 		980E91651D51D11C000A19CA /* InterestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterestViewController.swift; sourceTree = "<group>"; };
@@ -235,7 +264,6 @@
 		98949D631D767D86001FD433 /* SearchingDefaultListCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchingDefaultListCollectionViewCell.swift; sourceTree = "<group>"; };
 		98949D651D767F43001FD433 /* SearchingHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchingHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		98949D671D76D272001FD433 /* SearchingTransitionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchingTransitionDelegate.swift; sourceTree = "<group>"; };
-		98A8C6021D7E6D1B00B130C9 /* JournalPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalPageViewController.swift; sourceTree = "<group>"; };
 		98B167971D4993E80001EDAC /* ReaingSystem.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReaingSystem.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		98B1679A1D4993E80001EDAC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		98B1679F1D4993E80001EDAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -299,6 +327,51 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		980301BB1D7FF05500180FDA /* listen */ = {
+			isa = PBXGroup;
+			children = (
+				980301BE1D7FF07400180FDA /* controller */,
+				980301BD1D7FF06C00180FDA /* view */,
+				980301BC1D7FF06600180FDA /* model */,
+			);
+			name = listen;
+			sourceTree = "<group>";
+		};
+		980301BC1D7FF06600180FDA /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
+		980301BD1D7FF06C00180FDA /* view */ = {
+			isa = PBXGroup;
+			children = (
+				980301CD1D7FF79600180FDA /* ListenAdviceCollectionViewCell.swift */,
+				980301CF1D7FF7BF00180FDA /* ListenAdviceHeaderCollectionReusableView.swift */,
+				980301D11D7FFE1300180FDA /* ListenCategoryCollectionViewCell.swift */,
+				980301D31D7FFE3A00180FDA /* ListenCategoryHeaderCollectionReusableView.swift */,
+				980301D51D8000FB00180FDA /* ListenSequenceTableViewCell.swift */,
+				980301D91D800CB700180FDA /* ListenFamousCollectionViewCell.swift */,
+				980301DB1D800CF100180FDA /* ListenFamousHeaderCollectionReusableView.swift */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
+		980301BE1D7FF07400180FDA /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				980301BF1D7FF0A700180FDA /* ListenViewController.swift */,
+				980301C11D7FF0FC00180FDA /* ListenTabViewController.swift */,
+				980301C31D7FF41100180FDA /* ListenAdviceCollectionViewController.swift */,
+				980301C51D7FF44F00180FDA /* ListenCategoryCollectionViewController.swift */,
+				980301C91D7FF4BB00180FDA /* ListenSequenceTableViewController.swift */,
+				980301CB1D7FF4EA00180FDA /* ListenFamousViewController.swift */,
+				980301D71D8006E400180FDA /* ListenImagePageViewController.swift */,
+			);
+			name = controller;
+			sourceTree = "<group>";
+		};
 		980E91641D51D0F7000A19CA /* login */ = {
 			isa = PBXGroup;
 			children = (
@@ -352,7 +425,6 @@
 				98123DCA1D79550C00F416EA /* JournalBrandTableViewController.swift */,
 				98123DCC1D79563F00F416EA /* JournalCategoryCollectionViewController.swift */,
 				98123DD21D795C4000F416EA /* JournalSequenceCollectionViewController.swift */,
-				98A8C6021D7E6D1B00B130C9 /* JournalPageViewController.swift */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -537,6 +609,7 @@
 				98B1EB121D50342300DD494A /* myShelf */,
 				98D9CB291D61579800510E08 /* selecting */,
 				98123DBE1D79233200F416EA /* Journal */,
+				980301BB1D7FF05500180FDA /* listen */,
 				98710BA81D74252A000614E0 /* category */,
 				98949D341D757AA8001FD433 /* find */,
 				98B1679E1D4993E80001EDAC /* Main.storyboard */,
@@ -626,6 +699,7 @@
 				98123D8D1D77C35000F416EA /* SearchingListViewController.swift */,
 				98123D8B1D77C13E00F416EA /* SearchingSelectViewController.swift */,
 				98C186901D6D7F99008FCB15 /* SelectingImagePageViewController.swift */,
+				980301DD1D80F2E900180FDA /* TopListViewController.swift */,
 				98F0280F1D6EA18E00B8ECCE /* ImagesViewController.swift */,
 			);
 			name = controller;
@@ -861,27 +935,33 @@
 				984C76981D5D726600B3588D /* PersonalTabBar.swift in Sources */,
 				98D9CB301D615EA500510E08 /* SelectingDetailTableViewCell.swift in Sources */,
 				98D9D1191D62F02D00A9D740 /* Row.swift in Sources */,
+				980301CE1D7FF79600180FDA /* ListenAdviceCollectionViewCell.swift in Sources */,
 				98123D901D77C4F200F416EA /* SearchingSelectTableViewCell.swift in Sources */,
 				98710BB01D742E8E000614E0 /* CategoryTitleCollectionViewCell.swift in Sources */,
 				98949D641D767D86001FD433 /* SearchingDefaultListCollectionViewCell.swift in Sources */,
 				98123DD71D79659700F416EA /* JournalFocusTableViewCell.swift in Sources */,
 				98C1865E1D6AA845008FCB15 /* SummaryData.swift in Sources */,
+				980301DE1D80F2E900180FDA /* TopListViewController.swift in Sources */,
 				980E91931D543FBF000A19CA /* ItemTransitionAnimation.swift in Sources */,
+				980301DC1D800CF100180FDA /* ListenFamousHeaderCollectionReusableView.swift in Sources */,
 				98123DC41D79247800F416EA /* JournalFocusTableViewController.swift in Sources */,
 				980E91681D51D128000A19CA /* SexViewController.swift in Sources */,
+				980301D41D7FFE3A00180FDA /* ListenCategoryHeaderCollectionReusableView.swift in Sources */,
 				98EE33E01D66DF2D00FD2CC3 /* ReadedBook.swift in Sources */,
 				98123DBB1D782C5000F416EA /* JournalTabBarController.swift in Sources */,
 				98C186201D6704ED008FCB15 /* BookListBook.swift in Sources */,
 				98710BAB1D7429B8000614E0 /* CategoryViewController.swift in Sources */,
 				98EE33DE1D66DF0600FD2CC3 /* MyBook.swift in Sources */,
+				980301D61D8000FB00180FDA /* ListenSequenceTableViewCell.swift in Sources */,
 				98123D921D77C85F00F416EA /* SearchingResultTableViewCell.swift in Sources */,
 				984C764D1D5C5D9D00B3588D /* CoverTransitionAnimation.swift in Sources */,
 				98522C9F1D5DC6E600F32FD5 /* HttpManager.swift in Sources */,
 				98EE33AD1D65AE6B00FD2CC3 /* KeychainUtility.swift in Sources */,
 				980E916F1D531FAB000A19CA /* BubbleAnimation.swift in Sources */,
-				98A8C6031D7E6D1B00B130C9 /* JournalPageViewController.swift in Sources */,
 				98123DCF1D795C1000F416EA /* JournalSequenceDetailCollectionViewCell.swift in Sources */,
+				980301CC1D7FF4EA00180FDA /* ListenFamousViewController.swift in Sources */,
 				98123D8C1D77C13E00F416EA /* SearchingSelectViewController.swift in Sources */,
+				980301D81D8006E400180FDA /* ListenImagePageViewController.swift in Sources */,
 				98123D8E1D77C35000F416EA /* SearchingListViewController.swift in Sources */,
 				98C1868C1D6D704C008FCB15 /* SelectReturnData.swift in Sources */,
 				98C186511D6A962C008FCB15 /* BookIntroduceViewController.swift in Sources */,
@@ -897,7 +977,10 @@
 				98949D3D1D757C20001FD433 /* FindListenCollectionViewCell.swift in Sources */,
 				98123DCD1D79563F00F416EA /* JournalCategoryCollectionViewController.swift in Sources */,
 				980E91991D548D6E000A19CA /* ReplaceViewController.swift in Sources */,
+				980301C61D7FF44F00180FDA /* ListenCategoryCollectionViewController.swift in Sources */,
 				98F028531D6EEDFB00B8ECCE /* ReadedAdvice.swift in Sources */,
+				980301D01D7FF7BF00180FDA /* ListenAdviceHeaderCollectionReusableView.swift in Sources */,
+				980301DA1D800CB700180FDA /* ListenFamousCollectionViewCell.swift in Sources */,
 				98C186211D6704ED008FCB15 /* BookListData.swift in Sources */,
 				98949D661D767F43001FD433 /* SearchingHeaderCollectionReusableView.swift in Sources */,
 				98F028101D6EA18E00B8ECCE /* ImagesViewController.swift in Sources */,
@@ -910,11 +993,13 @@
 				98D9CB2D1D6157F400510E08 /* SelectingViewController.swift in Sources */,
 				98C186791D6C4402008FCB15 /* AppearTransitionAnimation.swift in Sources */,
 				98B1EB1A1D50946F00DD494A /* ReadBookListTableViewController.swift in Sources */,
+				980301D21D7FFE1300180FDA /* ListenCategoryCollectionViewCell.swift in Sources */,
 				984C76561D5C701000B3588D /* DisappearTransitionDelegate.swift in Sources */,
 				980E91971D548D42000A19CA /* RegisterViewController.swift in Sources */,
 				98123DD91D79675800F416EA /* JournalBrandTableViewCell.swift in Sources */,
 				98C186221D6704ED008FCB15 /* BookListReturnData.swift in Sources */,
 				98B1EAE51D4EF09100DD494A /* RootTabBarViewController.swift in Sources */,
+				980301C41D7FF41100180FDA /* ListenAdviceCollectionViewController.swift in Sources */,
 				98C1868D1D6D704C008FCB15 /* SelectRootData.swift in Sources */,
 				98C186691D6ADCAA008FCB15 /* SummaryListTableViewCell.swift in Sources */,
 				98123DD11D795C2700F416EA /* JournalSequenceTitleCollectionViewCell.swift in Sources */,
@@ -923,7 +1008,10 @@
 				980E91611D5174B3000A19CA /* MyShelfViewController.swift in Sources */,
 				98123DD51D795C5D00F416EA /* JournalSequenceHeaderCollectionReusableView.swift in Sources */,
 				98949D381D757B3D001FD433 /* FindViewController.swift in Sources */,
+				980301C01D7FF0A700180FDA /* ListenViewController.swift in Sources */,
 				98B1679B1D4993E80001EDAC /* AppDelegate.swift in Sources */,
+				980301C21D7FF0FC00180FDA /* ListenTabViewController.swift in Sources */,
+				980301CA1D7FF4BB00180FDA /* ListenSequenceTableViewController.swift in Sources */,
 				980E91951D54405E000A19CA /* TransitionType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

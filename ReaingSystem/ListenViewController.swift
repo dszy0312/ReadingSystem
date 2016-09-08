@@ -1,14 +1,14 @@
 //
-//  JournalViewController.swift
+//  ListenViewController.swift
 //  ReaingSystem
 //
-//  Created by 魏辉 on 16/9/1.
+//  Created by 魏辉 on 16/9/7.
 //  Copyright © 2016年 魏辉. All rights reserved.
 //
 
 import UIKit
 
-class JournalViewController: UIViewController {
+class ListenViewController: UIViewController {
     
     @IBOutlet weak var backgroundView: UIView!
     
@@ -17,13 +17,10 @@ class JournalViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
     //选中标记
     var numberArray = [false,true,true,true]
-
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
 
         // Do any additional setup after loading the view.
     }
@@ -32,6 +29,7 @@ class JournalViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
     @IBAction func changeItem(sender: UIButton) {
         switch sender.tag {
@@ -66,29 +64,25 @@ class JournalViewController: UIViewController {
         let childVC = getTabViewController()
         childVC.changeIndex(sender.tag)
     }
-    
 
     func defaultChange() {
         numberArray = numberArray.map({_ in
             true
         })
-//        for item in tabItems {
-//            item.selected = false
-//        }
     }
     //获取子视图控制器
-    func getTabViewController() -> JournalTabBarController {
-        var childVC: JournalTabBarController?
+    func getTabViewController() -> ListenTabViewController {
+        var childVC: ListenTabViewController?
         for toVC in self.childViewControllers {
-            if let tab = toVC as? JournalTabBarController {
+            if let tab = toVC as? ListenTabViewController {
                 childVC = tab
             }
         }
         
         return childVC!
     }
-
     
+
 
     /*
     // MARK: - Navigation

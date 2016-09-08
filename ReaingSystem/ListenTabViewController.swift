@@ -1,14 +1,14 @@
 //
-//  JournalTabBarController.swift
+//  ListenTabViewController.swift
 //  ReaingSystem
 //
-//  Created by 魏辉 on 16/9/1.
+//  Created by 魏辉 on 16/9/7.
 //  Copyright © 2016年 魏辉. All rights reserved.
 //
 
 import UIKit
 
-class JournalTabBarController: UITabBarController{
+class ListenTabViewController: UITabBarController {
 
 //    var customSelectedIndex: Int {
 //        return selectedIndex
@@ -28,11 +28,9 @@ class JournalTabBarController: UITabBarController{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBar.hidden = true
-        
-        
         initViewController()
-
-
+        
+        
     }
     
     
@@ -49,14 +47,14 @@ class JournalTabBarController: UITabBarController{
     //初始化内容
     func initViewController() {
         
-        let testViewController1 = UIStoryboard.init(name: "Journal", bundle: nil).instantiateViewControllerWithIdentifier("Focus") as! JournalFocusTableViewController
+        let testViewController1 = UIStoryboard.init(name: "Listen", bundle: nil).instantiateViewControllerWithIdentifier("Advice") as! ListenAdviceCollectionViewController
         
         
-        let testViewController2 = UIStoryboard.init(name: "Journal", bundle: nil).instantiateViewControllerWithIdentifier("Brand") as! JournalBrandTableViewController
+        let testViewController2 = UIStoryboard.init(name: "Listen", bundle: nil).instantiateViewControllerWithIdentifier("Category") as! ListenCategoryCollectionViewController
         
-        let testViewController3 = UIStoryboard.init(name: "Journal", bundle: nil).instantiateViewControllerWithIdentifier("Category") as! JournalCategoryCollectionViewController
+        let testViewController3 = UIStoryboard.init(name: "Listen", bundle: nil).instantiateViewControllerWithIdentifier("Sequence") as! ListenSequenceTableViewController
         
-        let testViewController4 = UIStoryboard.init(name: "Journal", bundle: nil).instantiateViewControllerWithIdentifier("Sequence") as! JournalSequenceCollectionViewController
+        let testViewController4 = UIStoryboard.init(name: "Listen", bundle: nil).instantiateViewControllerWithIdentifier("Famous") as! ListenFamousViewController
         
         
         let tabBarControllers = [testViewController1, testViewController2,testViewController3,testViewController4]
@@ -64,4 +62,5 @@ class JournalTabBarController: UITabBarController{
         
     }
     
+
 }
