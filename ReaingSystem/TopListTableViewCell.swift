@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class TopListTableViewCell: UITableViewCell {
     
@@ -24,6 +25,14 @@ class TopListTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func setData(data: SelectTopListRow) {
+        print(data.topID)
+        titleLable.text = data.topName
+        subtitleLabel.text = data.bookName
+        toListImage.kf_setImageWithURL(NSURL(string: baseURl + data.topImgUrl), placeholderImage: UIImage(named: "标题"))
+        
     }
 
 }

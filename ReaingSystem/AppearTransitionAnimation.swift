@@ -14,17 +14,21 @@ class AppearTransitionAnimation: NSObject, UIViewControllerAnimatedTransitioning
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        guard let containterView = transitionContext.containerView(), fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey), toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) else {
-            return
-        }
+//        guard let containterView = transitionContext.containerView(), fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey), toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) else {
+//            return
+//        }
         
-        let toView = toVC.view
-        let fromView = fromVC.view
+        let containerView = transitionContext.containerView()
+        let fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
+        let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
         
-        if toVC.isBeingPresented() {
-            containterView.addSubview(toVC.view)
+        let toView = toVC!.view
+        let fromView = fromVC!.view
+        
+        if toVC!.isBeingPresented() {
+            containerView.addSubview(toVC!.view)
             
-            toView.center = containterView.center
+            toView.center = containerView.center
             toView.alpha = 0
             
             UIView.animateWithDuration(self.transitionDuration(transitionContext), animations: {
@@ -33,7 +37,7 @@ class AppearTransitionAnimation: NSObject, UIViewControllerAnimatedTransitioning
                     transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
             })
             
-        } else if fromVC.isBeingDismissed(){
+        } else if fromVC!.isBeingDismissed(){
             UIView.animateWithDuration(self.transitionDuration(transitionContext), animations: {
                 fromView.alpha = 0
                 }, completion: { (_) in

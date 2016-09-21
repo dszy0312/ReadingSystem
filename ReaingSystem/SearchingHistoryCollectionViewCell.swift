@@ -11,4 +11,8 @@ import UIKit
 class SearchingHistoryCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
+    
+    func setData(data: String) {
+        nameLabel.text = data
+    }
 }

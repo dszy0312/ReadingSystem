@@ -122,13 +122,12 @@ class ListenImagePageViewController: UIPageViewController, UIPageViewControllerD
         
         let imagesVC = storyboard.instantiateViewControllerWithIdentifier("ImagesViewController_ID") as? ImagesViewController
         if self.imagesRow!.count == 0 || index == self.imagesRow!.count {
-            
-            imagesVC?.customImage = defaultImage
+            imagesVC?.setImage("")
             imagesVC?.customIndex = 0
             
             return imagesVC
         } else {
-            imagesVC?.customImage = imagesRow![index].imageData
+            imagesVC?.setImage(baseURl + imagesRow![index].bookOtherImg)
             imagesVC?.customIndex = index
             return imagesVC
             

@@ -22,25 +22,29 @@ class ItemTransitionAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         self.transitionContext = transitionContext
         
-        guard let containerView = transitionContext.containerView(), fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey), toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) else {
-            return
-        }
+//        guard let containerView = transitionContext.containerView(), fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey), toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) else {
+//            return
+//        }
+        
+        let containerView = transitionContext.containerView()
+        let fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
+        let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
         
         switch transtionMode {
         case .Presentation:
-            containerView.addSubview(toVC.view)
+            containerView.addSubview(toVC!.view)
             
-            toVC.view.alpha = 0
+            toVC!.view.alpha = 0
             
             UIView.animateKeyframesWithDuration(duration, delay: 0, options: [], animations: {
                 UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.25, animations: {
-                    fromVC.view.alpha = 0
+                    fromVC!.view.alpha = 0
                 })
 //                UIView.addKeyframeWithRelativeStartTime(0.75, relativeDuration: 0.25, animations: {
 //                    toVC.view.alpha = 1
 //                })
                 }, completion: { (_) in
-                    toVC.view.alpha = 1
+                    toVC!.view.alpha = 1
 
                     let isCancelled = transitionContext.transitionWasCancelled()
                     transitionContext.completeTransition(!isCancelled)
@@ -48,8 +52,8 @@ class ItemTransitionAnimation: NSObject, UIViewControllerAnimatedTransitioning {
             
             
         case .Dismissal:
-            toVC.view.alpha = 0
-            fromVC.view.alpha = 0
+            toVC!.view.alpha = 0
+            fromVC!.view.alpha = 0
             
             UIView.animateKeyframesWithDuration(duration, delay: 0, options: [], animations: {
                 UIView.addKeyframeWithRelativeStartTime(0.0, relativeDuration: 0.25, animations: {
@@ -58,7 +62,7 @@ class ItemTransitionAnimation: NSObject, UIViewControllerAnimatedTransitioning {
 //                    toVC.view.alpha = 1
 //                })
                 }, completion: { (_) in
-                    toVC.view.alpha = 1
+                    toVC!.view.alpha = 1
                     let isCancelled = transitionContext.transitionWasCancelled()
                     transitionContext.completeTransition(!isCancelled)
             })

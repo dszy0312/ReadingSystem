@@ -19,6 +19,7 @@ class SearchingResultTableViewCell: UITableViewCell {
     @IBOutlet weak var bookIntroduceLabel: UILabel!
     
     @IBOutlet weak var classifyLabel: UILabel!
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,5 +31,20 @@ class SearchingResultTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    func setData(data: HotListRow) {
+        bookTitleLabel.text = data.bookName
+        bookAuthorLabel.text = data.author
+        bookIntroduceLabel.text = data.bookBrief
+        
+        
+        if data.bookImg == nil {
+            bookImgeView.image = UIImage(named: "bookLoading")
+        } else {
+            bookImgeView.kf_setImageWithURL(NSURL(string: baseURl + data.bookImg), placeholderImage: UIImage(named: "bookLoading"))
+        }
+    }
+    
+    
 
 }

@@ -22,13 +22,17 @@ class CoverTransitionAnimation: NSObject, UIViewControllerAnimatedTransitioning 
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+//        
+//        guard let containerView = transitionContext.containerView(), fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey), toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) else{
+//            return
+//        }
         
-        guard let containerView = transitionContext.containerView(), fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey), toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) else{
-            return
-        }
+        let containerView = transitionContext.containerView()
+        let fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
+        let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
         
-        let toView = toVC.view
-        let fromView = fromVC.view
+        let toView = toVC!.view
+        let fromView = fromVC!.view
     
         var translation = containerView.frame.width
         var toViewTransform = CGAffineTransformIdentity

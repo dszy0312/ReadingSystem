@@ -1,91 +1,84 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="244" id="KGk-i7-Jjw" customClass="SelectingDetailTableViewCell" customModule="ReaingSystem" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DetailCell" rowHeight="244" id="KGk-i7-Jjw" customClass="SelectingDetailTableViewCell" customModule="ReaingSystem" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="439" height="244"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="439" height="243"/>
+                <frame key="frameInset" width="439" height="243"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="看过《死亡通知单》的人还看过" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URE-Td-JpZ">
-                        <rect key="frame" x="8" y="8" width="423" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ic-06-NRI">
-                        <rect key="frame" x="0.0" y="33" width="146" height="179"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookLoading" translatesAutoresizingMaskIntoConstraints="NO" id="0ch-uT-9Gd">
-                                <rect key="frame" x="28" y="30" width="90" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="90" id="OCQ-eW-h8V"/>
                                     <constraint firstAttribute="width" secondItem="0ch-uT-9Gd" secondAttribute="height" multiplier="90:120" id="wZj-z0-ra2"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.96424784409999997" green="1" blue="0.59225826749999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.96424784409999997" green="1" blue="0.59225826749999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="0ch-uT-9Gd" firstAttribute="centerY" secondItem="6Ic-06-NRI" secondAttribute="centerY" id="q45-8n-vnM"/>
                             <constraint firstItem="0ch-uT-9Gd" firstAttribute="centerX" secondItem="6Ic-06-NRI" secondAttribute="centerX" id="yQb-xd-KNV"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pJu-ca-MpX">
-                        <rect key="frame" x="146" y="33" width="146" height="179"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookLoading" translatesAutoresizingMaskIntoConstraints="NO" id="vsd-Bc-dax">
-                                <rect key="frame" x="28" y="30" width="90" height="120"/>
+                            <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookLoading" translatesAutoresizingMaskIntoConstraints="NO" id="vsd-Bc-dax">
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="vsd-Bc-dax" secondAttribute="height" multiplier="90:120" id="AbK-ea-cSG"/>
                                     <constraint firstAttribute="width" constant="90" id="fkg-72-pBf"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.96424784409999997" green="1" blue="0.59225826749999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.96424784409999997" green="1" blue="0.59225826749999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="vsd-Bc-dax" firstAttribute="centerY" secondItem="pJu-ca-MpX" secondAttribute="centerY" id="DWs-22-Tp5"/>
                             <constraint firstItem="vsd-Bc-dax" firstAttribute="centerX" secondItem="pJu-ca-MpX" secondAttribute="centerX" id="Rw9-3O-dol"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="换一换" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rAu-Fk-NZR">
-                        <rect key="frame" x="182" y="217" width="45" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E0Q-bU-k4d">
-                        <rect key="frame" x="229" y="219" width="15" height="15"/>
-                        <color key="backgroundColor" red="0.45061474699999998" green="1" blue="0.48370745669999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="4Mp-wb-vsV"/>
                             <constraint firstAttribute="width" constant="15" id="i7r-VP-Nze"/>
                         </constraints>
+                        <state key="normal" backgroundImage="select_change"/>
                         <connections>
                             <action selector="changeAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="HEb-IH-Ghp"/>
                         </connections>
                     </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nmt-KP-SKr">
-                        <rect key="frame" x="292" y="33" width="146" height="179"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookLoading" translatesAutoresizingMaskIntoConstraints="NO" id="TfU-JX-NNZ">
-                                <rect key="frame" x="28" y="30" width="90" height="120"/>
+                            <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookLoading" translatesAutoresizingMaskIntoConstraints="NO" id="TfU-JX-NNZ">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="90" id="eSO-gt-c91"/>
                                     <constraint firstAttribute="width" secondItem="TfU-JX-NNZ" secondAttribute="height" multiplier="90:120" id="faC-e3-IPW"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.96424784409999997" green="1" blue="0.59225826749999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.96424784409999997" green="1" blue="0.59225826749999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="TfU-JX-NNZ" firstAttribute="centerY" secondItem="nmt-KP-SKr" secondAttribute="centerY" id="9s8-I1-mJF"/>
                             <constraint firstItem="TfU-JX-NNZ" firstAttribute="centerX" secondItem="nmt-KP-SKr" secondAttribute="centerX" id="eew-PZ-ENL"/>
@@ -125,5 +118,6 @@
     </objects>
     <resources>
         <image name="bookLoading" width="228" height="310"/>
+        <image name="select_change" width="30" height="30"/>
     </resources>
 </document>

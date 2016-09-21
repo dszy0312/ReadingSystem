@@ -17,5 +17,14 @@ class ListenAdviceCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleButton: UIButton!
     
+    func setData(data: ListenAdvicePrList) {
+        titleLabel.text = data.audioName
+        
+        if data.audioImgUrl == nil {
+            customImageView.image = UIImage(named: "listen_image")
+        } else {
+            customImageView.kf_setImageWithURL(NSURL(string: baseURl + data.audioImgUrl), placeholderImage: UIImage(named: "listen_image"))
+        }
+    }
     
 }

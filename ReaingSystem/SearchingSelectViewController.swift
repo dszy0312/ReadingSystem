@@ -15,13 +15,24 @@ class SearchingSelectViewController: UIViewController, UITableViewDelegate, UITa
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var maskView: UIView!
+    //单元格名称
     var nameArray: [String] = [] {
         didSet {
             tableView.frame.size.height = CGFloat(nameArray.count) * 35
+            self.count = nameArray.count
         }
     }
+    //单元格ID
+    var idArray: [String] = []
+
     //标示数据来源，0是分类，1是排行
     var formData: Int?
+    //单元格数量
+    var count = 0 {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +57,8 @@ class SearchingSelectViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return nameArray.count
+        
+        return self.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -59,6 +71,7 @@ class SearchingSelectViewController: UIViewController, UITableViewDelegate, UITa
     //delegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedItem = nameArray[indexPath.row]
+        let selectedID = idArray[indexPath.row]
         if let toVC = self.parentViewController as? SearchingListViewController {
             switch self.formData! {
             case 0:
@@ -66,11 +79,16 @@ class SearchingSelectViewController: UIViewController, UITableViewDelegate, UITa
                 toVC.classifyButton.tag = 0
                 toVC.sequenceImage.transform = CGAffineTransformMakeRotation(CGFloat(2 * M_PI))
                 toVC.classifyImage.transform = CGAffineTransformMakeRotation(CGFloat(2 * M_PI))
+                toVC.listRows = []
+                toVC.getNetworkData(selectedID, order: "", key: toVC.searchName)
+                
             case 1:
                 toVC.sequenceButton.setTitle(selectedItem, forState: .Normal)
                 toVC.sequenceButton.tag = 0
                 toVC.sequenceImage.transform = CGAffineTransformMakeRotation(CGFloat(2 * M_PI))
                 toVC.classifyImage.transform = CGAffineTransformMakeRotation(CGFloat(2 * M_PI))
+                toVC.listRows = []
+                toVC.getNetworkData("", order: selectedID, key: toVC.searchName)
             default:
                 break
             }

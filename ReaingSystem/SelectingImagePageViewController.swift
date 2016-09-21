@@ -7,14 +7,13 @@
 //
 
 import UIKit
+import Kingfisher
 
 protocol ImagesShowDelegate {
     //传递轮播图页码
     func imagesDidLoaded(index: Int, total: Int)
-    //传递分类图标
-    func classifyDataDidLoaded(classifyData: [SelectData]?)
-    //传递楼层简介
-    func recommendDidLoaded(recomend: [SelectReturnData]?)
+    //传递精选Data
+    func selectDataLoaded(data: SelectRootData)
 }
 
 class SelectingImagePageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, UIScrollViewDelegate {
@@ -34,6 +33,7 @@ class SelectingImagePageViewController: UIPageViewController, UIPageViewControll
     var defaultImage = UIImage(named: "selecting")
     //自动跳转
     var timer: NSTimer!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -133,13 +133,12 @@ class SelectingImagePageViewController: UIPageViewController, UIPageViewControll
         
         let imagesVC = storyboard.instantiateViewControllerWithIdentifier("ImagesViewController_ID") as? ImagesViewController
         if self.imagesRow!.count == 0 || index == self.imagesRow!.count {
-            
-            imagesVC?.customImage = defaultImage
+            imagesVC?.customImageView.image = defaultImage
             imagesVC?.customIndex = 0
             
             return imagesVC
         } else {
-            imagesVC?.customImage = imagesRow![index].imageData
+            imagesVC?.customImageView.image = imagesRow![index].imageData
             imagesVC?.customIndex = index
             return imagesVC
             
@@ -199,48 +198,36 @@ class SelectingImagePageViewController: UIPageViewController, UIPageViewControll
             self.recommend = selectRootData.returnData
             
             //向前传值
-            self.customDelegate?.classifyDataDidLoaded(self.classifyData)
-            self.customDelegate?.recommendDidLoaded(self.recommend)
             self.customDelegate?.imagesDidLoaded(self.curIndex, total: self.imagesRow!.count)
+            self.customDelegate?.selectDataLoaded(selectRootData)
+            
             
             //设置当前页
             self.setAppearedImage(0, isAnimated: false)
             //开始自动换图
             self.startTime()
-            //获取轮播图片
+//            //获取轮播图片
             for i in 0..<self.imagesRow!.count {
-                let id = 0
                 let imageURL = baseURl + self.imagesRow![i].bookOtherImg
-                self.getImage(id, index: i, url: imageURL)
+                self.getImage(i, url: imageURL)
             }
-            //获取兴趣标题图标
-            for i in 0..<self.classifyData!.count {
-                let id = 1
-                let imageURL = baseURl + self.classifyData![i].iconUrl
-                self.getImage(id, index: i, url: imageURL)
-            }
+
             
         }
+
     }
-    
-    //请求兴趣标题图片
-    func getImage(id: Int, index: Int, url: String){
+//    
+    //请求轮播标题图片
+    func getImage(index: Int, url: String){
         NetworkHealper.Get.receiveData(url) { (data, error) in
             guard error == nil else {
                 print(error)
                 return
             }
             if let image = UIImage(data: data!) {
-                
-                if id == 0 {
-                    self.imagesRow![index].imageData = image
-                    //设置显示页
-                    self.setAppearedImage(0, isAnimated: false)
-                } else if id == 1 {
-                    self.classifyData![index].imageData = image
-                    self.customDelegate?.classifyDataDidLoaded(self.classifyData)
-                    
-                }
+                self.imagesRow![index].imageData = image
+                //设置显示页
+                self.setAppearedImage(0, isAnimated: false)
             } else {
                 print("不是图片")
             }

@@ -14,6 +14,8 @@ class TopListViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     @IBOutlet weak var tableView: UITableView!
+    
+    var topListRoot: SelectTopListRoot!
 
 
     override func viewDidLoad() {
@@ -21,6 +23,7 @@ class TopListViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         tableView.delegate = self
         tableView.dataSource = self
+        getData()
 
         // Do any additional setup after loading the view.
     }
@@ -46,28 +49,45 @@ class TopListViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 5
+        return topListRoot != nil ? topListRoot.rows.count : 0
     }
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! TopListTableViewCell
         cell.titleLable.text = "排行榜"
-        
+        cell.setData(topListRoot.rows[indexPath.row])
         // Configure the cell...
         
         return cell
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        readBookListTitle = topListRoot.rows[indexPath.row].topName
+        readBookListID = topListRoot.rows[indexPath.row].topID
+        readBookListFrom = "TopList"
+        let toVC = childVC("ReadDetail", vcName: "ReadDetail")
+        self.presentViewController(toVC, animated: true, completion: nil)
     }
-    */
+    
+    //MARK：私有方法
+    //页面跳转方法
+    
+    func childVC(sbName: String, vcName: String) -> UIViewController {
+        var sb = UIStoryboard(name: sbName, bundle: nil)
+        var vc = sb.instantiateViewControllerWithIdentifier(vcName)
+        return vc
+    }
+    
+    //网络请求
+    func getData() {
+        NetworkHealper.Get.receiveJSON(URLHealper.getCategoryByTop.introduce()) { (dictionary, error) in
+            self.topListRoot = SelectTopListRoot(fromDictionary: dictionary!)
+            self.tableView.reloadData()
+        }
+    }
+    
+
+    
 
 }

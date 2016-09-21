@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ReadBookTableViewCell: UITableViewCell {
     //图书封面
@@ -31,6 +32,12 @@ class ReadBookTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func setTopListData(data: TopListBookRow) {
+        bookTitleLabel.text = data.bookName
+        bookWriterLabel.text = data.author
+        bookImageView.kf_setImageWithURL(NSURL(string: baseURl + data.bookImg), placeholderImage: UIImage(named: "bookLoading"))
     }
 
 }

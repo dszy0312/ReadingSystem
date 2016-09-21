@@ -17,6 +17,7 @@ enum NetworkHealper {
     case GetWithParm
     case Post
     case GetTest
+    case GetTestWithParm
 
     //获取JSON数据
     func receiveJSON(url: String,parameter: [String: AnyObject]? = [:], completion: (NSDictionary?, String?) -> Void) {
@@ -94,6 +95,12 @@ enum NetworkHealper {
                 print(str)
                 completion(dic, error)
             })
+        case .GetTestWithParm:
+            Alamofire.request(.GET, url, parameters: parameter).responseData(completionHandler: { (response) in
+                let str = NSString(data: response.result.value!, encoding: NSUTF8StringEncoding)
+                print(str)
+                completion(dic, error)
+            })
         }
     }
     //获取NSData数据
@@ -142,7 +149,20 @@ enum NetworkHealper {
                 
                 completion(data, error)
             })
-
+        case .GetTestWithParm:
+            Alamofire.request(.GET, url, parameters: parameter).responseData(completionHandler: { (response) in
+                let str = NSString(data: response.result.value!, encoding: NSUTF8StringEncoding)
+                print(str)
+                switch response.result {
+                case .Success:
+                    data = response.data
+                    
+                case .Failure(let e):
+                    error = "服务器出错"
+                }
+                
+                completion(data, error)
+            })
         }
     }
     //获取cookie

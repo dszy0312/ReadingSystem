@@ -24,7 +24,7 @@ class LeadingTransitionDelegate: NSObject, UIViewControllerTransitioningDelegate
         return animationTransition
     }
     
-    func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController, sourceViewController source: UIViewController) -> UIPresentationController? {
+    func presentationControllerForPresentedViewController(presented: UIViewController, presentingViewController presenting: UIViewController?, sourceViewController source: UIViewController) -> UIPresentationController? {
         let maskPresentTransitionController = MaskPresentTationController(presentedViewController: presented, presentingViewController: presenting)
         maskPresentTransitionController.imageView = imageView
         

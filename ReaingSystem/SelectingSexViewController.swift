@@ -14,6 +14,14 @@ class SelectingSexViewController: UIViewController, UICollectionViewDataSource,U
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var titleLabel: UILabel!
+    //精选页传递数据
+    var classifyData: SelectData!
+    //男女页面基本信息
+    var sexRootData: SelectSexRootData!
+    //男女页面详情信息
+    var sexDetailData: [String: SelectSexDetailRoot] = [:]
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +36,12 @@ class SelectingSexViewController: UIViewController, UICollectionViewDataSource,U
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.titleLabel.text = classifyData.iconName
+        getData()
+    }
+    
     @IBAction func backClick(sender: UIButton) {
         
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -38,7 +52,7 @@ class SelectingSexViewController: UIViewController, UICollectionViewDataSource,U
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 4
+        return sexRootData != nil ? sexRootData.data2.count : 0
     }
     
     
@@ -49,8 +63,16 @@ class SelectingSexViewController: UIViewController, UICollectionViewDataSource,U
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier[0], forIndexPath: indexPath) as! SelectingSexCollectionViewCell
-        cell.titleLabel.text = "测试"
-        
+        if let detailRoot = sexDetailData[sexRootData.data2[indexPath.section].categoryID] {
+            if let datas = detailRoot.data {
+                if datas.count != 6 {
+                    cell.titleLabel.text = ""
+                } else {
+                    cell.setData(datas[indexPath.row])
+                }
+                
+            }
+        }
         // Configure the cell
         
         return cell
@@ -60,7 +82,7 @@ class SelectingSexViewController: UIViewController, UICollectionViewDataSource,U
         var headerView: SelectingSexHeaderCollectionReusableView?
         if kind == UICollectionElementKindSectionHeader {
             headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: reuseIdentifier[1], forIndexPath: indexPath) as! SelectingSexHeaderCollectionReusableView
-            headerView!.titleLabel.text = "现代都市"
+            headerView?.setData(sexRootData.data2[indexPath.section])
         }
         
         return headerView!
@@ -88,14 +110,36 @@ class SelectingSexViewController: UIViewController, UICollectionViewDataSource,U
 
     
 
-    /*
-    // MARK: - Navigation
+    //网络请求
+    func getData() {
+        //iconID暂时默认
+        NetworkHealper.GetWithParm.receiveJSON(URLHealper.getChildCategoryListByCategory.introduce(), parameter: ["categoryID": "0001"]) { (dictionary, error) in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            
+            self.sexRootData = SelectSexRootData(fromDictionary: dictionary!)
+            //self.collectionView.reloadData()
+            self.getDetailData(self.sexRootData.data2)
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        }
     }
-    */
+    func getDetailData(data: [SelectSexData2]) {
+        print(data.count)
+        for i in 0..<data.count {
+            NetworkHealper.GetWithParm.receiveJSON(URLHealper.getHotStoryByCategory.introduce(), parameter: ["categoryID": data[i].categoryID]) { (dictionary, error) in
+                guard error == nil else {
+                    print(error)
+                    return
+                }
+                let detailRoot = SelectSexDetailRoot(fromDictionary: dictionary!)
+                self.sexDetailData[data[i].categoryID] = detailRoot
+                self.collectionView.reloadData()
+            }
+            
+        }
+
+    }
 
 }

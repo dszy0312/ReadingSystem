@@ -9,17 +9,23 @@
 import UIKit
 import Alamofire
 
+var readBookListTitle = ""
+var readBookListID = ""
+var readBookListFrom = ""
+
 class ReadBookListTableViewController: UITableViewController {
     
     var bookListData: [BookListData]?
     
     var selectedBook: BookListData?
+    
+    var topListData: TopListBookRoot!
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         //网络请求
-        getReadedBooks()
+        getBookData()
 
     }
 
@@ -40,6 +46,10 @@ class ReadBookListTableViewController: UITableViewController {
             
         }
     }
+    @IBAction func dismissClick(sender: UIBarButtonItem) {
+        
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 
     // MARK: - Table view data source
 
@@ -49,8 +59,12 @@ class ReadBookListTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return bookListData != nil ? bookListData!.count : 0
+        switch readBookListFrom {
+        case "TopList":
+            return topListData != nil ? topListData.rows.count : 0
+        default:
+            return 0
+        }
     }
 
     
@@ -60,12 +74,11 @@ class ReadBookListTableViewController: UITableViewController {
         cell.bookImageView?.layer.shadowOpacity = 0.5
         cell.bookImageView?.layer.shadowOffset = CGSize(width: 0, height: 3)
         cell.bookImageView?.layer.shadowRadius = 5
-        if let bookListData = self.bookListData {
-            cell.bookTitleLabel.text = bookListData[indexPath.row].bookName
-            cell.bookWriterLabel.text = bookListData[indexPath.row].author
-            cell.bookChapterLabel.text = bookListData[indexPath.row].chapterName
-            cell.readTimeLabel.text = bookListData[indexPath.row].recentReadDate
-            cell.bookImageView.image = bookListData[indexPath.row].bookImgData
+        switch readBookListFrom {
+        case "TopList":
+            cell.setTopListData(topListData.rows[indexPath.row])
+        default:
+            break
         }
 
         // Configure the cell...
@@ -74,9 +87,9 @@ class ReadBookListTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        selectedBook = bookListData![indexPath.row]
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        performSegueWithIdentifier("DetailSegue", sender: self)
+        //selectedBook = bookListData![indexPath.row]
+       // tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        //performSegueWithIdentifier("DetailSegue", sender: self)
         
         
     }
@@ -95,25 +108,39 @@ class ReadBookListTableViewController: UITableViewController {
     
     //MARK: 网络请求
     //获取最近阅读信息
-    func getReadedBooks() {
-        NetworkHealper.Get.receiveJSON(URLHealper.readedBooksURL.introduce(), completion: { (dictionary, error) in
-            //查询错误
-            guard error == nil else {
-                print(error)
-                return
-            }
-            //获取数据
-            let bookListBook = BookListBook(fromDictionary: dictionary!)
-            
-            self.bookListData = bookListBook.data
-            self.tableView.reloadData()
-            //获取图片
-            for i in 0..<self.bookListData!.count {
-                let imageURL = baseURl + self.bookListData![i].bookImg
-                self.getImage(i, url: imageURL)
-            }
-
-        })
+    func getBookData() {
+        
+        if readBookListFrom == "TopList" {
+            print("给点反应")
+            NetworkHealper.GetWithParm.receiveJSON(URLHealper.getStoryListByTop.introduce(), parameter: ["categoryID": readBookListID], completion: { (dictionary, error) in
+                guard error == nil else {
+                    print(error)
+                    return
+                }
+                self.topListData = TopListBookRoot(fromDictionary: dictionary!)
+                self.tableView.reloadData()
+            })
+        }
+        
+        
+//        NetworkHealper.Get.receiveJSON(URLHealper.readedBooksURL.introduce(), completion: { (dictionary, error) in
+//            //查询错误
+//            guard error == nil else {
+//                print(error)
+//                return
+//            }
+//            //获取数据
+//            let bookListBook = BookListBook(fromDictionary: dictionary!)
+//            
+//            self.bookListData = bookListBook.data
+//            self.tableView.reloadData()
+//            //获取图片
+//            for i in 0..<self.bookListData!.count {
+//                let imageURL = baseURl + self.bookListData![i].bookImg
+//                self.getImage(i, url: imageURL)
+//            }
+//
+//        })
     }
     
     //请求兴趣标题图片

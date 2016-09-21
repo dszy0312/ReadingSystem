@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BubbleAnimation: NSObject, UIViewControllerAnimatedTransitioning {
+class BubbleAnimation: NSObject, UIViewControllerAnimatedTransitioning,CAAnimationDelegate {
     
     
     var transitionContext: UIViewControllerContextTransitioning?
@@ -27,14 +27,18 @@ class BubbleAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         
         self.transitionContext = transitionContext
         
-        guard let containerView = transitionContext.containerView(), fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey), toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) else {
-            return
-        }
+//        guard let containerView = transitionContext.containerView(), fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey), toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) else {
+//            return
+//        }
+        
+        let containerView = transitionContext.containerView()
+        let fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)
+        let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)
         
         switch transtionMode {
         case .Presentation:
             
-            containerView.addSubview(toVC.view)
+            containerView.addSubview(toVC!.view)
             
             let bubbleMaskPathInitial = UIBezierPath(ovalInRect: pointFrame)
 //            let radius = sqrt((pointFrame.center.x * pointFrame.center.x) + (pointFrame.center.y * pointFrame.center.y))
@@ -42,7 +46,7 @@ class BubbleAnimation: NSObject, UIViewControllerAnimatedTransitioning {
             
             let maskLayer = CAShapeLayer()
             maskLayer.path = bubbleMaskPathFinal.CGPath
-            toVC.view.layer.mask = maskLayer
+            toVC!.view.layer.mask = maskLayer
 //            toVC.view.backgroundColor = button.backgroundColor
             
             let maskLayerAnimation = CABasicAnimation(keyPath: "path")
@@ -59,7 +63,7 @@ class BubbleAnimation: NSObject, UIViewControllerAnimatedTransitioning {
             
             let maskLayer = CAShapeLayer()
             maskLayer.path = bubbleMaskPathFinal.CGPath
-            fromVC.view.layer.mask = maskLayer
+            fromVC!.view.layer.mask = maskLayer
 //            fromVC.view.backgroundColor = button.backgroundColor
             
             let maskLayerAnimation = CABasicAnimation(keyPath: "path")
@@ -73,7 +77,7 @@ class BubbleAnimation: NSObject, UIViewControllerAnimatedTransitioning {
         
     }
     
-    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+    func animationDidStop(anim: CAAnimation, finished flag: Bool) {
         self.transitionContext?.completeTransition(!self.transitionContext!.transitionWasCancelled())
         self.transitionContext?.viewControllerForKey(UITransitionContextFromViewControllerKey)!.view.layer.mask = nil
     }

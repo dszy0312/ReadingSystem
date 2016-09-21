@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class SearchingDefaultListCollectionViewCell: UICollectionViewCell {
     
@@ -16,4 +17,16 @@ class SearchingDefaultListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var bookAuthorLabel: UILabel!
     
     @IBOutlet weak var bookIntroduceLabel: UILabel!
+    
+    func setData(data: HotListRow) {
+        bookNameLabel.text = data.bookName
+        bookAuthorLabel.text = data.author
+        bookIntroduceLabel.text = data.bookBrief
+        
+        if data.bookImg == nil {
+            bookImageLabel.image = UIImage(named: "bookLoading")
+        } else {
+            bookImageLabel.kf_setImageWithURL(NSURL(string: baseURl + data.bookImg), placeholderImage: UIImage(named: "bookLoading"))
+        }
+    }
 }

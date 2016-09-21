@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.makeKeyAndVisible()
 //        
 //        storyBoard = UIStoryboard(name: "Listen", bundle: nil)
-//        let rootController = storyBoard?.instantiateViewControllerWithIdentifier("Listen")
+//        let rootController = storyBoard?.instantiateViewControllerWithIdentifier("ListenDetail")
 //        
 //        if let window = self.window {
 //            window.rootViewController = rootController

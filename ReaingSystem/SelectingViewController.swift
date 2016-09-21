@@ -23,8 +23,9 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var tableView: UITableView!
-    //搜索框
-    @IBOutlet weak var searchBar: UISearchBar!
+    //搜索
+    @IBOutlet weak var searchButton: UIButton!
+    
     
     //搜索页转场标示
     private let delegateSegue = "SearchingSegue"
@@ -39,20 +40,18 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     //楼层标志
     var recommend: [SelectReturnData]? = []
     //阅读过的书籍推荐
+    var readedTitle: String?
     var readedData: [ReadedData]?
  
     override func viewDidLoad() {
         super.viewDidLoad()
-        getReadedAdvice()
+        self.getReadedAdvice()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         collectionView.delegate = self
         collectionView.dataSource = self
-        searchBar.delegate = self
-        searchBar.resignFirstResponder()
-        
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -89,6 +88,11 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
 
     }
     
+    //搜索点击
+    @IBAction func searcgingClick(sender: UIButton) {
+        performSegueWithIdentifier(delegateSegue, sender: self)
+    }
+    
     //MARK: UICollectionView   delegate dataSource flowLayout
     //dataSource
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -103,8 +107,7 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("TitleCell", forIndexPath: indexPath) as! SelectingTitleCollectionViewCell
         cell.titleName.text = "测试"
         if classifyData?.count != 0 {
-            cell.titleImage.image = classifyData![indexPath.row].imageData
-            cell.titleName.text = classifyData![indexPath.row].iconName
+            cell.setData(classifyData![indexPath.row])
         }
         
         return cell
@@ -129,7 +132,10 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         //页面跳转选择
         switch indexPath.row {
         case 0,1:
-            self.transitionToVC("Selecting", vcName: "SearchingSex")
+            let toVC = self.childVC("Selecting", vcName: "SearchingSex") as! SelectingSexViewController
+            toVC.classifyData = self.classifyData![indexPath.row]
+            self.presentViewController(toVC, animated: true, completion: nil)
+            
         case 2:
             print("出版页面开发中。。")
         case 3:
@@ -158,7 +164,8 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     //MARK: tableView delegate dataSource
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recommend!.count == 0 ? 0 : recommend!.count + 1
+        print(recommend?.count)
+        return recommend!.count == 0 ? 1 : recommend!.count + 1
     }
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -172,7 +179,24 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
             index.layer.shadowRadius = 2
         }
         if indexPath.row == 0 {
-            
+            if let readedData = self.readedData {
+                if let readedTitle = self.readedTitle {
+                    cell.defaultTitle = readedTitle
+                    cell.isLoaded = true
+                    cell.count = 0
+//                    cell.setBookData(readedData, title: readedTitle)
+                    cell.getReadedData()
+                    
+                }
+            }
+        } else {
+            if let recommend = self.recommend {
+                cell.count = indexPath.row
+                cell.categoryID = recommend[indexPath.row - 1].categoryID
+                cell.recommendTitle = recommend[indexPath.row - 1].categoryName
+                cell.setRecommend(recommend[indexPath.row - 1])
+                
+            }
         }
         
         return cell
@@ -186,15 +210,17 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         return 49
     }
     
-    //自定义代理
-    func classifyDataDidLoaded(classifyData: [SelectData]?) {
-        self.classifyData = classifyData
-        collectionView.reloadData()
-        
+    func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return false
     }
     
-    func recommendDidLoaded(recomend: [SelectReturnData]?) {
-        self.recommend = (recommend)
+    //自定义代理    
+    func selectDataLoaded(data: SelectRootData) {
+        self.classifyData = data.data
+        self.recommend = data.returnData
+        self.readedTitle = data.data2
+        collectionView.reloadData()
+        tableView.reloadData()
     }
     
     func imagesDidLoaded(index: Int, total: Int) {
@@ -207,13 +233,6 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         }
     }
     
-    //MARK: searchbar delegate
-    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
-        performSegueWithIdentifier(delegateSegue, sender: self)
-//        searchBar.resignFirstResponder()
-    
-    }
-    
     //MARK：私有方法
     //页面跳转方法
     func transitionToVC(sbName: String, vcName: String) {
@@ -222,8 +241,13 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         self.presentViewController(vc, animated: true, completion: nil)
     }
     
+    func childVC(sbName: String, vcName: String) -> UIViewController {
+        var sb = UIStoryboard(name: sbName, bundle: nil)
+        var vc = sb.instantiateViewControllerWithIdentifier(vcName)
+        return vc
+    }
     
-
+    
     
     //网络请求
     func getReadedAdvice() {
@@ -235,37 +259,9 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
             let readedAdvice = ReadedAdvice(fromDictionary: dictionary!)
             self.readedData = readedAdvice.data
             self.tableView.reloadData()
-            //获取推荐图书图片
-            for i in 0..<self.readedData!.count {
-                let id = 0
-                let imageURL = baseURl + self.readedData![i].bookImg
-                self.getImage(id, index: i, url: imageURL)
-            }
-
         }
-    }
-    
-    //请求兴趣标题图片
-    func getImage(id: Int, index: Int, url: String){
-        NetworkHealper.Get.receiveData(url) { (data, error) in
-            guard error == nil else {
-                print(error)
-                return
-            }
-            if let image = UIImage(data: data!) {
-                
-                if id == 0 {
-                    self.readedData![index].imageData = image
-                    self.tableView.reloadData()
-                    
-                } else if id == 1 {
-                    
-                }
-            } else {
-                print("不是图片")
-            }
-            
-        }
+        
+        
     }
     
 

@@ -11,13 +11,6 @@ struct BookListBook{
 	var totalCount : Int!
 	var data : [BookListData]!
 	var flag : Int!
-	var msg : String!
-	var returnData : BookListReturnData!
-	var rows : [AnyObject]!
-	var script : String!
-	var test : String!
-	var url : String!
-	var urlwindow : String!
 
 
 	/**
@@ -37,15 +30,7 @@ struct BookListBook{
 			}
 		}
 		flag = dictionary["flag"] as? Int
-		msg = dictionary["msg"] as? String
-		if let returnDataData = dictionary["returnData"] as? NSDictionary{
-				returnData = BookListReturnData(fromDictionary: returnDataData)
-			}
-		rows = dictionary["rows"] as? [AnyObject]
-		script = dictionary["script"] as? String
-		test = dictionary["test"] as? String
-		url = dictionary["url"] as? String
-		urlwindow = dictionary["urlwindow"] as? String
+
 	}
 
 }

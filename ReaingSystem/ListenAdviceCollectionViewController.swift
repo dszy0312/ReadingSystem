@@ -11,10 +11,15 @@ import UIKit
 private let reuseIdentifier = ["ListenCell","HeaderView"]
 
 class ListenAdviceCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    
+    //听书推荐
+    var adviceData: ListenAdviceRoot!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.getListenAdvice()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -32,18 +37,23 @@ class ListenAdviceCollectionViewController: UICollectionViewController, UICollec
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 3
+        
+        return adviceData != nil ? adviceData.returnData.count : 0
     }
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 3
+        if let list = adviceData.returnData[section].prList {
+            return list.count
+        } else {
+            return 0
+        }
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier[0], forIndexPath: indexPath) as! ListenAdviceCollectionViewCell
-        cell.titleLabel.text = "测试"
+        cell.setData(self.adviceData.returnData[indexPath.section].prList[indexPath.row])
     
         // Configure the cell
     
@@ -54,7 +64,7 @@ class ListenAdviceCollectionViewController: UICollectionViewController, UICollec
         var headerView: ListenAdviceHeaderCollectionReusableView?
         if kind == UICollectionElementKindSectionHeader {
             headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: reuseIdentifier[1], forIndexPath: indexPath) as! ListenAdviceHeaderCollectionReusableView
-            headerView!.titleLabel.text = "精品小听"
+            headerView!.titleLabel.text = adviceData.returnData[indexPath.section].categoryName
         }
         
         return headerView!
@@ -80,48 +90,20 @@ class ListenAdviceCollectionViewController: UICollectionViewController, UICollec
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
-//    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-//        switch section {
-//        case 3:
-//            
-//            return CGSize(width: self.view.bounds.width, height: 49)
-//        default:
-//            return CGSizeZero
-//        }
-//        
-//        
-//    }
+    //网络请求
+    func getListenAdvice() {
+        NetworkHealper.Get.receiveJSON(URLHealper.getVoiceTJFloorData.introduce()) { (dictionary, error) in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            self.adviceData = ListenAdviceRoot(fromDictionary: dictionary!)
+            self.collectionView?.reloadData()
+          
+        }
+        
+        
+    }
     
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
-    
-    }
-    */
 
 }

@@ -34,7 +34,6 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
-        
         //网络请求
         getMyShelf()
         
@@ -74,6 +73,12 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     @IBAction func unwind(segue: UIStoryboardSegue) {
         
     }
+    
+    @IBAction func listClick(sender: UIButton) {
+        let toVC = childVC("ReadDetail", vcName: "ReadDetail")
+        self.presentViewController(toVC, animated: true, completion: nil)
+    }
+    
     
     //MARK: collectionView dataSource delegate flowLayout
     //dataSource
@@ -188,6 +193,19 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     //点击监听
     func didTap(gesture: UITapGestureRecognizer) {
         let indexPath = collectionView.indexPathForItemAtPoint(gesture.locationInView(collectionView))
+    }
+    //MARK：私有方法
+    //页面跳转方法
+    func transitionToVC(sbName: String, vcName: String) {
+        var sb = UIStoryboard(name: sbName, bundle: nil)
+        var vc = sb.instantiateViewControllerWithIdentifier(vcName)
+        self.presentViewController(vc, animated: true, completion: nil)
+    }
+    
+    func childVC(sbName: String, vcName: String) -> UIViewController {
+        var sb = UIStoryboard(name: sbName, bundle: nil)
+        var vc = sb.instantiateViewControllerWithIdentifier(vcName)
+        return vc
     }
     
     

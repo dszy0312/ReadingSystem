@@ -12,5 +12,8 @@ class SelectingSexHeaderCollectionReusableView: UICollectionReusableView {
     
     @IBOutlet weak var titleLabel: UILabel!
     
-        
+    func setData(data: SelectSexData2) {
+        self.titleLabel.text = data.categoryName
+    }
+    
 }

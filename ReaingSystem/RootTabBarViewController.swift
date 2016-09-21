@@ -91,7 +91,7 @@ class RootTabBarViewController: UITabBarController, ChangeTabBarDelegate, Hidden
     func customTabBar() {
         self.tabBar.hidden = true
         var array = NSBundle.mainBundle().loadNibNamed("PersonalTabBar", owner: self, options: nil)
-        tabBarView = array[0] as? PersonalTabBar
+        tabBarView = array![0] as? PersonalTabBar
         tabBarView?.delegate = self
         tabBarView?.itemButton1.selected = true
         tabBarView?.itemButton1.setBackgroundImage(UIImage(named: "shujia_heighLight"), forState: .Normal)

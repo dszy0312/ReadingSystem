@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
+class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, SearchingChangeDataDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -18,15 +18,37 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
     
     var transitionDelegate = SearchingTransitionDelegate()
     
+    //搜索历史
+    var myHotKeyData: HotKeyRoot!
+    //热搜词
+    var hotKeyData: HotKeyRoot!
+    //热搜词当前页
+    var hotKeyPage = 1
+    //热搜榜
+    var hotListData: HotListRoot!
+    //热搜榜单元格数组
+    var hotListRows: [HotListRow] = []
+    //热搜榜当前页
+    var hotListPage = 1
+    // 底部视图
+    var footerView: SearchingFooterCollectionReusableView?
+    //是否正在加载数据标记
+    var loading = false
+    //查询记录
+    var searchName = ""
+
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        
-        
-        
+        getMyHotKeyData()
+        getHotKeyData(hotKeyPage)
+        getHotListData(hotListPage)
+
         // Do any additional setup after loading the view.
     }
     
@@ -55,6 +77,7 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
             let toVC = segue.destinationViewController as! SearchingListViewController
             toVC.transitioningDelegate = transitioningDelegate
             toVC.modalPresentationStyle = .Custom
+            toVC.getNetworkData(SearchingListClassify.All.introduceID(), order: SearchingListSequence.All.introduceID(), key: self.searchName)
             searchbar.resignFirstResponder()
         
         }
@@ -72,56 +95,95 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
         
         switch section {
         case 0:
-            return 7
+            return myHotKeyData != nil ? myHotKeyData.rows.count : 0
         case 1:
-            return 6
+            return hotKeyData != nil ? hotKeyData.rows.count : 0
         case 2:
-            return 5
+            return hotListRows.count
         default:
             return 0
         }
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("LoadingCell", forIndexPath: indexPath)
+        guard myHotKeyData != nil else {
+            
+            return cell
+        }
+
         switch indexPath.section {
-        case 0,1:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("HistoryCell", forIndexPath: indexPath) as! SearchingHistoryCollectionViewCell
-            cell.nameLabel.text = "都市青春"
-            return cell
+        case 0:
+            let cell1 = collectionView.dequeueReusableCellWithReuseIdentifier("HistoryCell", forIndexPath: indexPath) as! SearchingHistoryCollectionViewCell
+            if let datas = myHotKeyData.rows {
+                cell1.setData(datas[indexPath.row].categoryName)
+            }
+            return cell1
+        case 1:
+            let cell1 = collectionView.dequeueReusableCellWithReuseIdentifier("HistoryCell", forIndexPath: indexPath) as! SearchingHistoryCollectionViewCell
+            if let datas = hotKeyData.rows {
+                cell1.setData(datas[indexPath.row].categoryName)
+            }
+            return cell1
+
         case 2:
-            let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ListCell", forIndexPath: indexPath) as! SearchingDefaultListCollectionViewCell
-            cell.bookNameLabel.text = "魔戒"
-            cell.bookAuthorLabel.text = "刘绍江"
-            cell.bookIntroduceLabel.text = "今天是个好日子，挑本书看吧！"
-            return cell
+            let cell2 = collectionView.dequeueReusableCellWithReuseIdentifier("ListCell", forIndexPath: indexPath) as! SearchingDefaultListCollectionViewCell
+            cell2.setData(hotListRows[indexPath.row])
+            return cell2
             
         default:
-            return UICollectionViewCell()
+            return cell
         }
     }
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "HeaderView", forIndexPath: indexPath) as! SearchingHeaderCollectionReusableView
         
+        if kind == UICollectionElementKindSectionHeader {
+            let headerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "HeaderView", forIndexPath: indexPath) as! SearchingHeaderCollectionReusableView
+            headerView.delegate = self
+            
+            switch indexPath.section {
+            case 0:
+                headerView.backgroundColor = UIColor.whiteColor()
+                headerView.countChoose = 0
+                headerView.setData("历史记录", clearName: "清除", imageName: "select_qingchu", alpha: 1)
+            case 1:
+                headerView.backgroundColor = UIColor.whiteColor()
+                headerView.countChoose = 1
+                headerView.setData("热搜词", clearName: "换一换", imageName: "select_change", alpha: 1)
+            case 2:
+                headerView.backgroundColor = UIColor(red: 224.0 / 255.0, green: 224.0 / 255.0, blue: 224.0 / 255.0, alpha: 1.0)
+                headerView.setData("热搜榜", clearName: "", imageName: "select_change", alpha: 0)
+            default:
+                break
+            }
+            
+            return headerView
+            
+        } else {
+            switch indexPath.section {
+            case 2:
+                self.footerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionFooter, withReuseIdentifier: "FooterView", forIndexPath: indexPath) as! SearchingFooterCollectionReusableView
+                return self.footerView!
+            default:
+                let footerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionFooter, withReuseIdentifier: "FooterView", forIndexPath: indexPath) as! SearchingFooterCollectionReusableView
+                return footerView
+            }
+        }
+    }
+    
+    //delegate
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.section {
         case 0:
-            headerView.backgroundColor = UIColor.whiteColor()
-            headerView.titleLabel.text = "历史记录"
-            headerView.clearLabel.text = "清除"
+            self.searchName = myHotKeyData.rows[indexPath.row].categoryName
+            performSegueWithIdentifier(searchResultSegue, sender: self)
         case 1:
-            headerView.backgroundColor = UIColor.whiteColor()
-            headerView.titleLabel.text = "热搜词"
-            headerView.clearLabel.text = "换一换"
-        case 2:
-            headerView.backgroundColor = UIColor(red: 224.0 / 255.0, green: 224.0 / 255.0, blue: 224.0 / 255.0, alpha: 1.0)
-            headerView.titleLabel.text = "热搜榜"
-            headerView.clearLabel.alpha = 0
-            headerView.clearButton.alpha = 0
+            self.searchName = hotKeyData.rows[indexPath.row].categoryName
+            performSegueWithIdentifier(searchResultSegue, sender: self)
         default:
             break
         }
-        
-        return headerView
     }
     
     //flowLayout
@@ -148,14 +210,113 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
         return UIEdgeInsets(top: 1, left: 0, bottom: 1, right: 0)
     }
     
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        switch section {
+        case 2:
+            return CGSize(width: self.collectionView.bounds.width, height: 35)
+        default:
+            return CGSizeZero
+        }
+    }
+    
     //MARK: searchbar delegate 
     func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
         return true
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        self.searchName = self.searchbar.text!
         performSegueWithIdentifier(searchResultSegue, sender: self)
     }
+    
+    //MARK: scrollDelegate
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        searchbar.resignFirstResponder()
+        //下拉刷新
+        if self.footerView == nil || self.loading == true {
+            return
+        }
+        
+        if self.footerView!.frame.origin.y < (scrollView.contentOffset.y + scrollView.bounds.size.height) {
+            print("开始刷新")
+            self.loading = true
+            self.footerView?.activityView.startAnimating()
+            self.getHotListData(hotListPage)
+        }
+
+
+
+    }
+    
+    //代理方法
+    func dataChange(tag: Int) {
+        if tag == 0 {
+            print("清空")
+        } else if tag == 1 {
+            
+            self.getHotKeyData(hotKeyPage)
+        }
+    }
+    
+    
+    //MARK:网络请求
+    //历史搜索记录
+    func getMyHotKeyData() {
+        NetworkHealper.Get.receiveJSON(URLHealper.getMyHotKey.introduce()) { (dictionary, error) in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            self.myHotKeyData = HotKeyRoot(fromDictionary: dictionary!)
+            self.collectionView.reloadData()
+        }
+    }
+    //热搜词记录
+    func getHotKeyData(page: Int) {
+        //保证page不要超限
+        if self.hotKeyData != nil {
+            guard  page <= self.hotKeyData.pageCount else {
+                return
+            }
+        }
+        NetworkHealper.GetWithParm.receiveJSON(URLHealper.getHotKey.introduce(), parameter: ["pageIndex": page]) { (dictionary, error) in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            
+            self.hotKeyData = HotKeyRoot(fromDictionary: dictionary!)
+            self.hotKeyPage = self.hotKeyData.curPage + 1
+            self.collectionView.reloadData()
+
+        }
+    }
+    //热搜榜数据
+    func getHotListData(page: Int) {
+        //保证page不要超限
+        if self.hotListData != nil {
+            guard  page <= self.hotListData.pageCount else {
+                return
+            }
+        }
+        NetworkHealper.GetWithParm.receiveJSON(URLHealper.getPrByHotSearch.introduce(), parameter: ["pageIndex": page]) { (dictionary, error) in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            
+            self.hotListData = HotListRoot(fromDictionary: dictionary!)
+            self.hotListRows.appendContentsOf(self.hotListData.rows)
+            self.hotListPage = self.hotListData.curPage + 1
+            self.collectionView.reloadData()
+            //标记更新状态
+            self.footerView = nil
+            self.loading = false
+            
+        }
+    }
+    
     
 
 

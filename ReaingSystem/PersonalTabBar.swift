@@ -97,7 +97,7 @@ class PersonalTabBar: UIView {
     
     func defaultChange() {
         numberArray = numberArray.map({ (_)  in
-            false
+            true
         })
         
         selectionChange(itemButton1, imageName: "shujia_normal",isSelected: false)
@@ -110,7 +110,7 @@ class PersonalTabBar: UIView {
     
     func selectionChange(button: UIButton, imageName: String, isSelected: Bool) {
         button.selected = isSelected
-//        button.imageView?.image = UIImage(named: imageName)
+        button.imageView?.image = UIImage(named: imageName)
         button.setBackgroundImage(UIImage(named: imageName), forState: .Normal)
     }
 
