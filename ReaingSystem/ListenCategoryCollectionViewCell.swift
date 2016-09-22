@@ -11,4 +11,9 @@ import UIKit
 class ListenCategoryCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
+    
+    func setData(data: ListenCategoryChildren) {
+        titleLabel.text = data.categoryName
+        
+    }
 }

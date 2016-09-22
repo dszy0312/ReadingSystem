@@ -27,5 +27,11 @@ class ListenSequenceTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    func setData(data: ListenSequenceReturnData) {
+        titleLabel.text = data.categoryName
+        subtitleLabel.text = data.prList.first?.audioName
+        
+    }
 
 }

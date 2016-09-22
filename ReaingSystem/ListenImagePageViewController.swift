@@ -14,11 +14,8 @@ class ListenImagePageViewController: UIPageViewController, UIPageViewControllerD
     var customDelegate: ImagesShowDelegate?
     
     //轮播图
-    var imagesRow: [SelectRow]? = []
-    //选择分类
-    var classifyData: [SelectData]? = []
-    //楼层标志
-    var recommend: [SelectReturnData]? = []
+    var imageData: ListenFamousImageRoot!
+    var imageArray: [ListenFamousImageRow] = []
     //图片跳转计数
     var curIndex = 0
     //默认图片
@@ -26,13 +23,16 @@ class ListenImagePageViewController: UIPageViewController, UIPageViewControllerD
     //自动跳转
     var timer: NSTimer!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getSelectingMessage()
         
         dataSource = self
         delegate = self
         setAppearedImage(0, isAnimated: false)
-        customDelegate?.imagesDidLoaded(curIndex, total: imagesRow!.count)
+        customDelegate?.imagesDidLoaded(curIndex, total: imageArray.count)
         
         var scrollView: UIScrollView!
         for view in self.view.subviews {
@@ -52,12 +52,12 @@ class ListenImagePageViewController: UIPageViewController, UIPageViewControllerD
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-//        startTime()
+        startTime()
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-//        endTime()
+        endTime()
     }
     
     
@@ -67,12 +67,12 @@ class ListenImagePageViewController: UIPageViewController, UIPageViewControllerD
         guard var index = (viewController as! ImagesViewController).customIndex else {
             return nil
         }
-        guard imagesRow?.count != 0 else {
+        guard imageArray.count != 0 else {
             return nil
         }
         
         if index == 0 {
-            index = imagesRow!.count - 1
+            index = imageArray.count - 1
         } else {
             index -= 1
         }
@@ -86,11 +86,11 @@ class ListenImagePageViewController: UIPageViewController, UIPageViewControllerD
             return nil
         }
         
-        guard imagesRow?.count != 0 else {
+        guard imageArray.count != 0 else {
             return nil
         }
         
-        if index == self.imagesRow!.count - 1 {
+        if index == self.imageArray.count - 1 {
             index = 0
         } else {
             index += 1
@@ -104,15 +104,15 @@ class ListenImagePageViewController: UIPageViewController, UIPageViewControllerD
             return
         }
         curIndex = (pageViewController.viewControllers?.first as! ImagesViewController).customIndex
-        customDelegate?.imagesDidLoaded(curIndex, total: imagesRow!.count)
+        customDelegate?.imagesDidLoaded(curIndex, total: imageArray.count)
     }
     
     //MARK: ScrollView
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-//        self.endTime()
+        self.endTime()
     }
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//        self.startTime()
+        self.startTime()
     }
     //MARK: 私有方法
     
@@ -121,13 +121,13 @@ class ListenImagePageViewController: UIPageViewController, UIPageViewControllerD
         let storyboard = UIStoryboard.init(name: "ImageContent", bundle: NSBundle.mainBundle())
         
         let imagesVC = storyboard.instantiateViewControllerWithIdentifier("ImagesViewController_ID") as? ImagesViewController
-        if self.imagesRow!.count == 0 || index == self.imagesRow!.count {
-            imagesVC?.setImage("")
+        if self.imageArray.count == 0 || index == self.imageArray.count {
+            imagesVC?.customImageView.image = defaultImage
             imagesVC?.customIndex = 0
             
             return imagesVC
         } else {
-            imagesVC?.setImage(baseURl + imagesRow![index].bookOtherImg)
+            imagesVC?.customImageView.image = imageArray[index].imageData
             imagesVC?.customIndex = index
             return imagesVC
             
@@ -139,37 +139,83 @@ class ListenImagePageViewController: UIPageViewController, UIPageViewControllerD
         if let firstVC = self.viewControllersAtIndex(index) {
             self.setViewControllers([firstVC], direction: .Forward, animated: isAnimated, completion: nil)
             //向前传值
-            customDelegate?.imagesDidLoaded(index, total: self.imagesRow!.count)
+            customDelegate?.imagesDidLoaded(index, total: self.imageArray.count)
         }
         
     }
     //自动跳转图片
-//    func startTime() {
-//        guard imagesRow!.count >= 1 else {
-//            return
-//        }
-//        guard self.timer == nil else {
-//            self.timer = nil
-//            return
-//        }
-//        
-//        timer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: #selector(exchange), userInfo: nil, repeats: true)
-//    }
-//    func endTime() {
-//        timer.invalidate()
-//        self.timer = nil
-//    }
-//    //移动图片位置
-//    @objc private func exchange() {
-//        if curIndex == imagesRow!.count - 1 {
-//            curIndex = 0
-//        } else {
-//            curIndex += 1
-//            
-//        }
-//        setAppearedImage(curIndex, isAnimated: true)
-//    }
-//    
+    func startTime() {
+        guard imageArray.count >= 1 else {
+            return
+        }
+        guard self.timer == nil else {
+            self.timer = nil
+            return
+        }
+        
+        timer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: #selector(exchange), userInfo: nil, repeats: true)
+    }
+    func endTime() {
+        timer.invalidate()
+        self.timer = nil
+    }
+    //移动图片位置
+    @objc private func exchange() {
+        if curIndex == imageArray.count - 1 {
+            curIndex = 0
+        } else {
+            curIndex += 1
+            
+        }
+        setAppearedImage(curIndex, isAnimated: true)
+    }
+    
+    
+    //MARK: 网络请求
+    func getSelectingMessage() {
+        NetworkHealper.Get.receiveJSON(URLHealper.getVoiceLoopList.introduce()) { (dictionary, error) in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            //轮播图
+            self.imageData = ListenFamousImageRoot(fromDictionary: dictionary!)
+            self.imageArray = self.imageData.rows
+            
+            //向前传值
+            self.customDelegate?.imagesDidLoaded(self.curIndex, total: self.imageArray.count)
 
-
+            //设置当前页
+            self.setAppearedImage(0, isAnimated: false)
+            //开始自动换图
+            self.startTime()
+            //            //获取轮播图片
+            for i in 0..<self.imageArray.count {
+                let imageURL = baseURl + self.imageArray[i].audioOtherImgUrl
+                self.getImage(i, url: imageURL)
+            }
+            
+            
+        }
+        
+    }
+    //
+    //请求轮播标题图片
+    func getImage(index: Int, url: String){
+        NetworkHealper.Get.receiveData(url) { (data, error) in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            if let image = UIImage(data: data!) {
+                self.imageArray[index].imageData = image
+                //设置显示页
+                self.setAppearedImage(0, isAnimated: false)
+            } else {
+                print("不是图片")
+            }
+            
+        }
+    }
+    
 }

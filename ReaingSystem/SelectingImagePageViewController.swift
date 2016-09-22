@@ -164,7 +164,7 @@ class SelectingImagePageViewController: UIPageViewController, UIPageViewControll
             return
         }
 
-        timer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: #selector(exchange), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: #selector(exchange), userInfo: nil, repeats: true)
     }
     func endTime() {
         timer.invalidate()

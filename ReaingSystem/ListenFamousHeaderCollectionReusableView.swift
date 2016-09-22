@@ -8,7 +8,18 @@
 
 import UIKit
 
+protocol FamousHeaderDelegate {
+    func changeView()
+}
+
 class ListenFamousHeaderCollectionReusableView: UICollectionReusableView {
         
     @IBOutlet weak var titleLabel: UILabel!
+    
+    var delegate: FamousHeaderDelegate!
+    
+    @IBAction func moreClick(sender: UIButton) {
+        delegate.changeView()
+    }
+    
 }

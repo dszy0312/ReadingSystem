@@ -11,17 +11,14 @@ import UIKit
 private let reuseIdentifier = ["CategoryCell", "HeaderView"]
 
 class ListenCategoryCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    
+    //分类数据
+    var categoryData: ListenCategoryRoot!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-//        self.collectionView!.registerClass(ListenCategoryCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier[0])
-//        self.collectionView?.registerClass(ListenCategoryHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: reuseIdentifier[1])
-        // Do any additional setup after loading the view.
+        getListenCategory()
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,18 +40,23 @@ class ListenCategoryCollectionViewController: UICollectionViewController, UIColl
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        
+        return categoryData != nil ? categoryData.returnData.count : 0
     }
     
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 6
+        if let list = categoryData.returnData[section].children {
+            return list.count
+        } else {
+            return 0
+        }
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier[0], forIndexPath: indexPath) as! ListenCategoryCollectionViewCell
-        cell.titleLabel.text = "都市青春"
+        cell.setData(categoryData.returnData[indexPath.section].children[indexPath.row])
         
         // Configure the cell
         
@@ -65,7 +67,7 @@ class ListenCategoryCollectionViewController: UICollectionViewController, UIColl
         var headerView: ListenCategoryHeaderCollectionReusableView?
         if kind == UICollectionElementKindSectionHeader {
             headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: reuseIdentifier[1], forIndexPath: indexPath) as! ListenCategoryHeaderCollectionReusableView
-            headerView!.titleLabel.text = "有声"
+            headerView!.titleLabel.text = categoryData.returnData[indexPath.section].categoryName
         }
         
         return headerView!
@@ -91,35 +93,21 @@ class ListenCategoryCollectionViewController: UICollectionViewController, UIColl
         return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
     }
 
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
+    //网络请求
+    func getListenCategory() {
+        NetworkHealper.Get.receiveJSON(URLHealper.getVoiceCategory.introduce()) { (dictionary, error) in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            self.categoryData = ListenCategoryRoot(fromDictionary: dictionary!)
+            self.collectionView?.reloadData()
+            
+        }
+        
+        
     }
 
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-        return false
-    }
 
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
-    
-    }
-    */
 
 }

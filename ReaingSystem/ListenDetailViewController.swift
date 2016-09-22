@@ -22,6 +22,8 @@ class ListenDetailViewController: UIViewController, UITableViewDelegate, UITable
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
+    //音频数据
+    var audioData: ListenFPListRow!
     //简介
     var listenData: ListenReturnData!
     //选中章节
@@ -33,7 +35,7 @@ class ListenDetailViewController: UIViewController, UITableViewDelegate, UITable
         tableView.delegate = self
         tableView.dataSource = self
         segmentedControl.selectedSegmentIndex = 0
-        getListenDetail()
+        getListenDetail(audioData.audioID)
 
         // Do any additional setup after loading the view.
     }
@@ -50,7 +52,7 @@ class ListenDetailViewController: UIViewController, UITableViewDelegate, UITable
     
     
     @IBAction func backClick(sender: UIButton) {
-        
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -116,9 +118,9 @@ class ListenDetailViewController: UIViewController, UITableViewDelegate, UITable
     
     //MARK:网络请求
     //请求书架页面数据
-    func getListenDetail() {
+    func getListenDetail(id: String) {
         
-        NetworkHealper.GetWithParm.receiveJSON(URLHealper.getListenDetail.introduce(), parameter: ["audioID":"0086F37C-C410-45CD-A309-98270DCEC07E"]) { (dic, error) in
+        NetworkHealper.GetWithParm.receiveJSON(URLHealper.getListenDetail.introduce(), parameter: ["audioID": id]) { (dic, error) in
             let listenDetail = ListenWithDetail(fromDictionary: dic!)
             if listenDetail.flag == 1 {
                 self.listenData = listenDetail.returnData

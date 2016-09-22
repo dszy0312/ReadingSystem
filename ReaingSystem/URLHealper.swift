@@ -49,13 +49,25 @@ enum URLHealper {
     case getPrByHotSearch
     //查询搜索页面
     case doSearch
+    
+    //MARK:有声模块
     //听书推荐页面
     case getVoiceTJFloorData
     //听书分类页面
     case getVoiceCategory
+    //听书排行页面
+    case getVoiceRankList
+    //听书名家页面轮播
+    case getVoiceLoopList
+    //听书名家页面推荐的名人列表
+    case getVoiceTopAuthorList
+    //听书名家页面详情列表
+    case getVoiceAuthorList
+    //听书名家的个人信息
+    case getVoiceAuthorDetail
+    //听书名家的作品信息
+    case getVoiceListByAuthor
     
-    
-    //MARK:有声模块
     //获取详情
     case getListenDetail
     
@@ -105,6 +117,18 @@ enum URLHealper {
             return baseURl + "/voice/GetTJFloorData"
         case .getVoiceCategory:
             return baseURl + "/voice/GetCategory"
+        case .getVoiceRankList:
+            return baseURl + "/Voice/GetRankList"
+        case .getVoiceLoopList:
+            return baseURl + "/Voice/GetLoopList"
+        case .getVoiceTopAuthorList:
+            return baseURl + "/voice/GetTopAuthorList"
+        case .getVoiceAuthorList:
+            return baseURl + "/voice/GetAuthorList"
+        case .getVoiceAuthorDetail:
+            return baseURl + "/voice/GetAuthorDetail"
+        case .getVoiceListByAuthor:
+            return baseURl + "/voice/GetVoiceListByAuthor"
         }
     }
 }
