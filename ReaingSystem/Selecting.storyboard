@@ -58,7 +58,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="133" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TCf-zI-Tje">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="B8r-qW-ftO">
-                                    <rect key="frame" x="0.0" y="0.0" width="1000" height="300"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="YHC-cM-sJ7">
@@ -218,12 +218,12 @@
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ZRu-ti-EvD">
                                     <size key="itemSize" width="120" height="78"/>
                                     <size key="headerReferenceSize" width="50" height="50"/>
-                                    <size key="footerReferenceSize" width="50" height="35"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HistoryCell" id="cwz-8d-LMk" customClass="SearchingHistoryCollectionViewCell" customModule="ReaingSystem" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="95" width="120" height="78"/>
+                                        <rect key="frame" x="128" y="50" width="120" height="78"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="120" height="78"/>
@@ -246,7 +246,7 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ListCell" id="ORG-Pt-J22" customClass="SearchingDefaultListCollectionViewCell" customModule="ReaingSystem" customModuleProvider="target">
-                                        <rect key="frame" x="130" y="50" width="373" height="168"/>
+                                        <rect key="frame" x="1" y="138" width="373" height="168"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="373" height="168"/>
@@ -333,7 +333,7 @@
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LoadingCell" id="7iQ-Is-gV5" customClass="SearchingDefaultListCollectionViewCell" customModule="ReaingSystem" customModuleProvider="target">
-                                        <rect key="frame" x="513" y="50" width="373" height="168"/>
+                                        <rect key="frame" x="1" y="316" width="373" height="168"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="373" height="168"/>
@@ -380,7 +380,7 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HeaderView" id="APj-nT-f70" customClass="SearchingHeaderCollectionReusableView" customModule="ReaingSystem" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="1000" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="历史记录" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esf-xb-i9A">
@@ -416,20 +416,6 @@
                                         <outlet property="clearButton" destination="fob-UC-o2I" id="Cm7-UM-jTR"/>
                                         <outlet property="clearLabel" destination="4tR-bc-lCi" id="uuQ-20-ZX0"/>
                                         <outlet property="titleLabel" destination="esf-xb-i9A" id="4gU-rY-tzy"/>
-                                    </connections>
-                                </collectionReusableView>
-                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FooterView" id="LaH-fl-3aa" customClass="SearchingFooterCollectionReusableView" customModule="ReaingSystem" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="218" width="1000" height="35"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="E4d-rl-3mj"/>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="E4d-rl-3mj" firstAttribute="centerY" secondItem="LaH-fl-3aa" secondAttribute="centerY" id="HCo-cp-V8I"/>
-                                        <constraint firstItem="E4d-rl-3mj" firstAttribute="centerX" secondItem="LaH-fl-3aa" secondAttribute="centerX" id="fIE-TW-U8Q"/>
-                                    </constraints>
-                                    <connections>
-                                        <outlet property="activityView" destination="E4d-rl-3mj" id="EpM-tL-9Lr"/>
                                     </connections>
                                 </collectionReusableView>
                             </collectionView>
@@ -564,24 +550,17 @@
                             </containerView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="122" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qiT-pt-cto">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <view key="tableFooterView" contentMode="scaleToFill" id="oVQ-Ib-75n">
+                                <view key="tableFooterView" contentMode="scaleToFill" id="JI5-AG-JTZ" customClass="FooterLoadingView" customModule="ReaingSystem" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="150" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="4JT-TW-hKi"/>
-                                    </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstItem="4JT-TW-hKi" firstAttribute="centerY" secondItem="oVQ-Ib-75n" secondAttribute="centerY" id="mAr-4o-EDg"/>
-                                        <constraint firstItem="4JT-TW-hKi" firstAttribute="centerX" secondItem="oVQ-Ib-75n" secondAttribute="centerX" id="mW5-bg-IQM"/>
-                                    </constraints>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ResultCell" rowHeight="122" id="mck-1A-xS0" customClass="SearchingResultTableViewCell" customModule="ReaingSystem" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="122"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mck-1A-xS0" id="32E-PD-vQ2">
-                                            <frame key="frameInset" width="375" height="122"/>
+                                            <frame key="frameInset" width="375" height="121"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="goG-eY-2N6">
@@ -682,11 +661,10 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="activity" destination="4JT-TW-hKi" id="YY4-kF-a8i"/>
                         <outlet property="classifyButton" destination="opz-Vl-62u" id="1fc-jW-1FX"/>
                         <outlet property="classifyImage" destination="Ovj-xh-37d" id="icq-cN-u5T"/>
                         <outlet property="containerView" destination="YCi-wC-abX" id="QWE-KX-S03"/>
-                        <outlet property="footerView" destination="oVQ-Ib-75n" id="Bi8-s3-2qk"/>
+                        <outlet property="footerView" destination="JI5-AG-JTZ" id="F8s-z1-ohH"/>
                         <outlet property="searchBar" destination="Kkk-3M-FFu" id="1Ud-CF-hCG"/>
                         <outlet property="sequenceButton" destination="fc5-C2-gmt" id="IT8-gh-D79"/>
                         <outlet property="sequenceImage" destination="Rrd-Xf-xSM" id="HM0-yg-hYE"/>
@@ -695,7 +673,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wkg-Rk-Gkm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2145" y="186"/>
+            <point key="canvasLocation" x="2144.8000000000002" y="185.75712143928038"/>
         </scene>
         <!--Selecting Image Page View Controller-->
         <scene sceneID="uK4-F0-LZ1">
@@ -730,7 +708,7 @@
                                         <rect key="frame" x="0.0" y="28" width="1000" height="35"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FyT-KH-pel" id="wnV-6X-AD7">
-                                            <frame key="frameInset" width="1000" height="35"/>
+                                            <frame key="frameInset" width="1000" height="34"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="所有频道" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1sV-Dh-lB0">
@@ -825,7 +803,7 @@
                                         <rect key="frame" x="0.0" y="28" width="1000" height="88"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xTd-EH-Iwi" id="d8v-OU-dbz">
-                                            <frame key="frameInset" width="1000" height="88"/>
+                                            <frame key="frameInset" width="1000" height="87"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="listen_paihang_test" translatesAutoresizingMaskIntoConstraints="NO" id="bxC-ZH-6fl">
@@ -983,7 +961,7 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HeaderView" id="6VI-dS-arX" customClass="SelectingSexHeaderCollectionReusableView" customModule="ReaingSystem" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="1000" height="30"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="精品小听" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="odi-zD-Xok">

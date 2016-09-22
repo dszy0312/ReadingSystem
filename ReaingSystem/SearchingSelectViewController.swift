@@ -80,6 +80,7 @@ class SearchingSelectViewController: UIViewController, UITableViewDelegate, UITa
                 toVC.sequenceImage.transform = CGAffineTransformMakeRotation(CGFloat(2 * M_PI))
                 toVC.classifyImage.transform = CGAffineTransformMakeRotation(CGFloat(2 * M_PI))
                 toVC.listRows = []
+                toVC.page = 1
                 toVC.getNetworkData(selectedID, order: "", key: toVC.searchName)
                 
             case 1:
@@ -88,6 +89,7 @@ class SearchingSelectViewController: UIViewController, UITableViewDelegate, UITa
                 toVC.sequenceImage.transform = CGAffineTransformMakeRotation(CGFloat(2 * M_PI))
                 toVC.classifyImage.transform = CGAffineTransformMakeRotation(CGFloat(2 * M_PI))
                 toVC.listRows = []
+                toVC.page = 1
                 toVC.getNetworkData("", order: selectedID, key: toVC.searchName)
             default:
                 break

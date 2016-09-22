@@ -8,6 +8,8 @@
 
 import UIKit
 
+private var reuseIdentifier = ["ShowSearchingSegue","FooterLoadingView"]
+
 class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, SearchingChangeDataDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
@@ -31,9 +33,11 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
     //热搜榜当前页
     var hotListPage = 1
     // 底部视图
-    var footerView: SearchingFooterCollectionReusableView?
+    var footerView: FooterLoadingCollectionReusableView?
     //是否正在加载数据标记
     var loading = false
+    //是否需要下拉刷新
+    var canLoad = false
     //查询记录
     var searchName = ""
 
@@ -56,6 +60,8 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
         super.viewWillAppear(animated)
         searchbar.delegate = self
         searchbar.becomeFirstResponder()
+
+        collectionView.registerNib(UINib(nibName: "FooterLoadingCollectionReusableView",bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: reuseIdentifier[1])
         
     }
     override func viewDidDisappear(animated: Bool) {
@@ -161,12 +167,13 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
             return headerView
             
         } else {
+            
             switch indexPath.section {
             case 2:
-                self.footerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionFooter, withReuseIdentifier: "FooterView", forIndexPath: indexPath) as! SearchingFooterCollectionReusableView
+                self.footerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionFooter, withReuseIdentifier: reuseIdentifier[1], forIndexPath: indexPath) as! FooterLoadingCollectionReusableView
                 return self.footerView!
             default:
-                let footerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionFooter, withReuseIdentifier: "FooterView", forIndexPath: indexPath) as! SearchingFooterCollectionReusableView
+                let footerView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionFooter, withReuseIdentifier: reuseIdentifier[1], forIndexPath: indexPath) as! FooterLoadingCollectionReusableView
                 return footerView
             }
         }
@@ -234,15 +241,14 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
     func scrollViewDidScroll(scrollView: UIScrollView) {
         searchbar.resignFirstResponder()
         //下拉刷新
-        if self.footerView == nil || self.loading == true {
+        if canLoad == false || self.loading == true || self.footerView == nil {
             return
         }
-        
         if self.footerView!.frame.origin.y < (scrollView.contentOffset.y + scrollView.bounds.size.height) {
             print("开始刷新")
             self.loading = true
-            self.footerView?.activityView.startAnimating()
-            self.getHotListData(hotListPage)
+            self.footerView?.begain()
+            self.addHotListData(hotListPage + 1)
         }
 
 
@@ -256,6 +262,17 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
         } else if tag == 1 {
             
             self.getHotKeyData(hotKeyPage)
+        }
+    }
+    
+    //MARK: 私有方法
+    //判断是否需要加载
+    func decideLoading(cur: Int, total: Int) {
+        if cur < total {
+            self.canLoad = true
+        } else {
+            self.canLoad = false
+            print("没有更多数据")
         }
     }
     
@@ -294,12 +311,7 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
     }
     //热搜榜数据
     func getHotListData(page: Int) {
-        //保证page不要超限
-        if self.hotListData != nil {
-            guard  page <= self.hotListData.pageCount else {
-                return
-            }
-        }
+
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.getPrByHotSearch.introduce(), parameter: ["pageIndex": page]) { (dictionary, error) in
             guard error == nil else {
                 print(error)
@@ -308,13 +320,34 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
             
             self.hotListData = HotListRoot(fromDictionary: dictionary!)
             self.hotListRows.appendContentsOf(self.hotListData.rows)
-            self.hotListPage = self.hotListData.curPage + 1
+            self.decideLoading(self.hotListRows.count, total: self.hotListData.totalCount)
+            self.hotListPage = self.hotListData.curPage
             self.collectionView.reloadData()
-            //标记更新状态
-            self.footerView = nil
+ 
+        }
+    }
+    
+    func addHotListData(page: Int) {
+        NetworkHealper.GetWithParm.receiveJSON(URLHealper.getPrByHotSearch.introduce(), parameter: ["pageIndex": page]) { (dictionary, error) in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            
+            self.hotListData = HotListRoot(fromDictionary: dictionary!)
+            self.hotListRows.appendContentsOf(self.hotListData.rows)
+            print("\(self.hotListRows.count),\(self.hotListData.totalCount)")
+            self.decideLoading(self.hotListRows.count, total: self.hotListData.totalCount)
+            self.hotListPage = self.hotListData.curPage
+            self.footerView!.end()
             self.loading = false
+            self.footerView = nil
+            self.collectionView.reloadData()
+            
+            //标记更新状态
             
         }
+
     }
     
     

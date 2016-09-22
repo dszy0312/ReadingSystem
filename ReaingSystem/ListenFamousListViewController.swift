@@ -109,7 +109,6 @@ class ListenFamousListViewController: UIViewController, UITableViewDataSource, U
             }
             self.famousData = ListenFamousRoot(fromDictionary: dictionary!)
             self.famousArray.appendContentsOf(self.famousData.rows)
-            print(self.famousArray[0].authorID)
             self.decideLoading(self.famousArray.count, total: self.famousData.totalCount)
             self.tableView.reloadData()
             
@@ -131,7 +130,7 @@ class ListenFamousListViewController: UIViewController, UITableViewDataSource, U
             
         }
     }
-
+    //MARK: 私有方法
     //判断是否需要加载
     func decideLoading(cur: Int, total: Int) {
         if cur < total {

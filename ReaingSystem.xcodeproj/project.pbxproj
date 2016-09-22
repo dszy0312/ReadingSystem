@@ -103,6 +103,8 @@
 		986CD5D61D927F41008D15FE /* ListenFPListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986CD5D41D927F41008D15FE /* ListenFPListRow.swift */; };
 		986CD5DF1D929752008D15FE /* FooterLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 986CD5DE1D929752008D15FE /* FooterLoadingView.xib */; };
 		986CD5E11D92977E008D15FE /* FooterLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986CD5E01D92977E008D15FE /* FooterLoadingView.swift */; };
+		986CD6071D9388EA008D15FE /* FooterLoadingCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986CD6051D9388EA008D15FE /* FooterLoadingCollectionReusableView.swift */; };
+		986CD6081D9388EA008D15FE /* FooterLoadingCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 986CD6061D9388EA008D15FE /* FooterLoadingCollectionReusableView.xib */; };
 		98710BAB1D7429B8000614E0 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98710BAA1D7429B8000614E0 /* CategoryViewController.swift */; };
 		98710BAE1D742E78000614E0 /* CategoryImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98710BAD1D742E78000614E0 /* CategoryImageCollectionViewCell.swift */; };
 		98710BB01D742E8E000614E0 /* CategoryTitleCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98710BAF1D742E8E000614E0 /* CategoryTitleCollectionViewCell.swift */; };
@@ -285,6 +287,8 @@
 		986CD5D41D927F41008D15FE /* ListenFPListRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenFPListRow.swift; sourceTree = "<group>"; };
 		986CD5DE1D929752008D15FE /* FooterLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FooterLoadingView.xib; sourceTree = "<group>"; };
 		986CD5E01D92977E008D15FE /* FooterLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FooterLoadingView.swift; sourceTree = "<group>"; };
+		986CD6051D9388EA008D15FE /* FooterLoadingCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FooterLoadingCollectionReusableView.swift; sourceTree = "<group>"; };
+		986CD6061D9388EA008D15FE /* FooterLoadingCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FooterLoadingCollectionReusableView.xib; sourceTree = "<group>"; };
 		98710BAA1D7429B8000614E0 /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		98710BAD1D742E78000614E0 /* CategoryImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		98710BAF1D742E8E000614E0 /* CategoryTitleCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryTitleCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -616,6 +620,8 @@
 			children = (
 				986CD5DE1D929752008D15FE /* FooterLoadingView.xib */,
 				986CD5E01D92977E008D15FE /* FooterLoadingView.swift */,
+				986CD6051D9388EA008D15FE /* FooterLoadingCollectionReusableView.swift */,
+				986CD6061D9388EA008D15FE /* FooterLoadingCollectionReusableView.xib */,
 			);
 			name = loading;
 			sourceTree = "<group>";
@@ -1052,6 +1058,7 @@
 				98B1EAEB1D4EF34C00DD494A /* Paper.storyboard in Resources */,
 				98B1EAED1D4EF35900DD494A /* Find.storyboard in Resources */,
 				984D26B31D87F38B00343145 /* Podfile in Resources */,
+				986CD6081D9388EA008D15FE /* FooterLoadingCollectionReusableView.xib in Resources */,
 				986CD5DF1D929752008D15FE /* FooterLoadingView.xib in Resources */,
 				98D9CB311D615EA500510E08 /* SelectingDetailTableViewCell.xib in Resources */,
 			);
@@ -1195,6 +1202,7 @@
 				986CD5AB1D92147C008D15FE /* ListenCategoryReturnData.swift in Sources */,
 				98949D3F1D757C8C001FD433 /* FindHeaderCollectionReusableView.swift in Sources */,
 				98C1868B1D6D704C008FCB15 /* SelectData.swift in Sources */,
+				986CD6071D9388EA008D15FE /* FooterLoadingCollectionReusableView.swift in Sources */,
 				981C9F131D8F8B93000FCC6C /* HotKeyRoot.swift in Sources */,
 				980301E41D80F97100180FDA /* TopListTableViewCell.swift in Sources */,
 				98C186731D6C3426008FCB15 /* DeleteMyShelfViewController.swift in Sources */,

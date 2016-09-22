@@ -12,5 +12,6 @@ class SearchingFooterCollectionReusableView: UICollectionReusableView {
     
     @IBOutlet weak var activityView: UIActivityIndicatorView!
     
+    @IBOutlet weak var loadingLabel: UILabel!
         
 }

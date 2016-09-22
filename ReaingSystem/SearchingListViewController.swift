@@ -88,10 +88,8 @@ class SearchingListViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var classifyImage: UIImageView!
     
     @IBOutlet weak var sequenceImage: UIImageView!
-    
-    @IBOutlet weak var activity: UIActivityIndicatorView!
-    
-    @IBOutlet weak var footerView: UIView!
+    //底边加载视图
+    @IBOutlet weak var footerView: FooterLoadingView!
     
     var selectNameArray: [String] = []
     
@@ -111,8 +109,13 @@ class SearchingListViewController: UIViewController, UITableViewDelegate, UITabl
     var listData: HotListRoot!
     //搜索数据数组
     var listRows: [HotListRow] = []
-    //搜索数据加载中
+    //是否需要下拉刷新
+    var canLoad = false
+    //是否正在刷新中
     var loading = false
+    
+    //搜索数据当前页
+    var page = 1
     
     //分类选择数组
     var classifyArray = [SearchingListClassify.All,SearchingListClassify.Novel,SearchingListClassify.Journal,SearchingListClassify.Paper,SearchingListClassify.Listen]
@@ -124,11 +127,7 @@ class SearchingListViewController: UIViewController, UITableViewDelegate, UITabl
     var type = ""
     //排行
     var order = ""
-    //当前页码
-    var page = 1
-    
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -230,22 +229,16 @@ class SearchingListViewController: UIViewController, UITableViewDelegate, UITabl
     
     //当数据不足一屏幕是会出错，等待解决
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        if self.loading == true {
-            return
-        }
-        //如果数据太少，不够一屏幕，返回
-        if self.footerView!.frame.origin.y + 10 < (scrollView.contentOffset.y + scrollView.bounds.size.height)  {
+        if canLoad == false || loading == true {
             return
         }
         
-        if self.footerView!.frame.origin.y < (scrollView.contentOffset.y + scrollView.bounds.size.height)  {
+        if self.footerView!.frame.origin.y + self.footerView!.frame.height < (scrollView.contentOffset.y + scrollView.bounds.size.height)  {
             print("开始刷新")
             self.loading = true
-            self.activity.startAnimating()
-            self.activity.alpha = 1
+            self.footerView!.begain()
             self.addingNetWorkData(self.page + 1)
         }
-        
 
     }
     
@@ -261,6 +254,15 @@ class SearchingListViewController: UIViewController, UITableViewDelegate, UITabl
         return searchingSelectVC
     }
     
+    func decideLoading(cur: Int, total: Int) {
+        if cur < total {
+            self.canLoad = true
+        } else {
+            self.canLoad = false
+            print("没有更多数据")
+        }
+    }
+
     //MARK:网络请求
     //历史搜索记录
     func getNetworkData(type: String, order: String, key: String) {
@@ -287,8 +289,8 @@ class SearchingListViewController: UIViewController, UITableViewDelegate, UITabl
             }
             
             self.listData = HotListRoot(fromDictionary: dictionary!)
-            self.listRows = self.listData.rows
-            
+            self.listRows.appendContentsOf(self.listData.rows)
+            self.decideLoading(self.listRows.count, total: self.listData.totalCount)
             self.tableView.reloadData()
             self.tableView.contentOffset.y = 0
         }
@@ -296,16 +298,6 @@ class SearchingListViewController: UIViewController, UITableViewDelegate, UITabl
     
     func addingNetWorkData(page: Int) {
         self.page = page
-        
-        //保证page不要超限
-        if self.listData != nil {
-            guard  page <= self.listData.pageCount - 1 else {
-                //取消加载动画
-                self.activity.stopAnimating()
-                self.activity.alpha = 0
-                return
-            }
-        }
         
         let parm: [String: AnyObject] = [
             "type": self.type,
@@ -324,9 +316,8 @@ class SearchingListViewController: UIViewController, UITableViewDelegate, UITabl
             self.listRows.appendContentsOf(self.listData.rows)
             //取消加载动画
             self.loading = false
-            self.activity.stopAnimating()
-            self.activity.alpha = 0
-            
+            self.decideLoading(self.listRows.count, total: self.listData.totalCount)
+            self.footerView.end()
             self.tableView.reloadData()
             
         }
