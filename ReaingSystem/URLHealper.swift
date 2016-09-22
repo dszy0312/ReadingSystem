@@ -67,9 +67,13 @@ enum URLHealper {
     case getVoiceAuthorDetail
     //听书名家的作品信息
     case getVoiceListByAuthor
-    
     //获取详情
     case getListenDetail
+    //MARK: 分类
+    //分类页面
+    case getCategory
+    //分类页面获取子分类书籍列表(参数：pageindex:页数 categoryID:子类型id)
+    case getStoryList
     
     func introduce() -> String {
         switch self {
@@ -129,6 +133,10 @@ enum URLHealper {
             return baseURl + "/voice/GetAuthorDetail"
         case .getVoiceListByAuthor:
             return baseURl + "/voice/GetVoiceListByAuthor"
+        case .getCategory:
+            return baseURl + "/story/GetCategory"
+        case .getStoryList:
+            return baseURl + "/story/GetStoryList"
         }
     }
 }
