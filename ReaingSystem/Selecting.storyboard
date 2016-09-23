@@ -704,11 +704,11 @@
                                     <constraint firstAttribute="height" constant="200" id="f12-Zf-0nE"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="35" id="FyT-KH-pel" customClass="SearchingSelectTableViewCell" customModule="ReaingSystem" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="1000" height="35"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="35" id="FyT-KH-pel" customClass="SearchingSelectTableViewCell" customModule="ReaingSystem" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="35"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FyT-KH-pel" id="wnV-6X-AD7">
-                                            <frame key="frameInset" width="1000" height="34"/>
+                                            <frame key="frameInset" width="375" height="34"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="所有频道" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1sV-Dh-lB0">
@@ -800,10 +800,10 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TopListCell" rowHeight="88" id="xTd-EH-Iwi" customClass="TopListTableViewCell" customModule="ReaingSystem" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="1000" height="88"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="88"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xTd-EH-Iwi" id="d8v-OU-dbz">
-                                            <frame key="frameInset" width="1000" height="87"/>
+                                            <frame key="frameInset" width="375" height="87"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="listen_paihang_test" translatesAutoresizingMaskIntoConstraints="NO" id="bxC-ZH-6fl">

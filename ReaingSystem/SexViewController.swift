@@ -60,9 +60,7 @@ class SexViewController: UIViewController {
     
     
     func setTransitionPoint(selected: UIButton) {
-        
-        transitionDelegate.imageView.center = selected.center
-        transitionDelegate.imageView.bounds = selected.bounds
+        transitionDelegate.imageView.frame = selected.frame
         transitionDelegate.imageView.image = selected.currentBackgroundImage
         
         

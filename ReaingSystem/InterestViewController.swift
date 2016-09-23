@@ -55,10 +55,15 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        print("真实数据：\(sexButton.center),\(sexButton.frame)")
+    }
+    
     //转场准备
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == segueIdentifier {
-            let newVC = segue.destinationViewController as! UITabBarController
+            let newVC = segue.destinationViewController as! PersonalCenterViewController
             newVC.transitioningDelegate = transitionDelegate
             newVC.modalPresentationStyle = .Custom
         }

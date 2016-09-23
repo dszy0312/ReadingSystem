@@ -9,13 +9,13 @@
 import UIKit
 
 class MaskPresentTationController: UIPresentationController {
-
+    //记录前页图片位置
     var imageView = UIImageView()
-    
+    //进行移动的视图
     var changeView = UIImageView()
-    
+    //遮罩
     var dimmingView = UIView()
-
+    
     var toPointBounds = CGRect()
     
     
@@ -24,21 +24,23 @@ class MaskPresentTationController: UIPresentationController {
         self.containerView?.addSubview(changeView)
         containerView?.addSubview(dimmingView)
         containerView?.bringSubviewToFront(changeView)
-        containerView?.sendSubviewToBack(dimmingView)
         
         dimmingView.frame = containerView!.frame
         dimmingView.backgroundColor = UIColor.whiteColor()
-        changeView.center = imageView.center
-        changeView.bounds = imageView.bounds
+        changeView.frame = imageView.frame
         changeView.image = imageView.image
         
         print(imageView.center)
         
         var toVC = self.presentedViewController as! InterestViewController
+        print("\(toVC.sexButton.bounds),\(toVC.sexButton.center)")
         presentedViewController.transitionCoordinator()?.animateAlongsideTransition({ (_) in
-            self.changeView.bounds = toVC.sexButton.bounds
-            self.changeView.center = toVC.sexButton.center
-            }, completion: nil)
+            //toVC子类赋值在动画之后，xcode升级之后发生的变化，暂时写死
+            self.changeView.frame = CGRect(x: 22.0, y: 40.0, width: 40.0, height: 40.0)
+           
+            }, completion: { (_) in
+
+        })
     }
     
     override func presentationTransitionDidEnd(completed: Bool) {
@@ -51,9 +53,7 @@ class MaskPresentTationController: UIPresentationController {
         changeView.alpha = 1
         dimmingView.alpha = 1
         presentedViewController.transitionCoordinator()?.animateAlongsideTransition({ (_) in
-                self.changeView.center = self.imageView.center
-                self.changeView.bounds = self.imageView.bounds
-                self.changeView.image = self.imageView.image
+                self.changeView.frame = self.imageView.frame
             }, completion: nil)
     }
     override func dismissalTransitionDidEnd(completed: Bool) {

@@ -9,6 +9,10 @@
 import UIKit
 import Kingfisher
 
+protocol sendSelectingDataDelegate {
+    func dataChanged(data: [ReadedData], id: String)
+}
+
 class SelectingDetailTableViewCell: UITableViewCell {
     
 
@@ -16,11 +20,12 @@ class SelectingDetailTableViewCell: UITableViewCell {
     
     @IBOutlet weak var cellTitle: UILabel!
     
+    var delegate: sendSelectingDataDelegate!
+    
     var defaultTitle = ""
     var recommendTitle = ""
     var categoryID = ""
     var count = 0
-    var isLoaded = false
     
 //    //阅读过的书籍推荐
 //    var readedData: [ReadedData]?
@@ -37,22 +42,15 @@ class SelectingDetailTableViewCell: UITableViewCell {
     }
     
     @IBAction func changeAction(sender: UIButton) {
-        if isLoaded == true {
-            isLoaded = false
+
             if count == 0 {
                 self.getReadedData()
             } else {
                 self.getRecommendData(categoryID)
             }
-        } else {
-            print("等一等")
-        }
-        
-        
     }
     
-    private func setBookData(readedData: [ReadedData], title: String) {
-        
+    func setBookData(readedData: [ReadedData]) {
         for i in 0..<bookImages.count {
             if readedData[i].bookImg == nil {
                 bookImages[i].image = UIImage(named: "bookLoading")
@@ -77,21 +75,21 @@ class SelectingDetailTableViewCell: UITableViewCell {
                 return
             }
             let readedAdvice = ReadedAdvice(fromDictionary: dictionary!)
-            self.setBookData(readedAdvice.data, title: self.defaultTitle)
+            self.setBookData(readedAdvice.data)
             self.cellTitle.text = "读过《\(self.defaultTitle)》的人还读过"
-            self.isLoaded = true
+            self.delegate.dataChanged(readedAdvice.data, id: "0")
         }
     }
     //获取分类推荐
     func getRecommendData(id: String) {
-        NetworkHealper.Get.receiveJSON(URLHealper.getStoryListByCategory.introduce()) { (dictionary, error) in
+        NetworkHealper.Get.receiveJSON(URLHealper.getStoryListByCategory.introduce(), parameter: ["categoryID" : id]) { (dictionary, error) in
             guard error == nil else {
                 print(error)
                 return
             }
             let readedAdvice = ReadedAdvice(fromDictionary: dictionary!)
-            self.setBookData(readedAdvice.data, title: self.defaultTitle)
-            self.isLoaded = true
+            self.setBookData(readedAdvice.data)
+            self.delegate.dataChanged(readedAdvice.data, id: self.categoryID)
         }
     }
 }

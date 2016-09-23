@@ -114,7 +114,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Item" id="TDa-qk-0T3"/>
                     </navigationItem>
                     <connections>
-                        <segue destination="skg-ij-bKi" kind="show" identifier="DetailSegue" id="iiT-cy-Fd4">
+                        <segue destination="a0l-7N-FBl" kind="show" identifier="DetailSegue" id="iiT-cy-Fd4">
                             <nil key="action"/>
                         </segue>
                     </connections>
@@ -290,7 +290,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2k9-Ce-VO4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4249" y="227"/>
+            <point key="canvasLocation" x="5030" y="226"/>
         </scene>
         <!--Title-->
         <scene sceneID="Oc7-Si-pFD">
@@ -338,7 +338,25 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EXs-3f-UOw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5122" y="226"/>
+            <point key="canvasLocation" x="6060" y="225.33733133433284"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="keM-2N-fkE">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="a0l-7N-FBl" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xrb-3b-iwb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="skg-ij-bKi" kind="relationship" relationship="rootViewController" id="Nd2-NU-wan"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hfj-jY-3In" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4248.8000000000002" y="226.23688155922042"/>
         </scene>
     </scenes>
     <resources>

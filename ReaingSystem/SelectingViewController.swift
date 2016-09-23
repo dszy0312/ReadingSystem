@@ -15,7 +15,7 @@ enum Direction {
 }
 
 
-class SelectingViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource, ImagesShowDelegate, UISearchBarDelegate {
+class SelectingViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource, ImagesShowDelegate, UISearchBarDelegate, sendSelectingDataDelegate{
 
     //页面跳转控制器
     @IBOutlet weak var pageController: UIPageControl!
@@ -42,6 +42,8 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     //阅读过的书籍推荐
     var readedTitle: String?
     var readedData: [ReadedData]?
+    //楼层字典
+    var readDictionary: [String : [ReadedData]] = [:]
  
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -173,6 +175,7 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("DetailCell") as! SelectingDetailTableViewCell
+        cell.delegate = self
         for index in cell.bookImages {
             index.layer.shadowOpacity = 0.5
             index.layer.shadowOffset = CGSize(width: 0, height: 3)
@@ -182,11 +185,11 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
             if let readedData = self.readedData {
                 if let readedTitle = self.readedTitle {
                     cell.defaultTitle = readedTitle
-                    cell.isLoaded = true
                     cell.count = 0
-//                    cell.setBookData(readedData, title: readedTitle)
-                    cell.getReadedData()
-                    
+                    if readDictionary["\(cell.count)"] != nil {
+                        cell.setBookData(readDictionary["\(cell.count)"]!)
+                        cell.cellTitle.text = "读过《\(cell.defaultTitle)》的人还读过"
+                    }
                 }
             }
         } else {
@@ -194,7 +197,11 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
                 cell.count = indexPath.row
                 cell.categoryID = recommend[indexPath.row - 1].categoryID
                 cell.recommendTitle = recommend[indexPath.row - 1].categoryName
-                cell.setRecommend(recommend[indexPath.row - 1])
+                if readDictionary[recommend[indexPath.row - 1].categoryID] != nil {
+                    cell.setBookData(readDictionary[recommend[indexPath.row - 1].categoryID]!)
+                    cell.cellTitle.text = recommend[indexPath.row - 1].categoryName
+                }
+        
                 
             }
         }
@@ -214,13 +221,18 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         return false
     }
     
-    //自定义代理    
+    //自定义代理  
+    //ImagesShowDelegate
     func selectDataLoaded(data: SelectRootData) {
         self.classifyData = data.data
         self.recommend = data.returnData
-        self.readedTitle = data.data2
+        self.readedTitle = data.data2 
         collectionView.reloadData()
         tableView.reloadData()
+        getReadedData()
+        for index in recommend! {
+            getRecommendData(index.categoryID)
+        }
     }
     
     func imagesDidLoaded(index: Int, total: Int) {
@@ -232,6 +244,11 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
             pageController.currentPage = index
         }
     }
+    //sendSelectedDelegate
+    func dataChanged(data: [ReadedData], id: String) {
+        self.readDictionary[id] = data
+    }
+    
     
     //MARK：私有方法
     //页面跳转方法
@@ -263,6 +280,32 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         
         
     }
+    
+    //获取已读推荐
+    func getReadedData() {
+        NetworkHealper.Get.receiveJSON(URLHealper.getStoryByReadedURL.introduce()) { (dictionary, error) in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            let readedAdvice = ReadedAdvice(fromDictionary: dictionary!)
+            self.readDictionary["0"] = readedAdvice.data
+            self.tableView.reloadData()
+        }
+    }
+    //获取分类推荐
+    func getRecommendData(id: String) {
+        NetworkHealper.GetWithParm.receiveJSON(URLHealper.getStoryListByCategory.introduce(), parameter: ["categoryID": id]) { (dictionary, error) in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            let readedAdvice = ReadedAdvice(fromDictionary: dictionary!)
+            self.readDictionary[id] = readedAdvice.data
+            self.tableView.reloadData()
+        }
+    }
+
     
 
 
