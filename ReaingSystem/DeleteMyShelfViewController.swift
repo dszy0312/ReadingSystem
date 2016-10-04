@@ -30,6 +30,8 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
     weak var delegate: DeleteMyShelfDelegate!
     //要删除的book位值集合
     var index: Set<Int>? = []
+    //选中的单元格
+    var selectedRow: Int!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,9 +48,7 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
 
     @IBAction func deleteClick(sender: UIButton) {
         if index != [] {
-            delegate.valueOfContentOffSet(collectionView.contentOffset)
-            delegate.deleteItem(index!)
-            dismissViewControllerAnimated(true, completion: nil)
+            deleteSend()
         }
     }
 
@@ -70,37 +70,30 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! DeleteMyShelfCollectionViewCell
+        
         if indexPath.row == collectionView.numberOfItemsInSection(0) - 1 {
             cell.bookNameLabel.text = ""
             cell.bookImageView.image = UIImage(named: "addbook")
         } else {
+            if indexPath.row == selectedRow {
+                cell.isChosed = true
+                cell.checkedImage.image = UIImage(named: "checkbox_checked")
+                index?.insert(indexPath.row)
+            }
             //显示书架数据
-            cell.bookNameLabel.text = myBooks![indexPath.row].bookName
-            cell.bookImageView.image = myBooks![indexPath.row].bookImgData
+           cell.setData(self.myBooks![indexPath.row])
             
         }
-        
-        //阴影设置
-        cell.bookImageView.layer.shadowOpacity = 0.5
-        cell.bookImageView.layer.shadowOffset = CGSize(width: 0, height: 3)
-        cell.bookImageView.layer.shadowRadius = 2
+
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         let headView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "HeadView", forIndexPath: indexPath) as! MyShelfCollectionReusableView
         //UI配置
-        if let readedBook = self.readedBook {
-            headView.bookImageView.image = readedBook.first?.bookImgData
-            headView.bookTitleLabel.text = readedBook.first?.bookName
-            headView.bookSubTitleLabel.text = readedBook.first?.chapterName
-            headView.timeLabel.text = "最后阅读时间：" + readedBook.first!.recentReadDate
-            headView.totalLabel.text = "共\(readedBook.first!.num)本"
+        if let readedBook = self.readedBook?.first {
+            headView.setData(readedBook)
         }
-        //阴影设置
-        headView.bookImageView.layer.shadowOpacity = 0.5
-        headView.bookImageView.layer.shadowOffset = CGSize(width: 0, height: 3)
-        headView.bookImageView.layer.shadowRadius = 2
         return headView
     }
     
@@ -126,6 +119,9 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
     // delegate
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! DeleteMyShelfCollectionViewCell
+        if indexPath.row == myBooks?.count {
+            return
+        }
         if cell.isChosed == false {
             cell.isChosed = true
             cell.checkedImage.image = UIImage(named: "checkbox_checked")
@@ -144,6 +140,30 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
     
     func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         collectionView.setContentOffset(contentOffset!, animated: false)
+    }
+    
+    //删除书籍请求
+    func deleteSend() {
+        var arr: [String] = []
+        for foo in index! {
+            arr.append(myBooks![foo].bookID)
+        }
+        print(arr)
+        NetworkHealper.Post.receiveJSON(URLHealper.removeBookFromShelf.introduce(), parameter: ["bookIDList": arr]) { (dictionary, error) in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            if let flag = dictionary!["flag"] as? Int {
+                if flag == 1 {
+                    self.delegate.valueOfContentOffSet(self.collectionView.contentOffset)
+                    self.delegate.deleteItem(self.index!)
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                } else {
+                    print("发送失败")
+                }
+            }
+        }
     }
     
 }

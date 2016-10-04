@@ -70,6 +70,16 @@ class CategoryDetailViewController: UIViewController, UITableViewDelegate, UITab
         return cell
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let toVC = childVC("ReadDetail", vcName: "BookIntroduceViewController") as? BookIntroduceViewController {
+            toVC.selectedBookID = dataArray[indexPath.row].bookID
+            self.presentViewController(toVC, animated: true, completion: {
+                self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            })
+        }
+    }
+    
+    
     //scrollView delegate
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if canLoad == false || loading == true {
@@ -83,6 +93,14 @@ class CategoryDetailViewController: UIViewController, UITableViewDelegate, UITab
             self.addingNetWorkData(self.page + 1)
         }
         
+    }
+    
+    //MARK: 私有方法
+    //页面跳转方法
+    func childVC(sbName: String, vcName: String) -> UIViewController {
+        var sb = UIStoryboard(name: sbName, bundle: nil)
+        var vc = sb.instantiateViewControllerWithIdentifier(vcName)
+        return vc
     }
 
 

@@ -226,6 +226,15 @@ class SearchingListViewController: UIViewController, UITableViewDelegate, UITabl
         return cell
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let toVC = childVC("ReadDetail", vcName: "BookIntroduceViewController") as? BookIntroduceViewController {
+            toVC.selectedBookID = listRows[indexPath.row].bookID
+            self.presentViewController(toVC, animated: true, completion: {
+                self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            })
+        }
+    }
+    
     
     //当数据不足一屏幕是会出错，等待解决
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -243,6 +252,13 @@ class SearchingListViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     //MARK: 私有方法
+    //页面跳转方法
+    func childVC(sbName: String, vcName: String) -> UIViewController {
+        var sb = UIStoryboard(name: sbName, bundle: nil)
+        var vc = sb.instantiateViewControllerWithIdentifier(vcName)
+        return vc
+    }
+    
     func getSearchingSelectVC() -> SearchingSelectViewController? {
         var searchingSelectVC: SearchingSelectViewController?
         for VC in self.childViewControllers {

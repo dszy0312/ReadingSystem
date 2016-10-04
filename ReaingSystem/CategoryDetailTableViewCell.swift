@@ -28,8 +28,19 @@ class CategoryDetailTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+    //分类详细列表
     func setData(data: CategoryDetailRow) {
+        nameLabel.text = data.bookName
+        authorLabel.text = data.author
+        detailLabel.text = ""
+        if data.bookImg == nil {
+            bookImageView.image = UIImage(named: "bookLoading")
+        } else {
+            bookImageView.kf_setImageWithURL(NSURL(string: baseURl + data.bookImg), placeholderImage: UIImage(named: "bookLoading"))
+        }
+    }
+    //榜单详细列表
+    func setData(data: TopListBookRow) {
         nameLabel.text = data.bookName
         authorLabel.text = data.author
         detailLabel.text = ""

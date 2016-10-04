@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 import UIKit
 //后台总地址
-let baseURl = "http://172.16.8.250:8036/"
+let baseURl = "http://lh.sdlq.org/"
 
 enum NetworkHealper {
     case Get

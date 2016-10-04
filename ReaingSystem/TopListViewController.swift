@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let reuseIdentifier = "TopListCell"
+private let reuseIdentifier = ["TopListCell","ListSegue"]
 
 class TopListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -17,6 +17,8 @@ class TopListViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     var topListRoot: SelectTopListRoot!
 
+    //选中单元格
+    var selectRow: Int!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +33,15 @@ class TopListViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == reuseIdentifier[1] {
+            let toVC = segue.destinationViewController as! TopListDetailViewController
+            toVC.categoryID = topListRoot.rows[selectRow].topID
+            toVC.categoryName = topListRoot.rows[selectRow].topName
+            
+        }
     }
     
     @IBAction func backClick(sender: UIButton) {
@@ -54,7 +65,7 @@ class TopListViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! TopListTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier[0], forIndexPath: indexPath) as! TopListTableViewCell
         cell.titleLable.text = "排行榜"
         cell.setData(topListRoot.rows[indexPath.row])
         // Configure the cell...
@@ -63,11 +74,9 @@ class TopListViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        readBookListTitle = topListRoot.rows[indexPath.row].topName
-        readBookListID = topListRoot.rows[indexPath.row].topID
-        readBookListFrom = "TopList"
-        let toVC = childVC("ReadDetail", vcName: "ReadDetail")
-        self.presentViewController(toVC, animated: true, completion: nil)
+        selectRow = indexPath.row
+        self.performSegueWithIdentifier(reuseIdentifier[1], sender: self)
+        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     //MARK：私有方法

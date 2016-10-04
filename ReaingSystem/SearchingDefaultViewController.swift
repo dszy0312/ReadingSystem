@@ -189,7 +189,11 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
             self.searchName = hotKeyData.rows[indexPath.row].categoryName
             performSegueWithIdentifier(searchResultSegue, sender: self)
         default:
-            break
+            if let toVC = childVC("ReadDetail", vcName: "BookIntroduceViewController") as? BookIntroduceViewController {
+                toVC.selectedBookID = hotListRows[indexPath.row].bookID
+                self.presentViewController(toVC, animated: true, completion: {
+                })
+            }
         }
     }
     
@@ -236,6 +240,8 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
         performSegueWithIdentifier(searchResultSegue, sender: self)
     }
     
+    
+    
     //MARK: scrollDelegate
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -266,6 +272,12 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
     }
     
     //MARK: 私有方法
+    //页面跳转方法
+    func childVC(sbName: String, vcName: String) -> UIViewController {
+        var sb = UIStoryboard(name: sbName, bundle: nil)
+        var vc = sb.instantiateViewControllerWithIdentifier(vcName)
+        return vc
+    }
     //判断是否需要加载
     func decideLoading(cur: Int, total: Int) {
         if cur < total {

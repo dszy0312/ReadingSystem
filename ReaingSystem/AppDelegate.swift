@@ -19,13 +19,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window = UIWindow(frame: UIScreen.mainScreen().bounds)
 //        window?.makeKeyAndVisible()
 //        
-//        storyBoard = UIStoryboard(name: "Listen", bundle: nil)
-//        let rootController = storyBoard?.instantiateViewControllerWithIdentifier("ListenDetail")
+//        storyBoard = UIStoryboard(name: "Paper", bundle: nil)
+//        let rootController = storyBoard?.instantiateViewControllerWithIdentifier("PaperDetail")
 //        
 //        if let window = self.window {
 //            window.rootViewController = rootController
 //        }
         
+        //阅读信息持久化
+        NSUserDefaults.standardUserDefaults().setFloat(17, forKey: "textSize")
+        
+        NSUserDefaults.standardUserDefaults().setInteger(1, forKey: "backgroundIndex")
+        NSUserDefaults.standardUserDefaults().setInteger(0, forKey: "transitionIndex")
+        NSUserDefaults.standardUserDefaults().setInteger(1, forKey: "curPage")
     
 //        UITabBar.appearance().tintColor = UIColor(patternImage: UIImage(named: "shujia_heighLight")!)
         // Override point for customization after application launch.

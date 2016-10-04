@@ -17,6 +17,24 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
     @IBOutlet weak var photoView: UIView!
     
     @IBOutlet weak var containerView: UIView!
+    //是否展示个人中心
+    var showing = false {
+        didSet {
+            if showing == true {
+                if self.containerView.center.x == self.view.center.x {
+                    UIView.animateWithDuration(0.3, animations: {
+                        self.containerView.center.x = self.view.center.x + self.view.bounds.width * 0.8
+                    })
+                }
+            } else {
+                if self.containerView.center.x != self.view.center.x {
+                    UIView.animateWithDuration(0.3, animations: {
+                        self.containerView.center.x = self.view.center.x
+                    })
+                }
+            }
+        }
+    }
     
 
     override func viewDidLoad() {
@@ -54,8 +72,6 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
     
     //响应方法
     func didPan(gesture: UIPanGestureRecognizer) {
-        
-        
         
         let point = gesture.translationInView(self.view)
         print(point.x)

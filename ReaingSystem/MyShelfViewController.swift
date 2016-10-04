@@ -9,40 +9,35 @@
 import UIKit
 import Alamofire
 
+private var reuseIdentifier = ["ListSegue","DeleteSegue"]
+
 class MyShelfViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DeleteMyShelfDelegate {
     
 
     @IBOutlet weak var titleBarView: UIView!
     
     @IBOutlet weak var collectionView: UICollectionView!
-    //详情页转场标示
-    private let listSegue = "ListSegue"
-    //删除页转场标示
-    private let delegateSegue = "DeleteSegue"
     //自定义转场代理
     //跳转阅读列表
-    weak var transitionDelegate = ReadedBookListTransitionDelegate()
+    var transitionDelegate = ReadedBookListTransitionDelegate()
     //跳转删除页面
-    weak var deleteTransitionDelegate = DeleteMyShelfTransitionDelegate()
+    var deleteTransitionDelegate = DeleteMyShelfTransitionDelegate()
     //我的书架书目
     var myBooks: [MyBook]?
     //最近阅读的书
     var readedBook: [ReadedBook]?
+    //选中的单元格
+    var selectedRow: Int!
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
-        //网络请求
-        getMyShelf()
         
         //创建长按手势监听
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(collectionViewCellLongPress(_:)))
         collectionView.addGestureRecognizer(longPress)
-        //点击事件监听
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTap(_:)))
-        collectionView.addGestureRecognizer(tapGesture)
 
         // Do any additional setup after loading the view.
     }
@@ -52,32 +47,57 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        //网络请求
+        getMyShelf()
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == listSegue {
-            let newVC = segue.destinationViewController as! UINavigationController
+        if segue.identifier == reuseIdentifier[0] {
+            let newVC = segue.destinationViewController as! ReadBookListViewController
             newVC.transitioningDelegate = transitionDelegate
             newVC.modalPresentationStyle = .Custom
-        } else if segue.identifier == delegateSegue {
+        } else if segue.identifier == reuseIdentifier[1] {
             
             let newVC = segue.destinationViewController as! DeleteMyShelfViewController
+            newVC.transitioningDelegate = deleteTransitionDelegate
+            newVC.modalPresentationStyle = .Custom
+            
             newVC.myBooks = self.myBooks
             newVC.readedBook = self.readedBook
             newVC.contentOffset = self.collectionView.contentOffset
             newVC.delegate = self
+            newVC.selectedRow = self.selectedRow
             
-            newVC.transitioningDelegate = deleteTransitionDelegate
-            newVC.modalPresentationStyle = .Custom
+        }
+    }
+    //最近阅读页
+    @IBAction func listClick(sender: UIButton) {
+        self.performSegueWithIdentifier(reuseIdentifier[0], sender: self)
+    }
+    //最近阅读图片选中
+    @IBAction func bookSelectClick(sender: UIButton) {
+        if let toVC = childVC("ReadDetail", vcName: "BookIntroduceViewController") as? BookIntroduceViewController {
+            toVC.selectedBookID = readedBook?.first?.bookID
+            self.presentViewController(toVC, animated: true, completion: {
+            })
+        }
+
+    }
+    
+    //个人中心
+    @IBAction func presonalShowClick(sender: UIButton) {
+        
+        if let pVC = self.parentViewController?.parentViewController as? PersonalCenterViewController {
+            if pVC.showing == false {
+                pVC.showing = true
+            } else {
+                pVC.showing = false
+            }
         }
     }
     
-    @IBAction func unwind(segue: UIStoryboardSegue) {
-        
-    }
-    
-    @IBAction func listClick(sender: UIButton) {
-        let toVC = childVC("ReadDetail", vcName: "ReadDetail")
-        self.presentViewController(toVC, animated: true, completion: nil)
-    }
     
     
     //MARK: collectionView dataSource delegate flowLayout
@@ -97,36 +117,19 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
             cell.bookImageView.image = UIImage(named: "addbook")
         } else {
             //显示书架数据
-            if let myBooks = self.myBooks {
-                cell.bookNameLabel.text = myBooks[indexPath.row].bookName
-                cell.bookImageView.image = myBooks[indexPath.row].bookImgData
-                
-            }
+            cell.setData(self.myBooks![indexPath.row])
             
         }
         
-        
-        //阴影设置
-        cell.bookImageView.layer.shadowOpacity = 0.5
-        cell.bookImageView.layer.shadowOffset = CGSize(width: 0, height: 3)
-        cell.bookImageView.layer.shadowRadius = 2
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         let headView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "HeadView", forIndexPath: indexPath) as! MyShelfCollectionReusableView
         //UI配置
-        if let readedBook = self.readedBook {
-            headView.bookImageView.image = readedBook.first?.bookImgData
-            headView.bookTitleLabel.text = readedBook.first?.bookName
-            headView.bookSubTitleLabel.text = readedBook.first?.chapterName
-//            headView.timeLabel.text = "最后阅读时间：" + readedBook.first!.recentReadDate
-//            headView.totalLabel.text = "共\(readedBook.first!.num)本"
+        if let readedBook = self.readedBook?.first {
+                headView.setData(readedBook)
         }
-        //阴影设置
-        headView.bookImageView.layer.shadowOpacity = 0.5
-        headView.bookImageView.layer.shadowOffset = CGSize(width: 0, height: 3)
-        headView.bookImageView.layer.shadowRadius = 2
         return headView
     }
     
@@ -151,13 +154,23 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     // delegate
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-//        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! CustomBookCollectionViewCell
+        if indexPath.row == myBooks?.count {
+            if let pVC = self.parentViewController as? RootTabBarViewController {
+                pVC.tabBarView?.changeIndex(1)
+            }
+        } else if let toVC = childVC("ReadDetail", vcName: "BookIntroduceViewController") as? BookIntroduceViewController {
+            toVC.selectedBookID = myBooks![indexPath.row].bookID
+            self.presentViewController(toVC, animated: true, completion: { 
+            })
+        }
   
     }
     
     func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
+    
+    
     
     //MARK： 自定义delegate
     func valueOfContentOffSet(value: CGPoint) {
@@ -172,42 +185,35 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     //MARK: 响应事件
     //长按监听
     func collectionViewCellLongPress(gesture: UILongPressGestureRecognizer) {
+        let point = gesture.locationInView(self.collectionView)
+        let indexPath = self.collectionView.indexPathForItemAtPoint(point)
+        if indexPath?.row == myBooks?.count {
+            return
+        }
+        self.selectedRow = indexPath!.row
         switch gesture.state {
         case UIGestureRecognizerState.Began:
             let indexPath = collectionView.indexPathForItemAtPoint(gesture.locationInView(collectionView))
             let cell = collectionView.cellForItemAtIndexPath(indexPath!) as! MyShelfCollectionViewCell
             UIView.animateWithDuration(0.5, animations: {
-            })
-            UIView.animateWithDuration(0.5, animations: {
                 cell.bookImageView.alpha = 0.5
                 
                 }, completion: { (_) in
                     cell.bookImageView.alpha = 1
-                    self.performSegueWithIdentifier(self.delegateSegue, sender: self)
+                    self.performSegueWithIdentifier(reuseIdentifier[1], sender: self)
             })
             
         default:
             break
         }
     }
-    //点击监听
-    func didTap(gesture: UITapGestureRecognizer) {
-        let indexPath = collectionView.indexPathForItemAtPoint(gesture.locationInView(collectionView))
-    }
     //MARK：私有方法
     //页面跳转方法
-    func transitionToVC(sbName: String, vcName: String) {
-        var sb = UIStoryboard(name: sbName, bundle: nil)
-        var vc = sb.instantiateViewControllerWithIdentifier(vcName)
-        self.presentViewController(vc, animated: true, completion: nil)
-    }
-    
     func childVC(sbName: String, vcName: String) -> UIViewController {
         var sb = UIStoryboard(name: sbName, bundle: nil)
         var vc = sb.instantiateViewControllerWithIdentifier(vcName)
         return vc
     }
-    
     
     //MARK:网络请求
     //请求书架页面数据
@@ -225,45 +231,8 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
             self.myBooks = myShelf.rows
             self.readedBook = myShelf.data
             self.collectionView.reloadData()
-            //获取最近阅读图片
-            for i in 0..<self.readedBook!.count {
-                let id = 0
-                let imageURL = baseURl + self.readedBook![i].bookImg
-                self.getImage(id, index: i, url: imageURL)
-            }
-            //获取我的书架书本图片
-            for i in 0..<self.myBooks!.count {
-                let id = 1
-                let imageURL = baseURl + self.myBooks![i].bookImg
-                self.getImage(id, index: i, url: imageURL)
-            }
 
         }
     }
-    //请求兴趣标题图片
-    func getImage(id: Int, index: Int, url: String){
-        NetworkHealper.Get.receiveData(url) { (data, error) in
-            guard error == nil else {
-                print(error)
-                return
-            }
-            if let image = UIImage(data: data!) {
-                
-                if id == 1 {
-                    self.myBooks![index].bookImgData = image
-                } else if id == 0 {
-                    self.readedBook![index].bookImgData = image
-                    
-                }
-            } else {
-                print("不是图片")
-            }
-            self.collectionView.reloadData()
-
-        }
-    }
-
-
-
 
 }

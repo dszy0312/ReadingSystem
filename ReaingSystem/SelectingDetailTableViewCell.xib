@@ -31,11 +31,20 @@
                                     <constraint firstAttribute="width" secondItem="0ch-uT-9Gd" secondAttribute="height" multiplier="90:120" id="wZj-z0-ra2"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7w3-0X-KwQ">
+                                <connections>
+                                    <action selector="selected1Click:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="DE0-Mz-GuR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96424784409999997" green="1" blue="0.59225826749999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="7w3-0X-KwQ" firstAttribute="centerX" secondItem="6Ic-06-NRI" secondAttribute="centerX" id="CCm-R9-2Kk"/>
+                            <constraint firstItem="7w3-0X-KwQ" firstAttribute="width" secondItem="0ch-uT-9Gd" secondAttribute="width" id="GcO-XJ-i9N"/>
+                            <constraint firstItem="7w3-0X-KwQ" firstAttribute="height" secondItem="0ch-uT-9Gd" secondAttribute="height" id="WRy-ci-e50"/>
                             <constraint firstItem="0ch-uT-9Gd" firstAttribute="centerY" secondItem="6Ic-06-NRI" secondAttribute="centerY" id="q45-8n-vnM"/>
                             <constraint firstItem="0ch-uT-9Gd" firstAttribute="centerX" secondItem="6Ic-06-NRI" secondAttribute="centerX" id="yQb-xd-KNV"/>
+                            <constraint firstItem="7w3-0X-KwQ" firstAttribute="centerY" secondItem="6Ic-06-NRI" secondAttribute="centerY" id="zIm-MM-OWP"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pJu-ca-MpX">
@@ -46,11 +55,22 @@
                                     <constraint firstAttribute="width" constant="90" id="fkg-72-pBf"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Va3-4b-VLX">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="c1T-pl-d0P"/>
+                                    <constraint firstAttribute="width" constant="90" id="gvO-2Q-T4j"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="selected2Click:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="fNK-bz-kto"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96424784409999997" green="1" blue="0.59225826749999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="vsd-Bc-dax" firstAttribute="centerY" secondItem="pJu-ca-MpX" secondAttribute="centerY" id="DWs-22-Tp5"/>
+                            <constraint firstItem="Va3-4b-VLX" firstAttribute="centerX" secondItem="pJu-ca-MpX" secondAttribute="centerX" id="Jai-Ef-IH0"/>
                             <constraint firstItem="vsd-Bc-dax" firstAttribute="centerX" secondItem="pJu-ca-MpX" secondAttribute="centerX" id="Rw9-3O-dol"/>
+                            <constraint firstItem="Va3-4b-VLX" firstAttribute="centerY" secondItem="pJu-ca-MpX" secondAttribute="centerY" id="wNn-0E-iav"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="换一换" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rAu-Fk-NZR">
@@ -77,11 +97,22 @@
                                     <constraint firstAttribute="width" secondItem="TfU-JX-NNZ" secondAttribute="height" multiplier="90:120" id="faC-e3-IPW"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPD-Gd-TDy">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="REa-Lc-0yW"/>
+                                    <constraint firstAttribute="width" constant="90" id="hVj-bm-vbX"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="selected3Click:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="XTz-om-YBa"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.96424784409999997" green="1" blue="0.59225826749999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="hPD-Gd-TDy" firstAttribute="centerY" secondItem="nmt-KP-SKr" secondAttribute="centerY" id="5r4-dZ-Dj5"/>
                             <constraint firstItem="TfU-JX-NNZ" firstAttribute="centerY" secondItem="nmt-KP-SKr" secondAttribute="centerY" id="9s8-I1-mJF"/>
                             <constraint firstItem="TfU-JX-NNZ" firstAttribute="centerX" secondItem="nmt-KP-SKr" secondAttribute="centerX" id="eew-PZ-ENL"/>
+                            <constraint firstItem="hPD-Gd-TDy" firstAttribute="centerX" secondItem="nmt-KP-SKr" secondAttribute="centerX" id="fff-xI-HNV"/>
                         </constraints>
                     </view>
                 </subviews>

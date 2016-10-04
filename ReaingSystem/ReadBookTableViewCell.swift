@@ -34,10 +34,14 @@ class ReadBookTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setTopListData(data: TopListBookRow) {
+    func setTopListData(data: BookListData) {
         bookTitleLabel.text = data.bookName
         bookWriterLabel.text = data.author
-        bookImageView.kf_setImageWithURL(NSURL(string: baseURl + data.bookImg), placeholderImage: UIImage(named: "bookLoading"))
+        if data.bookImg == nil {
+            bookImageView.image = UIImage(named: "bookLoading")
+        } else {
+            bookImageView.kf_setImageWithURL(NSURL(string: baseURl + data.bookImg), placeholderImage: UIImage(named: "bookLoading"))
+        }
     }
 
 }

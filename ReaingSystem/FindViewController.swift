@@ -28,6 +28,17 @@ class FindViewController: UIViewController, UICollectionViewDelegate, UICollecti
         // Dispose of any resources that can be recreated.
     }
     
+    //个人中心展示
+    @IBAction func personalShowClick(sender: UIButton) {
+        if let pVC = self.parentViewController?.parentViewController as? PersonalCenterViewController {
+            if pVC.showing == false {
+                pVC.showing = true
+            } else {
+                pVC.showing = false
+            }
+        }
+    }
+    
     
     //MARK: collectionView  delegate dataSource flowLayout
     //dataSource

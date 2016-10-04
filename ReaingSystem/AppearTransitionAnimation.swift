@@ -10,13 +10,10 @@ import UIKit
 
 class AppearTransitionAnimation: NSObject, UIViewControllerAnimatedTransitioning {
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-        return 0.3
+        return 0.1
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-//        guard let containterView = transitionContext.containerView(), fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey), toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) else {
-//            return
-//        }
         
         let containerView = transitionContext.containerView()
         let fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)

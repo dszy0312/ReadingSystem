@@ -15,7 +15,7 @@ enum Direction {
 }
 
 
-class SelectingViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource, ImagesShowDelegate, UISearchBarDelegate, sendSelectingDataDelegate{
+class SelectingViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource, ImagesShowDelegate, UISearchBarDelegate, sendSelectingDataDelegate, BookSelectedDelegate{
 
     //页面跳转控制器
     @IBOutlet weak var pageController: UIPageControl!
@@ -94,6 +94,18 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     @IBAction func searcgingClick(sender: UIButton) {
         performSegueWithIdentifier(delegateSegue, sender: self)
     }
+    //个人中心展示
+    @IBAction func personalShowClick(sender: UIButton) {
+        
+        if let pVC = self.parentViewController?.parentViewController as? PersonalCenterViewController {
+            if pVC.showing == false {
+                pVC.showing = true
+            } else {
+                pVC.showing = false
+            }
+        }
+    }
+    
     
     //MARK: UICollectionView   delegate dataSource flowLayout
     //dataSource
@@ -134,18 +146,21 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         //页面跳转选择
         switch indexPath.row {
         case 0,1:
-            let toVC = self.childVC("Selecting", vcName: "SearchingSex") as! SelectingSexViewController
+            let toVC = self.toVC("Selecting", vcName: "SearchingSex") as! SelectingSexViewController
             toVC.classifyData = self.classifyData![indexPath.row]
             self.presentViewController(toVC, animated: true, completion: nil)
             
         case 2:
             print("出版页面开发中。。")
         case 3:
-            self.transitionToVC("Listen", vcName: "Listen")
+            let toVC = self.toVC("Listen", vcName: "Listen")
+            self.presentViewController(toVC, animated: true, completion: nil)
         case 4:
-            self.transitionToVC("Selecting", vcName: "TopList")
+            let toVC = self.toVC("Selecting", vcName: "TopList")
+            self.presentViewController(toVC, animated: true, completion: nil)
         case 5:
-            self.transitionToVC("Journal", vcName: "Journal")
+            let toVC = self.toVC("Journal", vcName: "Journal")
+            self.presentViewController(toVC, animated: true, completion: nil)
         case 6:
             print("书摘页面开发中。。")
 //            self.transitionToVC("", vcName: "")
@@ -176,6 +191,7 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("DetailCell") as! SelectingDetailTableViewCell
         cell.delegate = self
+        cell.selectedDelegate = self
         for index in cell.bookImages {
             index.layer.shadowOpacity = 0.5
             index.layer.shadowOffset = CGSize(width: 0, height: 3)
@@ -189,6 +205,9 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
                     if readDictionary["\(cell.count)"] != nil {
                         cell.setBookData(readDictionary["\(cell.count)"]!)
                         cell.cellTitle.text = "读过《\(cell.defaultTitle)》的人还读过"
+                        for index in readDictionary["\(cell.count)"]! {
+                            cell.bookIDs.append(index.bookID)
+                        }
                     }
                 }
             }
@@ -200,6 +219,9 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
                 if readDictionary[recommend[indexPath.row - 1].categoryID] != nil {
                     cell.setBookData(readDictionary[recommend[indexPath.row - 1].categoryID]!)
                     cell.cellTitle.text = recommend[indexPath.row - 1].categoryName
+                    for index in readDictionary[recommend[indexPath.row - 1].categoryID]! {
+                        cell.bookIDs.append(index.bookID)
+                    }
                 }
         
                 
@@ -235,6 +257,15 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         }
     }
     
+    //BookSelectedDelegate
+    func sendBookID(id: String) {
+        if let toVC = toVC("ReadDetail", vcName: "BookIntroduceViewController") as? BookIntroduceViewController {
+            toVC.selectedBookID = id
+            self.presentViewController(toVC, animated: true, completion: {
+            })
+        }
+    }
+    
     func imagesDidLoaded(index: Int, total: Int) {
         if total == 0 {
             pageController.numberOfPages = 1
@@ -252,15 +283,9 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     
     //MARK：私有方法
     //页面跳转方法
-    func transitionToVC(sbName: String, vcName: String) {
-        var sb = UIStoryboard(name: sbName, bundle: nil)
-        var vc = sb.instantiateViewControllerWithIdentifier(vcName)
-        self.presentViewController(vc, animated: true, completion: nil)
-    }
-    
-    func childVC(sbName: String, vcName: String) -> UIViewController {
-        var sb = UIStoryboard(name: sbName, bundle: nil)
-        var vc = sb.instantiateViewControllerWithIdentifier(vcName)
+    func toVC(sbName: String, vcName: String) -> UIViewController {
+        let sb = UIStoryboard(name: sbName, bundle: nil)
+        let vc = sb.instantiateViewControllerWithIdentifier(vcName)
         return vc
     }
     

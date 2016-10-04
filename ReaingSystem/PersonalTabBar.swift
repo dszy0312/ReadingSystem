@@ -39,8 +39,12 @@ class PersonalTabBar: UIView {
     
     
     @IBAction func changeTabBar(sender: UIButton) {
-        
-        switch sender.tag {
+        changeIndex(sender.tag)
+    }
+    
+    //标题跳转
+    func changeIndex(index: Int) {
+        switch index {
         case 0:
             if numberArray[0] {
                 defaultChange()
@@ -60,7 +64,7 @@ class PersonalTabBar: UIView {
                 itemBackgroundImage.center = itemBackgroundView2.center
             }
             break
-        
+            
         case 2:
             if numberArray[2] {
                 defaultChange()
@@ -92,7 +96,7 @@ class PersonalTabBar: UIView {
             break
         }
         
-        delegate?.changeIndex(sender.tag)
+        delegate?.changeIndex(index)
     }
     
     func defaultChange() {

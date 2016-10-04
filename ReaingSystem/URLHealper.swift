@@ -17,14 +17,14 @@ enum URLHealper {
     case interestsSendURL
     
     //MARK: MyShelf
-    //书本简介数据接口
-    case bookSummaryURL
     //加入书架请求接口
     case addToShelfURL
     //书架页面接口
     case myShelfURL
     //最近阅读列表接口
     case readedBooksURL
+    //从书架溢出某书籍（参数： bookList）
+    case removeBookFromShelf
     
     //MARK: 精选页面
     //轮播图数据接口
@@ -74,6 +74,20 @@ enum URLHealper {
     case getCategory
     //分类页面获取子分类书籍列表(参数：pageindex:页数 categoryID:子类型id)
     case getStoryList
+    //MARK: 报刊
+    //获取报纸列表数据（参数名data=2012-02-12）
+    case getPaperList
+    //获取报纸列表某篇文章的具体数据
+    case getPaperTxt
+    
+    //MARK: 小说阅读页面
+    //书本简介数据接口
+    case bookSummaryURL
+    //下载小说内容（全部下载到数据库）
+    case getStoryDetail
+    //根据小说章节id得到该章节内容（参数名称：chapterID）
+    case readTxt
+    
     
     func introduce() -> String {
         switch self {
@@ -82,8 +96,6 @@ enum URLHealper {
         case .interestsSendURL:
             return baseURl + "user/SaveSexAndInterests"
 
-        case .bookSummaryURL:
-            return baseURl + "story/GetDetail"
 
         case .addToShelfURL:
             return baseURl + "story/AddShelf"
@@ -93,6 +105,8 @@ enum URLHealper {
 
         case .readedBooksURL:
             return baseURl + "story/GetReadedList"
+        case .removeBookFromShelf:
+            return baseURl + "story/RemoveShelf"
         case .choicenessDataURL:
             return baseURl + "story/getjx"
         case .getStoryByReadedURL:
@@ -102,41 +116,51 @@ enum URLHealper {
         case .getListenDetail:
             return baseURl + "voice/GetDetail"
         case .getChildCategoryListByCategory:
-            return baseURl + "/story/GetChildCategoryListByCategory"
+            return baseURl + "story/GetChildCategoryListByCategory"
         case .getHotStoryByCategory:
-            return baseURl + "/story/GetHotStoryByCategory"
+            return baseURl + "story/GetHotStoryByCategory"
         case .getCategoryByTop:
-            return baseURl + "/story/GetCategoryByTop"
+            return baseURl + "story/GetCategoryByTop"
         case .getStoryListByTop:
-            return baseURl + "/story/GetStoryListByTop"
+            return baseURl + "story/GetStoryListByTop"
         case .getMyHotKey:
-            return baseURl + "/Search/GetMyHotKey"
+            return baseURl + "Search/GetMyHotKey"
         case .getHotKey:
-            return baseURl + "/search/GetHotKey"
+            return baseURl + "search/GetHotKey"
         case .getPrByHotSearch:
-            return baseURl + "/search/GetPrByHotSearch"
+            return baseURl + "search/GetPrByHotSearch"
         case .doSearch:
-            return baseURl + "/search/DoSearch"
+            return baseURl + "search/DoSearch"
         case .getVoiceTJFloorData:
-            return baseURl + "/voice/GetTJFloorData"
+            return baseURl + "voice/GetTJFloorData"
         case .getVoiceCategory:
-            return baseURl + "/voice/GetCategory"
+            return baseURl + "voice/GetCategory"
         case .getVoiceRankList:
-            return baseURl + "/Voice/GetRankList"
+            return baseURl + "Voice/GetRankList"
         case .getVoiceLoopList:
-            return baseURl + "/Voice/GetLoopList"
+            return baseURl + "Voice/GetLoopList"
         case .getVoiceTopAuthorList:
-            return baseURl + "/voice/GetTopAuthorList"
+            return baseURl + "voice/GetTopAuthorList"
         case .getVoiceAuthorList:
-            return baseURl + "/voice/GetAuthorList"
+            return baseURl + "voice/GetAuthorList"
         case .getVoiceAuthorDetail:
             return baseURl + "/voice/GetAuthorDetail"
         case .getVoiceListByAuthor:
-            return baseURl + "/voice/GetVoiceListByAuthor"
+            return baseURl + "voice/GetVoiceListByAuthor"
         case .getCategory:
-            return baseURl + "/story/GetCategory"
+            return baseURl + "story/GetCategory"
         case .getStoryList:
-            return baseURl + "/story/GetStoryList"
+            return baseURl + "story/GetStoryList"
+        case .getPaperList:
+            return baseURl + "newspaper/getlist"
+        case.getPaperTxt:
+            return baseURl + "newspaper/GetTxt"
+        case .bookSummaryURL:
+            return baseURl + "story/GetDetail"
+        case .getStoryDetail:
+            return baseURl + "Story/GetDetail"
+        case .readTxt:
+            return baseURl + "Story/ReadTxt"
         }
     }
 }

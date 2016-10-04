@@ -13,6 +13,10 @@ protocol sendSelectingDataDelegate {
     func dataChanged(data: [ReadedData], id: String)
 }
 
+protocol BookSelectedDelegate {
+    func sendBookID(id: String)
+}
+
 class SelectingDetailTableViewCell: UITableViewCell {
     
 
@@ -21,12 +25,14 @@ class SelectingDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var cellTitle: UILabel!
     
     var delegate: sendSelectingDataDelegate!
+    var selectedDelegate: BookSelectedDelegate!
     
     var defaultTitle = ""
     var recommendTitle = ""
     var categoryID = ""
     var count = 0
-    
+    //书本ID数组
+    var bookIDs: [String] = []
 //    //阅读过的书籍推荐
 //    var readedData: [ReadedData]?
 
@@ -48,6 +54,21 @@ class SelectingDetailTableViewCell: UITableViewCell {
             } else {
                 self.getRecommendData(categoryID)
             }
+    }
+    //左
+    @IBAction func selected1Click(sender: UIButton) {
+        //返回第一本书
+        selectedDelegate.sendBookID(bookIDs[0])
+    }
+    //中
+    @IBAction func selected2Click(sender: UIButton) {
+        //返回第二本书
+        selectedDelegate.sendBookID(bookIDs[0])
+    }
+    //右
+    @IBAction func selected3Click(sender: UIButton) {
+        //返回第三本书
+        selectedDelegate.sendBookID(bookIDs[0])
     }
     
     func setBookData(readedData: [ReadedData]) {
@@ -78,6 +99,9 @@ class SelectingDetailTableViewCell: UITableViewCell {
             self.setBookData(readedAdvice.data)
             self.cellTitle.text = "读过《\(self.defaultTitle)》的人还读过"
             self.delegate.dataChanged(readedAdvice.data, id: "0")
+            for index in readedAdvice.data {
+                self.bookIDs.append(index.bookID)
+            }
         }
     }
     //获取分类推荐
@@ -90,6 +114,10 @@ class SelectingDetailTableViewCell: UITableViewCell {
             let readedAdvice = ReadedAdvice(fromDictionary: dictionary!)
             self.setBookData(readedAdvice.data)
             self.delegate.dataChanged(readedAdvice.data, id: self.categoryID)
+            for index in readedAdvice.data {
+                self.bookIDs.append(index.bookID)
+            }
         }
     }
+    
 }

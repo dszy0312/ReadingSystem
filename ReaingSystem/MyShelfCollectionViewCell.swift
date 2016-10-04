@@ -7,12 +7,21 @@
 //
 
 import UIKit
-
+import Kingfisher
 
 class MyShelfCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var bookImageView: UIImageView!
     
     @IBOutlet weak var bookNameLabel: UILabel!
+    
+    func setData(data: MyBook) {
+        if data.bookImg == nil {
+            bookImageView.image = UIImage(named: "bookLoading")
+        } else {
+            bookImageView.kf_setImageWithURL(NSURL(string: baseURl + data.bookImg), placeholderImage: UIImage(named: "bookLoading"))
+        }
+        bookNameLabel.text = data.bookName
+    }
     
 }

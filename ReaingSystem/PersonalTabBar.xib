@@ -34,7 +34,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.92255353880000002" green="0.94466949079999996" blue="0.9637590815" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="LTf-g2-Yl1" firstAttribute="centerX" secondItem="CDy-5k-uTa" secondAttribute="centerX" id="AbO-Bd-inS"/>
                         <constraint firstItem="VEV-7A-kDm" firstAttribute="centerY" secondItem="CDy-5k-uTa" secondAttribute="centerY" constant="-8" id="N1b-K7-bBj"/>
@@ -60,7 +60,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.92255353880000002" green="0.94466949079999996" blue="0.9637590815" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="Btj-pZ-DU2" firstAttribute="centerY" secondItem="zGB-xK-gqx" secondAttribute="centerY" constant="-8" id="35C-G7-GB4"/>
                         <constraint firstItem="inP-5U-O9b" firstAttribute="top" secondItem="Btj-pZ-DU2" secondAttribute="bottom" id="GfC-E9-9lS"/>
@@ -86,7 +86,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.92255353880000002" green="0.94466949079999996" blue="0.9637590815" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="llr-d1-FPi" firstAttribute="centerY" secondItem="O3l-sm-xPE" secondAttribute="centerY" constant="-8" id="3Hh-s3-DTP"/>
                         <constraint firstItem="llr-d1-FPi" firstAttribute="centerX" secondItem="O3l-sm-xPE" secondAttribute="centerX" id="8Rn-ye-OPN"/>
@@ -112,7 +112,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.92255353880000002" green="0.94466949079999996" blue="0.9637590815" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="osP-Cu-1kC" firstAttribute="centerY" secondItem="xuo-1X-JxG" secondAttribute="centerY" constant="-8" id="P53-CU-F3c"/>
                         <constraint firstItem="qOd-SH-RXo" firstAttribute="centerX" secondItem="xuo-1X-JxG" secondAttribute="centerX" id="P9H-lG-Rni"/>
@@ -138,7 +138,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.92255353880000002" green="0.94466949079999996" blue="0.9637590815" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="rTP-sy-ym5" firstAttribute="centerX" secondItem="ilF-F4-r4L" secondAttribute="centerX" id="5ZM-74-Nt6"/>
                         <constraint firstItem="rTP-sy-ym5" firstAttribute="centerY" secondItem="ilF-F4-r4L" secondAttribute="centerY" constant="-8" id="C09-CW-xvZ"/>

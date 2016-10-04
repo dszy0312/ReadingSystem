@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MyShelfCollectionReusableView: UICollectionReusableView {
     //图书封面
@@ -23,4 +24,17 @@ class MyShelfCollectionReusableView: UICollectionReusableView {
     @IBAction func transitionAction(sender: UIButton) {
         
     }
+    func setData(data: ReadedBook) {
+        if data.bookImg == nil {
+            bookImageView.image = UIImage(named: "bookLoading")
+        } else {
+            bookImageView.kf_setImageWithURL(NSURL(string: baseURl + data.bookImg), placeholderImage: UIImage(named: "bookLoading"))
+        }
+        bookTitleLabel.text = data.bookName
+        bookSubTitleLabel.text = data.chapterName
+        timeLabel.text = data.recentReadDate
+        totalLabel.text = "共\(data.num)本"
+    }
+
+    
 }
