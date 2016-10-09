@@ -63,12 +63,12 @@ class SelectingDetailTableViewCell: UITableViewCell {
     //中
     @IBAction func selected2Click(sender: UIButton) {
         //返回第二本书
-        selectedDelegate.sendBookID(bookIDs[0])
+        selectedDelegate.sendBookID(bookIDs[1])
     }
     //右
     @IBAction func selected3Click(sender: UIButton) {
         //返回第三本书
-        selectedDelegate.sendBookID(bookIDs[0])
+        selectedDelegate.sendBookID(bookIDs[2])
     }
     
     func setBookData(readedData: [ReadedData]) {
@@ -90,6 +90,7 @@ class SelectingDetailTableViewCell: UITableViewCell {
     //网络请求
     //获取已读推荐
     func getReadedData() {
+        bookIDs = []
         NetworkHealper.Get.receiveJSON(URLHealper.getStoryByReadedURL.introduce()) { (dictionary, error) in
             guard error == nil else {
                 print(error)
@@ -106,6 +107,7 @@ class SelectingDetailTableViewCell: UITableViewCell {
     }
     //获取分类推荐
     func getRecommendData(id: String) {
+        bookIDs = []
         NetworkHealper.Get.receiveJSON(URLHealper.getStoryListByCategory.introduce(), parameter: ["categoryID" : id]) { (dictionary, error) in
             guard error == nil else {
                 print(error)

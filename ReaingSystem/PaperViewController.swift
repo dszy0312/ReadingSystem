@@ -23,7 +23,7 @@ class PaperViewController: UIViewController, UITableViewDelegate, UITableViewDat
     //搜索关键字
     var key = ""
     //搜索日期
-    var data = "2012-02-12" {
+    var data = "2016-08-18" {
         didSet {
             getNetworkData(data, key: key)
         }
@@ -40,14 +40,18 @@ class PaperViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.dataSource = self
         searchBar.delegate = self
         
-        
         getNetworkData(data, key: key)
+        
         // Do any additional setup after loading the view.
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -129,7 +133,8 @@ class PaperViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     //网络请求
     func getNetworkData(data: String, key: String) {
-        NetworkHealper.GetWithParm.receiveJSON(URLHealper.getPaperList.introduce(), parameter: ["data":data, "key": key]) { (dictionary, error) in
+        print("时间\(data)")
+        NetworkHealper.GetWithParm.receiveJSON(URLHealper.getPaperList.introduce(), parameter: ["date":data, "key": key]) { (dictionary, error) in
             guard error == nil else {
                 print(error)
                 return

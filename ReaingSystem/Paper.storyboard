@@ -26,8 +26,12 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l33-32-5Z6">
-                                        <state key="normal" title="个人">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l33-32-5Z6">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="97f-Er-7Z7"/>
+                                            <constraint firstAttribute="height" constant="30" id="Jct-5w-5JB"/>
+                                        </constraints>
+                                        <state key="normal" image="personal">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -40,20 +44,20 @@
                                     <constraint firstItem="Goe-mW-1OW" firstAttribute="centerX" secondItem="uIz-UW-TLc" secondAttribute="centerX" id="ESD-AX-TFL"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="WJ1-3R-2ej"/>
                                     <constraint firstItem="l33-32-5Z6" firstAttribute="centerY" secondItem="Goe-mW-1OW" secondAttribute="centerY" id="dZO-06-e9j"/>
-                                    <constraint firstItem="l33-32-5Z6" firstAttribute="leading" secondItem="uIz-UW-TLc" secondAttribute="leading" constant="22" id="gC8-MW-5JA"/>
+                                    <constraint firstItem="l33-32-5Z6" firstAttribute="leading" secondItem="uIz-UW-TLc" secondAttribute="leading" constant="15" id="gC8-MW-5JA"/>
                                     <constraint firstAttribute="height" constant="64" id="p86-sZ-q1d"/>
                                     <constraint firstItem="Goe-mW-1OW" firstAttribute="centerY" secondItem="uIz-UW-TLc" secondAttribute="centerY" constant="10" id="tAK-0W-v9T"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8MK-tq-9y0">
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="koZ-wM-gto">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="koZ-wM-gto">
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="uh2-cB-nVP"/>
+                                            <constraint firstAttribute="width" secondItem="koZ-wM-gto" secondAttribute="height" multiplier="37:40" id="sS2-bP-Ygl"/>
+                                            <constraint firstAttribute="width" constant="20" id="uh2-cB-nVP"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
-                                        <state key="normal" title="报刊">
+                                        <state key="normal" image="baokan">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -66,14 +70,13 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.38681114779999998" green="0.64983259660000003" blue="0.70298958330000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="koZ-wM-gto" firstAttribute="top" secondItem="8MK-tq-9y0" secondAttribute="top" id="DIP-UC-v1V"/>
                                     <constraint firstItem="koZ-wM-gto" firstAttribute="leading" secondItem="8MK-tq-9y0" secondAttribute="leading" constant="15" id="PoR-sh-ZM7"/>
                                     <constraint firstAttribute="bottom" secondItem="ehW-xn-ysB" secondAttribute="bottom" id="R2G-3x-zZe"/>
                                     <constraint firstAttribute="trailing" secondItem="ehW-xn-ysB" secondAttribute="trailing" id="SM9-5Q-ALC"/>
                                     <constraint firstItem="ehW-xn-ysB" firstAttribute="leading" secondItem="koZ-wM-gto" secondAttribute="trailing" id="bmZ-H6-dhE"/>
                                     <constraint firstItem="ehW-xn-ysB" firstAttribute="top" secondItem="8MK-tq-9y0" secondAttribute="top" id="enb-6V-T80"/>
-                                    <constraint firstAttribute="bottom" secondItem="koZ-wM-gto" secondAttribute="bottom" id="jUC-gw-IZs"/>
                                     <constraint firstAttribute="height" constant="44" id="pTD-Qm-aMi"/>
+                                    <constraint firstItem="koZ-wM-gto" firstAttribute="centerY" secondItem="8MK-tq-9y0" secondAttribute="centerY" id="puh-2A-iBH"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="137" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iZd-k8-Zah">
@@ -299,10 +302,10 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qx5-PI-tUG">
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="11" id="TPd-AG-fzK"/>
-                                            <constraint firstAttribute="height" constant="20" id="Zrd-2z-woa"/>
+                                            <constraint firstAttribute="width" constant="30" id="TPd-AG-fzK"/>
+                                            <constraint firstAttribute="height" constant="30" id="Zrd-2z-woa"/>
                                         </constraints>
-                                        <state key="normal" image="back"/>
+                                        <state key="normal" image="go_back"/>
                                         <connections>
                                             <action selector="backClick:" destination="Tc7-Ec-h55" eventType="touchUpInside" id="ajo-3R-m3l"/>
                                         </connections>
@@ -401,8 +404,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="back" width="17" height="30"/>
+        <image name="baokan" width="37" height="40"/>
         <image name="bookLoading" width="228" height="310"/>
+        <image name="go_back" width="120" height="120"/>
+        <image name="personal" width="44" height="44"/>
         <image name="searchBarBackground2" width="123" height="42"/>
     </resources>
 </document>

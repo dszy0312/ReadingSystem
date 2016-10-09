@@ -26,8 +26,12 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cN0-ts-TyW">
-                                        <state key="normal" title="个人">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cN0-ts-TyW">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="EER-hg-iJf"/>
+                                            <constraint firstAttribute="height" constant="30" id="aLI-GQ-xWS"/>
+                                        </constraints>
+                                        <state key="normal" image="personal">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -39,7 +43,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="AZC-jk-LU8"/>
                                     <constraint firstItem="Zyz-IA-aCn" firstAttribute="centerX" secondItem="Bht-Kd-FPL" secondAttribute="centerX" id="DXG-iW-vWj"/>
-                                    <constraint firstItem="cN0-ts-TyW" firstAttribute="leading" secondItem="Bht-Kd-FPL" secondAttribute="leading" constant="22" id="SA9-Tk-pr4"/>
+                                    <constraint firstItem="cN0-ts-TyW" firstAttribute="leading" secondItem="Bht-Kd-FPL" secondAttribute="leading" constant="15" id="SA9-Tk-pr4"/>
                                     <constraint firstItem="cN0-ts-TyW" firstAttribute="centerY" secondItem="Zyz-IA-aCn" secondAttribute="centerY" id="Svh-NM-Zrm"/>
                                     <constraint firstItem="Zyz-IA-aCn" firstAttribute="centerY" secondItem="Bht-Kd-FPL" secondAttribute="centerY" constant="10" id="aog-WL-Pjm"/>
                                 </constraints>
@@ -211,10 +215,10 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gz-oo-qo9">
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="cz1-PS-2K2"/>
-                                            <constraint firstAttribute="width" constant="11" id="jx8-S1-KWa"/>
+                                            <constraint firstAttribute="height" constant="30" id="cz1-PS-2K2"/>
+                                            <constraint firstAttribute="width" constant="30" id="jx8-S1-KWa"/>
                                         </constraints>
-                                        <state key="normal" image="back"/>
+                                        <state key="normal" image="go_back"/>
                                         <connections>
                                             <action selector="backClick:" destination="vAz-2e-Aj9" eventType="touchUpInside" id="VOS-Eu-Aag"/>
                                         </connections>
@@ -340,7 +344,8 @@
     </scenes>
     <resources>
         <image name="addbook" width="320" height="420"/>
-        <image name="back" width="17" height="30"/>
         <image name="bookLoading" width="228" height="310"/>
+        <image name="go_back" width="120" height="120"/>
+        <image name="personal" width="44" height="44"/>
     </resources>
 </document>

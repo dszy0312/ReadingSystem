@@ -30,6 +30,9 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     @IBOutlet weak var dateButton: UIButton!
     
     
+    @IBOutlet weak var waitingView: WaitingView!
+    
+    
     //当前翻页视图
     weak var currentViewController: ReadingPageViewController!
     
@@ -140,7 +143,9 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
         self.addChildViewController(self.currentViewController!)
         self.addSubview(self.currentViewController!.view, toView: self.containerView)
         
-        self.getNetworkData(catalogue[selectedChapter].chapterID, bookID: bookID)
+        self.view.bringSubviewToFront(self.waitingView)
+//        self.waitingView.begin()
+//        self.getNetworkData(catalogue[selectedChapter].chapterID, bookID: bookID)
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -154,6 +159,11 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
         self.headerView.center.y =  -(self.headerView.bounds.height / 2)
         self.footerView.center.y = self.view.frame.height + self.footerView.bounds.height / 2
         self.setView.center.y = self.view.frame.height + self.setView.bounds.height / 2
+        self.waitingView.addLayer()
+        
+        self.waitingView.begin()
+        self.getNetworkData(catalogue[selectedChapter].chapterID, bookID: bookID)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -251,6 +261,11 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     //私有代理
     func sendID(row: Int) {
         selectedChapter = row
+        NSUserDefaults.standardUserDefaults().setInteger(1, forKey: "curPage")
+        //同步 防止突然退出出错
+        NSUserDefaults.standardUserDefaults().synchronize()
+//        self.waitingView.begin()
+//        self.getNetworkData(catalogue[selectedChapter].chapterID, bookID: bookID)
     }
     
     //添加子视图
@@ -335,6 +350,9 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
             
             self.titleLabel.text = self.readData.rows.first?.chapterName
             self.readText = self.readData.rows.first?.chapterContent
+            self.waitingView.end()
+            self.view.sendSubviewToBack(self.waitingView)
+            
         })
     }
     

@@ -21,11 +21,11 @@ enum SearchingListClassify {
             return "0000"
         case .Novel:
             return "0001"
-        case .Journal:
+        case .Listen:
             return "0002"
         case .Paper:
             return "0003"
-        case .Listen:
+        case .Journal:
             return "0004"
         }
     }
@@ -36,12 +36,12 @@ enum SearchingListClassify {
             return "全部"
         case .Novel:
             return "小说"
-        case .Journal:
-            return "期刊"
-        case .Paper:
-            return "报纸"
         case .Listen:
             return "听书"
+        case .Paper:
+            return "报纸"
+        case .Journal:
+            return "期刊"
         }
     }
 }

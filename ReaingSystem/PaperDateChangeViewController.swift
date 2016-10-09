@@ -126,7 +126,27 @@ class PaperDateChangeViewController: UIViewController, UIPickerViewDelegate, UIP
     
     //获取当前显示字符串
     func getSearchData() -> String{
-        return "\(pickerView.selectedRowInComponent(0))-\(pickerView.selectedRowInComponent(1))-\(pickerView.selectedRowInComponent(2))"
+        let year = yearArray[pickerView.selectedRowInComponent(0)]
+        var month = monthArray[pickerView.selectedRowInComponent(1)]
+        var day = dayArray[pickerView.selectedRowInComponent(2)]
+        
+        let yearStr = "\(year)"
+        let monthStr: String!
+        if month < 10 {
+            monthStr = "0\(month)"
+        } else {
+            monthStr = "\(month)"
+        }
+        
+        let dayStr: String!
+        if day < 10 {
+            dayStr = "0\(day)"
+        } else {
+            dayStr = "\(day)"
+        }
+        
+        
+        return "\(yearStr)-\(monthStr)-\(dayStr)"
     }
     
     func initDate() {

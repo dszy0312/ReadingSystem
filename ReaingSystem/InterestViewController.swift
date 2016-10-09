@@ -115,12 +115,12 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
                     cell.nameLabel.text = rows![indexPath.row].categoryName
                     cell.nameID = rows![indexPath.row].categoryID
                 } else {
-                    cell.imageView.image = UIImage(named: "标题")
+                    cell.imageView.image = UIImage(named: "leading_loading")
                     cell.nameLabel.text = ""
                 }
             }
         } else {
-            cell.imageView.image = UIImage(named: "标题")
+            cell.imageView.image = UIImage(named: "leading_loading")
             cell.nameLabel.text = ""
         }
         
@@ -215,6 +215,7 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
         var interestChosedArray: [String] = []
         //唯一标识码
         let uuid = checkUuid()
+        print(uuid)
         //兴趣选中数组
         for name in interestChosedSet {
             interestChosedArray.append(name)
@@ -232,6 +233,7 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
             }
             if let flag = dictionary!["flag"] as? Int {
                 if flag == 1 {
+                    NSUserDefaults.standardUserDefaults().setBool(false, forKey: "isFirstLaunch")
                     self.performSegueWithIdentifier("DetailSegue", sender: self)
                 } else {
                     print("发送失败")

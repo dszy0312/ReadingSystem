@@ -80,7 +80,7 @@ class ListenAdviceCollectionViewController: UICollectionViewController, UICollec
     }
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
-        return CGSize(width: self.view.bounds.width / 3, height: 180)
+        return CGSize(width: self.view.bounds.width / 3, height: 140)
         
         
         

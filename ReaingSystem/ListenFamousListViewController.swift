@@ -81,6 +81,7 @@ class ListenFamousListViewController: UIViewController, UITableViewDataSource, U
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.selectedAuthorID = famousArray[indexPath.row].authorID
         self.performSegueWithIdentifier(reuseIdentifier, sender: self)
+        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     

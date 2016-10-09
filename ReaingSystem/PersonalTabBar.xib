@@ -20,51 +20,37 @@
                     <subviews>
                         <button opaque="NO" contentMode="scaleAspectFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VEV-7A-kDm">
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="VEV-7A-kDm" secondAttribute="height" multiplier="1:1" id="9bw-lb-OHe"/>
-                                <constraint firstAttribute="width" constant="32" id="cnb-gt-RM1"/>
+                                <constraint firstAttribute="width" secondItem="VEV-7A-kDm" secondAttribute="height" multiplier="59:98" id="9bw-lb-OHe"/>
+                                <constraint firstAttribute="width" constant="25" id="cnb-gt-RM1"/>
                             </constraints>
-                            <state key="normal" backgroundImage="shujia_normal"/>
+                            <state key="normal" backgroundImage="n-1"/>
                             <connections>
                                 <action selector="changeTabBar:" destination="GKf-Tc-tyY" eventType="touchUpInside" id="HSV-9a-SG1"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="书架" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LTf-g2-Yl1">
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                     </subviews>
                     <color key="backgroundColor" red="0.92255353880000002" green="0.94466949079999996" blue="0.9637590815" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstItem="LTf-g2-Yl1" firstAttribute="centerX" secondItem="CDy-5k-uTa" secondAttribute="centerX" id="AbO-Bd-inS"/>
-                        <constraint firstItem="VEV-7A-kDm" firstAttribute="centerY" secondItem="CDy-5k-uTa" secondAttribute="centerY" constant="-8" id="N1b-K7-bBj"/>
+                        <constraint firstItem="VEV-7A-kDm" firstAttribute="centerY" secondItem="CDy-5k-uTa" secondAttribute="centerY" id="N1b-K7-bBj"/>
                         <constraint firstItem="VEV-7A-kDm" firstAttribute="centerX" secondItem="CDy-5k-uTa" secondAttribute="centerX" id="RUB-w0-ewh"/>
-                        <constraint firstItem="LTf-g2-Yl1" firstAttribute="top" secondItem="VEV-7A-kDm" secondAttribute="bottom" id="Uej-MB-Pjo"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zGB-xK-gqx">
                     <subviews>
                         <button opaque="NO" tag="1" contentMode="scaleAspectFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Btj-pZ-DU2">
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="Btj-pZ-DU2" secondAttribute="height" multiplier="1:1" id="9hf-7d-MNM"/>
-                                <constraint firstAttribute="width" constant="32" id="ORp-Sj-QWq"/>
+                                <constraint firstAttribute="width" secondItem="Btj-pZ-DU2" secondAttribute="height" multiplier="59:98" id="9hf-7d-MNM"/>
+                                <constraint firstAttribute="width" constant="25" id="ORp-Sj-QWq"/>
                             </constraints>
-                            <state key="normal" backgroundImage="jingxuan_normal"/>
+                            <state key="normal" backgroundImage="n-2"/>
                             <connections>
                                 <action selector="changeTabBar:" destination="GKf-Tc-tyY" eventType="touchUpInside" id="SO3-FO-ACg"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="精选" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="inP-5U-O9b">
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                     </subviews>
                     <color key="backgroundColor" red="0.92255353880000002" green="0.94466949079999996" blue="0.9637590815" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstItem="Btj-pZ-DU2" firstAttribute="centerY" secondItem="zGB-xK-gqx" secondAttribute="centerY" constant="-8" id="35C-G7-GB4"/>
-                        <constraint firstItem="inP-5U-O9b" firstAttribute="top" secondItem="Btj-pZ-DU2" secondAttribute="bottom" id="GfC-E9-9lS"/>
-                        <constraint firstItem="inP-5U-O9b" firstAttribute="centerX" secondItem="zGB-xK-gqx" secondAttribute="centerX" id="R9q-eY-ZQ6"/>
+                        <constraint firstItem="Btj-pZ-DU2" firstAttribute="centerY" secondItem="zGB-xK-gqx" secondAttribute="centerY" id="35C-G7-GB4"/>
                         <constraint firstItem="Btj-pZ-DU2" firstAttribute="centerX" secondItem="zGB-xK-gqx" secondAttribute="centerX" id="vA5-GL-INl"/>
                     </constraints>
                 </view>
@@ -72,67 +58,48 @@
                     <subviews>
                         <button opaque="NO" tag="2" contentMode="scaleAspectFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="llr-d1-FPi">
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="llr-d1-FPi" secondAttribute="height" multiplier="1:1" id="0mF-cI-SaQ"/>
-                                <constraint firstAttribute="width" constant="32" id="Lo0-4C-mxu"/>
+                                <constraint firstAttribute="width" secondItem="llr-d1-FPi" secondAttribute="height" multiplier="59:98" id="0mF-cI-SaQ"/>
+                                <constraint firstAttribute="width" constant="25" id="Lo0-4C-mxu"/>
                             </constraints>
-                            <state key="normal" backgroundImage="fenlei_normal"/>
+                            <state key="normal" backgroundImage="n-3"/>
                             <connections>
                                 <action selector="changeTabBar:" destination="GKf-Tc-tyY" eventType="touchUpInside" id="OOW-vR-VmS"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分类" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Je-re-xI1">
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                     </subviews>
                     <color key="backgroundColor" red="0.92255353880000002" green="0.94466949079999996" blue="0.9637590815" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstItem="llr-d1-FPi" firstAttribute="centerY" secondItem="O3l-sm-xPE" secondAttribute="centerY" constant="-8" id="3Hh-s3-DTP"/>
+                        <constraint firstItem="llr-d1-FPi" firstAttribute="centerY" secondItem="O3l-sm-xPE" secondAttribute="centerY" id="3Hh-s3-DTP"/>
                         <constraint firstItem="llr-d1-FPi" firstAttribute="centerX" secondItem="O3l-sm-xPE" secondAttribute="centerX" id="8Rn-ye-OPN"/>
-                        <constraint firstItem="1Je-re-xI1" firstAttribute="centerX" secondItem="O3l-sm-xPE" secondAttribute="centerX" id="qQO-ed-KDh"/>
-                        <constraint firstItem="1Je-re-xI1" firstAttribute="top" secondItem="llr-d1-FPi" secondAttribute="bottom" id="uFZ-A2-QVO"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xuo-1X-JxG">
                     <subviews>
                         <button opaque="NO" tag="3" contentMode="scaleAspectFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="osP-Cu-1kC">
                             <constraints>
-                                <constraint firstAttribute="width" constant="32" id="X9c-T7-REb"/>
-                                <constraint firstAttribute="width" secondItem="osP-Cu-1kC" secondAttribute="height" multiplier="1:1" id="mPF-8R-Txj"/>
+                                <constraint firstAttribute="width" constant="25" id="X9c-T7-REb"/>
+                                <constraint firstAttribute="width" secondItem="osP-Cu-1kC" secondAttribute="height" multiplier="59:98" id="mPF-8R-Txj"/>
                             </constraints>
-                            <state key="normal" backgroundImage="baokan_normal"/>
+                            <state key="normal" backgroundImage="n-4"/>
                             <connections>
                                 <action selector="changeTabBar:" destination="GKf-Tc-tyY" eventType="touchUpInside" id="hsw-4V-K1j"/>
                             </connections>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="报刊" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOd-SH-RXo">
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                     </subviews>
                     <color key="backgroundColor" red="0.92255353880000002" green="0.94466949079999996" blue="0.9637590815" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstItem="osP-Cu-1kC" firstAttribute="centerY" secondItem="xuo-1X-JxG" secondAttribute="centerY" constant="-8" id="P53-CU-F3c"/>
-                        <constraint firstItem="qOd-SH-RXo" firstAttribute="centerX" secondItem="xuo-1X-JxG" secondAttribute="centerX" id="P9H-lG-Rni"/>
+                        <constraint firstItem="osP-Cu-1kC" firstAttribute="centerY" secondItem="xuo-1X-JxG" secondAttribute="centerY" id="P53-CU-F3c"/>
                         <constraint firstItem="osP-Cu-1kC" firstAttribute="centerX" secondItem="xuo-1X-JxG" secondAttribute="centerX" id="QJg-UE-4Vx"/>
-                        <constraint firstItem="qOd-SH-RXo" firstAttribute="top" secondItem="osP-Cu-1kC" secondAttribute="bottom" id="mdU-kY-Fd7"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ilF-F4-r4L">
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="发现" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TSr-CE-ASb">
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <button opaque="NO" tag="4" contentMode="scaleAspectFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rTP-sy-ym5">
                             <constraints>
-                                <constraint firstAttribute="width" constant="32" id="IVG-2u-p20"/>
-                                <constraint firstAttribute="width" secondItem="rTP-sy-ym5" secondAttribute="height" multiplier="1:1" id="n4n-4k-mvf"/>
+                                <constraint firstAttribute="width" constant="25" id="IVG-2u-p20"/>
+                                <constraint firstAttribute="width" secondItem="rTP-sy-ym5" secondAttribute="height" multiplier="59:98" id="n4n-4k-mvf"/>
                             </constraints>
-                            <state key="normal" backgroundImage="faxian_normal"/>
+                            <state key="normal" backgroundImage="n-5"/>
                             <connections>
                                 <action selector="changeTabBar:" destination="GKf-Tc-tyY" eventType="touchUpInside" id="Xhg-2S-pTU"/>
                             </connections>
@@ -141,9 +108,7 @@
                     <color key="backgroundColor" red="0.92255353880000002" green="0.94466949079999996" blue="0.9637590815" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="rTP-sy-ym5" firstAttribute="centerX" secondItem="ilF-F4-r4L" secondAttribute="centerX" id="5ZM-74-Nt6"/>
-                        <constraint firstItem="rTP-sy-ym5" firstAttribute="centerY" secondItem="ilF-F4-r4L" secondAttribute="centerY" constant="-8" id="C09-CW-xvZ"/>
-                        <constraint firstItem="TSr-CE-ASb" firstAttribute="centerX" secondItem="ilF-F4-r4L" secondAttribute="centerX" id="ViZ-2m-kaQ"/>
-                        <constraint firstItem="TSr-CE-ASb" firstAttribute="top" secondItem="rTP-sy-ym5" secondAttribute="bottom" id="W9P-0f-ma1"/>
+                        <constraint firstItem="rTP-sy-ym5" firstAttribute="centerY" secondItem="ilF-F4-r4L" secondAttribute="centerY" id="C09-CW-xvZ"/>
                     </constraints>
                 </view>
             </subviews>
@@ -196,11 +161,11 @@
         </view>
     </objects>
     <resources>
-        <image name="baokan_normal" width="32" height="32"/>
-        <image name="faxian_normal" width="32" height="32"/>
-        <image name="fenlei_normal" width="32" height="32"/>
-        <image name="jingxuan_normal" width="32" height="32"/>
-        <image name="shujia_normal" width="32" height="32"/>
+        <image name="n-1" width="59" height="98"/>
+        <image name="n-2" width="59" height="98"/>
+        <image name="n-3" width="59" height="98"/>
+        <image name="n-4" width="59" height="98"/>
+        <image name="n-5" width="59" height="98"/>
         <image name="tabbar_background" width="320" height="64"/>
     </resources>
 </document>

@@ -18,8 +18,7 @@ class SearchingResultTableViewCell: UITableViewCell {
     
     @IBOutlet weak var bookIntroduceLabel: UILabel!
     
-    @IBOutlet weak var classifyLabel: UILabel!
-    
+    @IBOutlet weak var classifyImageView: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,6 +36,18 @@ class SearchingResultTableViewCell: UITableViewCell {
         bookAuthorLabel.text = data.author
         bookIntroduceLabel.text = data.bookBrief
         
+        switch data.typeID {
+        case "0001":
+            classifyImageView.image = UIImage(named: "book_type")
+        case "0002":
+            classifyImageView.image = UIImage(named: "listen_type")
+        case "0003":
+            classifyImageView.image = UIImage(named: "baozhi_type")
+        case "0004":
+            classifyImageView.image = UIImage(named: "journal_type")
+        default:
+            break
+        }
         
         if data.bookImg == nil {
             bookImgeView.image = UIImage(named: "bookLoading")

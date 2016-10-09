@@ -37,7 +37,7 @@ class PaperTableViewCell: UITableViewCell {
         if url == nil {
             paperImageView.image = UIImage(named: "bookLoading")
         } else {
-            paperImageView.kf_setImageWithURL(NSURL(string: url!), placeholderImage: UIImage(named: "bookLoading"))
+            paperImageView.kf_setImageWithURL(NSURL(string: baseURl + url!), placeholderImage: UIImage(named: "bookLoading"))
         }
     }
 

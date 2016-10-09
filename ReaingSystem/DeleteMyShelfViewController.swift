@@ -30,6 +30,8 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
     weak var delegate: DeleteMyShelfDelegate!
     //要删除的book位值集合
     var index: Set<Int>? = []
+    //最近阅读书目数量
+    var count = 0
     //选中的单元格
     var selectedRow: Int!
     
@@ -92,7 +94,7 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
         let headView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "HeadView", forIndexPath: indexPath) as! MyShelfCollectionReusableView
         //UI配置
         if let readedBook = self.readedBook?.first {
-            headView.setData(readedBook)
+            headView.setData(readedBook, count: count)
         }
         return headView
     }
@@ -114,6 +116,18 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         return CGSize(width: 250, height: 49)
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        var size: CGSize!
+        if readedBook == nil {
+            size = CGSize(width: self.view.bounds.width, height: 1)
+        } else if readedBook?.count == 0 {
+            size = CGSize(width: self.view.bounds.width, height: 1)
+        } else {
+            size = CGSize(width: self.view.bounds.width, height: 156)
+        }
+        return size
     }
     
     // delegate

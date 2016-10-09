@@ -42,7 +42,7 @@ class TextViewController: UIViewController, UITextViewDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        UIApplication.sharedApplication().statusBarHidden = true
+//        UIApplication.sharedApplication().statusBarHidden = false
         pageLabel.text = "第\(currentPage)/\(totalPage)页"
         textView.contentInset = UIEdgeInsetsMake(20, -5, -10, -50)
         textView.textAlignment = NSTextAlignment.Left

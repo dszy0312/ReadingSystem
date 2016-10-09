@@ -34,6 +34,7 @@ class ListenDetailViewController: UIViewController, UITableViewDelegate, UITable
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.tableFooterView = UIView()
         segmentedControl.selectedSegmentIndex = 0
         getListenDetail(audioData.audioID)
 

@@ -7,6 +7,11 @@
 //
 
 import UIKit
+import Kingfisher
+
+protocol LoginDelegate {
+    func sendIndexs(name: String, icon: String)
+}
 
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
@@ -17,12 +22,17 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var passwordLabel: UILabel!
     
+    var loginDelegate: LoginDelegate!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
     
         usernameTF.delegate = self
         passwordTF.delegate = self
+        
+        let uuid = checkUuid()
+        print("uuid\(uuid)")
         
         
         
@@ -61,6 +71,42 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             })
         }
     }
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        usernameTF.resignFirstResponder()
+        passwordTF.resignFirstResponder()
+        return true
+    }
+    
+    
+    @IBAction func sinaClick(sender: UIButton) {
+        otherLogin(SSDKPlatformType.TypeSinaWeibo)
+    }
+    
+    @IBAction func qqClick(sender: UIButton) {
+        otherLogin(SSDKPlatformType.TypeQQ)
+    }
+    
+    @IBAction func wechatClick(sender: UIButton) {
+        otherLogin(SSDKPlatformType.TypeWechat)
+    }
+    
+    @IBAction func backClick(sender: UIButton) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func loginClick(sender: UIButton) {
+        guard usernameTF.text != "" else {
+            alertMessage("系统提示", message: "用户名不能为空！", vc: self)
+            return
+        }
+        guard passwordTF.text != "" else {
+            alertMessage("系统提示", message: "密码不能为空！", vc: self)
+            return
+        }
+        loginSend(usernameTF.text!, password: passwordTF.text!, uuid: checkUuid()!)
+    }
+    
+    
     
     
     
@@ -68,16 +114,111 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    //UUID查询
+    func checkUuid() -> String?{
+        // keyChain group
+        var service = "com.weihui.ReaingSystem"
+        // access group
+        var group = ""
+        // 查询name
+        let kReadingUUIDKey = "UUIDKey"
+        var keychain: KeychainUtility?
+        // 发布者身份检查 可以实现不同APP调用
+        guard let appIdPrefix = NSBundle.mainBundle().infoDictionary!["AppIdentifierPrefix"] as? String else {
+            print("No AppIdPrefix")
+            return nil
+        }
+        group = appIdPrefix + service
+        keychain = KeychainUtility(service: service, group: group)
+        // 查询钥匙串中是否有存储的UUID
+        if let data = keychain?.query(kReadingUUIDKey) {
+            return NSString(data: data, encoding: NSUTF8StringEncoding) as? String
+        } else {
+            return nil
+        }
+    }
+    
+    //第三方登陆
+    func otherLogin(type: SSDKPlatformType) {
+//        var types = 0
+//        switch type {
+//        case SSDKPlatformType.TypeQQ:
+//            types = 2
+//        case SSDKPlatformType.TypeWechat:
+//            types = 3
+//        case SSDKPlatformType.TypeSinaWeibo:
+//            types = 4
+//        default:
+//            break
+//        }
+//        ShareSDK.getUserInfo(type) { (state, user, error) in
+//            if (state == SSDKResponseState.Success)
+//            {
+//                print("这是：\(user.uid)")
+//                print("这是：\(user.credential)")
+//                print("这是：\(user.credential.token)")
+//                print("这是：\(user.icon)")
+//                self.otherLoginSend(user.uid, nickName: user.nickname, userType: types, uuid: self.checkUuid()!, icon: user.icon)
+//            }
+//            else
+//            {
+//                print(error)
+//            }
+//        }
+    }
+
+    
+    //MARK:网络请求
+    func loginSend(username: String, password: String, nickName: String = "", userType: Int = 1, uuid: String) {
+        
+        NetworkHealper.GetWithParm2.receiveJSON(URLHealper.login.introduce(), parameter: ["userName": username, "password": password, "nickName": nickName, "userType": userType, "uuid": uuid]) { (dictionary, error) in
+            //查询错误
+            guard error == nil else {
+                print(error)
+                return
+            }
+            
+            if let flag = dictionary!["flag"] as? Int {
+                if flag == 1 {
+                    self.userSet(username, icon: "center_photo")
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                } else {
+                    alertMessage("登陆失败", message: "请检查用户名和密码是否正确", vc: self)
+                    print("发送失败")
+                }
+            }
+        }
+    }
+    
+    func otherLoginSend(username: String, password: String = "", nickName: String, userType: Int, uuid: String, icon: String) {
+        
+        NetworkHealper.GetWithParm2.receiveJSON(URLHealper.login.introduce(), parameter: ["userName": username, "password": password, "nickName": nickName, "userType": userType, "uuid": uuid]) { (dictionary, error) in
+            //查询错误
+            guard error == nil else {
+                print(error)
+                return
+            }
+            
+            if let flag = dictionary!["flag"] as? Int {
+                if flag == 1 {
+                    self.userSet(nickName, icon: icon)
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                } else {
+                    alertMessage("登陆失败", message: "请重试！", vc: self)
+                    print("发送失败")
+                }
+            }
+        }
+    }
+    
+    
+    func userSet(username: String, icon: String) {
+        NSUserDefaults.standardUserDefaults().setObject(username, forKey: "userTitle")
+        NSUserDefaults.standardUserDefaults().setObject(icon, forKey: "userImage")
+    }
     
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+   
 
 }

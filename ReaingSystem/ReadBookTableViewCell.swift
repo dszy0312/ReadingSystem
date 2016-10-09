@@ -37,6 +37,8 @@ class ReadBookTableViewCell: UITableViewCell {
     func setTopListData(data: BookListData) {
         bookTitleLabel.text = data.bookName
         bookWriterLabel.text = data.author
+        bookChapterLabel.text = data.chapterName
+        readTimeLabel.text = data.recentReadDate
         if data.bookImg == nil {
             bookImageView.image = UIImage(named: "bookLoading")
         } else {

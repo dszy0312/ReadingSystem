@@ -59,6 +59,7 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         tableView.delegate = self
         tableView.registerNib(UINib(nibName: "SelectingDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "DetailCell")
         
+        UIApplication.sharedApplication().statusBarHidden = false
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -148,6 +149,7 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         case 0,1:
             let toVC = self.toVC("Selecting", vcName: "SearchingSex") as! SelectingSexViewController
             toVC.classifyData = self.classifyData![indexPath.row]
+            toVC.getData(toVC.classifyData.iconID)
             self.presentViewController(toVC, animated: true, completion: nil)
             
         case 2:

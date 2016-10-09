@@ -10,6 +10,18 @@ import Foundation
 import UIKit
 
 enum URLHealper {
+    //获取验证码
+    case getYZHM
+    //注册
+    case registerNewUser
+    //登陆
+    case login
+    //重置密码
+    case resetPassword
+    //修改密码(参数名： oldPass + newPass + confirmNewPass)
+    case ModiPsd
+    //退出账号
+    case logout
     //MARK: LeadingPage
     //兴趣列表获取地址
     case interestsURL
@@ -91,6 +103,25 @@ enum URLHealper {
     
     func introduce() -> String {
         switch self {
+        //获取验证码
+        case .getYZHM:
+            return baseURl + "/user/SendYzm"
+        //注册
+        case .registerNewUser:
+            return baseURl + "/user/Register"
+        //登陆
+        case .login:
+            return baseURl + "/user/login"
+        //重置密码
+        case .resetPassword:
+            return baseURl + "user/ResetPsd"
+        //修改密码
+        case .ModiPsd:
+            return baseURl + "/user/ModiPsd"
+        //退出账号
+        case .logout:
+            return baseURl + "/user/Logout"
+            
         case .interestsURL:
             return baseURl + "story/GetCategoryByInterest"
         case .interestsSendURL:

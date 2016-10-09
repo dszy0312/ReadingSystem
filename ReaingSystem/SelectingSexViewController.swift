@@ -39,7 +39,6 @@ class SelectingSexViewController: UIViewController, UICollectionViewDataSource,U
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.titleLabel.text = classifyData.iconName
-        getData()
     }
     
     @IBAction func backClick(sender: UIButton) {
@@ -88,6 +87,28 @@ class SelectingSexViewController: UIViewController, UICollectionViewDataSource,U
         return headerView!
     }
     
+    // delegate
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        guard let datas = sexDetailData[sexRootData.data2[indexPath.section].categoryID]?.data else {
+            return
+        }
+        guard datas.count >= indexPath.row + 1 else {
+            return
+        }
+        guard let id = datas[indexPath.row].bookID else {
+            return
+        }
+        if let toVC = childVC("ReadDetail", vcName: "BookIntroduceViewController") as? BookIntroduceViewController {
+            if id != "" {
+                toVC.selectedBookID = datas[indexPath.row].bookID
+                self.presentViewController(toVC, animated: true, completion: {
+                })
+            }
+
+        }
+    
+    }
+
     //MARK: UICollectionViewDelegateFlowLayout
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
@@ -108,12 +129,20 @@ class SelectingSexViewController: UIViewController, UICollectionViewDataSource,U
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
 
+    //MARK：私有方法
+    //页面跳转方法
+    func childVC(sbName: String, vcName: String) -> UIViewController {
+        var sb = UIStoryboard(name: sbName, bundle: nil)
+        var vc = sb.instantiateViewControllerWithIdentifier(vcName)
+        return vc
+    }
+
     
 
     //网络请求
-    func getData() {
+    func getData(id: String) {
         //iconID暂时默认
-        NetworkHealper.GetWithParm.receiveJSON(URLHealper.getChildCategoryListByCategory.introduce(), parameter: ["categoryID": "0001"]) { (dictionary, error) in
+        NetworkHealper.GetWithParm.receiveJSON(URLHealper.getChildCategoryListByCategory.introduce(), parameter: ["categoryID": id]) { (dictionary, error) in
             guard error == nil else {
                 print(error)
                 return
@@ -126,7 +155,7 @@ class SelectingSexViewController: UIViewController, UICollectionViewDataSource,U
         }
     }
     func getDetailData(data: [SelectSexData2]) {
-        print(data.count)
+        print("男生年出生\(data.count)")
         for i in 0..<data.count {
             NetworkHealper.GetWithParm.receiveJSON(URLHealper.getHotStoryByCategory.introduce(), parameter: ["categoryID": data[i].categoryID]) { (dictionary, error) in
                 guard error == nil else {

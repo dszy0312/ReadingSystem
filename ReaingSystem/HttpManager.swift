@@ -15,6 +15,8 @@ let baseURl = "http://lh.sdlq.org/"
 enum NetworkHealper {
     case Get
     case GetWithParm
+    //登陆注册专用
+    case GetWithParm2
     case Post
     case GetTest
     case GetTestWithParm
@@ -63,6 +65,25 @@ enum NetworkHealper {
                             print("数据获取失败")
                         }
                     }
+                    
+                case .Failure(let e):
+                    error = "服务器出错"
+                    print(e)
+                }
+                completion(dic, error)
+            }
+        case .GetWithParm2:
+            
+            Alamofire.request(.GET, url, parameters: parameter, encoding: .URL).responseJSON { (response) in
+                switch response.result {
+                case .Success:
+                    //确保返回值是一个json字符串，并能转换成NSDictionary
+                    guard let jsonDic = response.result.value as? NSDictionary else {
+                        error = "不是一个json字符串"
+                        completion(dic, error)
+                        return
+                    }
+                    dic = jsonDic
                     
                 case .Failure(let e):
                     error = "服务器出错"
@@ -120,7 +141,7 @@ enum NetworkHealper {
             
                 completion(data, error)
             })
-        case .GetWithParm:
+        case .GetWithParm, .GetWithParm2:
             Alamofire.request(.GET, url, parameters: parameter).responseData(completionHandler: { (response) in
                 switch response.result {
                 case .Success:

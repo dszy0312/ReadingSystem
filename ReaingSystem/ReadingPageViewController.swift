@@ -122,6 +122,8 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
                 //章节跳转
                 let pVC = self.parentViewController as! BookReadingViewController
                 pVC.chapterChange(childVC.nextChapter)
+                pVC.view.bringSubviewToFront(pVC.waitingView)
+                pVC.waitingView.begin()
             }
         }
 

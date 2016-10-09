@@ -48,6 +48,7 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.tableFooterView = UIView()
         
         // Do any additional setup after loading the view.
     }
@@ -96,6 +97,7 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
         }
         self.clickFrom = 0
         self.performSegueWithIdentifier(reuseIdentifier[0], sender: self)
+        UIApplication.sharedApplication().statusBarHidden = true
     }
     //显示目录
     @IBAction func findCatalogClick(sender: UIButton) {

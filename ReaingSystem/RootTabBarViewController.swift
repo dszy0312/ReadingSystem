@@ -94,7 +94,7 @@ class RootTabBarViewController: UITabBarController, ChangeTabBarDelegate, Hidden
         tabBarView = array![0] as? PersonalTabBar
         tabBarView?.delegate = self
         tabBarView?.itemButton1.selected = true
-        tabBarView?.itemButton1.setBackgroundImage(UIImage(named: "shujia_heighLight"), forState: .Normal)
+        tabBarView?.itemButton1.setBackgroundImage(UIImage(named: "反相-1"), forState: .Normal)
         self.selectedIndex = 0
         tabBarView?.frame = CGRect(x: 0, y: self.view.frame.height - 49, width: self.view.frame.width, height: 49)
         self.view.addSubview(tabBarView!)

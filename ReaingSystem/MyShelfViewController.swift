@@ -26,6 +26,8 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     var myBooks: [MyBook]?
     //最近阅读的书
     var readedBook: [ReadedBook]?
+    //最近阅读书目数量
+    var count = 0
     //选中的单元格
     var selectedRow: Int!
     
@@ -38,6 +40,8 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
         //创建长按手势监听
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(collectionViewCellLongPress(_:)))
         collectionView.addGestureRecognizer(longPress)
+//        //网络请求
+//        getMyShelf()
 
         // Do any additional setup after loading the view.
     }
@@ -53,6 +57,13 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
         getMyShelf()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.sharedApplication().statusBarHidden = false
+//        //网络请求
+//        getMyShelf()
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == reuseIdentifier[0] {
             let newVC = segue.destinationViewController as! ReadBookListViewController
@@ -66,6 +77,7 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
             
             newVC.myBooks = self.myBooks
             newVC.readedBook = self.readedBook
+            newVC.count = self.count
             newVC.contentOffset = self.collectionView.contentOffset
             newVC.delegate = self
             newVC.selectedRow = self.selectedRow
@@ -125,10 +137,12 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        
+
         let headView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "HeadView", forIndexPath: indexPath) as! MyShelfCollectionReusableView
         //UI配置
         if let readedBook = self.readedBook?.first {
-                headView.setData(readedBook)
+            headView.setData(readedBook, count: count)
         }
         return headView
     }
@@ -150,6 +164,18 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         return CGSize(width: 250, height: 49)
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        var size: CGSize!
+        if readedBook == nil {
+            size = CGSize(width: self.view.bounds.width, height: 1)
+        } else if readedBook?.count == 0 {
+            size = CGSize(width: self.view.bounds.width, height: 1)
+        } else {
+            size = CGSize(width: self.view.bounds.width, height: 156)
+        }
+        return size
     }
     
     // delegate
@@ -230,6 +256,7 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
             
             self.myBooks = myShelf.rows
             self.readedBook = myShelf.data
+            self.count = myShelf.totalCount
             self.collectionView.reloadData()
 
         }

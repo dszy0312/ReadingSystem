@@ -26,8 +26,12 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CnN-k8-URk">
-                                        <state key="normal" title="个人">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CnN-k8-URk">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="ilA-L0-6md"/>
+                                            <constraint firstAttribute="height" constant="30" id="tUM-u6-Ipu"/>
+                                        </constraints>
+                                        <state key="normal" image="personal">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -40,7 +44,7 @@
                                     <constraint firstAttribute="height" constant="64" id="7MC-wJ-nyO"/>
                                     <constraint firstItem="3nR-wR-zQU" firstAttribute="centerX" secondItem="12J-HW-oEQ" secondAttribute="centerX" id="E7w-Gy-ufj"/>
                                     <constraint firstItem="CnN-k8-URk" firstAttribute="centerY" secondItem="3nR-wR-zQU" secondAttribute="centerY" id="Hqa-Nk-enK"/>
-                                    <constraint firstItem="CnN-k8-URk" firstAttribute="leading" secondItem="12J-HW-oEQ" secondAttribute="leading" constant="22" id="SRl-Il-qHr"/>
+                                    <constraint firstItem="CnN-k8-URk" firstAttribute="leading" secondItem="12J-HW-oEQ" secondAttribute="leading" constant="15" id="SRl-Il-qHr"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="ULE-fH-jL0"/>
                                     <constraint firstItem="3nR-wR-zQU" firstAttribute="centerY" secondItem="12J-HW-oEQ" secondAttribute="centerY" constant="10" id="Y4r-Xw-s2z"/>
                                 </constraints>
@@ -237,5 +241,6 @@
         <image name="listen_image" width="512" height="512"/>
         <image name="listen_test" width="90" height="90"/>
         <image name="listen_trumpet" width="96" height="96"/>
+        <image name="personal" width="44" height="44"/>
     </resources>
 </document>

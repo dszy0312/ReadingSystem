@@ -24,7 +24,7 @@ class MyShelfCollectionReusableView: UICollectionReusableView {
     @IBAction func transitionAction(sender: UIButton) {
         
     }
-    func setData(data: ReadedBook) {
+    func setData(data: ReadedBook, count: Int) {
         if data.bookImg == nil {
             bookImageView.image = UIImage(named: "bookLoading")
         } else {
@@ -33,7 +33,7 @@ class MyShelfCollectionReusableView: UICollectionReusableView {
         bookTitleLabel.text = data.bookName
         bookSubTitleLabel.text = data.chapterName
         timeLabel.text = data.recentReadDate
-        totalLabel.text = "共\(data.num)本"
+        totalLabel.text = "共\(count)本"
     }
 
     

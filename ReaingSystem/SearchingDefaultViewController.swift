@@ -49,7 +49,6 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        getMyHotKeyData()
         getHotKeyData(hotKeyPage)
         getHotListData(hotListPage)
 
@@ -63,6 +62,10 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
 
         collectionView.registerNib(UINib(nibName: "FooterLoadingCollectionReusableView",bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: reuseIdentifier[1])
         
+    }
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        getMyHotKeyData()
     }
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)

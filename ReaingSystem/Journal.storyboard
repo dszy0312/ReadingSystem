@@ -30,10 +30,10 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wpm-cR-Voo">
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="HH0-j1-MqP"/>
-                                            <constraint firstAttribute="width" constant="11" id="kA7-O6-5GW"/>
+                                            <constraint firstAttribute="height" constant="30" id="HH0-j1-MqP"/>
+                                            <constraint firstAttribute="width" constant="30" id="kA7-O6-5GW"/>
                                         </constraints>
-                                        <state key="normal" image="back"/>
+                                        <state key="normal" image="go_back"/>
                                         <connections>
                                             <action selector="backClick:" destination="l8q-4b-4dY" eventType="touchUpInside" id="M2X-OZ-lRt"/>
                                         </connections>
@@ -269,7 +269,7 @@
         <scene sceneID="Ynu-Qo-cfV">
             <objects>
                 <collectionViewController storyboardIdentifier="Category" id="xbq-bX-0fF" customClass="JournalCategoryCollectionViewController" customModule="ReaingSystem" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Ks1-NY-UbO">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="Ks1-NY-UbO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -364,7 +364,7 @@
         <scene sceneID="hDL-2A-wkB">
             <objects>
                 <collectionViewController storyboardIdentifier="Sequence" id="0w2-yi-Lha" customClass="JournalSequenceCollectionViewController" customModule="ReaingSystem" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="uFv-hu-2hV">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="uFv-hu-2hV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -483,37 +483,31 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="飙升排行" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zMk-1S-YBC">
-                                    <frame key="frameInset" minX="8" minY="31" width="68" height="21"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="飙升排行" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zMk-1S-YBC">
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mUL-88-F7A">
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="8" id="NvA-mi-NlD"/>
-                                        <constraint firstAttribute="height" constant="15" id="m3o-qm-7AZ"/>
+                                        <constraint firstAttribute="width" constant="60" id="NvA-mi-NlD"/>
+                                        <constraint firstAttribute="height" constant="20" id="m3o-qm-7AZ"/>
                                     </constraints>
-                                    <state key="normal" image="journal_jump"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                    <state key="normal" title="更多 +">
+                                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
                                     <connections>
                                         <action selector="jumpClick:" destination="s3f-Aq-iea" eventType="touchUpInside" id="Xso-lE-euX"/>
                                     </connections>
                                 </button>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="更多" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Q5-rU-e5c">
-                                    <frame key="frameInset" minX="530" minY="31" width="34" height="21"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
                             </subviews>
                             <constraints>
-                                <constraint firstItem="0Q5-rU-e5c" firstAttribute="centerY" secondItem="mUL-88-F7A" secondAttribute="centerY" id="0AS-jb-Axe"/>
                                 <constraint firstAttribute="leadingMargin" secondItem="zMk-1S-YBC" secondAttribute="leading" id="5Gt-ff-rq3"/>
                                 <constraint firstAttribute="bottomMargin" secondItem="mUL-88-F7A" secondAttribute="bottom" constant="-1" id="MlW-0h-JHo"/>
-                                <constraint firstItem="zMk-1S-YBC" firstAttribute="centerY" secondItem="0Q5-rU-e5c" secondAttribute="centerY" id="N9n-Cf-L9d"/>
                                 <constraint firstAttribute="leadingMargin" secondItem="zMk-1S-YBC" secondAttribute="leading" id="Nwl-C7-EbN"/>
                                 <constraint firstAttribute="trailingMargin" secondItem="mUL-88-F7A" secondAttribute="trailing" constant="12" id="PaD-Ap-Av3"/>
-                                <constraint firstItem="mUL-88-F7A" firstAttribute="leading" secondItem="0Q5-rU-e5c" secondAttribute="trailing" constant="8" id="hKJ-6g-DRj"/>
+                                <constraint firstItem="zMk-1S-YBC" firstAttribute="centerY" secondItem="mUL-88-F7A" secondAttribute="centerY" id="clF-Hf-9eu"/>
                                 <constraint firstItem="zMk-1S-YBC" firstAttribute="centerY" secondItem="s3f-Aq-iea" secondAttribute="centerY" id="pP0-a9-ihC"/>
                             </constraints>
                             <variation key="default">
@@ -538,10 +532,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="back" width="17" height="30"/>
         <image name="bookLoading" width="228" height="310"/>
+        <image name="go_back" width="120" height="120"/>
         <image name="journal_backgroundBar" width="178" height="10"/>
-        <image name="journal_jump" width="17" height="30"/>
         <image name="journal_number" width="41" height="41"/>
         <image name="journal_reading" width="127" height="61"/>
         <image name="selecting" width="1024" height="768"/>
