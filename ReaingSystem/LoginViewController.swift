@@ -83,7 +83,28 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func qqClick(sender: UIButton) {
-        otherLogin(SSDKPlatformType.TypeQQ)
+        ShareSDK.getUserInfo(SSDKPlatformType.TypeQQ) { (state, user, error) in
+            if (state == SSDKResponseState.Success)
+            {
+                //头像
+                var icon: String!
+                //原始数据
+                print("这是：\(user.rawData)")
+                
+                if let ic = user.rawData["figureurl_qq_2"] as? String {
+                    icon = ic
+                } else {
+                    icon = user.icon
+                }
+                self.otherLoginSend(user.uid, nickName: user.nickname, userType: 2, uuid: self.checkUuid()!, icon: icon)
+            }
+            else
+            {
+                if error != nil {
+                    print(error)
+                }
+            }
+        }
     }
     
     @IBAction func wechatClick(sender: UIButton) {
@@ -140,31 +161,31 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     //第三方登陆
     func otherLogin(type: SSDKPlatformType) {
-//        var types = 0
-//        switch type {
-//        case SSDKPlatformType.TypeQQ:
-//            types = 2
-//        case SSDKPlatformType.TypeWechat:
-//            types = 3
-//        case SSDKPlatformType.TypeSinaWeibo:
-//            types = 4
-//        default:
-//            break
-//        }
-//        ShareSDK.getUserInfo(type) { (state, user, error) in
-//            if (state == SSDKResponseState.Success)
-//            {
-//                print("这是：\(user.uid)")
-//                print("这是：\(user.credential)")
-//                print("这是：\(user.credential.token)")
-//                print("这是：\(user.icon)")
-//                self.otherLoginSend(user.uid, nickName: user.nickname, userType: types, uuid: self.checkUuid()!, icon: user.icon)
-//            }
-//            else
-//            {
-//                print(error)
-//            }
-//        }
+        var types = 0
+        switch type {
+        case SSDKPlatformType.TypeQQ:
+            types = 2
+        case SSDKPlatformType.TypeWechat:
+            types = 3
+        case SSDKPlatformType.TypeSinaWeibo:
+            types = 4
+        default:
+            break
+        }
+        ShareSDK.getUserInfo(type) { (state, user, error) in
+            if (state == SSDKResponseState.Success)
+            {
+                print("这是：\(user.rawData)")
+                print("icon:\(user.icon)")
+                self.otherLoginSend(user.uid, nickName: user.nickname, userType: types, uuid: self.checkUuid()!, icon: user.icon)
+            }
+            else
+            {
+                if error != nil {
+                    print(error)
+                }
+            }
+        }
     }
 
     

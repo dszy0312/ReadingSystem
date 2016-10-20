@@ -91,6 +91,11 @@ enum URLHealper {
     case getPaperList
     //获取报纸列表某篇文章的具体数据
     case getPaperTxt
+    //获取某一期的所有版面信息
+    case getPaperEditionList
+    //获取某个坐标所有在热区的新闻ID
+    case getPaperTxtByHotSpace
+    
     
     //MARK: 小说阅读页面
     //书本简介数据接口
@@ -184,8 +189,12 @@ enum URLHealper {
             return baseURl + "story/GetStoryList"
         case .getPaperList:
             return baseURl + "newspaper/getlist"
-        case.getPaperTxt:
+        case .getPaperTxt:
             return baseURl + "newspaper/GetTxt"
+        case .getPaperEditionList:
+            return baseURl + "/newspaper/GetEditionList"
+        case .getPaperTxtByHotSpace:
+            return baseURl + "/newspaper/GetTxtByHotSpace"
         case .bookSummaryURL:
             return baseURl + "story/GetDetail"
         case .getStoryDetail:

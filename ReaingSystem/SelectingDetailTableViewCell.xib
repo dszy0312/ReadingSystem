@@ -65,7 +65,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.86005208339999994" green="0.86005208339999994" blue="0.86005208339999994" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.92255353880000002" green="0.94466949079999996" blue="0.9637590815" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="vsd-Bc-dax" firstAttribute="centerY" secondItem="pJu-ca-MpX" secondAttribute="centerY" id="DWs-22-Tp5"/>
                             <constraint firstItem="Va3-4b-VLX" firstAttribute="centerX" secondItem="pJu-ca-MpX" secondAttribute="centerX" id="Jai-Ef-IH0"/>
@@ -107,7 +107,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.86005208339999994" green="0.86005208339999994" blue="0.86005208339999994" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.92255353880000002" green="0.94466949079999996" blue="0.9637590815" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="hPD-Gd-TDy" firstAttribute="centerY" secondItem="nmt-KP-SKr" secondAttribute="centerY" id="5r4-dZ-Dj5"/>
                             <constraint firstItem="TfU-JX-NNZ" firstAttribute="centerY" secondItem="nmt-KP-SKr" secondAttribute="centerY" id="9s8-I1-mJF"/>

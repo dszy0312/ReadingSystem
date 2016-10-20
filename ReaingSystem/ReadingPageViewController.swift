@@ -17,7 +17,8 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
             if defaultString == "" {
                 return
             } else {
-                paging(defaultString, page: 1, textSize: CGFloat(NSUserDefaults.standardUserDefaults().floatForKey("textSize")))
+                maxCount = countTest(CGFloat(NSUserDefaults.standardUserDefaults().floatForKey("textSize")))
+                paging(defaultString, page: 1, textSize: CGFloat(NSUserDefaults.standardUserDefaults().floatForKey("textSize")), maxCount: maxCount)
                 if isPro == true {
                     NSUserDefaults.standardUserDefaults().setInteger(totalPages, forKey: "curPage")
                     //同步 防止突然退出出错
@@ -29,15 +30,31 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
             }
         }
     }
+    //章节名
+    var titleName: String! {
+        didSet {
+            for  childVC in self.childViewControllers {
+                let chVC = childVC as! TextViewController
+                chVC.namedTitle(titleName)
+            }
+        }
+    }
     //总页数
     var totalPages = 0
+    //每个页面展示的最多字数
+    var maxCount: Int!
 
     //字体大小
     var textSize: CGFloat! {
         didSet {
 //            strDictionary = [:]
-            paging(defaultString, page: 1, textSize: textSize)
-            if let firstVC = viewControllersAtIndex(NSUserDefaults.standardUserDefaults().integerForKey("curPage")) {
+            maxCount = countTest(textSize)
+            paging(defaultString, page: 1, textSize: textSize, maxCount: maxCount)
+            var curPage = NSUserDefaults.standardUserDefaults().integerForKey("curPage")
+            if curPage > totalPages {
+                curPage = totalPages
+            }
+            if let firstVC = viewControllersAtIndex(curPage) {
                 self.setViewControllers([firstVC], direction: .Forward, animated: false, completion: nil)
             }
         }
@@ -46,6 +63,8 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
     var isPro = false
     
     var strDictionary: [Int : String] = [:]
+    
+    var customTextView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,7 +137,10 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
             if childVC.nextChapter != nil {
                 if childVC.nextChapter == 0 {
                     isPro = true
+                } else {
+                    isPro = false
                 }
+                
                 //章节跳转
                 let pVC = self.parentViewController as! BookReadingViewController
                 pVC.chapterChange(childVC.nextChapter)
@@ -139,6 +161,7 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
         textVC.currentPage = page
         textVC.text = strDictionary[page]
         textVC.totalPage = totalPages
+        textVC.titleName = titleName
         
         return textVC
     }
@@ -152,77 +175,154 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
         textVC.totalPage = 1
         textVC.text = "加载中。。。"
         textVC.nextChapter = index
+        textVC.titleName = ""
         return textVC
 
     }
-    
-    
-    func paging(text: String, page: Int, textSize: CGFloat){
-        var text = text
-        //每页字符数
-        var charsPerPage = 0
-        //字符总长度
-        var textLenth = 0
-    
-        //清除空行
-        text = self.clear(text)
+ 
+    func paging(str: String, page: Int, textSize: CGFloat, maxCount: Int){
         //设定每页的页面尺寸
         let width = self.view.bounds.size.width - 20.0
-        let height = self.view.bounds.size.height - 50.0
+        let height = self.view.bounds.size.height - 56.0
+        customTextView = UITextView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        customTextView.textAlignment = NSTextAlignment.Left
+        //字符串处理
+        var text = self.clearEndSpace(str)
+        text = self.clearHeaderSpace(text)
+        var pageText = ""
+        //每页字符数
+        var charsPerPage = 0
         
+        //字符总长度
+        var textLenth = text.characters.count
+        //每页的最大字数
+        var count = maxCount
+        
+        if textLenth < count {
+            pageText = text
+            count = textLenth
+        } else {
+            var range = NSMakeRange(0, count)
+            pageText = text.substringWithRange(range)
+            
+        }
         //计算文本字符串的总大小尺寸
-        let totalSize = text.size(UIFont(name: "FZLTHK--GBK1-0", size: textSize)!, constrainedToSize: CGSize(width: width, height: CGFloat.max))
-        
-        if totalSize.height < self.view.bounds.height {
-            charsPerPage = text.characters.count
-            textLenth = text.characters.count
+        customTextView.setText(pageText, size: textSize)
+        var totalHeight = customTextView.contentSize.height
+                
+        if totalHeight < height && textLenth < count {
             strDictionary[page] = text
             self.totalPages = page
-        } else {
-            textLenth = text.characters.count
-            //理想状态下的总页数
-            let referTotalPages = Int(totalSize.height) / Int(height)
-            //理想状态下每页的字符数
-            var referCharactersPerPage = textLenth / referTotalPages
             
-            var range = NSMakeRange(0, referCharactersPerPage)
-            var pageText = text.substringWithRange(range)
-            var size = pageText.size(UIFont(name: "FZLTHK--GBK1-0", size: textSize)!, constrainedToSize: CGSize(width: width, height: CGFloat.max))
-            //如果面积不够，自己加点字数
-            if size.height < height {
-                size.height = size.height + 40.0
-            }
-            //
-            while size.height > height {
-                referCharactersPerPage -= 1
-                range = NSMakeRange(0, referCharactersPerPage)
-                pageText = text.substringWithRange(range)
-                size = pageText.size(UIFont(name: "FZLTHK--GBK1-0", size: textSize)!, constrainedToSize: CGSize(width: width, height: CGFloat.max))
+        } else {
+            //极端情况，如果字母或者数字过多，每页包含的字符会变多
+            while totalHeight < height {
+                if count < textLenth {
+                    count += 1
+                    var range = NSMakeRange(0, count)
+                    pageText = text.substringWithRange(range)
+                    customTextView.setText(pageText, size: textSize)
+                    totalHeight = customTextView.contentSize.height
+                } else {
+                    break
+                }
                 
             }
-            
-            //根据调整后的referCharactersPerPage设定好charsPerPage
-            charsPerPage = referCharactersPerPage
-            var str = text.substringWithRange(NSMakeRange(0, charsPerPage))
-            
+            //循环减字
+            while totalHeight > height {
+                count -= 1
+                var range = NSMakeRange(0, count)
+                pageText = text.substringWithRange(range)
+                customTextView.setText(pageText, size: textSize)
+                totalHeight = customTextView.contentSize.height
+                
+            }
+            //
+            var str = text.substringWithRange(NSMakeRange(0, count))
             strDictionary[page] = str
-            paging(text.substringWithRange(NSMakeRange(charsPerPage, textLenth - charsPerPage)), page: page + 1, textSize: textSize)
+            //一个bug的修复，具体原因待查
+            if count == textLenth - 1 || count == textLenth{
+                self.totalPages = page
+            } else {
+                let tex = text.substringWithRange(NSMakeRange(count, textLenth - count))
+                paging(tex, page: page + 1, textSize: textSize, maxCount: maxCount)
+                
+            }
         }
         
     }
     
+    //每页长度检测
+    func countTest(textSize: CGFloat) -> Int{
+        let url = NSBundle.mainBundle().URLForResource("test3", withExtension: "txt")
+        //测试字体
+        var text = ""
+        do {
+            let data = try NSString(contentsOfURL: url! as NSURL, encoding: NSUTF8StringEncoding)
+            text = data as String!
+        } catch let erro as NSError {
+            print("\(erro.localizedDescription)")
+        }
+        
+        //设定每页的页面尺寸
+        let width = self.view.bounds.size.width - 20.0
+        let height = self.view.bounds.size.height - 56.0
+        customTextView = UITextView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        customTextView.textAlignment = NSTextAlignment.Left
+        //字符总长度
+        var textLenth = text.characters.count
+        //计算文本字符串的总大小尺寸
+        customTextView.setText(text, size: textSize)
+        var totalHeight = customTextView.contentSize.height
+        
+        if totalHeight < height {
+            text += text
+            //字符总长度
+            textLenth = text.characters.count
+            //计算文本字符串的总大小尺寸
+            customTextView.setText(text, size: textSize)
+            totalHeight = customTextView.contentSize.height
+        }
+        //循环减字
+        while totalHeight > height {
+            textLenth -= 1
+            var range = NSMakeRange(0, textLenth)
+            text = text.substringWithRange(range)
+            customTextView.setText(text, size: textSize)
+            totalHeight = customTextView.contentSize.height
+        }
+        return text.characters.count
+        
+    }
+
+    
     //清除头部空行
-    func clear(text: String) -> String {
+    func clearHeaderSpace(text: String) -> String {
         var text = text
         let header = text.substringWithRange(NSMakeRange(0, 1))
-        if header == "\r" {
+        if header == "\r" || header == "\n"{
             text = text.substringFromIndex(text.startIndex.advancedBy(1))
-            text = clear(text)
+            text = clearHeaderSpace(text)
             return text
         } else {
             return text
         }
     }
+    
+    //清除底部空格 重要，不然报错
+    func clearEndSpace(text: String) -> String{
+        var str = text
+        let tex = str.substringWithRange(NSMakeRange(text.characters.count - 2, 1))
+        if tex == " " || tex == "\r"{
+            str.removeAtIndex(str.endIndex.predecessor())
+        }
+        return str
+    }
+    //清除&nbsp
+//    func clearNBSP(text: String) -> String {
+//        var text = text
+//        
+//    }
     
 
     //更新页面

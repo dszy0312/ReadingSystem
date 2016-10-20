@@ -46,6 +46,12 @@
                                             <constraint firstAttribute="width" constant="30" id="tdj-tm-W7t"/>
                                         </constraints>
                                         <state key="normal" image="personal"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="personalShowClick:" destination="ZTF-Xn-bW1" eventType="touchUpInside" id="0JE-CX-jMr"/>
                                         </connections>
@@ -177,6 +183,7 @@
                     <connections>
                         <outlet property="collectionView" destination="YHC-cM-sJ7" id="WeP-J2-p87"/>
                         <outlet property="pageController" destination="mlR-fL-eNP" id="jAT-eQ-ziI"/>
+                        <outlet property="personalButton" destination="qsA-uR-Ahf" id="zxf-tQ-M5Y"/>
                         <outlet property="searchButton" destination="uCo-dc-aSa" id="NFU-i8-Mve"/>
                         <outlet property="tableView" destination="TCf-zI-Tje" id="FbC-LM-NBo"/>
                         <segue destination="kVb-Ce-IS4" kind="presentation" identifier="SearchingSegue" id="GNw-bV-D2f"/>
@@ -785,7 +792,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rCn-VZ-4Rh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2922" y="185"/>
+            <point key="canvasLocation" x="3020" y="175"/>
         </scene>
         <!--Top List View Controller-->
         <scene sceneID="fVk-Ux-VpT">

@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        }
         UIApplication.sharedApplication().statusBarHidden = true
         //阅读信息持久化
-        NSUserDefaults.standardUserDefaults().setFloat(17, forKey: "textSize")
+        NSUserDefaults.standardUserDefaults().setFloat(18, forKey: "textSize")
         
         NSUserDefaults.standardUserDefaults().setInteger(1, forKey: "backgroundIndex")
         NSUserDefaults.standardUserDefaults().setInteger(0, forKey: "transitionIndex")
@@ -50,34 +50,45 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         window.rootViewController = rootController
                     }
         }
-
-//        ShareSDK.registerApp("1720f399fc3e4", activePlatforms: [
-//                SSDKPlatformType.TypeSinaWeibo.rawValue,
-//                SSDKPlatformType.TypeQQ.rawValue,
-//                SSDKPlatformType.TypeWechat.rawValue
-//            ], onImport: { (platformType) in
-//                switch platformType {
-//                case SSDKPlatformType.TypeSinaWeibo:
-//                    ShareSDKConnector.connectWeibo(WeiboSDK.classForCoder())
-//                case SSDKPlatformType.TypeQQ:
-//                    ShareSDKConnector.connectQQ(QQApiInterface.classForCoder(), tencentOAuthClass: TencentOAuth.classForCoder())
-//                case SSDKPlatformType.TypeWechat:
-//                    ShareSDKConnector.connectWeChat(WXApi.classForCoder())
-//                default:
-//                    break
-//                }
-//            }) { (platformType, appInfo) in
-//                switch platformType {
-//                case SSDKPlatformType.TypeSinaWeibo:
-//                    appInfo.SSDKSetupSinaWeiboByAppKey("4037468528", appSecret: "f2688540de16a6dc814144a692b2ba8e", redirectUri: "https://www.baidu.com", authType: SSDKAuthTypeBoth)
-//                case SSDKPlatformType.TypeQQ:
-//                    appInfo.SSDKSetupQQByAppId("1105647136", appKey: "DMzffCKxQPx2E7Qz", authType: SSDKAuthTypeBoth)
-//                case SSDKPlatformType.TypeWechat:
-//                    appInfo.SSDKSetupWeChatByAppId("wx5dea74c0f35cc310", appSecret: "d2480b63c45f475b1de6e00b4f5dc9f0")
-//                default:
-//                    break
-//                }
+        
+//        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+//        window?.makeKeyAndVisible()
+//        
+//        storyBoard = UIStoryboard(name: "Paper", bundle: nil)
+//        let rootController = storyBoard?.instantiateViewControllerWithIdentifier("PaperMain")
+//        
+//        if let window = self.window {
+//            window.rootViewController = rootController
 //        }
+
+
+        ShareSDK.registerApp("1720f399fc3e4", activePlatforms: [
+                SSDKPlatformType.TypeSinaWeibo.rawValue,
+                SSDKPlatformType.TypeQQ.rawValue,
+                SSDKPlatformType.TypeWechat.rawValue
+            ], onImport: { (platformType) in
+                switch platformType {
+                case SSDKPlatformType.TypeSinaWeibo:
+                    ShareSDKConnector.connectWeibo(WeiboSDK.classForCoder())
+                case SSDKPlatformType.TypeQQ:
+                    ShareSDKConnector.connectQQ(QQApiInterface.classForCoder(), tencentOAuthClass: TencentOAuth.classForCoder())
+                case SSDKPlatformType.TypeWechat:
+                    ShareSDKConnector.connectWeChat(WXApi.classForCoder())
+                default:
+                    break
+                }
+            }) { (platformType, appInfo) in
+                switch platformType {
+                case SSDKPlatformType.TypeSinaWeibo:
+                    appInfo.SSDKSetupSinaWeiboByAppKey("4037468528", appSecret: "f2688540de16a6dc814144a692b2ba8e", redirectUri: "https://www.baidu.com", authType: SSDKAuthTypeBoth)
+                case SSDKPlatformType.TypeQQ:
+                    appInfo.SSDKSetupQQByAppId("1105647136", appKey: "DMzffCKxQPx2E7Qz", authType: SSDKAuthTypeBoth)
+                case SSDKPlatformType.TypeWechat:
+                    appInfo.SSDKSetupWeChatByAppId("wx5dea74c0f35cc310", appSecret: "d2480b63c45f475b1de6e00b4f5dc9f0")
+                default:
+                    break
+                }
+        }
         
     
 //        UITabBar.appearance().tintColor = UIColor(patternImage: UIImage(named: "shujia_heighLight")!)

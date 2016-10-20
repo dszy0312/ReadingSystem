@@ -182,8 +182,13 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
                     self.photoImageView.image = UIImage(named: "center_photo")
                     self.personalCenterTitleLabel.text = "个人中心"
                     NSUserDefaults.standardUserDefaults().setObject("个人中心", forKey: "userTitle")
+                    NSUserDefaults.standardUserDefaults().setObject("center_photo", forKey: "userImage")
                     
                     self.refreshMyShelfVC()
+                    //取消登陆授权
+                    ShareSDK.cancelAuthorize(SSDKPlatformType.TypeQQ)
+                    ShareSDK.cancelAuthorize(SSDKPlatformType.TypeSinaWeibo)
+                    ShareSDK.cancelAuthorize(SSDKPlatformType.TypeWechat)
                     
                     print("发送成功")
                 } else {
@@ -193,16 +198,42 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
         }
     }
     
-    //获取pageViewController
+    //更新书架和个人中心标题
     func refreshMyShelfVC(){
         var readingVC: RootTabBarViewController?
         for vc in self.childViewControllers {
             if let childVC = vc as? RootTabBarViewController {
                 readingVC = childVC
                 for VC in readingVC!.childViewControllers {
-                    if let toVC = VC as? MyShelfViewController {
-                        toVC.getMyShelf()
-                    }
+                    
+                        if let toVC1 = VC as? MyShelfViewController {
+                            toVC1.getMyShelf()
+                            if toVC1.personalButton != nil {
+                                toVC1.setImage(toVC1.personalButton)
+                            }
+                        }
+                        if let toVC2 = VC as? SelectingViewController {
+                            if toVC2.personalButton != nil {
+                                toVC2.setImage(toVC2.personalButton)
+                            }
+                        }
+                        if let toVC3 = VC as? CategoryViewController {
+                            if toVC3.personalButton != nil {
+                                toVC3.setImage(toVC3.personalButton)
+                            }
+                        }
+                        if let toVC4 = VC as? PaperMainViewController {
+                            if toVC4.personalButton != nil {
+                                toVC4.setImage(toVC4.personalButton)
+                            }
+                            
+                        }
+                        if let toVC5 = VC as? FindViewController {
+                            if toVC5.personalButton != nil {
+                                toVC5.setImage(toVC5.personalButton)
+                            }
+                            
+                        }
                 }
             }
         }

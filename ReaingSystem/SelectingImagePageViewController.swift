@@ -42,6 +42,7 @@ class SelectingImagePageViewController: UIPageViewController, UIPageViewControll
         
         dataSource = self
         delegate = self
+        
         setAppearedImage(0, isAnimated: false)
         customDelegate?.imagesDidLoaded(curIndex, total: imagesRow!.count)
         
@@ -114,6 +115,7 @@ class SelectingImagePageViewController: UIPageViewController, UIPageViewControll
         guard completed == true else {
             return
         }
+        print("ceshishiyong: \(pageViewController.childViewControllers.count)")
         curIndex = (pageViewController.viewControllers?.first as! ImagesViewController).customIndex
         customDelegate?.imagesDidLoaded(curIndex, total: imagesRow!.count)
     }
@@ -167,8 +169,11 @@ class SelectingImagePageViewController: UIPageViewController, UIPageViewControll
         timer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: #selector(exchange), userInfo: nil, repeats: true)
     }
     func endTime() {
-        timer.invalidate()
-        self.timer = nil
+        if timer != nil {
+            timer.invalidate()
+            self.timer = nil
+            
+        }
     }
     //移动图片位置
     @objc private func exchange() {

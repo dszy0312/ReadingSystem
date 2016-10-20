@@ -64,6 +64,7 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
             return
         }
         if segue.identifier == reuseIdentifier[0] {
+            UIApplication.sharedApplication().statusBarHidden = true
             let toVC = segue.destinationViewController as! BookReadingViewController
             toVC.catalogue = self.catalogue
             if clickFrom == 0 {
@@ -198,6 +199,7 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
         print(selectedBookID)
         //用POST出错，未知原因
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.addToShelfURL.introduce(), parameter: parm, completion: { (dictionary, error) in
+            
             if let flag = dictionary!["flag"] as? Int {
                 print("flag= \(flag)")
                 if flag == 1 {

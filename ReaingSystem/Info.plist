@@ -66,6 +66,8 @@
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
+		<string>msyh.ttf</string>
+		<string>锐字工房云字库行楷GBK.ttf</string>
 		<string>lantinghei.TTF</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

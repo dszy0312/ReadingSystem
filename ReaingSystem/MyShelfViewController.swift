@@ -17,6 +17,8 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     @IBOutlet weak var titleBarView: UIView!
     
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    @IBOutlet weak var personalButton: UIButton!
     //自定义转场代理
     //跳转阅读列表
     var transitionDelegate = ReadedBookListTransitionDelegate()
@@ -55,6 +57,7 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
         super.viewDidAppear(animated)
         //网络请求
         getMyShelf()
+        setImage(personalButton)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -261,5 +264,14 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
 
         }
     }
-
+    
+    //设定个人中心图片
+    func setImage(button: UIButton){
+        let imageUrl = NSUserDefaults.standardUserDefaults().objectForKey("userImage") as? String
+        if imageUrl == "center_photo" {
+            button.setImage(UIImage(named: imageUrl!), forState: .Normal)
+        } else {
+            button.kf_setImageWithURL(NSURL(string: imageUrl!), forState: .Normal)
+        }
+    }
 }

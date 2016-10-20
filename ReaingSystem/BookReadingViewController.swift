@@ -85,7 +85,7 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
             return CGFloat(NSUserDefaults.standardUserDefaults().floatForKey("textSize"))
         }
         set {
-            if newValue >= 13 && newValue <= 19 {
+            if newValue >= 13 && newValue <= 21 {
                 NSUserDefaults.standardUserDefaults().setFloat(Float(newValue), forKey: "textSize")
                 //同步
                 NSUserDefaults.standardUserDefaults().synchronize()
@@ -121,6 +121,7 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     var readText: String! {
         didSet {
             currentViewController.defaultString = readText
+            currentViewController.titleName = titleLabel.text
         }
     }
     //翻页方式标记
@@ -216,11 +217,11 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     //文字大小设置
     @IBAction func sizeAddClick(sender: UIButton) {
          print("加")
-        textSize += 2
+        textSize += 1
     }
     @IBAction func sizeMinusClick(sender: UIButton) {
          print("减")
-        textSize -= 2
+        textSize -= 1
     }
     
     //翻页方式
@@ -347,9 +348,10 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
                 return
             }
             self.readData = StoryReadRoot(fromDictionary: dictionary!)
-            
+        
             self.titleLabel.text = self.readData.rows.first?.chapterName
             self.readText = self.readData.rows.first?.chapterContent
+            print(self.readText)
             self.waitingView.end()
             self.view.sendSubviewToBack(self.waitingView)
             

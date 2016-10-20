@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 protocol HiddenTabBarDelegate {
     func hiddenTabBar(isHidden: Bool)
@@ -74,15 +75,20 @@ class RootTabBarViewController: UITabBarController, ChangeTabBarDelegate, Hidden
         let testViewController1 = UIStoryboard.init(name: "Custom", bundle: nil).instantiateInitialViewController() as! MyShelfViewController
         
         
+        
         let testViewController2 = UIStoryboard.init(name: "Selecting", bundle: nil).instantiateInitialViewController() as! SelectingViewController
+//        self.setImage(testViewController2.personalButton)
         
         let testViewController3 = UIStoryboard.init(name: "Category", bundle: nil).instantiateInitialViewController() as! CategoryViewController
         
-        let testViewController4 = UIStoryboard.init(name: "Paper", bundle: nil).instantiateInitialViewController() as! PaperViewController
+        let testViewController4 = UIStoryboard.init(name: "Paper", bundle: nil).instantiateInitialViewController() as! PaperMainViewController
         
         let testViewController5 = UIStoryboard.init(name: "Find", bundle: nil).instantiateInitialViewController() as! FindViewController
         
         let tabBarControllers = [testViewController1, testViewController2,testViewController3,testViewController4,testViewController5]
+//        for VC in tabBarControllers {
+//            self.setImage()
+//        }
         self.setViewControllers(tabBarControllers, animated: true)
         
     }
@@ -101,6 +107,7 @@ class RootTabBarViewController: UITabBarController, ChangeTabBarDelegate, Hidden
 //        self.tabBar.hidden = true
 //        homeVC?.hiddenTabBar = self
     }
+    
 //    
 //    func didPan(gesture: UIPanGestureRecognizer) {
 //        let translationX = panGesture.translationInView(view).x

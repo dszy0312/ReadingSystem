@@ -34,6 +34,12 @@
                                         <state key="normal" image="personal">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="personalShowClick:" destination="KOd-W3-MsN" eventType="touchUpInside" id="tdy-eh-Md2"/>
                                         </connections>
@@ -187,6 +193,7 @@
                     <navigationItem key="navigationItem" id="uV4-q7-Huj"/>
                     <connections>
                         <outlet property="collectionView" destination="5j0-z3-YdZ" id="Lwy-Z2-8fk"/>
+                        <outlet property="personalButton" destination="cN0-ts-TyW" id="bLL-BG-Mkm"/>
                         <segue destination="vAz-2e-Aj9" kind="presentation" identifier="DetailSegue" id="ieE-C9-BET"/>
                     </connections>
                 </viewController>

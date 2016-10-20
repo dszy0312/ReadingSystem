@@ -15,6 +15,9 @@ class FindViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var personalButton: UIButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
@@ -26,6 +29,10 @@ class FindViewController: UIViewController, UICollectionViewDelegate, UICollecti
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        setImage(personalButton)
     }
     
     //个人中心展示
@@ -109,6 +116,17 @@ class FindViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         
     }
+    
+    //设定个人中心图片
+    func setImage(button: UIButton){
+        let imageUrl = NSUserDefaults.standardUserDefaults().objectForKey("userImage") as? String
+        if imageUrl == "center_photo" {
+            button.setImage(UIImage(named: imageUrl!), forState: .Normal)
+        } else {
+            button.kf_setImageWithURL(NSURL(string: imageUrl!), forState: .Normal)
+        }
+    }
+
     
     
 

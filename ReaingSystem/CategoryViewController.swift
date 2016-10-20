@@ -15,6 +15,9 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var personalButton: UIButton!
+    
+    
     //分类页面数据
     var categoryData: CategoryRoot!
     //标题数据
@@ -39,6 +42,10 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        setImage(personalButton)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -158,6 +165,17 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
         
     }
+    
+    //设定个人中心图片
+    func setImage(button: UIButton){
+        let imageUrl = NSUserDefaults.standardUserDefaults().objectForKey("userImage") as? String
+        if imageUrl == "center_photo" {
+            button.setImage(UIImage(named: imageUrl!), forState: .Normal)
+        } else {
+            button.kf_setImageWithURL(NSURL(string: imageUrl!), forState: .Normal)
+        }
+    }
+
 
     
     

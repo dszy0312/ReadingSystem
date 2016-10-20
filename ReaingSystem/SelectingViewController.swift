@@ -26,6 +26,7 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     //搜索
     @IBOutlet weak var searchButton: UIButton!
     
+    @IBOutlet weak var personalButton: UIButton!
     
     //搜索页转场标示
     private let delegateSegue = "SearchingSegue"
@@ -64,6 +65,7 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        setImage(personalButton)
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -330,6 +332,16 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
             let readedAdvice = ReadedAdvice(fromDictionary: dictionary!)
             self.readDictionary[id] = readedAdvice.data
             self.tableView.reloadData()
+        }
+    }
+    
+    //设定个人中心图片
+    func setImage(button: UIButton){
+        let imageUrl = NSUserDefaults.standardUserDefaults().objectForKey("userImage") as? String
+        if imageUrl == "center_photo" {
+            button.setImage(UIImage(named: imageUrl!), forState: .Normal)
+        } else {
+            button.kf_setImageWithURL(NSURL(string: imageUrl!), forState: .Normal)
         }
     }
 

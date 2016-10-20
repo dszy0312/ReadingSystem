@@ -17,6 +17,10 @@ class TextViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var batteryImage: UIImageView!
     
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    @IBOutlet weak var timeLabel: UILabel!
+    
     //字体大小
     var textSize: CGFloat!  {
         get {
@@ -26,6 +30,8 @@ class TextViewController: UIViewController, UITextViewDelegate {
     }
     //显示的字符
     var text: String!
+    //章节名
+    var titleName: String!
     //当前页
     var currentPage: Int!
     //总页数
@@ -34,6 +40,7 @@ class TextViewController: UIViewController, UITextViewDelegate {
     var nextChapter: Int!
     //更新
     var upLoad = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         batteryTest()
@@ -44,10 +51,12 @@ class TextViewController: UIViewController, UITextViewDelegate {
         super.viewWillAppear(animated)
 //        UIApplication.sharedApplication().statusBarHidden = false
         pageLabel.text = "第\(currentPage)/\(totalPage)页"
-        textView.contentInset = UIEdgeInsetsMake(20, -5, -10, -50)
+        if titleName != nil {
+            titleLabel.text = titleName
+        }
+        timeLabel.text = getDate()
         textView.textAlignment = NSTextAlignment.Left
-        textView.text = text
-        textView.font = UIFont(name: "FZLTHK--GBK1-0", size: textSize)
+        textView.setText(text, size: textSize)
         self.setBackgroundColor()
     }
     
@@ -68,6 +77,8 @@ class TextViewController: UIViewController, UITextViewDelegate {
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
+    
+    
     
     //背景主题设置
     func setBackgroundColor() {
@@ -111,5 +122,20 @@ class TextViewController: UIViewController, UITextViewDelegate {
             batteryImage.image = UIImage(named: "battery4")
         }
     }
+    
+    //获取当前时间
+    func getDate() -> String{
+        let date = NSDate()
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "HH:mm"
+        let dateStr = formatter.stringFromDate(date)
+        return dateStr
+    }
+    
+    //标题设置
+    func namedTitle(title: String) {
+        self.titleLabel.text = title
+    }
+    
     
 }

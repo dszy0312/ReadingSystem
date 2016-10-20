@@ -32,6 +32,12 @@
                                             <constraint firstAttribute="width" constant="30" id="mIO-LL-1PR"/>
                                         </constraints>
                                         <state key="normal" image="personal"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="presonalShowClick:" destination="AXg-pD-zyg" eventType="touchUpInside" id="8da-Vg-WWy"/>
                                         </connections>
@@ -218,6 +224,7 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="5US-dx-4zu" id="8Gs-MG-cwP"/>
+                        <outlet property="personalButton" destination="C1G-Hm-lQi" id="Mfg-rx-Nvb"/>
                         <outlet property="titleBarView" destination="GVk-Qx-u65" id="u35-uQ-Fck"/>
                         <segue destination="Zlh-hz-PNS" kind="presentation" identifier="DeleteSegue" id="K03-kY-Fdh"/>
                         <segue destination="EP8-EC-eEo" kind="presentation" identifier="ListSegue" id="Fjh-3b-Buv"/>
