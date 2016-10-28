@@ -28,6 +28,8 @@ class ListenDetailViewController: UIViewController, UITableViewDelegate, UITable
     var listenData: ListenReturnData!
     //选中章节
     var selectedIndex = 0
+    //音频ID
+    var audioID: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,9 +120,9 @@ class ListenDetailViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     //MARK:网络请求
-    //请求书架页面数据
+    //请求音频详情数据
     func getListenDetail(id: String) {
-        
+        self.audioID = id
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.getListenDetail.introduce(), parameter: ["audioID": id]) { (dic, error) in
             let listenDetail = ListenWithDetail(fromDictionary: dic!)
             if listenDetail.flag == 1 {

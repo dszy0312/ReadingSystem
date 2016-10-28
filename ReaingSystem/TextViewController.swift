@@ -10,16 +10,18 @@ import UIKit
 
 class TextViewController: UIViewController, UITextViewDelegate {
     
-    
+    //文字视图
     @IBOutlet weak var textView: UITextView!
-    
+    //页数
     @IBOutlet weak var pageLabel: UILabel!
-    
+    //电池
     @IBOutlet weak var batteryImage: UIImageView!
-    
+    //标题
     @IBOutlet weak var titleLabel: UILabel!
-    
+    //时间
     @IBOutlet weak var timeLabel: UILabel!
+    //飞鸟标志
+    @IBOutlet weak var typeImage: UIImageView!
     
     //字体大小
     var textSize: CGFloat!  {
@@ -57,7 +59,7 @@ class TextViewController: UIViewController, UITextViewDelegate {
         timeLabel.text = getDate()
         textView.textAlignment = NSTextAlignment.Left
         textView.setText(text, size: textSize)
-        self.setBackgroundColor()
+        self.setTextType()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -77,33 +79,6 @@ class TextViewController: UIViewController, UITextViewDelegate {
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
-    
-    
-    
-    //背景主题设置
-    func setBackgroundColor() {
-        let colorIndex = NSUserDefaults.standardUserDefaults().integerForKey("backgroundIndex")
-        switch colorIndex {
-        case 1:
-            view.backgroundColor = UIColor(colorLiteralRed: 246.0/255.0, green: 1.0, blue: 151.0/255.0, alpha: 1.0)
-            textView.textColor = UIColor(colorLiteralRed: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
-        case 2:
-            view.backgroundColor = UIColor(colorLiteralRed: 146.0/255.0, green: 161.0/255.0, blue: 172.0/255.0, alpha: 1.0)
-            textView.textColor = UIColor(colorLiteralRed: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
-        case 3:
-            view.backgroundColor = UIColor(colorLiteralRed: 135.0/255.0, green: 255.0/255.0, blue: 180.0/255.0, alpha: 1.0)
-            textView.textColor = UIColor(colorLiteralRed: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
-        case 4:
-            view.backgroundColor = UIColor(colorLiteralRed: 219.0/255.0, green: 219.0/255.0, blue: 219.0/255.0, alpha: 1.0)
-            textView.textColor = UIColor(colorLiteralRed: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
-        case 5:
-            view.backgroundColor = UIColor(colorLiteralRed: 36.0/255.0, green: 22.0/255.0, blue: 4.0/255.0, alpha: 1.0)
-            textView.textColor = UIColor(colorLiteralRed: 97.0/255.0, green: 60.0/255.0, blue: 12.0/255.0, alpha: 1.0)
-        default:
-            break
-        }
-    }
-    
     
     //电池检查
     func batteryTest() {
@@ -135,6 +110,33 @@ class TextViewController: UIViewController, UITextViewDelegate {
     //标题设置
     func namedTitle(title: String) {
         self.titleLabel.text = title
+    }
+    
+    //设置颜色样式
+    func setTextType() {
+        let colorIndex = NSUserDefaults.standardUserDefaults().integerForKey("backgroundIndex")
+        switch colorIndex {
+        case 1:
+            typeSet(UIColor.text_green_background(), textColor: UIColor.text_green_type(), otherColor: UIColor.text_green_title(), imageName: "text_type_green")
+            
+        case 2:
+            typeSet(UIColor.text_yellow_background(), textColor: UIColor.text_yellow_type(), otherColor: UIColor.text_yellow_title(), imageName: "text_type_yellow")
+        case 3:
+            typeSet(UIColor.text_meat_background(), textColor: UIColor.text_meat_type(), otherColor: UIColor.text_meat_title(), imageName: "text_type_meat")
+        case 4:
+            typeSet(UIColor.text_black_background(), textColor: UIColor.text_black_type(), otherColor: UIColor.text_black_title(), imageName: "text_type_black")
+        default:
+            break
+        }
+    }
+    //样式设置
+    func typeSet(backgroundColor: UIColor, textColor: UIColor, otherColor: UIColor, imageName: String) {
+        view.backgroundColor = backgroundColor
+        textView.textColor = textColor
+        titleLabel.textColor = otherColor
+        pageLabel.textColor = otherColor
+        timeLabel.textColor = otherColor
+        typeImage.image = UIImage(named: imageName)
     }
     
     

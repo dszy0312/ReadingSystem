@@ -318,12 +318,6 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
         }
         return str
     }
-    //清除&nbsp
-//    func clearNBSP(text: String) -> String {
-//        var text = text
-//        
-//    }
-    
 
     //更新页面
     func updatePage() {

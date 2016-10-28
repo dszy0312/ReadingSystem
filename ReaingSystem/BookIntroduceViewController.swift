@@ -194,7 +194,7 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
     //添加书架请求
     func addToShelf() {
         let parm: [String: AnyObject] = [
-            "bookID": selectedBookID
+            "prID": selectedBookID
         ]
         print(selectedBookID)
         //用POST出错，未知原因

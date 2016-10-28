@@ -156,8 +156,11 @@ class ListenImagePageViewController: UIPageViewController, UIPageViewControllerD
         timer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: #selector(exchange), userInfo: nil, repeats: true)
     }
     func endTime() {
-        timer.invalidate()
-        self.timer = nil
+        if timer != nil {
+            timer.invalidate()
+            self.timer = nil
+            
+        }
     }
     //移动图片位置
     @objc private func exchange() {

@@ -86,12 +86,16 @@
         <scene sceneID="t5J-9S-1Tx">
             <objects>
                 <viewController id="75P-99-n5t" customClass="JournalSelectViewController" customModule="ReaingSystem" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0sz-wN-QMX"/>
+                        <viewControllerLayoutGuide type="bottom" id="IRE-El-a5J"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="gJ0-vR-46j">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PFg-8f-trH">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.90815625010000001" green="0.90815625010000001" blue="0.90815625010000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="LnH-UJ-4qM">
                                     <size key="itemSize" width="113" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>

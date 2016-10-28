@@ -92,7 +92,6 @@ class ListenFamousListViewController: UIViewController, UITableViewDataSource, U
         }
         
         if self.footerView!.frame.origin.y + self.footerView!.frame.height < (scrollView.contentOffset.y + scrollView.bounds.size.height)  {
-            print("开始刷新")
             self.loading = true
             self.footerView!.begain()
             self.addingNetWorkData(self.page + 1)
@@ -118,6 +117,7 @@ class ListenFamousListViewController: UIViewController, UITableViewDataSource, U
     
     //下拉刷新请求
     func addingNetWorkData(page: Int) {
+        self.page = page
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.getVoiceAuthorList.introduce(), parameter: ["PageIndex": page]) { (dictionary, error) in
             guard error == nil else {
                 print(error)
@@ -125,8 +125,10 @@ class ListenFamousListViewController: UIViewController, UITableViewDataSource, U
             }
             self.famousData = ListenFamousRoot(fromDictionary: dictionary!)
             self.famousArray.appendContentsOf(self.famousData.rows)
+            
             self.decideLoading(self.famousArray.count, total: self.famousData.totalCount)
             self.footerView!.end()
+            self.loading = false
             self.tableView.reloadData()
             
         }

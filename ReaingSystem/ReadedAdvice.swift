@@ -6,8 +6,11 @@ import Foundation
 
 struct ReadedAdvice{
 
-	var data : [ReadedData]!
+	var data : [SelectingFloorPrList]!
 	var flag : Int!
+    var pageCount: Int!
+    var curPage: Int!
+    var rows : [SelectingFloorPrList]!
 
 
 
@@ -16,15 +19,24 @@ struct ReadedAdvice{
 	 */
 	init(fromDictionary dictionary: NSDictionary){
 
-		data = [ReadedData]()
+		data = [SelectingFloorPrList]()
 		if let dataArray = dictionary["data"] as? [NSDictionary]{
 			for dic in dataArray{
-				let value = ReadedData(fromDictionary: dic)
+				let value = SelectingFloorPrList(fromDictionary: dic)
 				data.append(value)
 			}
 		}
+        rows = [SelectingFloorPrList]()
+        if let dataArray = dictionary["rows"] as? [NSDictionary]{
+            for dic in dataArray{
+                let value = SelectingFloorPrList(fromDictionary: dic)
+                rows.append(value)
+            }
+        }
 
 		flag = dictionary["flag"] as? Int
+        pageCount = dictionary["PageCount"] as? Int
+        curPage = dictionary["CurPage"] as? Int
     }
 
 }

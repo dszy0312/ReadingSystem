@@ -210,6 +210,16 @@
 		98C21B971D93E84C00628AE5 /* CategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C21B961D93E84C00628AE5 /* CategoryDetailViewController.swift */; };
 		98C21B991D93E97900628AE5 /* CategoryDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C21B981D93E97900628AE5 /* CategoryDetailTableViewCell.swift */; };
 		98C7ACC31D640C740077DDAB /* URLHealper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C7ACC21D640C740077DDAB /* URLHealper.swift */; };
+		98CD8A131DC042440047D8DC /* JournalClassifyData2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A111DC042440047D8DC /* JournalClassifyData2.swift */; };
+		98CD8A141DC042440047D8DC /* JournalClassifyRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A121DC042440047D8DC /* JournalClassifyRoot.swift */; };
+		98CD8A181DC0803F0047D8DC /* SelectingFloorPrList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A151DC0803F0047D8DC /* SelectingFloorPrList.swift */; };
+		98CD8A191DC0803F0047D8DC /* SelectingFloorRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A161DC0803F0047D8DC /* SelectingFloorRoot.swift */; };
+		98CD8A1A1DC0803F0047D8DC /* SelectingFloorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A171DC0803F0047D8DC /* SelectingFloorRow.swift */; };
+		98CD8A1F1DC1A89B0047D8DC /* FindData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A1B1DC1A89B0047D8DC /* FindData.swift */; };
+		98CD8A201DC1A89B0047D8DC /* FindData2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A1C1DC1A89B0047D8DC /* FindData2.swift */; };
+		98CD8A211DC1A89B0047D8DC /* FindRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A1D1DC1A89B0047D8DC /* FindRoot.swift */; };
+		98CD8A221DC1A89B0047D8DC /* FindRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A1E1DC1A89B0047D8DC /* FindRow.swift */; };
+		98CD8A241DC1D8E90047D8DC /* JournalListRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A231DC1D8E90047D8DC /* JournalListRoot.swift */; };
 		98CF5F061D9149650025D458 /* ListenAdvicePrList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CF5F021D9149650025D458 /* ListenAdvicePrList.swift */; };
 		98CF5F071D9149650025D458 /* ListenAdviceReturnData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CF5F031D9149650025D458 /* ListenAdviceReturnData.swift */; };
 		98CF5F081D9149650025D458 /* ListenAdviceRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CF5F041D9149650025D458 /* ListenAdviceRoot.swift */; };
@@ -475,6 +485,16 @@
 		98C21B961D93E84C00628AE5 /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
 		98C21B981D93E97900628AE5 /* CategoryDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDetailTableViewCell.swift; sourceTree = "<group>"; };
 		98C7ACC21D640C740077DDAB /* URLHealper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLHealper.swift; sourceTree = "<group>"; };
+		98CD8A111DC042440047D8DC /* JournalClassifyData2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalClassifyData2.swift; sourceTree = "<group>"; };
+		98CD8A121DC042440047D8DC /* JournalClassifyRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalClassifyRoot.swift; sourceTree = "<group>"; };
+		98CD8A151DC0803F0047D8DC /* SelectingFloorPrList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectingFloorPrList.swift; sourceTree = "<group>"; };
+		98CD8A161DC0803F0047D8DC /* SelectingFloorRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectingFloorRoot.swift; sourceTree = "<group>"; };
+		98CD8A171DC0803F0047D8DC /* SelectingFloorRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectingFloorRow.swift; sourceTree = "<group>"; };
+		98CD8A1B1DC1A89B0047D8DC /* FindData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindData.swift; sourceTree = "<group>"; };
+		98CD8A1C1DC1A89B0047D8DC /* FindData2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindData2.swift; sourceTree = "<group>"; };
+		98CD8A1D1DC1A89B0047D8DC /* FindRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindRoot.swift; sourceTree = "<group>"; };
+		98CD8A1E1DC1A89B0047D8DC /* FindRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindRow.swift; sourceTree = "<group>"; };
+		98CD8A231DC1D8E90047D8DC /* JournalListRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalListRoot.swift; sourceTree = "<group>"; };
 		98CF5F021D9149650025D458 /* ListenAdvicePrList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenAdvicePrList.swift; sourceTree = "<group>"; };
 		98CF5F031D9149650025D458 /* ListenAdviceReturnData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenAdviceReturnData.swift; sourceTree = "<group>"; };
 		98CF5F041D9149650025D458 /* ListenAdviceRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenAdviceRoot.swift; sourceTree = "<group>"; };
@@ -666,6 +686,9 @@
 		98123DC01D79236200F416EA /* model */ = {
 			isa = PBXGroup;
 			children = (
+				98CD8A111DC042440047D8DC /* JournalClassifyData2.swift */,
+				98CD8A121DC042440047D8DC /* JournalClassifyRoot.swift */,
+				98CD8A231DC1D8E90047D8DC /* JournalListRoot.swift */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -970,6 +993,10 @@
 			children = (
 				98949D391D757B44001FD433 /* view */,
 				98949D361D757AD8001FD433 /* model */,
+				98CD8A1B1DC1A89B0047D8DC /* FindData.swift */,
+				98CD8A1C1DC1A89B0047D8DC /* FindData2.swift */,
+				98CD8A1D1DC1A89B0047D8DC /* FindRoot.swift */,
+				98CD8A1E1DC1A89B0047D8DC /* FindRow.swift */,
 				98949D351D757ACC001FD433 /* controller */,
 			);
 			name = find;
@@ -1174,6 +1201,9 @@
 				98C186871D6D704C008FCB15 /* SelectData.swift */,
 				98C186881D6D704C008FCB15 /* SelectReturnData.swift */,
 				98C1868A1D6D704C008FCB15 /* SelectRow.swift */,
+				98CD8A151DC0803F0047D8DC /* SelectingFloorPrList.swift */,
+				98CD8A161DC0803F0047D8DC /* SelectingFloorRoot.swift */,
+				98CD8A171DC0803F0047D8DC /* SelectingFloorRow.swift */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -1498,12 +1528,14 @@
 				986CD5C01D922E2C008D15FE /* ListenFamousListViewController.swift in Sources */,
 				984C76471D5BFD5E00B3588D /* InterestCollectionViewCell.swift in Sources */,
 				98123DB91D782C0500F416EA /* JournalViewController.swift in Sources */,
+				98CD8A201DC1A89B0047D8DC /* FindData2.swift in Sources */,
 				98945D671D9B5CCF00726E0B /* OverlayPresentationController.swift in Sources */,
 				989099E21DB7133C00855063 /* JournalListCollectionViewCell.swift in Sources */,
 				98C186601D6AA845008FCB15 /* SummaryRow.swift in Sources */,
 				98CF5F071D9149650025D458 /* ListenAdviceReturnData.swift in Sources */,
 				981C9F141D8F8B93000FCC6C /* HotKeyRow.swift in Sources */,
 				98710BAE1D742E78000614E0 /* CategoryImageCollectionViewCell.swift in Sources */,
+				98CD8A191DC0803F0047D8DC /* SelectingFloorRoot.swift in Sources */,
 				98CF5F061D9149650025D458 /* ListenAdvicePrList.swift in Sources */,
 				98C1865F1D6AA845008FCB15 /* SummaryReturnData.swift in Sources */,
 				98949D681D76D272001FD433 /* SearchingTransitionDelegate.swift in Sources */,
@@ -1517,6 +1549,7 @@
 				98F028541D6EEDFB00B8ECCE /* ReadedData.swift in Sources */,
 				984C76541D5C6DBA00B3588D /* DisappearTransitionAnimation.swift in Sources */,
 				98A2EBA61DAC7AE200039CCA /* PaperImageViewController.swift in Sources */,
+				98CD8A221DC1A89B0047D8DC /* FindRow.swift in Sources */,
 				984C76491D5C26F500B3588D /* MyShelfCollectionViewCell.swift in Sources */,
 				98C186911D6D7F99008FCB15 /* SelectingImagePageViewController.swift in Sources */,
 				981140E61D868EFA0028EF8C /* ListenDirList.swift in Sources */,
@@ -1632,6 +1665,7 @@
 				98C21B8F1D93D09800628AE5 /* CategoryRow.swift in Sources */,
 				98C186791D6C4402008FCB15 /* AppearTransitionAnimation.swift in Sources */,
 				986CD5AE1D921523008D15FE /* ListenCategoryChildren.swift in Sources */,
+				98CD8A141DC042440047D8DC /* JournalClassifyRoot.swift in Sources */,
 				986CD5B61D92224D008D15FE /* ListenSequenceReturnData.swift in Sources */,
 				9895FBB61D9BA5D000639EAB /* PaperDetailTitleTableViewCell.swift in Sources */,
 				98B23BD91D9BC0B8006A009A /* TextViewController.swift in Sources */,
@@ -1642,23 +1676,29 @@
 				980301D21D7FFE1300180FDA /* ListenCategoryCollectionViewCell.swift in Sources */,
 				984C76561D5C701000B3588D /* DisappearTransitionDelegate.swift in Sources */,
 				980E91971D548D42000A19CA /* RegisterViewController.swift in Sources */,
+				98CD8A241DC1D8E90047D8DC /* JournalListRoot.swift in Sources */,
+				98CD8A1A1DC0803F0047D8DC /* SelectingFloorRow.swift in Sources */,
 				98B1EAE51D4EF09100DD494A /* RootTabBarViewController.swift in Sources */,
 				9831196C1D8E7A3C00F81327 /* SelectSexRootData.swift in Sources */,
 				980301C41D7FF41100180FDA /* ListenAdviceCollectionViewController.swift in Sources */,
 				98B1D06A1D8EAAA2007B6AB0 /* TopListBookRow.swift in Sources */,
 				98C21B941D93E80000628AE5 /* CategoryDetailRoot.swift in Sources */,
 				98945D5D1D9A6FB200726E0B /* PaperRow.swift in Sources */,
+				98CD8A1F1DC1A89B0047D8DC /* FindData.swift in Sources */,
 				98B23BD71D9BC0B8006A009A /* BookReadingViewController.swift in Sources */,
 				98C1868D1D6D704C008FCB15 /* SelectRootData.swift in Sources */,
+				98CD8A211DC1A89B0047D8DC /* FindRoot.swift in Sources */,
 				980301EE1D81583500180FDA /* PersonalCenterTableViewCell.swift in Sources */,
 				98C186691D6ADCAA008FCB15 /* SummaryListTableViewCell.swift in Sources */,
 				980301EC1D8157C800180FDA /* PersonalCenterViewController.swift in Sources */,
 				980E91731D533065000A19CA /* MaskPresentTationController.swift in Sources */,
 				986CD5D21D926B7E008D15FE /* ListenFamousDetailListTableViewCell.swift in Sources */,
 				980E91611D5174B3000A19CA /* MyShelfViewController.swift in Sources */,
+				98CD8A181DC0803F0047D8DC /* SelectingFloorPrList.swift in Sources */,
 				986CD5D01D926B62008D15FE /* ListenFamousDetailIntroduceTableViewCell.swift in Sources */,
 				98945D611D9B515E00726E0B /* PaperViewTransitionDelegate.swift in Sources */,
 				9879FB121DA3CEDF000B356F /* WelcomePageViewController.swift in Sources */,
+				98CD8A131DC042440047D8DC /* JournalClassifyData2.swift in Sources */,
 				98949D381D757B3D001FD433 /* FindViewController.swift in Sources */,
 				98FCC5061DB0DF1500285B02 /* PaperCatalogueViewController.swift in Sources */,
 				986CD5B51D92224D008D15FE /* ListenSequencePrList.swift in Sources */,
@@ -1819,6 +1859,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "ReaingSystem-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1857,6 +1898,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ReaingSystem-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

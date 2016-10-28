@@ -295,7 +295,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.38681114779999998" green="0.64983259660000003" blue="0.70298958330000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.41960784309999999" green="0.63137254899999995" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="3Sa-Rk-6C2"/>
                                     <constraint firstItem="WXW-Ff-lFB" firstAttribute="leading" secondItem="aoX-32-0wa" secondAttribute="leading" constant="14" id="WCJ-lG-LZh"/>
@@ -964,7 +964,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.38681114779999998" green="0.64983259660000003" blue="0.70298958330000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.41960784309999999" green="0.63137254899999995" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="iYw-jG-F9r" firstAttribute="centerX" secondItem="Wph-zV-9Y3" secondAttribute="centerX" id="3qY-wp-EsW"/>
                                     <constraint firstItem="iYw-jG-F9r" firstAttribute="centerY" secondItem="Wph-zV-9Y3" secondAttribute="centerY" constant="10" id="7lI-CE-Pcw"/>

@@ -39,7 +39,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.38681114779999998" green="0.64983259660000003" blue="0.70298958330000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.41960784309999999" green="0.63137254899999995" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="XTf-b5-de0" firstAttribute="centerY" secondItem="Ckv-L1-wxc" secondAttribute="centerY" id="4pi-qq-K9x"/>
                                     <constraint firstItem="Ckv-L1-wxc" firstAttribute="centerX" secondItem="b7S-zr-p2K" secondAttribute="centerX" id="BvI-Pj-0so"/>
@@ -180,7 +180,7 @@
         <scene sceneID="aO2-Hr-La8">
             <objects>
                 <collectionViewController storyboardIdentifier="Category" id="5aU-aB-GS1" customClass="ListenCategoryCollectionViewController" customModule="ReaingSystem" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="JUj-RU-mDx">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="JUj-RU-mDx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -280,7 +280,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.38681114779999998" green="0.64983259660000003" blue="0.70298958330000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.41960784309999999" green="0.63137254899999995" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="cf4-4V-tng" firstAttribute="centerY" secondItem="hpc-YG-RBG" secondAttribute="centerY" id="0ET-dh-Wrk"/>
                                     <constraint firstItem="cf4-4V-tng" firstAttribute="leading" secondItem="EqY-tu-h92" secondAttribute="leading" constant="14" id="Gev-s7-uSH"/>
@@ -312,6 +312,7 @@
                                                 <segment title="评论"/>
                                                 <segment title="简介"/>
                                             </segments>
+                                            <color key="tintColor" red="0.41960784309999999" green="0.63137254899999995" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
                                             <variation key="default">
                                                 <mask key="constraints">
                                                     <exclude reference="5ht-wo-4CV"/>
@@ -439,7 +440,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.38681114779999998" green="0.64983259660000003" blue="0.70298958330000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.41960784309999999" green="0.63137254899999995" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="ghh-yS-n2h" firstAttribute="centerY" secondItem="zES-mY-0XH" secondAttribute="centerY" constant="10" id="5S0-0I-TBR"/>
                                     <constraint firstAttribute="trailing" secondItem="2df-Jn-ID8" secondAttribute="trailing" constant="8" id="6xf-yt-vhw"/>
@@ -558,6 +559,7 @@
                                         </constraints>
                                         <state key="normal" image="xiazai"/>
                                         <connections>
+                                            <action selector="addToShelfClick:" destination="4rW-5Y-w5E" eventType="touchUpInside" id="QRs-j5-qFS"/>
                                             <action selector="playClick:" destination="4rW-5Y-w5E" eventType="touchUpInside" id="lJE-Nf-0dt"/>
                                         </connections>
                                     </button>
@@ -645,12 +647,12 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="Y1C-KB-nJG"/>
-                                <exclude reference="dfw-8m-cJp"/>
-                                <exclude reference="fYY-zu-C2c"/>
                                 <exclude reference="lnC-yG-gaa"/>
                                 <exclude reference="0qx-CC-YVX"/>
                                 <exclude reference="sYJ-vL-XZn"/>
+                                <exclude reference="Y1C-KB-nJG"/>
+                                <exclude reference="dfw-8m-cJp"/>
+                                <exclude reference="fYY-zu-C2c"/>
                             </mask>
                         </variation>
                     </view>
@@ -1021,7 +1023,7 @@
         <scene sceneID="UNu-1E-IcN">
             <objects>
                 <collectionViewController storyboardIdentifier="Advice" id="K3e-Ch-Dhw" customClass="ListenAdviceCollectionViewController" customModule="ReaingSystem" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="4JI-Hp-yX5">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="4JI-Hp-yX5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1242,7 +1244,7 @@
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9k9-nb-lzv">
                                                     <subviews>
-                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ybh-7f-tyD">
+                                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ybh-7f-tyD">
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>

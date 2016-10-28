@@ -15,6 +15,14 @@ class FindListenCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var listenImage: UIImageView!
     //分类名
     @IBOutlet weak var titleLabel: UILabel!
-    //播放文件名
-    @IBOutlet weak var listenLabel: UIButton!
+    
+    func setListenData(data: FindData) {
+        titleLabel.text = data.audioName
+        if let url = data.audioImgUrl {
+            showImage.kf_setImageWithURL(NSURL(string: baseURl + url), placeholderImage: UIImage(named: "bookLoading"))
+        } else {
+            showImage.image = UIImage(named: "bookLoading")
+            
+        }
+    }
 }

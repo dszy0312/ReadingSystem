@@ -96,6 +96,17 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
         performSegueWithIdentifier(reuseIdentifier[0], sender: self)
     }
     
+    //个人中心
+    @IBAction func personalShowClick(sender: UIButton) {
+        if let pVC = self.parentViewController?.parentViewController as? PersonalCenterViewController {
+            if pVC.showing == false {
+                pVC.showing = true
+            } else {
+                pVC.showing = false
+            }
+        }
+    }
+    
     @IBAction func paperShowClick(sender: UIButton) {
         if sender.tag == 1 {
             endTime()

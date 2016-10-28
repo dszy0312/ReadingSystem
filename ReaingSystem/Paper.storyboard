@@ -89,10 +89,10 @@
                                 <color key="backgroundColor" red="0.87723958329999996" green="0.87723958329999996" blue="0.87723958329999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ListCell" rowHeight="137" id="EBk-fZ-nJT" customClass="PaperTableViewCell" customModule="ReaingSystem" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="137"/>
+                                        <rect key="frame" x="0.0" y="28" width="1000" height="137"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EBk-fZ-nJT" id="rI8-XD-2Fh">
-                                            <frame key="frameInset" width="375" height="136"/>
+                                            <frame key="frameInset" width="1000" height="136"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R18-RS-nHL">
@@ -234,7 +234,7 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="personalShowClick:" destination="HhY-C8-QwG" eventType="touchUpInside" id="Ip1-fs-AOd"/>
+                                            <action selector="personalShowClick:" destination="SyS-wo-kj5" eventType="touchUpInside" id="io8-v2-AjX"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hfG-aY-oRg">
@@ -534,7 +534,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.38681114779999998" green="0.64983259660000003" blue="0.70298958330000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.41960784309999999" green="0.63137254899999995" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Qx5-PI-tUG" secondAttribute="bottom" constant="8" id="Tn6-Kc-Z1d"/>
                                     <constraint firstAttribute="height" constant="64" id="Tuy-Xd-ZZd"/>
@@ -639,41 +639,54 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fzH-ah-zGM">
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paper_search_background" translatesAutoresizingMaskIntoConstraints="NO" id="S7a-Hr-W58">
+                                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="hin-EK-pG2">
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="St8-jh-Y4G"/>
-                                            <constraint firstAttribute="width" constant="214" id="yu2-Ps-Xxf"/>
+                                            <constraint firstAttribute="height" constant="44" id="FwA-Rj-lK2"/>
                                         </constraints>
-                                    </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paper_search" translatesAutoresizingMaskIntoConstraints="NO" id="Caj-RQ-Tuz">
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="15" id="SD7-51-pG9"/>
-                                            <constraint firstAttribute="width" constant="15" id="pgx-AG-SMM"/>
-                                        </constraints>
-                                    </imageView>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="Zbb-Vk-ZsA" id="64y-eS-HN7"/>
+                                        </connections>
+                                    </searchBar>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Q0-zE-ngC">
+                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                        <state key="normal" title="取消">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.92255353880000002" green="0.94466949079999996" blue="0.9637590815" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="S7a-Hr-W58" firstAttribute="centerY" secondItem="fzH-ah-zGM" secondAttribute="centerY" constant="10" id="34I-xj-Ocu"/>
-                                    <constraint firstItem="S7a-Hr-W58" firstAttribute="centerX" secondItem="fzH-ah-zGM" secondAttribute="centerX" id="cNX-Uh-W5U"/>
-                                    <constraint firstItem="Caj-RQ-Tuz" firstAttribute="centerY" secondItem="fzH-ah-zGM" secondAttribute="centerY" constant="10" id="duj-wt-5q0"/>
+                                    <constraint firstItem="hin-EK-pG2" firstAttribute="centerY" secondItem="fzH-ah-zGM" secondAttribute="centerY" constant="10" id="6BY-ke-yZY"/>
+                                    <constraint firstAttribute="trailing" secondItem="1Q0-zE-ngC" secondAttribute="trailing" constant="15" id="Zwj-ff-xti"/>
+                                    <constraint firstItem="hin-EK-pG2" firstAttribute="leading" secondItem="fzH-ah-zGM" secondAttribute="leading" constant="16" id="daH-W4-gqh"/>
+                                    <constraint firstItem="1Q0-zE-ngC" firstAttribute="centerY" secondItem="fzH-ah-zGM" secondAttribute="centerY" constant="10" id="ezc-0k-ODZ"/>
                                     <constraint firstAttribute="height" constant="64" id="gKo-0u-VU5"/>
-                                    <constraint firstItem="Caj-RQ-Tuz" firstAttribute="centerX" secondItem="fzH-ah-zGM" secondAttribute="centerX" id="upN-9t-BeT"/>
+                                    <constraint firstItem="1Q0-zE-ngC" firstAttribute="leading" secondItem="hin-EK-pG2" secondAttribute="trailing" constant="15" id="wR5-H2-Tw4"/>
                                 </constraints>
                             </view>
-                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hin-EK-pG2">
-                                <frame key="frameInset" minY="64" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="Zbb-Vk-ZsA" id="64y-eS-HN7"/>
-                                </connections>
-                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tCO-kX-wyV">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="qLI-JQ-1lv">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qLI-JQ-1lv" id="nGi-Zn-ae5">
+                                            <frame key="frameInset" width="375" height="49"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="fzH-ah-zGM" firstAttribute="leading" secondItem="N2Y-Dm-QXx" secondAttribute="leading" id="BC1-7W-4HD"/>
                             <constraint firstItem="fzH-ah-zGM" firstAttribute="top" secondItem="N2Y-Dm-QXx" secondAttribute="top" id="Ix9-yG-D95"/>
+                            <constraint firstItem="jMt-99-ma8" firstAttribute="top" secondItem="tCO-kX-wyV" secondAttribute="bottom" id="LBf-Dy-QJR"/>
+                            <constraint firstAttribute="trailing" secondItem="tCO-kX-wyV" secondAttribute="trailing" id="NWi-ba-GWC"/>
+                            <constraint firstItem="tCO-kX-wyV" firstAttribute="top" secondItem="fzH-ah-zGM" secondAttribute="bottom" id="VRo-ru-CPz"/>
+                            <constraint firstItem="tCO-kX-wyV" firstAttribute="leading" secondItem="N2Y-Dm-QXx" secondAttribute="leading" id="flM-nC-jsa"/>
                             <constraint firstAttribute="trailing" secondItem="fzH-ah-zGM" secondAttribute="trailing" id="zNb-MX-noh"/>
                         </constraints>
                     </view>
@@ -692,7 +705,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="945" y="1410"/>
+            <point key="canvasLocation" x="944.79999999999995" y="1409.1454272863568"/>
         </scene>
         <!--Paper Catalogue View Controller-->
         <scene sceneID="WCH-o9-woJ">
@@ -716,7 +729,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CategoryCell" id="bPe-9s-KZJ" customClass="PaperCatalogueCollectionViewCell" customModule="ReaingSystem" customModuleProvider="target">
-                                        <rect key="frame" x="19" y="50" width="337" height="66"/>
+                                        <rect key="frame" x="0.0" y="50" width="337" height="66"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="337" height="66"/>
@@ -751,7 +764,7 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HeaderView" id="eie-da-g22" customClass="PaperCatalogueCollectionReusableView" customModule="ReaingSystem" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1000" height="50"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="baokan" translatesAutoresizingMaskIntoConstraints="NO" id="09U-wq-XGF">

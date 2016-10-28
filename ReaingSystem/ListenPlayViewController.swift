@@ -106,6 +106,9 @@ class ListenPlayViewController: UIViewController {
         }
     }
     
+    @IBAction func addToShelfClick(sender: UIButton) {
+        self.addToShelf()
+    }
     
     
     //私有方法 数据设置
@@ -205,7 +208,25 @@ class ListenPlayViewController: UIViewController {
     }
     
 
+    //添加书架请求
+    func addToShelf() {
+        let parm: [String: AnyObject] = [
+            "prID": listenData.audioID
+        ]
+        //用POST出错，未知原因
+        NetworkHealper.GetWithParm.receiveJSON(URLHealper.addToShelfURL.introduce(), parameter: parm, completion: { (dictionary, error) in
+            
+            if let flag = dictionary!["flag"] as? Int {
+                print("flag= \(flag)")
+                if flag == 1 {
 
+                } else {
+                    print("添加未成功")
+                }
+                
+            }
+        })
+    }
     
 
     /*

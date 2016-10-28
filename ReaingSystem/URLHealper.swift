@@ -45,6 +45,11 @@ enum URLHealper {
     case getStoryByReadedURL
     //获取每个楼层信息
     case getStoryListByCategory
+    //获取精选推荐信息 (参数： pageindex=1)
+    case getJXFloor
+    //更新精选推荐单个楼层的信息 (参数：categoryid=00010006 pageindex = 2)
+    case getJXStoryList
+    
     //获取男生女生页面基本信息
     case getChildCategoryListByCategory
     //获取男女生页面具体信息
@@ -61,6 +66,12 @@ enum URLHealper {
     case getPrByHotSearch
     //查询搜索页面
     case doSearch
+    
+    //MARK:期刊模块
+    //获取期刊下的一级分类 参数 categoryID=0004
+    case getChildCategoryList
+    //获取某分类期刊列表 (参数： categoryID  pageIndex)
+    case getJournalList
     
     //MARK:有声模块
     //听书推荐页面
@@ -105,6 +116,10 @@ enum URLHealper {
     //根据小说章节id得到该章节内容（参数名称：chapterID）
     case readTxt
     
+    //MARK: 发现页面
+    //获取发现数据
+    case getFindList
+    
     
     func introduce() -> String {
         switch self {
@@ -134,7 +149,7 @@ enum URLHealper {
 
 
         case .addToShelfURL:
-            return baseURl + "story/AddShelf"
+            return baseURl + "/Pr/AddShelf"
 
         case .myShelfURL:
             return baseURl + "story/GetMyShelf"
@@ -151,6 +166,10 @@ enum URLHealper {
             return baseURl + "story/GetStoryListByCategory"
         case .getListenDetail:
             return baseURl + "voice/GetDetail"
+        case .getJXFloor:
+            return baseURl + "/story/GetJXFloor"
+        case .getJXStoryList:
+            return baseURl + "story/GetJXStoryList"
         case .getChildCategoryListByCategory:
             return baseURl + "story/GetChildCategoryListByCategory"
         case .getHotStoryByCategory:
@@ -167,6 +186,10 @@ enum URLHealper {
             return baseURl + "search/GetPrByHotSearch"
         case .doSearch:
             return baseURl + "search/DoSearch"
+        case .getChildCategoryList:
+            return baseURl + "pr/GetChildCategoryListByCategory"
+        case .getJournalList:
+            return baseURl + "Magazine/List"
         case .getVoiceTJFloorData:
             return baseURl + "voice/GetTJFloorData"
         case .getVoiceCategory:
@@ -201,6 +224,8 @@ enum URLHealper {
             return baseURl + "Story/GetDetail"
         case .readTxt:
             return baseURl + "Story/ReadTxt"
+        case .getFindList:
+            return baseURl + "Find/List"
         }
     }
 }

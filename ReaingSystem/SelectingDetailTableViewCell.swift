@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 
 protocol sendSelectingDataDelegate {
-    func dataChanged(data: [ReadedData], id: String)
+    func dataChanged(count: Int, id: String, page: Int)
 }
 
 protocol BookSelectedDelegate {
@@ -30,7 +30,10 @@ class SelectingDetailTableViewCell: UITableViewCell {
     var defaultTitle = ""
     var recommendTitle = ""
     var categoryID = ""
+    //所在楼层
     var count = 0
+    //当前页（换一换标示）
+    var page = 1
     //书本ID数组
     var bookIDs: [String] = []
 //    //阅读过的书籍推荐
@@ -49,76 +52,96 @@ class SelectingDetailTableViewCell: UITableViewCell {
     
     @IBAction func changeAction(sender: UIButton) {
 
-            if count == 0 {
-                self.getReadedData()
-            } else {
-                self.getRecommendData(categoryID)
-            }
+        delegate.dataChanged(count, id: categoryID, page: page + 1)
     }
     //左
     @IBAction func selected1Click(sender: UIButton) {
         //返回第一本书
-        selectedDelegate.sendBookID(bookIDs[0])
+        if bookIDs.count >= 1 {
+            selectedDelegate.sendBookID(bookIDs[0])
+        }
     }
     //中
     @IBAction func selected2Click(sender: UIButton) {
         //返回第二本书
-        selectedDelegate.sendBookID(bookIDs[1])
+        if bookIDs.count >= 2 {
+            selectedDelegate.sendBookID(bookIDs[1])
+        }
     }
     //右
     @IBAction func selected3Click(sender: UIButton) {
         //返回第三本书
-        selectedDelegate.sendBookID(bookIDs[2])
+        if bookIDs.count >= 3 {
+            selectedDelegate.sendBookID(bookIDs[2])
+        }
     }
     
-    func setBookData(readedData: [ReadedData]) {
+    func setBookData(data: ReadedAdvice) {
+        bookIDs = []
+        page = data.curPage
+        for index in data.data {
+            bookIDs.append(index.bookID)
+        }
         for i in 0..<bookImages.count {
-            if readedData[i].bookImg == nil {
-                bookImages[i].image = UIImage(named: "bookLoading")
-            } else {
-                bookImages[i].kf_setImageWithURL(NSURL(string: baseURl + readedData[i].bookImg), placeholderImage: UIImage(named: "bookLoading"))
+            switch data.data.count {
+            case 1:
+                if i == 0 {
+                    self.addImage(bookImages[i], imageURL: data.data[i].bookImg)
+                } else {
+                    bookImages[i].image = UIImage(named: "bookLoading")
+                }
+            case 2:
+                if i == 0 || i == 1 {
+                    self.addImage(bookImages[i], imageURL: data.data[i].bookImg)
+                } else {
+                    bookImages[i].image = UIImage(named: "bookLoading")
+                }
+            case 3:
+                self.addImage(bookImages[i], imageURL: data.data[i].bookImg)
+            default:
+                break
             }
         }
     }
     
-    func setRecommend(recommend: SelectReturnData) {
-        let categoryID = recommend.categoryID
-        cellTitle.text = recommend.categoryName
-        self.getRecommendData(categoryID)
-    }
-
-    //网络请求
-    //获取已读推荐
-    func getReadedData() {
+    //全新设置
+    func setFloorData(data: SelectingFloorRow) {
         bookIDs = []
-        NetworkHealper.Get.receiveJSON(URLHealper.getStoryByReadedURL.introduce()) { (dictionary, error) in
-            guard error == nil else {
-                print(error)
-                return
-            }
-            let readedAdvice = ReadedAdvice(fromDictionary: dictionary!)
-            self.setBookData(readedAdvice.data)
-            self.cellTitle.text = "读过《\(self.defaultTitle)》的人还读过"
-            self.delegate.dataChanged(readedAdvice.data, id: "0")
-            for index in readedAdvice.data {
-                self.bookIDs.append(index.bookID)
+        categoryID = data.categoryID
+        cellTitle.text = data.categoryName
+        page = data.currentPage
+        for index in data.prList {
+            bookIDs.append(index.bookID)
+        }
+        for i in 0..<bookImages.count {
+            switch data.prList.count {
+            case 1:
+                if i == 0 {
+                    self.addImage(bookImages[i], imageURL: data.prList[i].bookImg)
+                } else {
+                    bookImages[i].image = UIImage(named: "bookLoading")
+                }
+            case 2:
+                if i == 0 || i == 1 {
+                    self.addImage(bookImages[i], imageURL: data.prList[i].bookImg)
+                } else {
+                    bookImages[i].image = UIImage(named: "bookLoading")
+                }
+            case 3:
+                self.addImage(bookImages[i], imageURL: data.prList[i].bookImg)
+            default:
+                break
             }
         }
     }
-    //获取分类推荐
-    func getRecommendData(id: String) {
-        bookIDs = []
-        NetworkHealper.Get.receiveJSON(URLHealper.getStoryListByCategory.introduce(), parameter: ["categoryID" : id]) { (dictionary, error) in
-            guard error == nil else {
-                print(error)
-                return
-            }
-            let readedAdvice = ReadedAdvice(fromDictionary: dictionary!)
-            self.setBookData(readedAdvice.data)
-            self.delegate.dataChanged(readedAdvice.data, id: self.categoryID)
-            for index in readedAdvice.data {
-                self.bookIDs.append(index.bookID)
-            }
+    
+    //给UIImageView添加图片
+    func addImage(imageView: UIImageView, imageURL: String?) {
+        if let url = imageURL {
+            imageView.kf_setImageWithURL(NSURL(string: baseURl + url), placeholderImage: UIImage(named: "bookLoading"))
+        } else {
+            imageView.image = UIImage(named: "bookLoading")
+            
         }
     }
     

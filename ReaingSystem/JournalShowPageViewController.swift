@@ -9,15 +9,33 @@
 import UIKit
 
 class JournalShowPageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+    
+    //当前选中ID
+    var selectedIndex: Int! {
+        didSet {
+            count = selectedIndex
+            if let firstVC = self.viewControllersAtIndex(selectedIndex) {
+                firstVC.selectedIndex = idArray[selectedIndex]
+                self.setViewControllers([firstVC], direction: .Forward, animated: false, completion: nil)
+            }
+        }
+    }
+    //分类ID数组
+    var idArray: [String] = [] {
+        didSet {
+            if let firstVC = self.viewControllersAtIndex(0) {
+                firstVC.selectedIndex = idArray[0]
+                self.setViewControllers([firstVC], direction: .Forward, animated: false, completion: nil)
+            }
+        }
+    }
+    //当前分类
+    var count = 1
 
     override func viewDidLoad() {
         super.viewDidLoad()
         dataSource = self
         delegate = self
-        
-        if let firstVC = self.viewControllersAtIndex(0) {
-            self.setViewControllers([firstVC], direction: .Forward, animated: false, completion: nil)
-        }
         // Do any additional setup after loading the view.
     }
     
@@ -33,7 +51,7 @@ class JournalShowPageViewController: UIPageViewController, UIPageViewControllerD
         guard var index = (viewController as! JournalListViewController).customIndex else {
             return nil
         }
-        if index == 0  {
+        if index == 0 {
             return nil
         } else {
             index -= 1
@@ -48,7 +66,7 @@ class JournalShowPageViewController: UIPageViewController, UIPageViewControllerD
             return nil
         }
         
-        if index == 6 {
+        if index == idArray.count - 1 {
             return nil
         } else {
             index += 1
@@ -62,6 +80,9 @@ class JournalShowPageViewController: UIPageViewController, UIPageViewControllerD
             return
         }
         let cVC = pageViewController.viewControllers?.first as! JournalListViewController
+        cVC.getListData(idArray[cVC.customIndex])
+        let pVC = self.parentViewController as! JournalViewController
+        pVC.curIndex = cVC.customIndex
     }
     
     
@@ -74,7 +95,6 @@ class JournalShowPageViewController: UIPageViewController, UIPageViewControllerD
         let listVC = storyboard.instantiateViewControllerWithIdentifier("ListViewController") as? JournalListViewController
         listVC?.customIndex = index
             return listVC
-
     }
     
 

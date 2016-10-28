@@ -15,7 +15,7 @@ enum Direction {
 }
 
 
-class SelectingViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource, ImagesShowDelegate, UISearchBarDelegate, sendSelectingDataDelegate, BookSelectedDelegate{
+class SelectingViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource, ImagesShowDelegate, UISearchBarDelegate, sendSelectingDataDelegate, BookSelectedDelegate, UIScrollViewDelegate{
 
     //页面跳转控制器
     @IBOutlet weak var pageController: UIPageControl!
@@ -25,8 +25,11 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     @IBOutlet weak var tableView: UITableView!
     //搜索
     @IBOutlet weak var searchButton: UIButton!
-    
+    //个人中心按钮
     @IBOutlet weak var personalButton: UIButton!
+    
+    //底部视图
+    @IBOutlet weak var footerView: FooterLoadingView!
     
     //搜索页转场标示
     private let delegateSegue = "SearchingSegue"
@@ -42,13 +45,25 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     var recommend: [SelectReturnData]? = []
     //阅读过的书籍推荐
     var readedTitle: String?
-    var readedData: [ReadedData]?
+    var readAdvice: ReadedAdvice!
+    //var readedData: [SelectingFloorPrList]?
     //楼层字典
-    var readDictionary: [String : [ReadedData]] = [:]
+    var readDictionary: [String : [SelectingFloorPrList]] = [:]
+    //楼层数据
+    var floorDatas: [SelectingFloorRow] = []
+    
+    //是否需要下拉刷新
+    var canLoad = false
+    //是否正在刷新中
+    var loading = false
+    
+    //名家数据当前页
+    var page = 1
  
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.getReadedAdvice()
+        self.getFloorData(1)
+        tableView.tableFooterView = footerView
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -185,8 +200,8 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     //MARK: tableView delegate dataSource
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(recommend?.count)
-        return recommend!.count == 0 ? 1 : recommend!.count + 1
+        print(floorDatas.count)
+        return floorDatas.count == 0 ? 1 : floorDatas.count + 1
     }
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -202,34 +217,14 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
             index.layer.shadowRadius = 2
         }
         if indexPath.row == 0 {
-            if let readedData = self.readedData {
-                if let readedTitle = self.readedTitle {
-                    cell.defaultTitle = readedTitle
-                    cell.count = 0
-                    if readDictionary["\(cell.count)"] != nil {
-                        cell.setBookData(readDictionary["\(cell.count)"]!)
-                        cell.cellTitle.text = "读过《\(cell.defaultTitle)》的人还读过"
-                        for index in readDictionary["\(cell.count)"]! {
-                            cell.bookIDs.append(index.bookID)
-                        }
-                    }
-                }
+            if self.readAdvice != nil {
+                cell.count = 0
+                cell.cellTitle.text = "读过《\(self.readedTitle!)》的人还读过"
+                cell.setBookData(self.readAdvice)
             }
         } else {
-            if let recommend = self.recommend {
-                cell.count = indexPath.row
-                cell.categoryID = recommend[indexPath.row - 1].categoryID
-                cell.recommendTitle = recommend[indexPath.row - 1].categoryName
-                if readDictionary[recommend[indexPath.row - 1].categoryID] != nil {
-                    cell.setBookData(readDictionary[recommend[indexPath.row - 1].categoryID]!)
-                    cell.cellTitle.text = recommend[indexPath.row - 1].categoryName
-                    for index in readDictionary[recommend[indexPath.row - 1].categoryID]! {
-                        cell.bookIDs.append(index.bookID)
-                    }
-                }
-        
-                
-            }
+            cell.count = indexPath.row
+            cell.setFloorData(self.floorDatas[indexPath.row - 1])
         }
         
         return cell
@@ -247,6 +242,21 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         return false
     }
     
+    //scroll delegate
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if canLoad == false || loading == true {
+            return
+        }
+        if self.footerView!.frame.origin.y + self.footerView!.frame.height < (scrollView.contentOffset.y + scrollView.bounds.size.height)  {
+            print("开始刷新")
+            self.loading = true
+            self.footerView!.begain()
+            self.addFloorData(self.page + 1)
+        }
+    }
+    
+
+    
     //自定义代理  
     //ImagesShowDelegate
     func selectDataLoaded(data: SelectRootData) {
@@ -255,10 +265,7 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         self.readedTitle = data.data2 
         collectionView.reloadData()
         tableView.reloadData()
-        getReadedData()
-        for index in recommend! {
-            getRecommendData(index.categoryID)
-        }
+        getReadedAdvice()
     }
     
     //BookSelectedDelegate
@@ -280,8 +287,14 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         }
     }
     //sendSelectedDelegate
-    func dataChanged(data: [ReadedData], id: String) {
-        self.readDictionary[id] = data
+    
+    func dataChanged(count: Int, id: String, page: Int) {
+        if count == 0 {
+            self.getReadedData(page)
+        } else {
+            self.getRecommendData(id, page: page, count: count)
+            
+        }
     }
     
     
@@ -293,44 +306,97 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         return vc
     }
     
+    //判断是否需要加载
+    func decideLoading(cur: Int, total: Int) {
+        if cur < total {
+            self.canLoad = true
+        } else {
+            self.canLoad = false
+            print("没有更多数据")
+        }
+    }
+    
     
     
     //网络请求
     func getReadedAdvice() {
-        NetworkHealper.Get.receiveJSON(URLHealper.getStoryByReadedURL.introduce()) { (dictionary, error) in
+        NetworkHealper.Get.receiveJSON("http://lh.sdlq.org/story/GetStoryByRead") { (dictionary, error) in
             guard error == nil else {
                 print(error)
                 return
             }
-            let readedAdvice = ReadedAdvice(fromDictionary: dictionary!)
-            self.readedData = readedAdvice.data
+            print(dictionary)
+            self.readAdvice = ReadedAdvice(fromDictionary: dictionary!)
             self.tableView.reloadData()
         }
         
         
     }
-    
-    //获取已读推荐
-    func getReadedData() {
-        NetworkHealper.Get.receiveJSON(URLHealper.getStoryByReadedURL.introduce()) { (dictionary, error) in
+    //获取推荐分层信息
+    func getFloorData(index: Int) {
+        NetworkHealper.GetWithParm.receiveJSON(URLHealper.getJXFloor.introduce(), parameter: ["pageindex": index]) { (dictionary, error) in
             guard error == nil else {
                 print(error)
                 return
             }
-            let readedAdvice = ReadedAdvice(fromDictionary: dictionary!)
-            self.readDictionary["0"] = readedAdvice.data
+            let floor = SelectingFloorRoot(fromDictionary: dictionary!)
+            self.floorDatas.appendContentsOf(floor.rows)
+            self.decideLoading(self.floorDatas.count, total: floor.totalCount)
+            self.tableView.reloadData()
+        }
+    }
+    
+    //上拉加载
+    func addFloorData(index: Int) {
+        self.page = index
+        NetworkHealper.GetWithParm.receiveJSON(URLHealper.getJXFloor.introduce(), parameter: ["pageindex": index]) { (dictionary, error) in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            let floor = SelectingFloorRoot(fromDictionary: dictionary!)
+            self.floorDatas.appendContentsOf(floor.rows)
+            self.decideLoading(self.floorDatas.count, total: floor.totalCount)
+            self.loading = false
+            self.footerView.end()
+            self.tableView.reloadData()
+        }
+    }
+
+    
+      
+    
+    //获取已读推荐
+    func getReadedData(page: Int) {
+        NetworkHealper.GetWithParm.receiveJSON(URLHealper.getStoryByReadedURL.introduce(), parameter: ["pageIndex": page]) { (dictionary, error) in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            self.readAdvice = ReadedAdvice(fromDictionary: dictionary!)
+            guard self.readAdvice.pageCount >= self.readAdvice.curPage else {
+                self.readAdvice.curPage = self.readAdvice.pageCount
+                return
+            }
             self.tableView.reloadData()
         }
     }
     //获取分类推荐
-    func getRecommendData(id: String) {
-        NetworkHealper.GetWithParm.receiveJSON(URLHealper.getStoryListByCategory.introduce(), parameter: ["categoryID": id]) { (dictionary, error) in
+    func getRecommendData(id: String, page: Int, count: Int) {
+        print("加载数据")
+        NetworkHealper.GetWithParm.receiveJSON(URLHealper.getJXStoryList.introduce(), parameter: ["categoryID": id, "pageIndex": page]) { (dictionary, error) in
             guard error == nil else {
                 print(error)
                 return
             }
+            print(dictionary)
             let readedAdvice = ReadedAdvice(fromDictionary: dictionary!)
-            self.readDictionary[id] = readedAdvice.data
+            print("askhduiasdh \(readedAdvice.curPage) \(readedAdvice.pageCount)")
+            guard readedAdvice.pageCount >= readedAdvice.curPage else {
+                return
+            }
+            self.floorDatas[count - 1].prList = readedAdvice.rows
+            self.floorDatas[count - 1].currentPage = page
             self.tableView.reloadData()
         }
     }

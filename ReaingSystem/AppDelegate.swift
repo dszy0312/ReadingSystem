@@ -28,8 +28,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.sharedApplication().statusBarHidden = true
         //阅读信息持久化
         NSUserDefaults.standardUserDefaults().setFloat(18, forKey: "textSize")
-        
-        NSUserDefaults.standardUserDefaults().setInteger(1, forKey: "backgroundIndex")
+        //小说阅读颜色样式
+        //NSUserDefaults.standardUserDefaults().setInteger(1, forKey: "backgroundIndex")
+        NSUserDefaults.standardUserDefaults().registerDefaults(["backgroundIndex" : 1])
+        //小说阅读字体样式
+        //NSUserDefaults.standardUserDefaults().setInteger(1, forKey: "textTypeIndex")
+        NSUserDefaults.standardUserDefaults().registerDefaults(["textTypeIndex" : 1])
+        //小说阅读白天模式or黑夜模式
+        NSUserDefaults.standardUserDefaults().registerDefaults(["dayTypeIndex" : 0])        
         NSUserDefaults.standardUserDefaults().setInteger(0, forKey: "transitionIndex")
         NSUserDefaults.standardUserDefaults().setInteger(1, forKey: "curPage")
         
