@@ -13,9 +13,9 @@ class BubbleAnimation: NSObject, UIViewControllerAnimatedTransitioning,CAAnimati
     
     var transitionContext: UIViewControllerContextTransitioning?
     
-    public var pointFrame = CGRect()
-    public var duration = 0.5
-    public var transtionMode: ModalOperationType = .Presentation
+    internal var pointFrame = CGRect()
+    internal var duration = 0.5
+    internal var transtionMode: ModalOperationType = .Presentation
     
     
     

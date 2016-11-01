@@ -72,6 +72,10 @@ enum URLHealper {
     case getChildCategoryList
     //获取某分类期刊列表 (参数： categoryID  pageIndex)
     case getJournalList
+    //获取某一期的详细信息 （参数：Is_ID）
+    case getJournalDetailIssue
+    //分页获取某杂志的所有期数信息 （参数：MZ_ID pageindex）
+    case getJournalListIssue
     
     //MARK:有声模块
     //听书推荐页面
@@ -98,7 +102,7 @@ enum URLHealper {
     //分类页面获取子分类书籍列表(参数：pageindex:页数 categoryID:子类型id)
     case getStoryList
     //MARK: 报刊
-    //获取报纸列表数据（参数名data=2012-02-12）
+    //获取报纸列表数据（参数名date=2012-02-12）
     case getPaperList
     //获取报纸列表某篇文章的具体数据
     case getPaperTxt
@@ -190,6 +194,10 @@ enum URLHealper {
             return baseURl + "pr/GetChildCategoryListByCategory"
         case .getJournalList:
             return baseURl + "Magazine/List"
+        case .getJournalDetailIssue:
+            return baseURl + "Magazine/DetailIssue"
+        case .getJournalListIssue:
+            return baseURl + "Magazine/ListIssue"
         case .getVoiceTJFloorData:
             return baseURl + "voice/GetTJFloorData"
         case .getVoiceCategory:

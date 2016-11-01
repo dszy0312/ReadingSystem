@@ -43,6 +43,8 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
     var selectedRow: Int!
     //详情点击来自：0代表阅读按钮，1代表目录单元格
     var clickFrom: Int!
+    //选择的segmented
+    var selectedIndex = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,6 +93,30 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
             addToShelf()
         }
     }
+    
+    @IBAction func selectChange(sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            self.view.bringSubviewToFront(self.detailText)
+            selectedIndex = 0
+        case 1:
+            guard catalogue.count != 0 else {
+                return
+            }
+            self.clickFrom = 0
+            self.performSegueWithIdentifier(reuseIdentifier[0], sender: self)
+            UIApplication.sharedApplication().statusBarHidden = true
+            sender.selectedSegmentIndex = selectedIndex
+            
+            
+        case 2:
+            selectedIndex = 2
+            self.view.bringSubviewToFront(self.tableView)
+        default:
+            break
+        }
+    }
+    
     //阅读跳转
     @IBAction func readingClick(sender: UIButton) {
         guard catalogue.count != 0 else {

@@ -1,8 +1,8 @@
 //
-//  PaperImageViewController.swift
+//  JournalImageViewController.swift
 //  ReaingSystem
 //
-//  Created by 魏辉 on 16/10/11.
+//  Created by 魏辉 on 16/10/29.
 //  Copyright © 2016年 魏辉. All rights reserved.
 //
 
@@ -11,10 +11,10 @@ import Kingfisher
 
 private var reuseIdentifier = ["DetailSegue"]
 
-class PaperImageViewController: UIViewController, UIScrollViewDelegate {
-    
-    var scrollView: UIScrollView!
+class JournalImageViewController: UIPageViewController, UIScrollViewDelegate {
 
+    var scrollView: UIScrollView!
+    
     var imageView: UIImageView!
     var dImageView = UIImageView()
     
@@ -23,23 +23,13 @@ class PaperImageViewController: UIViewController, UIScrollViewDelegate {
     var customIndex: Int!
     //图片地址
     var imageURL: String!
-    //当前版面
-    var currentEdition: String!
-    //热区数据
-    var hotSpaceList: [PaperMainHotSpaceList] = []
-    //选中的热点
-    var selectHotSpace: String! {
-        didSet {
-            print(selectHotSpace)
-            self.performSegueWithIdentifier(reuseIdentifier[0], sender: self)
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print(customIndex)
         self.imageView = UIImageView(image: UIImage(named: "paper_background"))
-        self.imageView.kf_setImageWithURL(NSURL(string: baseURl + imageURL), placeholderImage: UIImage(named: "paper_background"))
+        self.imageView.kf_setImageWithURL(NSURL(string: imageURL), placeholderImage: UIImage(named: "paper_background"))
+        print(baseURl + imageURL)
         self.initImageInstance()
         self.initScrollViewContainer()
         self.setupGestureRecognizer()
@@ -52,19 +42,8 @@ class PaperImageViewController: UIViewController, UIScrollViewDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == reuseIdentifier[0] {
             let toVC = segue.destinationViewController as! PaperDetailReadViewController
-            toVC.newsID = selectHotSpace
-        }
+       }
     }
-    
-    func setData(data: PaperMainData, index: Int) {
-        customIndex = index
-        imageURL = data.newspaperImgSrc
-        currentEdition = data.newspaperImgTitle
-        hotSpaceList.appendContentsOf(data.hotSpaceList)
-    }
-    
-    
-    
     // 產生圖片
     func initImageInstance(){
         print(imageView.bounds)
@@ -75,15 +54,15 @@ class PaperImageViewController: UIViewController, UIScrollViewDelegate {
     func initScrollViewContainer(){
         self.scrollView = UIScrollView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.bounds.width, height: self.view.bounds.height))
         print(self.scrollView.bounds.height)
-//        self.scrollView.backgroundColor = UIColor.blackColor()
+        //        self.scrollView.backgroundColor = UIColor.blackColor()
         self.scrollView.contentSize = imageView.bounds.size
         self.scrollView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
         self.scrollView.delegate = self
         self.scrollView.addSubview(imageView)
-//        self.scrollView.scrollEnabled = false
+        //        self.scrollView.scrollEnabled = false
         
         self.view.addSubview(scrollView)
-//        self.setZoomScale()
+        //        self.setZoomScale()
     }
     
     // 設定一開始圖片縮放比例以及縮到最小情況下的比例
@@ -115,15 +94,11 @@ class PaperImageViewController: UIViewController, UIScrollViewDelegate {
     
     // 加入偵測點擊兩下事件
     func setupGestureRecognizer() {
-        let singleTap = UITapGestureRecognizer(target: self, action: "singleTap:")
-        singleTap.numberOfTapsRequired = 1
-        scrollView.addGestureRecognizer(singleTap)
         
         let doubleTap = UITapGestureRecognizer(target: self, action: "handleDoubleTap:")
         doubleTap.numberOfTapsRequired = 2
         scrollView.addGestureRecognizer(doubleTap)
         
-        singleTap.requireGestureRecognizerToFail(doubleTap)
     }
     
     // 點擊兩下後 縮放圖片
@@ -134,32 +109,6 @@ class PaperImageViewController: UIViewController, UIScrollViewDelegate {
             scrollView.setZoomScale(scrollView.maximumZoomScale, animated: true)
         }
     }
-    //单机监听
-    func singleTap(recognizer: UITapGestureRecognizer) {
-        let point = recognizer.locationInView(imageView)
-        let width = Int(point.x / imageView.bounds.width * 100)
-        let height = Int(point.y / imageView.bounds.height * 100)
-        
-        self.isOnHotSpace(point)
-    }
     
-    //判断点击的热区
-    func isOnHotSpace(point: CGPoint) {
-        for space in hotSpaceList {
-            guard space.newspaperTxtHotSpace != "" else {
-                break
-            }
-            print(space.newspaperTxtHotSpace)
-            let splitedArray = space.newspaperTxtHotSpace.componentsSeparatedByString(",")
-            let width = Int(splitedArray[2])! - Int(splitedArray[0])!
-            let height = Int(splitedArray[3])! - Int(splitedArray[1])!
-            
-            let rect = CGRect(x: Int(splitedArray[0])!, y: Int(splitedArray[1])!, width: width, height: height)
-            let onSpace = CGRectContainsPoint(rect, point)
-            if onSpace == true {
-                selectHotSpace = space.npNewsID
-            }
-        }
-    }
 
 }

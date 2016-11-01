@@ -1,42 +1,51 @@
 //
-//  PaperShowViewController.swift
+//  JournalDetailPageViewController.swift
 //  ReaingSystem
 //
-//  Created by 魏辉 on 16/10/11.
+//  Created by 魏辉 on 16/10/29.
 //  Copyright © 2016年 魏辉. All rights reserved.
 //
 
 import UIKit
 
-class PaperShowViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
-    
-    //报刊数据
-    var paperMainRow: [PaperMainData] = [] {
+class JournalDetailPageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+
+    //期刊数据
+    var detailData: JournalDetailRow! {
         didSet {
             if let firstVC = self.viewControllersAtIndex(0) {
                 self.setViewControllers([firstVC], direction: .Forward, animated: false, completion: nil)
             }
         }
     }
+    
+    //选中页面
+    var selectedPage: Int! {
+        didSet {
+            if let firstVC = self.viewControllersAtIndex(selectedPage) {
+                self.setViewControllers([firstVC], direction: .Forward, animated: false, completion: nil)
+            }
 
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         dataSource = self
         delegate = self
-
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     //MARK: UIPageViewControllerDataSource delegate
     //DataSource
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-        guard var index = (viewController as! PaperImageViewController).customIndex else {
+        guard var index = (viewController as! JournalImageViewController).customIndex else {
             return nil
         }
         if index == 0  {
@@ -50,11 +59,11 @@ class PaperShowViewController: UIPageViewController, UIPageViewControllerDelegat
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        guard var index = (viewController as! PaperImageViewController).customIndex else {
+        guard var index = (viewController as! JournalImageViewController).customIndex else {
             return nil
         }
         
-        if index == self.paperMainRow.count - 1 || paperMainRow.count == 0 {
+        if index == Int(detailData.isPageCount)! - 1 {
             return nil
         } else {
             index += 1
@@ -67,28 +76,26 @@ class PaperShowViewController: UIPageViewController, UIPageViewControllerDelegat
         guard completed == true else {
             return
         }
-        let cVC = pageViewController.viewControllers?.first as! PaperImageViewController
-        let parVC = self.parentViewController as! PaperMainViewController
-        parVC.currentEdition = cVC.currentEdition
+        let cVC = pageViewController.viewControllers?.first as! JournalImageViewController
     }
     
-
+    
     //MARK: 私有方法
     
     //返回当前页的控制器
-    func viewControllersAtIndex(index: Int) -> PaperImageViewController? {
-        let storyboard = UIStoryboard.init(name: "Paper", bundle: NSBundle.mainBundle())
+    func viewControllersAtIndex(index: Int) -> JournalImageViewController? {
+        let storyboard = UIStoryboard.init(name: "Journal", bundle: NSBundle.mainBundle())
         
-        let imagesVC = storyboard.instantiateViewControllerWithIdentifier("PaperImageViewController") as? PaperImageViewController
-        if self.paperMainRow.count == 0 || index == self.paperMainRow.count {
+        let imagesVC = storyboard.instantiateViewControllerWithIdentifier("JournalImageViewController") as? JournalImageViewController
+        if Int(detailData.isPageCount)! == 0 || index == Int(detailData.isPageCount)! {
             return nil
         } else {
             imagesVC?.customIndex = index
-            imagesVC?.imageURL = paperMainRow[index].newspaperImgSrc
-            imagesVC?.setData(paperMainRow[index], index: index)
+            imagesVC?.imageURL = "\(baseURl)\(detailData.isContentPath)\(index + 1).jpg"
             return imagesVC
             
         }
     }
     
+
 }

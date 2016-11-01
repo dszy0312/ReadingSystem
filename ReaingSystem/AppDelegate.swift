@@ -15,24 +15,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var storyBoard: UIStoryboard?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-//        window = UIWindow(frame: UIScreen.mainScreen().bounds)
-//        window?.makeKeyAndVisible()
-//        
-//        storyBoard = UIStoryboard(name: "Paper", bundle: nil)
-//        let rootController = storyBoard?.instantiateViewControllerWithIdentifier("PaperDetail")
-//        
-//        if let window = self.window {
-//            window.rootViewController = rootController
-//        }
+
         UIApplication.sharedApplication().statusBarHidden = true
         //阅读信息持久化
         NSUserDefaults.standardUserDefaults().setFloat(18, forKey: "textSize")
-        //小说阅读颜色样式
-        //NSUserDefaults.standardUserDefaults().setInteger(1, forKey: "backgroundIndex")
         NSUserDefaults.standardUserDefaults().registerDefaults(["backgroundIndex" : 1])
-        //小说阅读字体样式
-        //NSUserDefaults.standardUserDefaults().setInteger(1, forKey: "textTypeIndex")
+        //报纸搜索历史记录
+        NSUserDefaults.standardUserDefaults().registerDefaults(["history":[]])
         NSUserDefaults.standardUserDefaults().registerDefaults(["textTypeIndex" : 1])
         //小说阅读白天模式or黑夜模式
         NSUserDefaults.standardUserDefaults().registerDefaults(["dayTypeIndex" : 0])        

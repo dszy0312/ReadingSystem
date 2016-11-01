@@ -74,6 +74,7 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         tableView.dataSource = self
         tableView.delegate = self
         tableView.registerNib(UINib(nibName: "SelectingDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "DetailCell")
+        tableView.registerNib(UINib(nibName: "SecondSelectingDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "Detail2Cell")
         
         UIApplication.sharedApplication().statusBarHidden = false
     }
@@ -156,7 +157,7 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 5, left: 0, bottom: 0, right: 0)
+        return UIEdgeInsets(top: 15, left: 0, bottom: 10, right: 0)
     }
     // delegate
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -208,30 +209,33 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("DetailCell") as! SelectingDetailTableViewCell
-        cell.delegate = self
-        cell.selectedDelegate = self
-        for index in cell.bookImages {
-            index.layer.shadowOpacity = 0.5
-            index.layer.shadowOffset = CGSize(width: 0, height: 3)
-            index.layer.shadowRadius = 2
-        }
         if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("DetailCell") as! SelectingDetailTableViewCell
+            cell.delegate = self
+            cell.selectedDelegate = self
             if self.readAdvice != nil {
                 cell.count = 0
                 cell.cellTitle.text = "读过《\(self.readedTitle!)》的人还读过"
                 cell.setBookData(self.readAdvice)
             }
+            return cell
         } else {
+            let cell = tableView.dequeueReusableCellWithIdentifier("Detail2Cell") as! SecondSelectingDetailTableViewCell
+            cell.delegate = self
+            cell.selectedDelegate = self
             cell.count = indexPath.row
             cell.setFloorData(self.floorDatas[indexPath.row - 1])
+            return cell
         }
         
-        return cell
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 220
+        if indexPath.row == 0 {
+            return 220
+        } else {
+            return 200
+        }
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -348,12 +352,12 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     
     //上拉加载
     func addFloorData(index: Int) {
-        self.page = index
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.getJXFloor.introduce(), parameter: ["pageindex": index]) { (dictionary, error) in
             guard error == nil else {
                 print(error)
                 return
             }
+            self.page = index
             let floor = SelectingFloorRoot(fromDictionary: dictionary!)
             self.floorDatas.appendContentsOf(floor.rows)
             self.decideLoading(self.floorDatas.count, total: floor.totalCount)

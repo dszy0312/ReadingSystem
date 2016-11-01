@@ -16,6 +16,7 @@ class CategoryTitleCollectionViewCell: UICollectionViewCell {
     
     func setData(data: CategoryRow) {
         numberLabel.text = data.prCount
+        numberLabel.text = ""
         nameLabel.text = data.categoryName
     }
 }

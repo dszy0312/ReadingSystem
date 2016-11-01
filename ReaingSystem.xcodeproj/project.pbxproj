@@ -72,6 +72,13 @@
 		984C769A1D5D7A1300B3588D /* PersonalTabBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 984C76991D5D7A1300B3588D /* PersonalTabBar.xib */; };
 		984D26B31D87F38B00343145 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 984D26B21D87F38B00343145 /* Podfile */; };
 		98522C9F1D5DC6E600F32FD5 /* HttpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98522C9E1D5DC6E600F32FD5 /* HttpManager.swift */; };
+		9866C8501DC6D0F300EA4D52 /* SecondOverlayAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9866C84F1DC6D0F300EA4D52 /* SecondOverlayAnimationController.swift */; };
+		9866C8521DC6D5FD00EA4D52 /* JournalDTtransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9866C8511DC6D5FD00EA4D52 /* JournalDTtransitionDelegate.swift */; };
+		9866C8541DC6ECAD00EA4D52 /* TestWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9866C8531DC6ECAD00EA4D52 /* TestWebViewController.swift */; };
+		9866C8561DC71CFF00EA4D52 /* JournalDCatalogueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9866C8551DC71CFF00EA4D52 /* JournalDCatalogueViewController.swift */; };
+		9866C8581DC71DF300EA4D52 /* JournalDCatalogueCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9866C8571DC71DF300EA4D52 /* JournalDCatalogueCollectionViewCell.swift */; };
+		9866C85B1DC73C2600EA4D52 /* SecondSelectingDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9866C8591DC73C2600EA4D52 /* SecondSelectingDetailTableViewCell.swift */; };
+		9866C85C1DC73C2600EA4D52 /* SecondSelectingDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9866C85A1DC73C2600EA4D52 /* SecondSelectingDetailTableViewCell.xib */; };
 		986BFEF91DADE71600A45B39 /* PaperMainData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986BFEF81DADE71600A45B39 /* PaperMainData.swift */; };
 		986BFEFB1DADE71E00A45B39 /* PaperMainHotSpaceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986BFEFA1DADE71E00A45B39 /* PaperMainHotSpaceList.swift */; };
 		986CD5AB1D92147C008D15FE /* ListenCategoryReturnData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986CD5A81D92147C008D15FE /* ListenCategoryReturnData.swift */; };
@@ -137,7 +144,6 @@
 		9891224C1DB4720700FCE871 /* PaperEditionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9891224B1DB4720700FCE871 /* PaperEditionCollectionViewCell.swift */; };
 		9891224E1DB4722D00FCE871 /* PaperEditionSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9891224D1DB4722D00FCE871 /* PaperEditionSelectViewController.swift */; };
 		989122531DB4DEB200FCE871 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989122521DB4DEB100FCE871 /* UIColor+Extension.swift */; };
-		98945D551D9A680C00726E0B /* PaperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98945D541D9A680C00726E0B /* PaperViewController.swift */; };
 		98945D581D9A6C3700726E0B /* PaperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98945D571D9A6C3700726E0B /* PaperTableViewCell.swift */; };
 		98945D5C1D9A6FB200726E0B /* PaperRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98945D5A1D9A6FB200726E0B /* PaperRoot.swift */; };
 		98945D5D1D9A6FB200726E0B /* PaperRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98945D5B1D9A6FB200726E0B /* PaperRow.swift */; };
@@ -158,7 +164,6 @@
 		9895FBB61D9BA5D000639EAB /* PaperDetailTitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9895FBB51D9BA5D000639EAB /* PaperDetailTitleTableViewCell.swift */; };
 		9895FBB81D9BA5E300639EAB /* PaperDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9895FBB71D9BA5E300639EAB /* PaperDetailTableViewCell.swift */; };
 		9895FBBA1D9BA5F300639EAB /* PaperDetailImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9895FBB91D9BA5F300639EAB /* PaperDetailImageTableViewCell.swift */; };
-		9895FBBC1D9BB25800639EAB /* test.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9895FBBB1D9BB25800639EAB /* test.txt */; };
 		98A2EBA61DAC7AE200039CCA /* PaperImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A2EBA51DAC7AE200039CCA /* PaperImageViewController.swift */; };
 		98A2EBA81DAC8D4000039CCA /* PaperMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A2EBA71DAC8D4000039CCA /* PaperMainViewController.swift */; };
 		98A2EBAA1DAC8F6D00039CCA /* PaperShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A2EBA91DAC8F6D00039CCA /* PaperShowViewController.swift */; };
@@ -220,6 +225,18 @@
 		98CD8A211DC1A89B0047D8DC /* FindRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A1D1DC1A89B0047D8DC /* FindRoot.swift */; };
 		98CD8A221DC1A89B0047D8DC /* FindRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A1E1DC1A89B0047D8DC /* FindRow.swift */; };
 		98CD8A241DC1D8E90047D8DC /* JournalListRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A231DC1D8E90047D8DC /* JournalListRoot.swift */; };
+		98CD8A261DC331640047D8DC /* PaperSearchFromTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A251DC331640047D8DC /* PaperSearchFromTableViewCell.swift */; };
+		98CD8A281DC3317E0047D8DC /* PaperSearchShowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A271DC3317E0047D8DC /* PaperSearchShowTableViewCell.swift */; };
+		98CD8A2A1DC3356F0047D8DC /* PaperSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A291DC3356F0047D8DC /* PaperSearchViewController.swift */; };
+		98CD8A2C1DC4A0870047D8DC /* JournalDetailPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A2B1DC4A0870047D8DC /* JournalDetailPageViewController.swift */; };
+		98CD8A2E1DC4A0B60047D8DC /* JournalImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A2D1DC4A0B60047D8DC /* JournalImageViewController.swift */; };
+		98CD8A331DC4A8B90047D8DC /* JournalDetailRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A311DC4A8B90047D8DC /* JournalDetailRoot.swift */; };
+		98CD8A341DC4A8B90047D8DC /* JournalDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A321DC4A8B90047D8DC /* JournalDetailRow.swift */; };
+		98CD8A381DC5D2F10047D8DC /* JournalDTViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A371DC5D2F10047D8DC /* JournalDTViewController.swift */; };
+		98CD8A3A1DC5E1460047D8DC /* JournalDListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A391DC5E1460047D8DC /* JournalDListViewController.swift */; };
+		98CD8A3C1DC5E1BF0047D8DC /* JournalDListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A3B1DC5E1BF0047D8DC /* JournalDListTableViewCell.swift */; };
+		98CD8A3F1DC5F58F0047D8DC /* JournalDListRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A3D1DC5F58F0047D8DC /* JournalDListRoot.swift */; };
+		98CD8A401DC5F58F0047D8DC /* JournalDListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A3E1DC5F58F0047D8DC /* JournalDListRow.swift */; };
 		98CF5F061D9149650025D458 /* ListenAdvicePrList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CF5F021D9149650025D458 /* ListenAdvicePrList.swift */; };
 		98CF5F071D9149650025D458 /* ListenAdviceReturnData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CF5F031D9149650025D458 /* ListenAdviceReturnData.swift */; };
 		98CF5F081D9149650025D458 /* ListenAdviceRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CF5F041D9149650025D458 /* ListenAdviceRoot.swift */; };
@@ -331,6 +348,13 @@
 		984C76991D5D7A1300B3588D /* PersonalTabBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonalTabBar.xib; sourceTree = "<group>"; };
 		984D26B21D87F38B00343145 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		98522C9E1D5DC6E600F32FD5 /* HttpManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpManager.swift; sourceTree = "<group>"; };
+		9866C84F1DC6D0F300EA4D52 /* SecondOverlayAnimationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondOverlayAnimationController.swift; sourceTree = "<group>"; };
+		9866C8511DC6D5FD00EA4D52 /* JournalDTtransitionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalDTtransitionDelegate.swift; sourceTree = "<group>"; };
+		9866C8531DC6ECAD00EA4D52 /* TestWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestWebViewController.swift; sourceTree = "<group>"; };
+		9866C8551DC71CFF00EA4D52 /* JournalDCatalogueViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalDCatalogueViewController.swift; sourceTree = "<group>"; };
+		9866C8571DC71DF300EA4D52 /* JournalDCatalogueCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalDCatalogueCollectionViewCell.swift; sourceTree = "<group>"; };
+		9866C8591DC73C2600EA4D52 /* SecondSelectingDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondSelectingDetailTableViewCell.swift; sourceTree = "<group>"; };
+		9866C85A1DC73C2600EA4D52 /* SecondSelectingDetailTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecondSelectingDetailTableViewCell.xib; sourceTree = "<group>"; };
 		986BFEF81DADE71600A45B39 /* PaperMainData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaperMainData.swift; sourceTree = "<group>"; };
 		986BFEFA1DADE71E00A45B39 /* PaperMainHotSpaceList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaperMainHotSpaceList.swift; sourceTree = "<group>"; };
 		986CD5A81D92147C008D15FE /* ListenCategoryReturnData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenCategoryReturnData.swift; sourceTree = "<group>"; };
@@ -410,7 +434,6 @@
 		9891224D1DB4722D00FCE871 /* PaperEditionSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaperEditionSelectViewController.swift; sourceTree = "<group>"; };
 		989122511DB4BB6E00FCE871 /* msyh.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = msyh.ttf; sourceTree = "<group>"; };
 		989122521DB4DEB100FCE871 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
-		98945D541D9A680C00726E0B /* PaperViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaperViewController.swift; sourceTree = "<group>"; };
 		98945D571D9A6C3700726E0B /* PaperTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaperTableViewCell.swift; sourceTree = "<group>"; };
 		98945D5A1D9A6FB200726E0B /* PaperRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaperRoot.swift; sourceTree = "<group>"; };
 		98945D5B1D9A6FB200726E0B /* PaperRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaperRow.swift; sourceTree = "<group>"; };
@@ -431,7 +454,6 @@
 		9895FBB51D9BA5D000639EAB /* PaperDetailTitleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaperDetailTitleTableViewCell.swift; sourceTree = "<group>"; };
 		9895FBB71D9BA5E300639EAB /* PaperDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaperDetailTableViewCell.swift; sourceTree = "<group>"; };
 		9895FBB91D9BA5F300639EAB /* PaperDetailImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaperDetailImageTableViewCell.swift; sourceTree = "<group>"; };
-		9895FBBB1D9BB25800639EAB /* test.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.txt; sourceTree = "<group>"; };
 		98A2EBA51DAC7AE200039CCA /* PaperImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaperImageViewController.swift; sourceTree = "<group>"; };
 		98A2EBA71DAC8D4000039CCA /* PaperMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaperMainViewController.swift; sourceTree = "<group>"; };
 		98A2EBA91DAC8F6D00039CCA /* PaperShowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaperShowViewController.swift; sourceTree = "<group>"; };
@@ -495,6 +517,18 @@
 		98CD8A1D1DC1A89B0047D8DC /* FindRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindRoot.swift; sourceTree = "<group>"; };
 		98CD8A1E1DC1A89B0047D8DC /* FindRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindRow.swift; sourceTree = "<group>"; };
 		98CD8A231DC1D8E90047D8DC /* JournalListRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalListRoot.swift; sourceTree = "<group>"; };
+		98CD8A251DC331640047D8DC /* PaperSearchFromTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaperSearchFromTableViewCell.swift; sourceTree = "<group>"; };
+		98CD8A271DC3317E0047D8DC /* PaperSearchShowTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaperSearchShowTableViewCell.swift; sourceTree = "<group>"; };
+		98CD8A291DC3356F0047D8DC /* PaperSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaperSearchViewController.swift; sourceTree = "<group>"; };
+		98CD8A2B1DC4A0870047D8DC /* JournalDetailPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalDetailPageViewController.swift; sourceTree = "<group>"; };
+		98CD8A2D1DC4A0B60047D8DC /* JournalImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalImageViewController.swift; sourceTree = "<group>"; };
+		98CD8A311DC4A8B90047D8DC /* JournalDetailRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalDetailRoot.swift; sourceTree = "<group>"; };
+		98CD8A321DC4A8B90047D8DC /* JournalDetailRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalDetailRow.swift; sourceTree = "<group>"; };
+		98CD8A371DC5D2F10047D8DC /* JournalDTViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalDTViewController.swift; sourceTree = "<group>"; };
+		98CD8A391DC5E1460047D8DC /* JournalDListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalDListViewController.swift; sourceTree = "<group>"; };
+		98CD8A3B1DC5E1BF0047D8DC /* JournalDListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalDListTableViewCell.swift; sourceTree = "<group>"; };
+		98CD8A3D1DC5F58F0047D8DC /* JournalDListRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalDListRoot.swift; sourceTree = "<group>"; };
+		98CD8A3E1DC5F58F0047D8DC /* JournalDListRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalDListRow.swift; sourceTree = "<group>"; };
 		98CF5F021D9149650025D458 /* ListenAdvicePrList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenAdvicePrList.swift; sourceTree = "<group>"; };
 		98CF5F031D9149650025D458 /* ListenAdviceReturnData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenAdviceReturnData.swift; sourceTree = "<group>"; };
 		98CF5F041D9149650025D458 /* ListenAdviceRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenAdviceRoot.swift; sourceTree = "<group>"; };
@@ -632,6 +666,7 @@
 				980E916C1D52E42B000A19CA /* LoginViewController.swift */,
 				980E91961D548D42000A19CA /* RegisterViewController.swift */,
 				980E91981D548D6E000A19CA /* ReplaceViewController.swift */,
+				9866C8531DC6ECAD00EA4D52 /* TestWebViewController.swift */,
 			);
 			name = login;
 			sourceTree = "<group>";
@@ -640,6 +675,7 @@
 			isa = PBXGroup;
 			children = (
 				98945D641D9B5AA100726E0B /* OverlayAnimationControlller.swift */,
+				9866C84F1DC6D0F300EA4D52 /* SecondOverlayAnimationController.swift */,
 				98945D661D9B5CCF00726E0B /* OverlayPresentationController.swift */,
 				980E916E1D531FAB000A19CA /* BubbleAnimation.swift */,
 				984C764C1D5C5D9D00B3588D /* CoverTransitionAnimation.swift */,
@@ -679,6 +715,12 @@
 				989099D91DB6222C00855063 /* JournalSelectViewController.swift */,
 				989099DD1DB7123500855063 /* JournalShowPageViewController.swift */,
 				989099DF1DB7130500855063 /* JournalListViewController.swift */,
+				98CD8A371DC5D2F10047D8DC /* JournalDTViewController.swift */,
+				9866C8511DC6D5FD00EA4D52 /* JournalDTtransitionDelegate.swift */,
+				98CD8A2B1DC4A0870047D8DC /* JournalDetailPageViewController.swift */,
+				98CD8A2D1DC4A0B60047D8DC /* JournalImageViewController.swift */,
+				98CD8A391DC5E1460047D8DC /* JournalDListViewController.swift */,
+				9866C8551DC71CFF00EA4D52 /* JournalDCatalogueViewController.swift */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -689,6 +731,10 @@
 				98CD8A111DC042440047D8DC /* JournalClassifyData2.swift */,
 				98CD8A121DC042440047D8DC /* JournalClassifyRoot.swift */,
 				98CD8A231DC1D8E90047D8DC /* JournalListRoot.swift */,
+				98CD8A311DC4A8B90047D8DC /* JournalDetailRoot.swift */,
+				98CD8A321DC4A8B90047D8DC /* JournalDetailRow.swift */,
+				98CD8A3D1DC5F58F0047D8DC /* JournalDListRoot.swift */,
+				98CD8A3E1DC5F58F0047D8DC /* JournalDListRow.swift */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -698,6 +744,8 @@
 			children = (
 				989099DB1DB622B500855063 /* JournalSelectCollectionViewCell.swift */,
 				989099E11DB7133C00855063 /* JournalListCollectionViewCell.swift */,
+				98CD8A3B1DC5E1BF0047D8DC /* JournalDListTableViewCell.swift */,
+				9866C8571DC71DF300EA4D52 /* JournalDCatalogueCollectionViewCell.swift */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -948,7 +996,6 @@
 		98945D531D9A67F300726E0B /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				98945D541D9A680C00726E0B /* PaperViewController.swift */,
 				98945D601D9B515E00726E0B /* PaperViewTransitionDelegate.swift */,
 				98945D5E1D9A814F00726E0B /* PaperDateChangeViewController.swift */,
 				9895FBB31D9BA55C00639EAB /* PaperDetailReadViewController.swift */,
@@ -957,6 +1004,7 @@
 				98A2EBA91DAC8F6D00039CCA /* PaperShowViewController.swift */,
 				98A2EBA51DAC7AE200039CCA /* PaperImageViewController.swift */,
 				98FCC5051DB0DF1500285B02 /* PaperCatalogueViewController.swift */,
+				98CD8A291DC3356F0047D8DC /* PaperSearchViewController.swift */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -971,7 +1019,8 @@
 				98FCC5011DB0C7E800285B02 /* PaperCatalogueCollectionViewCell.swift */,
 				98FCC5031DB0C80700285B02 /* PaperCatalogueCollectionReusableView.swift */,
 				9891224B1DB4720700FCE871 /* PaperEditionCollectionViewCell.swift */,
-				9895FBBB1D9BB25800639EAB /* test.txt */,
+				98CD8A251DC331640047D8DC /* PaperSearchFromTableViewCell.swift */,
+				98CD8A271DC3317E0047D8DC /* PaperSearchShowTableViewCell.swift */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -1260,10 +1309,12 @@
 			isa = PBXGroup;
 			children = (
 				98D9CB2E1D615EA500510E08 /* SelectingDetailTableViewCell.swift */,
+				98D9CB2F1D615EA500510E08 /* SelectingDetailTableViewCell.xib */,
+				9866C8591DC73C2600EA4D52 /* SecondSelectingDetailTableViewCell.swift */,
+				9866C85A1DC73C2600EA4D52 /* SecondSelectingDetailTableViewCell.xib */,
 				98D9CB3D1D61BD6100510E08 /* SelectingTitleCollectionViewCell.swift */,
 				98123D8F1D77C4F200F416EA /* SearchingSelectTableViewCell.swift */,
 				98123D911D77C85F00F416EA /* SearchingResultTableViewCell.swift */,
-				98D9CB2F1D615EA500510E08 /* SelectingDetailTableViewCell.xib */,
 				98949D611D767D20001FD433 /* SearchingHistoryCollectionViewCell.swift */,
 				98949D631D767D86001FD433 /* SearchingDefaultListCollectionViewCell.swift */,
 				98949D651D767F43001FD433 /* SearchingHeaderCollectionReusableView.swift */,
@@ -1435,6 +1486,7 @@
 				98B23BE21D9C9FB4006A009A /* lantinghei.TTF in Resources */,
 				9879FB401DA3ED38000B356F /* read_me.txt in Resources */,
 				98E872511D8E969C002783B9 /* ReadDetail.storyboard in Resources */,
+				9866C85C1DC73C2600EA4D52 /* SecondSelectingDetailTableViewCell.xib in Resources */,
 				98F028141D6EA1A700B8ECCE /* ImageContent.storyboard in Resources */,
 				98B167A51D4993E80001EDAC /* LaunchScreen.storyboard in Resources */,
 				980301BA1D7FB99500180FDA /* Listen.storyboard in Resources */,
@@ -1456,7 +1508,6 @@
 				986CD5DF1D929752008D15FE /* FooterLoadingView.xib in Resources */,
 				9879FB3C1DA3ED38000B356F /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				9879FB3E1DA3ED38000B356F /* WeiboSDK.bundle in Resources */,
-				9895FBBC1D9BB25800639EAB /* test.txt in Resources */,
 				9879FB411DA3ED38000B356F /* README.txt in Resources */,
 				98D9CB311D615EA500510E08 /* SelectingDetailTableViewCell.xib in Resources */,
 			);
@@ -1530,12 +1581,14 @@
 				98123DB91D782C0500F416EA /* JournalViewController.swift in Sources */,
 				98CD8A201DC1A89B0047D8DC /* FindData2.swift in Sources */,
 				98945D671D9B5CCF00726E0B /* OverlayPresentationController.swift in Sources */,
+				98CD8A2A1DC3356F0047D8DC /* PaperSearchViewController.swift in Sources */,
 				989099E21DB7133C00855063 /* JournalListCollectionViewCell.swift in Sources */,
 				98C186601D6AA845008FCB15 /* SummaryRow.swift in Sources */,
 				98CF5F071D9149650025D458 /* ListenAdviceReturnData.swift in Sources */,
 				981C9F141D8F8B93000FCC6C /* HotKeyRow.swift in Sources */,
 				98710BAE1D742E78000614E0 /* CategoryImageCollectionViewCell.swift in Sources */,
 				98CD8A191DC0803F0047D8DC /* SelectingFloorRoot.swift in Sources */,
+				9866C85B1DC73C2600EA4D52 /* SecondSelectingDetailTableViewCell.swift in Sources */,
 				98CF5F061D9149650025D458 /* ListenAdvicePrList.swift in Sources */,
 				98C1865F1D6AA845008FCB15 /* SummaryReturnData.swift in Sources */,
 				98949D681D76D272001FD433 /* SearchingTransitionDelegate.swift in Sources */,
@@ -1544,7 +1597,9 @@
 				980E919C1D54906B000A19CA /* LeadingTransitionDelegate.swift in Sources */,
 				98C7ACC31D640C740077DDAB /* URLHealper.swift in Sources */,
 				98B23BE61D9D26D3006A009A /* TopListDetailViewController.swift in Sources */,
+				98CD8A3F1DC5F58F0047D8DC /* JournalDListRoot.swift in Sources */,
 				980E916D1D52E42B000A19CA /* LoginViewController.swift in Sources */,
+				98CD8A2C1DC4A0870047D8DC /* JournalDetailPageViewController.swift in Sources */,
 				98E8724F1D8E8F35002783B9 /* SelectTopListRow.swift in Sources */,
 				98F028541D6EEDFB00B8ECCE /* ReadedData.swift in Sources */,
 				984C76541D5C6DBA00B3588D /* DisappearTransitionAnimation.swift in Sources */,
@@ -1565,6 +1620,7 @@
 				98D9CB301D615EA500510E08 /* SelectingDetailTableViewCell.swift in Sources */,
 				98D9D1191D62F02D00A9D740 /* Row.swift in Sources */,
 				980301CE1D7FF79600180FDA /* ListenAdviceCollectionViewCell.swift in Sources */,
+				9866C8501DC6D0F300EA4D52 /* SecondOverlayAnimationController.swift in Sources */,
 				98123D901D77C4F200F416EA /* SearchingSelectTableViewCell.swift in Sources */,
 				98710BB01D742E8E000614E0 /* CategoryTitleCollectionViewCell.swift in Sources */,
 				9891224C1DB4720700FCE871 /* PaperEditionCollectionViewCell.swift in Sources */,
@@ -1576,7 +1632,6 @@
 				986CD5CE1D926A5B008D15FE /* ListenFamousPersonalRow.swift in Sources */,
 				980E91931D543FBF000A19CA /* ItemTransitionAnimation.swift in Sources */,
 				986CD5CD1D926A5B008D15FE /* ListenFamousPersonalRoot.swift in Sources */,
-				98945D551D9A680C00726E0B /* PaperViewController.swift in Sources */,
 				986CD5D51D927F41008D15FE /* ListenFPListRoot.swift in Sources */,
 				980301DC1D800CF100180FDA /* ListenFamousHeaderCollectionReusableView.swift in Sources */,
 				989099DC1DB622B500855063 /* JournalSelectCollectionViewCell.swift in Sources */,
@@ -1588,6 +1643,8 @@
 				98EE33E01D66DF2D00FD2CC3 /* ReadedBook.swift in Sources */,
 				98C186201D6704ED008FCB15 /* BookListBook.swift in Sources */,
 				98710BAB1D7429B8000614E0 /* CategoryViewController.swift in Sources */,
+				98CD8A2E1DC4A0B60047D8DC /* JournalImageViewController.swift in Sources */,
+				98CD8A261DC331640047D8DC /* PaperSearchFromTableViewCell.swift in Sources */,
 				980301E81D81094F00180FDA /* SelectingSexCollectionViewCell.swift in Sources */,
 				98EE33DE1D66DF0600FD2CC3 /* MyBook.swift in Sources */,
 				981140E41D868D580028EF8C /* ListenReturnData.swift in Sources */,
@@ -1596,7 +1653,9 @@
 				98123D921D77C85F00F416EA /* SearchingResultTableViewCell.swift in Sources */,
 				98B23BDE1D9BDDF4006A009A /* StoryReadRoot.swift in Sources */,
 				984C764D1D5C5D9D00B3588D /* CoverTransitionAnimation.swift in Sources */,
+				9866C8561DC71CFF00EA4D52 /* JournalDCatalogueViewController.swift in Sources */,
 				986CD5B71D92224D008D15FE /* ListenSequenceRoot.swift in Sources */,
+				9866C8521DC6D5FD00EA4D52 /* JournalDTtransitionDelegate.swift in Sources */,
 				98522C9F1D5DC6E600F32FD5 /* HttpManager.swift in Sources */,
 				98EE33AD1D65AE6B00FD2CC3 /* KeychainUtility.swift in Sources */,
 				980E916F1D531FAB000A19CA /* BubbleAnimation.swift in Sources */,
@@ -1624,6 +1683,7 @@
 				981C9F131D8F8B93000FCC6C /* HotKeyRoot.swift in Sources */,
 				980301E41D80F97100180FDA /* TopListTableViewCell.swift in Sources */,
 				98C186731D6C3426008FCB15 /* DeleteMyShelfViewController.swift in Sources */,
+				98CD8A3A1DC5E1460047D8DC /* JournalDListViewController.swift in Sources */,
 				98945D581D9A6C3700726E0B /* PaperTableViewCell.swift in Sources */,
 				98949D3D1D757C20001FD433 /* FindListenCollectionViewCell.swift in Sources */,
 				980E91991D548D6E000A19CA /* ReplaceViewController.swift in Sources */,
@@ -1640,6 +1700,7 @@
 				98C186211D6704ED008FCB15 /* BookListData.swift in Sources */,
 				983119731D8E804C00F81327 /* SelectSexDetailRoot.swift in Sources */,
 				98949D661D767F43001FD433 /* SearchingHeaderCollectionReusableView.swift in Sources */,
+				98CD8A3C1DC5E1BF0047D8DC /* JournalDListTableViewCell.swift in Sources */,
 				9895FBB41D9BA55C00639EAB /* PaperDetailReadViewController.swift in Sources */,
 				988958901DA7AB110072CE9D /* WaitingView.swift in Sources */,
 				98A2EBAA1DAC8F6D00039CCA /* PaperShowViewController.swift in Sources */,
@@ -1667,6 +1728,7 @@
 				986CD5AE1D921523008D15FE /* ListenCategoryChildren.swift in Sources */,
 				98CD8A141DC042440047D8DC /* JournalClassifyRoot.swift in Sources */,
 				986CD5B61D92224D008D15FE /* ListenSequenceReturnData.swift in Sources */,
+				98CD8A281DC3317E0047D8DC /* PaperSearchShowTableViewCell.swift in Sources */,
 				9895FBB61D9BA5D000639EAB /* PaperDetailTitleTableViewCell.swift in Sources */,
 				98B23BD91D9BC0B8006A009A /* TextViewController.swift in Sources */,
 				986CD5BD1D922596008D15FE /* ListenFamousRoot.swift in Sources */,
@@ -1675,6 +1737,7 @@
 				98B23BDF1D9BDDF4006A009A /* StoryReadRow.swift in Sources */,
 				980301D21D7FFE1300180FDA /* ListenCategoryCollectionViewCell.swift in Sources */,
 				984C76561D5C701000B3588D /* DisappearTransitionDelegate.swift in Sources */,
+				98CD8A401DC5F58F0047D8DC /* JournalDListRow.swift in Sources */,
 				980E91971D548D42000A19CA /* RegisterViewController.swift in Sources */,
 				98CD8A241DC1D8E90047D8DC /* JournalListRoot.swift in Sources */,
 				98CD8A1A1DC0803F0047D8DC /* SelectingFloorRow.swift in Sources */,
@@ -1682,18 +1745,22 @@
 				9831196C1D8E7A3C00F81327 /* SelectSexRootData.swift in Sources */,
 				980301C41D7FF41100180FDA /* ListenAdviceCollectionViewController.swift in Sources */,
 				98B1D06A1D8EAAA2007B6AB0 /* TopListBookRow.swift in Sources */,
+				9866C8541DC6ECAD00EA4D52 /* TestWebViewController.swift in Sources */,
 				98C21B941D93E80000628AE5 /* CategoryDetailRoot.swift in Sources */,
 				98945D5D1D9A6FB200726E0B /* PaperRow.swift in Sources */,
 				98CD8A1F1DC1A89B0047D8DC /* FindData.swift in Sources */,
 				98B23BD71D9BC0B8006A009A /* BookReadingViewController.swift in Sources */,
 				98C1868D1D6D704C008FCB15 /* SelectRootData.swift in Sources */,
+				98CD8A381DC5D2F10047D8DC /* JournalDTViewController.swift in Sources */,
 				98CD8A211DC1A89B0047D8DC /* FindRoot.swift in Sources */,
 				980301EE1D81583500180FDA /* PersonalCenterTableViewCell.swift in Sources */,
+				98CD8A341DC4A8B90047D8DC /* JournalDetailRow.swift in Sources */,
 				98C186691D6ADCAA008FCB15 /* SummaryListTableViewCell.swift in Sources */,
 				980301EC1D8157C800180FDA /* PersonalCenterViewController.swift in Sources */,
 				980E91731D533065000A19CA /* MaskPresentTationController.swift in Sources */,
 				986CD5D21D926B7E008D15FE /* ListenFamousDetailListTableViewCell.swift in Sources */,
 				980E91611D5174B3000A19CA /* MyShelfViewController.swift in Sources */,
+				9866C8581DC71DF300EA4D52 /* JournalDCatalogueCollectionViewCell.swift in Sources */,
 				98CD8A181DC0803F0047D8DC /* SelectingFloorPrList.swift in Sources */,
 				986CD5D01D926B62008D15FE /* ListenFamousDetailIntroduceTableViewCell.swift in Sources */,
 				98945D611D9B515E00726E0B /* PaperViewTransitionDelegate.swift in Sources */,
@@ -1706,6 +1773,7 @@
 				980301C01D7FF0A700180FDA /* ListenViewController.swift in Sources */,
 				98B1679B1D4993E80001EDAC /* AppDelegate.swift in Sources */,
 				9807A8791D90C07D00AB88A1 /* SearchingFooterCollectionReusableView.swift in Sources */,
+				98CD8A331DC4A8B90047D8DC /* JournalDetailRoot.swift in Sources */,
 				986CD5C81D923AD6008D15FE /* ListenFamousImageRow.swift in Sources */,
 				986CD5C21D922EF3008D15FE /* ListenFamousTableViewCell.swift in Sources */,
 				9895FBB81D9BA5E300639EAB /* PaperDetailTableViewCell.swift in Sources */,
@@ -1830,6 +1898,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ReaingSystem/ReaingSystem.entitlements;
+				DEVELOPMENT_TEAM = 7CVL8QT3D9;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1870,6 +1939,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = ReaingSystem/ReaingSystem.entitlements;
+				DEVELOPMENT_TEAM = 7CVL8QT3D9;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

@@ -1,35 +1,31 @@
 //
-//  JournalListViewController.swift
+//  JournalDCatalogueViewController.swift
 //  ReaingSystem
 //
-//  Created by 魏辉 on 16/10/19.
+//  Created by 魏辉 on 16/10/31.
 //  Copyright © 2016年 魏辉. All rights reserved.
 //
 
 import UIKit
 
-private var reuseIdentifier = ["ListCell", "TestSegue"]
+protocol JournalPageSelectDelegate {
+    func sendIndex(index: Int)
+}
 
-class JournalListViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+private var reuseIdentifier = ["ImageCell"]
+
+class JournalDCatalogueViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var customIndex: Int!
-    //当前选中ID
-    var selectedIndex: String! {
-        didSet {
-            getListData(selectedIndex)
-        }
-    }
-    var id: String!
-    //列表数据
-    var listData: [FindData2] = []
-    //选中杂志ID
-    var selectedID: String!
+    //期刊数据
+    var detailData: JournalDetailRow!
+    //数据传递代理
+    var pageSelectDelegate: JournalPageSelectDelegate!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         // Do any additional setup after loading the view.
@@ -40,12 +36,8 @@ class JournalListViewController: UIViewController, UICollectionViewDelegate, UIC
         // Dispose of any resources that can be recreated.
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == reuseIdentifier[1] {
-            let toVC = segue.destinationViewController as! JournalDTViewController
-            toVC.id = selectedID
-            toVC.mzID = listData.first?.isMzID
-        }
+    @IBAction func backClick(sender: UIButton) {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     //MARK: collectionView  delegate dataSource flowLayout
@@ -55,15 +47,14 @@ class JournalListViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print(detailData)
         
-        
-        return listData.count
+        return Int(detailData.isPageCount)!
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier[0], forIndexPath: indexPath) as! JournalListCollectionViewCell
-        cell.setData(listData[indexPath.row])
-        //print(paperMainRow[indexPath.section].newspaperImgTitle)
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier[0], forIndexPath: indexPath) as! JournalDCatalogueCollectionViewCell
+        cell.setData("\(baseURl)\(detailData.isContentPath)\(indexPath.row + 1).jpg")
         return cell
         
     }
@@ -77,7 +68,7 @@ class JournalListViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
-        return CGSize(width: self.collectionView.bounds.width / 3, height: 180)
+        return CGSize(width: self.collectionView.bounds.width / 2, height: 190)
         
     }
     
@@ -87,25 +78,19 @@ class JournalListViewController: UIViewController, UICollectionViewDelegate, UIC
     
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        selectedID = listData[indexPath.row].isID
-        self.performSegueWithIdentifier(reuseIdentifier[1], sender: self)
+        pageSelectDelegate.sendIndex(indexPath.row)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 
-    //网络请求
-    func getListData(id: String) {
-        print(id)
-        NetworkHealper.GetWithParm.receiveJSON(URLHealper.getJournalList.introduce(), parameter: ["categoryID":id, "pageIndex": 1]) { (dictionary, error) in
-            guard error == nil else {
-                print(error)
-                return
-            }
-            self.listData = []
-            let dataRoot = JournalListRoot(fromDictionary: dictionary!)
-            self.listData.appendContentsOf(dataRoot.rows)
-            self.collectionView.reloadData()
-        }
-        
-        
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
     }
+    */
 
 }

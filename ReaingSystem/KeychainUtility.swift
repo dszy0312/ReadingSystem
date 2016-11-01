@@ -1,6 +1,7 @@
 //
 //  KeyCHainUtility.swift
 //  数据持久化之KeyChain
+//  info.plist需要配置参数 AppIdentifierPrefix
 //
 //  Created by 魏辉 on 16/8/18.
 //  Copyright © 2016年 魏辉. All rights reserved.

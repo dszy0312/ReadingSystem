@@ -95,6 +95,7 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         let headView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: reuseIdentifier[2], forIndexPath: indexPath) as! CategoryHeaderCollectionReusableView
         headView.sectionNameLabel.text = sectionData[indexPath.section].categoryName
+        
         return headView
     }
     

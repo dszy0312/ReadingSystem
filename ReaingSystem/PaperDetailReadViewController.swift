@@ -14,7 +14,6 @@ class PaperDetailReadViewController: UIViewController, UITableViewDelegate, UITa
     
     @IBOutlet weak var tableView: UITableView!
     
-    var detailText = ""
     //访问ID
     var newsID: String! {
         didSet {
@@ -32,16 +31,6 @@ class PaperDetailReadViewController: UIViewController, UITableViewDelegate, UITa
         
         tableView.delegate = self
         tableView.dataSource = self
-        
-        let url = NSBundle.mainBundle().URLForResource("test", withExtension: "txt")
-        
-        do {
-            let data = try NSString(contentsOfURL: url! as NSURL, encoding: NSUTF8StringEncoding)
-            detailText = data as String!
-        } catch let erro as NSError {
-            print("\(erro.localizedDescription)")
-        }
-
         
 
         // Do any additional setup after loading the view.

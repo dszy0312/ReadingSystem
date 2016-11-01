@@ -17,6 +17,7 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
     
     func setData(data: CategoryRow) {
         numberLabel.text = data.prCount
+        numberLabel.text = ""
         nameLabel.text = data.categoryName
         let url = data.prList.first?.bookImg
         if url == nil {

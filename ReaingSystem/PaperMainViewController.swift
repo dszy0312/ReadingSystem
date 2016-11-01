@@ -27,8 +27,7 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
     @IBOutlet weak var editionButton: UIButton!
     //目录按钮
     @IBOutlet weak var catalogueButton: UIButton!
-    
-    @IBOutlet weak var searchImage: UIImageView!
+
     
     
     //跳转日历页面
@@ -51,9 +50,6 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
         super.viewDidLoad()
 
         getNetworkData("2016-09-20")
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTap(_:)))
-        self.searchImage.addGestureRecognizer(tapGesture)
         
         // Do any additional setup after loading the view.
     }
@@ -169,6 +165,11 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
         
     }
     
+    @IBAction func searchClick(sender: UIButton) {
+        self.performSegueWithIdentifier(reuseIdentifier[2], sender: self)
+    }
+    
+    
     //代理方法
     func sentData(data: String) {
         guard data != "" else {
@@ -187,12 +188,6 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
         }
     }
     
-    //点击监听
-    func didTap(tap: UITapGestureRecognizer) {
-
-        self.performSegueWithIdentifier(reuseIdentifier[2], sender: self)
-
-    }
     
     //网络请求
     func getNetworkData(date: String) {
@@ -286,14 +281,5 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
         endTime()
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
