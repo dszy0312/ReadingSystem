@@ -66,6 +66,7 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         getMyHotKeyData()
+        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
     }
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
@@ -78,6 +79,7 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
     }
     
     @IBAction func dismissClick(sender: UIButton) {
+        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default
         dismissViewControllerAnimated(true, completion: nil)
     }
     
