@@ -68,9 +68,9 @@ class JournalSelectViewController: UIViewController, UICollectionViewDelegate, U
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier[0], forIndexPath: indexPath) as! JournalSelectCollectionViewCell
         cell.nameLabel.text = datas[indexPath.row].categoryName
-        cell.nameLabel.textColor = UIColor.blackColor()
+        cell.nameLabel.textColor = UIColor.defaultColor()
         if curIndex == indexPath.row {
-            cell.nameLabel.textColor = UIColor.redColor()
+            cell.nameLabel.textColor = UIColor.mainColor()
         }
         
         //print(paperMainRow[indexPath.section].newspaperImgTitle)

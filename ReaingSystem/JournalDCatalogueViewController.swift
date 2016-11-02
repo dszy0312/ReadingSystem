@@ -68,7 +68,7 @@ class JournalDCatalogueViewController: UIViewController, UICollectionViewDelegat
     }
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
-        return CGSize(width: self.collectionView.bounds.width / 2, height: 190)
+        return CGSize(width: self.collectionView.bounds.width / 2, height: 200)
         
     }
     

@@ -11,12 +11,9 @@ import Kingfisher
 
 class CategoryTitleCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     
     func setData(data: CategoryRow) {
-        numberLabel.text = data.prCount
-        numberLabel.text = ""
         nameLabel.text = data.categoryName
     }
 }

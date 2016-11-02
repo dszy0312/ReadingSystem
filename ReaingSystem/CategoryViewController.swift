@@ -10,7 +10,7 @@ import UIKit
 
 private var reuseIdentifier = ["ImageCell","TitleCell","HeaderView", "DetailSegue"]
 
-class CategoryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class CategoryViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CategoryTitleSelectedDelegate {
     
 
     @IBOutlet weak var collectionView: UICollectionView!
@@ -82,6 +82,7 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
         switch indexPath.row {
         case 0,1:
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier[0], forIndexPath: indexPath) as! CategoryImageCollectionViewCell
+            cell.selectedDelegate = self
             cell.setData(formatData[sectionData[indexPath.section].categoryID]![indexPath.row])
             return cell
         default:
@@ -123,9 +124,33 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        self.selectedData = formatData[sectionData[indexPath.section].categoryID]![indexPath.row]
+        switch indexPath.row {
+        case 0,1:
+            print("直接进入图书")
+            if let toVC = toVC("ReadDetail", vcName: "BookIntroduceViewController") as? BookIntroduceViewController {
+                toVC.selectedBookID = formatData[sectionData[indexPath.section].categoryID]![indexPath.row].prList.first?.bookID
+                self.presentViewController(toVC, animated: true, completion: {
+                })
+            }
+        default:
+            self.selectedData = formatData[sectionData[indexPath.section].categoryID]![indexPath.row]
+            self.performSegueWithIdentifier(reuseIdentifier[3], sender: self)
+        }
+    }
+    
+    //代理方法
+    func sendIndex(index: CategoryRow) {
+        selectedData = index
         self.performSegueWithIdentifier(reuseIdentifier[3], sender: self)
     }
+    
+    //页面跳转方法
+    func toVC(sbName: String, vcName: String) -> UIViewController {
+        var sb = UIStoryboard(name: sbName, bundle: nil)
+        var vc = sb.instantiateViewControllerWithIdentifier(vcName)
+        return vc
+    }
+    
 
     
     //网络请求

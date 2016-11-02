@@ -27,15 +27,15 @@ class SecondOverlayAnimationController: NSObject, UIViewControllerAnimatedTransi
         
         if toVC!.isBeingPresented() {
             containerView.addSubview(toView)
-            let toViewWidth = containerView.frame.width * 4 / 5
-            let toViewHeight = containerView.frame.height * 4 / 5
+            let toViewWidth = containerView.frame.width * 2 / 3
+            let toViewHeight = containerView.frame.height * 3 / 5
             toView.center = containerView.center
             toView.bounds = CGRect(x: 0, y: 0, width: 1, height: 1)
             toView.layer.cornerRadius = 2
             
             UIView.animateWithDuration(duration, animations: {
                 toView.bounds = CGRect(x: 0, y: 0, width: toViewWidth, height: toViewHeight)
-                toView.layer.cornerRadius = 15
+                toView.layer.cornerRadius = 6
                 }, completion: { (_) in
                     let isCancelled = transitionContext.transitionWasCancelled()
                     transitionContext.completeTransition(!isCancelled)

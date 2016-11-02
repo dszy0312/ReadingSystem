@@ -207,9 +207,10 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
         case 0,1:
             return CGSize(width: self.collectionView.bounds.width / 3, height: 50)
         case 2:
-            return CGSize(width: self.collectionView.bounds.width, height: 130)
+            return CGSize(width: self.collectionView.bounds.width, height: 140)
         default:
             return CGSizeZero
+            
         }
     }
     
@@ -351,7 +352,6 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
             
             self.hotListData = HotListRoot(fromDictionary: dictionary!)
             self.hotListRows.appendContentsOf(self.hotListData.rows)
-            print("\(self.hotListRows.count),\(self.hotListData.totalCount)")
             self.decideLoading(self.hotListRows.count, total: self.hotListData.totalCount)
             self.hotListPage = self.hotListData.curPage
             self.footerView!.end()

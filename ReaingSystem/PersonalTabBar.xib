@@ -29,7 +29,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.92255353880000002" green="0.94466949079999996" blue="0.9637590815" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="VEV-7A-kDm" firstAttribute="centerY" secondItem="CDy-5k-uTa" secondAttribute="centerY" id="N1b-K7-bBj"/>
                         <constraint firstItem="VEV-7A-kDm" firstAttribute="centerX" secondItem="CDy-5k-uTa" secondAttribute="centerX" id="RUB-w0-ewh"/>
@@ -48,7 +48,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.92255353880000002" green="0.94466949079999996" blue="0.9637590815" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="Btj-pZ-DU2" firstAttribute="centerY" secondItem="zGB-xK-gqx" secondAttribute="centerY" id="35C-G7-GB4"/>
                         <constraint firstItem="Btj-pZ-DU2" firstAttribute="centerX" secondItem="zGB-xK-gqx" secondAttribute="centerX" id="vA5-GL-INl"/>
@@ -67,7 +67,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.92255353880000002" green="0.94466949079999996" blue="0.9637590815" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="llr-d1-FPi" firstAttribute="centerY" secondItem="O3l-sm-xPE" secondAttribute="centerY" id="3Hh-s3-DTP"/>
                         <constraint firstItem="llr-d1-FPi" firstAttribute="centerX" secondItem="O3l-sm-xPE" secondAttribute="centerX" id="8Rn-ye-OPN"/>
@@ -86,7 +86,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.92255353880000002" green="0.94466949079999996" blue="0.9637590815" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="osP-Cu-1kC" firstAttribute="centerY" secondItem="xuo-1X-JxG" secondAttribute="centerY" id="P53-CU-F3c"/>
                         <constraint firstItem="osP-Cu-1kC" firstAttribute="centerX" secondItem="xuo-1X-JxG" secondAttribute="centerX" id="QJg-UE-4Vx"/>
@@ -105,7 +105,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" red="0.92255353880000002" green="0.94466949079999996" blue="0.9637590815" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="rTP-sy-ym5" firstAttribute="centerX" secondItem="ilF-F4-r4L" secondAttribute="centerX" id="5ZM-74-Nt6"/>
                         <constraint firstItem="rTP-sy-ym5" firstAttribute="centerY" secondItem="ilF-F4-r4L" secondAttribute="centerY" id="C09-CW-xvZ"/>
@@ -114,7 +114,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gdt-kE-59C">
                     <color key="backgroundColor" red="0.63921568630000003" green="0.63921568630000003" blue="0.63921568630000003" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="1" id="T43-yW-wGc"/>
+                        <constraint firstAttribute="height" constant="0.5" id="T43-yW-wGc"/>
                     </constraints>
                 </view>
             </subviews>

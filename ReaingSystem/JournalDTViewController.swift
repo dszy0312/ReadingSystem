@@ -10,7 +10,11 @@ import UIKit
 
 private var reuseIdentifier = ["ListSegue", "CatalogueSegue"]
 
-class JournalDTViewController: UIViewController, JournalPageSelectDelegate {
+class JournalDTViewController: UIViewController, JournalPageSelectDelegate, JournalDListDelegate {
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    @IBOutlet weak var subTitleLabel: UILabel!
     
     
     //期刊数据
@@ -18,6 +22,8 @@ class JournalDTViewController: UIViewController, JournalPageSelectDelegate {
         didSet {
             let childVC = getChildVC()
             childVC.detailData = detailData
+            titleLabel.text = detailData.isMzIDText
+            subTitleLabel.text = detailData.isTitle
         }
     }
     
@@ -48,6 +54,7 @@ class JournalDTViewController: UIViewController, JournalPageSelectDelegate {
             let toVC = segue.destinationViewController as! JournalDListViewController
             toVC.transitioningDelegate = listShowTransitionDelegate
             toVC.modalPresentationStyle = .Custom
+            toVC.selectedDelegate = self
             toVC.mzID = mzID
         } else if segue.identifier == reuseIdentifier[1] {
             let toVC = segue.destinationViewController as! JournalDCatalogueViewController
@@ -73,6 +80,10 @@ class JournalDTViewController: UIViewController, JournalPageSelectDelegate {
     func sendIndex(index: Int) {
         let childVC = getChildVC()
         childVC.selectedPage = index
+    }
+    
+    func listSelected(id: String) {
+        getNetworkData(id)
     }
     
     

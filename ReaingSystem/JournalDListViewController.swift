@@ -10,6 +10,10 @@ import UIKit
 
 private var reuseIdentifier = ["NameCell"]
 
+protocol JournalDListDelegate {
+    func listSelected(id: String)
+}
+
 class JournalDListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
@@ -17,7 +21,14 @@ class JournalDListViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var cancleButton: UIButton!
     
     @IBOutlet weak var footerView: FooterLoadingView!
+    //头部遮罩
+    @IBOutlet weak var headerView: UIView!
+    //底部遮罩
+    @IBOutlet weak var secondFooterView: UIView!
     
+    
+    //传之代理
+    var selectedDelegate: JournalDListDelegate!
     
     //杂志唯一标示
     var mzID: String! {
@@ -41,6 +52,19 @@ class JournalDListViewController: UIViewController, UITableViewDelegate, UITable
         tableView.dataSource = self
         
         tableView.tableFooterView = footerView
+        
+        //self.view.layer.cornerRadius = 2
+        self.view.layer.masksToBounds = true
+        
+        headerView.layer.shadowOffset = CGSize(width: 0, height: 15)
+        headerView.layer.shadowOpacity = 1
+        headerView.layer.shadowRadius = 5
+        headerView.layer.shadowColor = UIColor.whiteColor().CGColor
+        
+        secondFooterView.layer.shadowOffset = CGSize(width: 0, height: -15)
+        secondFooterView.layer.shadowOpacity = 1
+        secondFooterView.layer.shadowRadius = 5
+        secondFooterView.layer.shadowColor = UIColor.whiteColor().CGColor
         // Do any additional setup after loading the view.
     }
 
@@ -74,7 +98,14 @@ class JournalDListViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-            return 50
+            return 40
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        selectedDelegate.listSelected(listData[indexPath.row].isID)
+        self.dismissViewControllerAnimated(true) { 
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        }
     }
     
     //scroll delegate
@@ -105,7 +136,6 @@ class JournalDListViewController: UIViewController, UITableViewDelegate, UITable
     
     //网络请求
     func getListData(id: String) {
-        print(id)
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.getJournalListIssue.introduce(), parameter: ["Mz_ID":id, "pageIndex": 1]) { (dictionary, error) in
             guard error == nil else {
                 print(error)
@@ -114,7 +144,6 @@ class JournalDListViewController: UIViewController, UITableViewDelegate, UITable
             self.listData = []
             let root = JournalDListRoot(fromDictionary: dictionary!)
             self.listData.appendContentsOf(root.rows)
-            print(self.listData)
             self.decideLoading(self.listData.count, total: root.totalCount)
             self.tableView.reloadData()
             
@@ -122,7 +151,6 @@ class JournalDListViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func addListData(id: String, page: Int) {
-        print(id)
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.getJournalListIssue.introduce(), parameter: ["Mz_ID":id, "pageIndex": page]) { (dictionary, error) in
             guard error == nil else {
                 print(error)
@@ -132,7 +160,6 @@ class JournalDListViewController: UIViewController, UITableViewDelegate, UITable
             let root = JournalDListRoot(fromDictionary: dictionary!)
             self.listData.appendContentsOf(root.rows)
             self.decideLoading(self.listData.count, total: root.totalCount)
-            print("别表数据、\(self.listData)")
             self.loading = false
             self.footerView.end()
             self.tableView.reloadData()

@@ -17,9 +17,8 @@ class SearchingResultTableViewCell: UITableViewCell {
     @IBOutlet weak var bookAuthorLabel: UILabel!
     
     @IBOutlet weak var bookIntroduceLabel: UILabel!
-    
-    @IBOutlet weak var classifyImageView: UIImageView!
 
+    @IBOutlet weak var typeButton: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -35,16 +34,24 @@ class SearchingResultTableViewCell: UITableViewCell {
         bookTitleLabel.text = data.bookName
         bookAuthorLabel.text = data.author
         bookIntroduceLabel.text = data.bookBrief
-        
+
         switch data.typeID {
         case "0001":
-            classifyImageView.image = UIImage(named: "book_type")
+            typeButton.setBackgroundImage(UIImage(named: "book_type"), forState: .Normal)
+            typeButton.setTitle("图书", forState: .Normal)
+            typeButton.setTitleColor(UIColor.search_book_type(), forState: .Normal)
         case "0002":
-            classifyImageView.image = UIImage(named: "listen_type")
+            typeButton.setBackgroundImage(UIImage(named: "listen_type"), forState: .Normal)
+            typeButton.setTitle("音频", forState: .Normal)
+            typeButton.setTitleColor(UIColor.search_listen_type(), forState: .Normal)
         case "0003":
-            classifyImageView.image = UIImage(named: "baozhi_type")
+            typeButton.setBackgroundImage(UIImage(named: "paper_type"), forState: .Normal)
+            typeButton.setTitle("报纸", forState: .Normal)
+            typeButton.setTitleColor(UIColor.search_paper_type(), forState: .Normal)
         case "0004":
-            classifyImageView.image = UIImage(named: "journal_type")
+            typeButton.setBackgroundImage(UIImage(named: "journal_type"), forState: .Normal)
+            typeButton.setTitle("期刊", forState: .Normal)
+            typeButton.setTitleColor(UIColor.search_journal_type(), forState: .Normal)
         default:
             break
         }

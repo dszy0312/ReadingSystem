@@ -84,6 +84,24 @@ extension UIColor {
         return UIColor(red: 85.0 / 255.0, green: 85.0 / 255.0, blue: 85.0 / 255.0, alpha: 1.0)
     }
     
+    //搜索分类颜色
+    
+    public class func search_book_type() -> UIColor {
+        return UIColor(red: 197.0 / 255.0, green: 109.0 / 255.0, blue: 34.0 / 255.0, alpha: 1.0)
+    }
+    
+    public class func search_listen_type() -> UIColor {
+        return UIColor(red: 111.0 / 255.0, green: 170.0 / 255.0, blue: 82.0 / 255.0, alpha: 1.0)
+    }
+    
+    public class func search_journal_type() -> UIColor {
+        return UIColor(red: 205.0 / 255.0, green: 95.0 / 255.0, blue: 96.0 / 255.0, alpha: 1.0)
+    }
+    
+    public class func search_paper_type() -> UIColor {
+        return UIColor(red: 99.0 / 255.0, green: 153.0 / 255.0, blue: 189.0 / 255.0, alpha: 1.0)
+    }
+
     
     
 }

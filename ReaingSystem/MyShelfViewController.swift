@@ -158,7 +158,7 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
         return 0
     }
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSize(width: self.view.frame.width / 3, height: 150)
+        return CGSize(width: self.view.frame.width / 3, height: 170)
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {

@@ -29,7 +29,7 @@ class JournalImageViewController: UIPageViewController, UIScrollViewDelegate {
         print(customIndex)
         self.imageView = UIImageView(image: UIImage(named: "paper_background"))
         self.imageView.kf_setImageWithURL(NSURL(string: imageURL), placeholderImage: UIImage(named: "paper_background"))
-        print(baseURl + imageURL)
+        print(imageURL)
         self.initImageInstance()
         self.initScrollViewContainer()
         self.setupGestureRecognizer()

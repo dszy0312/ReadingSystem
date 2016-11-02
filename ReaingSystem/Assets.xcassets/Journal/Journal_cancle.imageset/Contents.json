@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "Journal_cancle.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "Journal_cancle.png",
       "scale" : "2x"
     },
     {

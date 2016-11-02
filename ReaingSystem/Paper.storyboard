@@ -66,12 +66,22 @@
                                             <action selector="searchClick:" destination="SyS-wo-kj5" eventType="touchUpInside" id="PdN-Xv-OiW"/>
                                         </connections>
                                     </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Auj-D2-IX4">
+                                        <color key="backgroundColor" red="0.63921568630000003" green="0.63921568630000003" blue="0.63921568630000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="bOW-nB-6ZM"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="0.5" id="zpB-IY-nYl"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.92255353880000002" green="0.94466949079999996" blue="0.9637590815" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="hfG-aY-oRg" secondAttribute="trailing" constant="15" id="065-rN-3fa"/>
+                                    <constraint firstAttribute="trailing" secondItem="Auj-D2-IX4" secondAttribute="trailing" id="9YF-9V-enB"/>
                                     <constraint firstItem="rxx-qy-Tsb" firstAttribute="centerY" secondItem="ibl-z2-yf3" secondAttribute="centerY" id="HMd-dB-sFx"/>
+                                    <constraint firstAttribute="bottom" secondItem="Auj-D2-IX4" secondAttribute="bottom" id="Tpi-S9-rdu"/>
                                     <constraint firstItem="ibl-z2-yf3" firstAttribute="centerX" secondItem="rb8-cg-mT8" secondAttribute="centerX" id="bMf-6J-hz9"/>
+                                    <constraint firstItem="Auj-D2-IX4" firstAttribute="leading" secondItem="rb8-cg-mT8" secondAttribute="leading" id="iaC-AK-Gt6"/>
                                     <constraint firstAttribute="height" constant="64" id="lpr-pq-cwB"/>
                                     <constraint firstItem="rxx-qy-Tsb" firstAttribute="leading" secondItem="rb8-cg-mT8" secondAttribute="leading" constant="15" id="psf-pl-kIG"/>
                                     <constraint firstItem="hfG-aY-oRg" firstAttribute="centerY" secondItem="rxx-qy-Tsb" secondAttribute="centerY" id="tke-Te-L4a"/>
@@ -384,6 +394,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZUQ-WD-W5q">
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="确定">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -419,8 +430,9 @@
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="10"/>
+                                <integer key="value" value="4"/>
                             </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                         </userDefinedRuntimeAttributes>
                     </view>
                     <connections>

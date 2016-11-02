@@ -18,8 +18,8 @@ class SearchingDefaultListCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var bookIntroduceLabel: UILabel!
     
-    @IBOutlet weak var typeImageView: UIImageView!
     
+    @IBOutlet weak var typeButton: UIButton!
     
     func setData(data: HotListRow) {
         bookNameLabel.text = data.bookName
@@ -28,13 +28,21 @@ class SearchingDefaultListCollectionViewCell: UICollectionViewCell {
         
         switch data.typeID {
         case "0001":
-            typeImageView.image = UIImage(named: "book_type")
+            typeButton.setBackgroundImage(UIImage(named: "book_type"), forState: .Normal)
+            typeButton.setTitle("图书", forState: .Normal)
+            typeButton.setTitleColor(UIColor.search_book_type(), forState: .Normal)
         case "0002":
-            typeImageView.image = UIImage(named: "listen_type")
+            typeButton.setBackgroundImage(UIImage(named: "listen_type"), forState: .Normal)
+            typeButton.setTitle("音频", forState: .Normal)
+            typeButton.setTitleColor(UIColor.search_listen_type(), forState: .Normal)
         case "0003":
-            typeImageView.image = UIImage(named: "baozhi_type")
+            typeButton.setBackgroundImage(UIImage(named: "paper_type"), forState: .Normal)
+            typeButton.setTitle("报纸", forState: .Normal)
+            typeButton.setTitleColor(UIColor.search_paper_type(), forState: .Normal)
         case "0004":
-            typeImageView.image = UIImage(named: "journal_type")
+            typeButton.setBackgroundImage(UIImage(named: "journal_type"), forState: .Normal)
+            typeButton.setTitle("期刊", forState: .Normal)
+            typeButton.setTitleColor(UIColor.search_journal_type(), forState: .Normal)
         default:
             break
         }

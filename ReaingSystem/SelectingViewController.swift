@@ -74,7 +74,7 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         tableView.dataSource = self
         tableView.delegate = self
         tableView.registerNib(UINib(nibName: "SelectingDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "DetailCell")
-        tableView.registerNib(UINib(nibName: "SecondSelectingDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "Detail2Cell")
+        //tableView.registerNib(UINib(nibName: "SecondSelectingDetailTableViewCell", bundle: nil), forCellReuseIdentifier: "Detail2Cell")
         
         UIApplication.sharedApplication().statusBarHidden = false
     }
@@ -209,10 +209,10 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("DetailCell") as! SelectingDetailTableViewCell
+        cell.delegate = self
+        cell.selectedDelegate = self
         if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("DetailCell") as! SelectingDetailTableViewCell
-            cell.delegate = self
-            cell.selectedDelegate = self
             if self.readAdvice != nil {
                 cell.count = 0
                 cell.cellTitle.text = "读过《\(self.readedTitle!)》的人还读过"
@@ -220,26 +220,20 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
             }
             return cell
         } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("Detail2Cell") as! SecondSelectingDetailTableViewCell
-            cell.delegate = self
-            cell.selectedDelegate = self
             cell.count = indexPath.row
             cell.setFloorData(self.floorDatas[indexPath.row - 1])
-            return cell
         }
         
+        return cell
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == 0 {
             return 220
-        } else {
-            return 200
-        }
+
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 49
+        return 0
     }
     
     func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
