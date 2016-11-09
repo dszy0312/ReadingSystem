@@ -117,7 +117,9 @@ enum URLHealper {
     case bookSummaryURL
     //下载小说内容（全部下载到数据库）
     case getStoryDetail
-    //根据小说章节id得到该章节内容（参数名称：chapterID）
+    //新的下载接口 （参数名称：bookID,chapterID）
+    case downloadTxt
+    //根据小说章节id得到该章节内容（参数名称：bookID,chapterID）
     case readTxt
     
     //MARK: 发现页面
@@ -230,6 +232,8 @@ enum URLHealper {
             return baseURl + "story/GetDetail"
         case .getStoryDetail:
             return baseURl + "Story/GetDetail"
+        case .downloadTxt:
+            return baseURl + "/story/DownloadTxt"
         case .readTxt:
             return baseURl + "Story/ReadTxt"
         case .getFindList:

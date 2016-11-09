@@ -8,7 +8,18 @@
 
 import UIKit
 
+protocol FindMoreSelectDelegate {
+    func sectionSelect(section: Int)
+}
+
 class FindHeaderCollectionReusableView: UICollectionReusableView {
         
     @IBOutlet weak var headerTitleLabel: UILabel!
+    var moreDelegate: FindMoreSelectDelegate!
+    var curSection: Int!
+    
+    @IBAction func moreClick(sender: UIButton) {
+        moreDelegate.sectionSelect(curSection)
+    }
+    
 }

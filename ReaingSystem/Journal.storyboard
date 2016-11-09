@@ -256,7 +256,7 @@
         <!--JournalDT View Controller-->
         <scene sceneID="29U-9e-SmI">
             <objects>
-                <viewController id="SdX-IT-Jt0" customClass="JournalDTViewController" customModule="ReaingSystem" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="JournalDetail" id="SdX-IT-Jt0" customClass="JournalDTViewController" customModule="ReaingSystem" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YcJ-bN-be3"/>
                         <viewControllerLayoutGuide type="bottom" id="WFN-Ys-d5O"/>

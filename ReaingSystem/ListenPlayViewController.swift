@@ -22,6 +22,9 @@ class ListenPlayViewController: UIViewController {
     @IBOutlet weak var progressView: UIProgressView!
     //开关键
     @IBOutlet weak var controlButton: UIButton!
+    
+    @IBOutlet weak var addShelfButton: UIButton!
+    
     //播放数据
     var listenData: ListenReturnData!
     var index = 0
@@ -38,10 +41,17 @@ class ListenPlayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //是否已加入书架
+        if self.listenData.isOnShelf == "1" {
+            self.addShelfButton.selected = true
+            self.addShelfButton.setImage(UIImage(named: "readDetail_onShelf_gray"), forState: .Selected)
+        }
+        
         guard let url = NSURL(string: baseURl + listenData.dirList[index].audioUrl) else {
             print("连接错误")
             return
         }
+        
         playerItem = AVPlayerItem(URL: url)
         //监听缓冲进度
         playerItem.addObserver(self, forKeyPath: "loadedTimeRanges", options: NSKeyValueObservingOptions.New, context: nil)
@@ -105,9 +115,11 @@ class ListenPlayViewController: UIViewController {
             self.avplayer.pause()
         }
     }
-    
-    @IBAction func addToShelfClick(sender: UIButton) {
-        self.addToShelf()
+    @IBAction func addToShelf(sender: UIButton) {
+        if sender.selected == false {
+            
+            self.addToShelf()
+        }
     }
     
     
@@ -219,7 +231,8 @@ class ListenPlayViewController: UIViewController {
             if let flag = dictionary!["flag"] as? Int {
                 print("flag= \(flag)")
                 if flag == 1 {
-
+                    self.addShelfButton.selected = true
+                    self.addShelfButton.setImage(UIImage(named: "readDetail_onShelf_gray"), forState: UIControlState.Selected)
                 } else {
                     print("添加未成功")
                 }
@@ -227,16 +240,5 @@ class ListenPlayViewController: UIViewController {
             }
         })
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

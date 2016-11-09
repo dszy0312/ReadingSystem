@@ -61,6 +61,7 @@
 		9831196C1D8E7A3C00F81327 /* SelectSexRootData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983119691D8E7A3C00F81327 /* SelectSexRootData.swift */; };
 		983119711D8E804C00F81327 /* SelectSexDetailData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9831196E1D8E804C00F81327 /* SelectSexDetailData.swift */; };
 		983119731D8E804C00F81327 /* SelectSexDetailRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 983119701D8E804C00F81327 /* SelectSexDetailRoot.swift */; };
+		9841E08C1DCADD7E0098B130 /* MyShelfTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9841E08B1DCADD7E0098B130 /* MyShelfTestViewController.swift */; };
 		984C76471D5BFD5E00B3588D /* InterestCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984C76461D5BFD5E00B3588D /* InterestCollectionViewCell.swift */; };
 		984C76491D5C26F500B3588D /* MyShelfCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984C76481D5C26F500B3588D /* MyShelfCollectionViewCell.swift */; };
 		984C764B1D5C2A5300B3588D /* MyShelfCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984C764A1D5C2A5300B3588D /* MyShelfCollectionReusableView.swift */; };
@@ -190,6 +191,9 @@
 		98B23BE21D9C9FB4006A009A /* lantinghei.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 98B23BDA1D9BC3CE006A009A /* lantinghei.TTF */; };
 		98B23BE41D9CF665006A009A /* ReadBookListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B23BE31D9CF665006A009A /* ReadBookListViewController.swift */; };
 		98B23BE61D9D26D3006A009A /* TopListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B23BE51D9D26D3006A009A /* TopListDetailViewController.swift */; };
+		98B39B211DD17EF600DCB62D /* MyShelfBarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B39B201DD17EF600DCB62D /* MyShelfBarCollectionViewCell.swift */; };
+		98B39B231DD1D1C200DCB62D /* MyShelfListenCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B39B221DD1D1C200DCB62D /* MyShelfListenCollectionViewCell.swift */; };
+		98B39B251DD1DDBB00DCB62D /* DeleteMyShelfListenCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B39B241DD1DDBB00DCB62D /* DeleteMyShelfListenCollectionViewCell.swift */; };
 		98C186201D6704ED008FCB15 /* BookListBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C1861D1D6704ED008FCB15 /* BookListBook.swift */; };
 		98C186211D6704ED008FCB15 /* BookListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C1861E1D6704ED008FCB15 /* BookListData.swift */; };
 		98C186511D6A962C008FCB15 /* BookIntroduceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C186501D6A962C008FCB15 /* BookIntroduceViewController.swift */; };
@@ -337,6 +341,7 @@
 		9831196E1D8E804C00F81327 /* SelectSexDetailData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectSexDetailData.swift; sourceTree = "<group>"; };
 		983119701D8E804C00F81327 /* SelectSexDetailRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectSexDetailRoot.swift; sourceTree = "<group>"; };
 		983C5ACF1DAB3B96008D810C /* 锐字工房云字库行楷GBK.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "锐字工房云字库行楷GBK.ttf"; sourceTree = "<group>"; };
+		9841E08B1DCADD7E0098B130 /* MyShelfTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyShelfTestViewController.swift; sourceTree = "<group>"; };
 		984C76461D5BFD5E00B3588D /* InterestCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterestCollectionViewCell.swift; sourceTree = "<group>"; };
 		984C76481D5C26F500B3588D /* MyShelfCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyShelfCollectionViewCell.swift; sourceTree = "<group>"; };
 		984C764A1D5C2A5300B3588D /* MyShelfCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyShelfCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -482,6 +487,9 @@
 		98B23BE01D9BE39C006A009A /* StoryListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryListViewController.swift; sourceTree = "<group>"; };
 		98B23BE31D9CF665006A009A /* ReadBookListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadBookListViewController.swift; sourceTree = "<group>"; };
 		98B23BE51D9D26D3006A009A /* TopListDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopListDetailViewController.swift; sourceTree = "<group>"; };
+		98B39B201DD17EF600DCB62D /* MyShelfBarCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyShelfBarCollectionViewCell.swift; sourceTree = "<group>"; };
+		98B39B221DD1D1C200DCB62D /* MyShelfListenCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyShelfListenCollectionViewCell.swift; sourceTree = "<group>"; };
+		98B39B241DD1DDBB00DCB62D /* DeleteMyShelfListenCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteMyShelfListenCollectionViewCell.swift; sourceTree = "<group>"; };
 		98C1861D1D6704ED008FCB15 /* BookListBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookListBook.swift; sourceTree = "<group>"; };
 		98C1861E1D6704ED008FCB15 /* BookListData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookListData.swift; sourceTree = "<group>"; };
 		98C186501D6A962C008FCB15 /* BookIntroduceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookIntroduceViewController.swift; sourceTree = "<group>"; };
@@ -780,6 +788,7 @@
 				98C186721D6C3426008FCB15 /* DeleteMyShelfViewController.swift */,
 				984C764E1D5C633100B3588D /* ReadedBookListTransitionDelegate.swift */,
 				98B23BE31D9CF665006A009A /* ReadBookListViewController.swift */,
+				9841E08B1DCADD7E0098B130 /* MyShelfTestViewController.swift */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -788,8 +797,11 @@
 			isa = PBXGroup;
 			children = (
 				984C76481D5C26F500B3588D /* MyShelfCollectionViewCell.swift */,
+				98B39B221DD1D1C200DCB62D /* MyShelfListenCollectionViewCell.swift */,
 				98C186761D6C3E65008FCB15 /* DeleteMyShelfCollectionViewCell.swift */,
+				98B39B241DD1DDBB00DCB62D /* DeleteMyShelfListenCollectionViewCell.swift */,
 				984C764A1D5C2A5300B3588D /* MyShelfCollectionReusableView.swift */,
+				98B39B201DD17EF600DCB62D /* MyShelfBarCollectionViewCell.swift */,
 				980E91621D51942D000A19CA /* ReadBookTableViewCell.swift */,
 			);
 			name = view;
@@ -1646,6 +1658,7 @@
 				98CD8A2E1DC4A0B60047D8DC /* JournalImageViewController.swift in Sources */,
 				98CD8A261DC331640047D8DC /* PaperSearchFromTableViewCell.swift in Sources */,
 				980301E81D81094F00180FDA /* SelectingSexCollectionViewCell.swift in Sources */,
+				98B39B231DD1D1C200DCB62D /* MyShelfListenCollectionViewCell.swift in Sources */,
 				98EE33DE1D66DF0600FD2CC3 /* MyBook.swift in Sources */,
 				981140E41D868D580028EF8C /* ListenReturnData.swift in Sources */,
 				980301D61D8000FB00180FDA /* ListenSequenceTableViewCell.swift in Sources */,
@@ -1666,6 +1679,7 @@
 				980301D81D8006E400180FDA /* ListenImagePageViewController.swift in Sources */,
 				986CD5C71D923AD6008D15FE /* ListenFamousImageRoot.swift in Sources */,
 				986CD5CA1D9266C2008D15FE /* ListenFamousDetailViewController.swift in Sources */,
+				98B39B251DD1DDBB00DCB62D /* DeleteMyShelfListenCollectionViewCell.swift in Sources */,
 				98123D8E1D77C35000F416EA /* SearchingListViewController.swift in Sources */,
 				98C1868C1D6D704C008FCB15 /* SelectReturnData.swift in Sources */,
 				98C186511D6A962C008FCB15 /* BookIntroduceViewController.swift in Sources */,
@@ -1689,6 +1703,7 @@
 				980E91991D548D6E000A19CA /* ReplaceViewController.swift in Sources */,
 				980301C61D7FF44F00180FDA /* ListenCategoryCollectionViewController.swift in Sources */,
 				98CF5F081D9149650025D458 /* ListenAdviceRoot.swift in Sources */,
+				98B39B211DD17EF600DCB62D /* MyShelfBarCollectionViewCell.swift in Sources */,
 				9891224E1DB4722D00FCE871 /* PaperEditionSelectViewController.swift in Sources */,
 				98F028531D6EEDFB00B8ECCE /* ReadedAdvice.swift in Sources */,
 				980301D01D7FF7BF00180FDA /* ListenAdviceHeaderCollectionReusableView.swift in Sources */,
@@ -1763,6 +1778,7 @@
 				9866C8581DC71DF300EA4D52 /* JournalDCatalogueCollectionViewCell.swift in Sources */,
 				98CD8A181DC0803F0047D8DC /* SelectingFloorPrList.swift in Sources */,
 				986CD5D01D926B62008D15FE /* ListenFamousDetailIntroduceTableViewCell.swift in Sources */,
+				9841E08C1DCADD7E0098B130 /* MyShelfTestViewController.swift in Sources */,
 				98945D611D9B515E00726E0B /* PaperViewTransitionDelegate.swift in Sources */,
 				9879FB121DA3CEDF000B356F /* WelcomePageViewController.swift in Sources */,
 				98CD8A131DC042440047D8DC /* JournalClassifyData2.swift in Sources */,

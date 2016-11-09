@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FindViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class FindViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FindMoreSelectDelegate {
 
     var cellIdentifyArray = ["MagazineCell","ListenCell","HeaderView"]
     var headerArray = ["热文畅读","精品小听","最新杂志"]
@@ -94,6 +94,8 @@ class FindViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         let headView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: cellIdentifyArray[2], forIndexPath: indexPath) as! FindHeaderCollectionReusableView
+        headView.curSection = indexPath.section
+        headView.moreDelegate = self
         switch indexPath.section {
         case 0:
             headView.headerTitleLabel.text = headerArray[0]
@@ -138,11 +140,66 @@ class FindViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
     }
     
+    // delegate
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        switch indexPath.section {
+        case 0:
+            if let toVC = detailVC("ReadDetail", vcName: "BookIntroduceViewController") as? BookIntroduceViewController {
+                toVC.selectedBookID = readData[indexPath.row].bookID
+                self.presentViewController(toVC, animated: true, completion: {
+                })
+            }
+        case 1:
+            if let toVC = detailVC("Listen", vcName: "ListenDetail") as? ListenDetailViewController {
+                toVC.audioID = listenData[indexPath.row].audioID
+                self.presentViewController(toVC, animated: true, completion: nil)
+            }
+        case 2:
+            if let toVC = detailVC("Journal", vcName: "JournalDetail") as? JournalDTViewController {
+                toVC.id = journalData[indexPath.row].isID
+                toVC.mzID = journalData[indexPath.row].isMzID
+                self.presentViewController(toVC, animated: true, completion: nil)
+            }
+        default:
+            break
+        }
+        
+    }
+    
+    //代理方法
+    func sectionSelect(section: Int) {
+        switch section {
+        case 0:
+            if let pVC = self.parentViewController as? RootTabBarViewController {
+                pVC.tabBarView?.changeIndex(1)
+            }
+        case 1:
+            
+            if let toVC = detailVC("Listen", vcName: "Listen") as? ListenViewController {
+                self.presentViewController(toVC, animated: true, completion: nil)
+            }
+        case 2:
+            if let toVC = detailVC("Journal", vcName: "Journal") as? JournalViewController {
+                self.presentViewController(toVC, animated: true, completion: nil)
+            }
+        default:
+            break
+        }
+    }
+    
+    //MARK：私有方法
+    //页面跳转方法
+    func detailVC(sbName: String, vcName: String) -> UIViewController {
+        var sb = UIStoryboard(name: sbName, bundle: nil)
+        var vc = sb.instantiateViewControllerWithIdentifier(vcName)
+        return vc
+    }
+    
     //设定个人中心图片
     func setImage(button: UIButton){
         let imageUrl = NSUserDefaults.standardUserDefaults().objectForKey("userImage") as? String
         if imageUrl == "center_photo" {
-            button.setImage(UIImage(named: imageUrl!), forState: .Normal)
+            button.setImage(UIImage(named: "personal"), forState: .Normal)
         } else {
             button.kf_setImageWithURL(NSURL(string: imageUrl!), forState: .Normal)
         }

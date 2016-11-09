@@ -13,11 +13,15 @@ protocol DeleteMyShelfDelegate: class {
     func deleteItem(index: Set<Int>)
 }
 
-class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+private var reuseIdentifier = ["BookCell", "ListenCell", "SelectCell"]
+
+class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MyShelfBarDelegate {
     
     @IBOutlet weak var titleBarView: UIView!
     
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    @IBOutlet weak var deleteOrDownLoadButton: UIButton!
     
 
     //我的书架书目
@@ -32,13 +36,24 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
     var index: Set<Int>? = []
     //最近阅读书目数量
     var count = 0
-    //选中的单元格
-    var selectedRow: Int!
+    //删除还是下载？ 0:下载，1:删除
+    var selectIndex = 1
+    //是否全选
+    var isSelectAll = false {
+        didSet {
+            self.collectionView.reloadData()
+            self.collectionView.contentOffset = contentOffset!
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
+        
+        //下载、删除按钮设置
+        self.buttonInit()
         
         // Do any additional setup after loading the view.
     }
@@ -53,17 +68,33 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
             deleteSend()
         }
     }
-
+    //全选
+    @IBAction func selectAllClick(sender: UIButton) {
+        self.contentOffset = collectionView.contentOffset
+        isSelectAll = true
+    }
+    //取消
     @IBAction func cancelClick(sender: UIButton) {
         delegate?.valueOfContentOffSet(collectionView.contentOffset)
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+    @IBAction func deleteOrDownLoadClick(sender: UIButton) {
+        if sender.tag == 0 {
+            print("下载")
+        } else {
+            if index != [] {
+                deleteSend()
+            }
+        }
+    }
+    
+    
     
     //MARK: collectionView dataSource delegate flowLayout
     //dataSource
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return myBooks!.count + 1
+        return myBooks!.count + 2
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -71,23 +102,55 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! DeleteMyShelfCollectionViewCell
-        
-        if indexPath.row == collectionView.numberOfItemsInSection(0) - 1 {
+        //设定第一个单元格
+        if indexPath.row == 0 {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier[2], forIndexPath: indexPath) as! MyShelfBarCollectionViewCell
+            cell.customDelegate = self
+            return cell
+            
+        } else if indexPath.row == collectionView.numberOfItemsInSection(0) - 1 {
+            //设定最后一个单元格
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier[0], forIndexPath: indexPath) as! DeleteMyShelfCollectionViewCell
             cell.bookNameLabel.text = ""
             cell.bookImageView.image = UIImage(named: "addbook")
+            cell.checkedImage.alpha = 0
+            return cell
         } else {
-            if indexPath.row == selectedRow {
-                cell.isChosed = true
-                cell.checkedImage.image = UIImage(named: "checkbox_checked")
-                index?.insert(indexPath.row)
+            //书籍单元格设置
+            if self.myBooks![indexPath.row - 1].category == "0001" {
+                let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier[0], forIndexPath: indexPath) as! DeleteMyShelfCollectionViewCell
+                //全选设置
+                if isSelectAll == true {
+                    cell.isChosed = true
+                    if selectIndex == 0 {
+                        cell.checkedImage.image = UIImage(named: "check-green")
+                    } else {
+                        cell.checkedImage.image = UIImage(named: "check-red")
+                        index?.insert(indexPath.row)
+                    }
+                }
+                
+                cell.setData(self.myBooks![indexPath.row - 1])
+                return cell
+            } else {
+                //音频单元格设置 『0002』
+                let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier[1], forIndexPath: indexPath) as! DeleteMyShelfListenCollectionViewCell
+                //全选设置
+                if isSelectAll == true {
+                    cell.isChosed = true
+                    if selectIndex == 0 {
+                        cell.checkedImage.image = UIImage(named: "check-green")
+                    } else {
+                        cell.checkedImage.image = UIImage(named: "check-red")
+                        index?.insert(indexPath.row)
+                    }
+                }
+                cell.setData(self.myBooks![indexPath.row - 1])
+                return cell
             }
-            //显示书架数据
-           cell.setData(self.myBooks![indexPath.row])
+            
             
         }
-
-        return cell
     }
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
@@ -107,7 +170,11 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
         return 0
     }
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSize(width: self.view.frame.width / 3, height: 170)
+        if indexPath.row == 0 {
+            return CGSize(width: self.view.frame.width - 2, height: 40)
+        } else {
+            return CGSize(width: self.view.frame.width / 3 - 1, height: 170)
+        }
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
@@ -125,24 +192,28 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
         } else if readedBook?.count == 0 {
             size = CGSize(width: self.view.bounds.width, height: 1)
         } else {
-            size = CGSize(width: self.view.bounds.width, height: 156)
+            size = CGSize(width: self.view.bounds.width, height: 166)
         }
         return size
     }
     
     // delegate
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! DeleteMyShelfCollectionViewCell
-        if indexPath.row == myBooks?.count {
+        guard indexPath.row != 0 && indexPath.row != myBooks!.count + 1 else {
             return
         }
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! DeleteMyShelfCollectionViewCell
         if cell.isChosed == false {
             cell.isChosed = true
-            cell.checkedImage.image = UIImage(named: "checkbox_checked")
-            index?.insert(indexPath.row)
+            if selectIndex == 0 {
+                cell.checkedImage.image = UIImage(named: "check-green")
+            } else {
+                cell.checkedImage.image = UIImage(named: "check-red")
+                index?.insert(indexPath.row)
+            }
         } else if cell.isChosed == true {
             cell.isChosed = false
-            cell.checkedImage.image = UIImage(named: "checkbox_")
+            cell.checkedImage.image = UIImage(named: "check-normal")
             index?.remove(indexPath.row)
         }
         
@@ -155,6 +226,23 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
     func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         collectionView.setContentOffset(contentOffset!, animated: false)
     }
+    
+    //MyShelfBarDelegate
+    func indexSend(index: Int) {
+        
+    }
+    
+    //下载删除按钮设置
+    func buttonInit() {
+        if selectIndex == 0 {
+            deleteOrDownLoadButton.backgroundColor = UIColor.myShelf_downLoad_bg()
+            deleteOrDownLoadButton.setTitle("下载", forState: .Normal)
+            deleteOrDownLoadButton.tag = 0
+        } else {
+            deleteOrDownLoadButton.backgroundColor = UIColor.myShelf_delete_bg()
+            deleteOrDownLoadButton.setTitle("删除", forState: .Normal)
+            deleteOrDownLoadButton.tag = 1
+        }    }
     
     //删除书籍请求
     func deleteSend() {

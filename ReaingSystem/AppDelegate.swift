@@ -56,7 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            window.rootViewController = rootController
 //        }
 
-
         ShareSDK.registerApp("1720f399fc3e4", activePlatforms: [
                 SSDKPlatformType.TypeSinaWeibo.rawValue,
                 SSDKPlatformType.TypeQQ.rawValue,
@@ -75,9 +74,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }) { (platformType, appInfo) in
                 switch platformType {
                 case SSDKPlatformType.TypeSinaWeibo:
-                    appInfo.SSDKSetupSinaWeiboByAppKey("4037468528", appSecret: "f2688540de16a6dc814144a692b2ba8e", redirectUri: "https://www.baidu.com", authType: SSDKAuthTypeBoth)
+                    appInfo.SSDKSetupSinaWeiboByAppKey("4037468528", appSecret: "f2688540de16a6dc814144a692b2ba8e", redirectUri: "https://www.baidu.com", authType: SSDKAuthTypeSSO)
                 case SSDKPlatformType.TypeQQ:
-                    appInfo.SSDKSetupQQByAppId("1105647136", appKey: "DMzffCKxQPx2E7Qz", authType: SSDKAuthTypeBoth)
+                    appInfo.SSDKSetupQQByAppId("1105647136", appKey: "DMzffCKxQPx2E7Qz", authType: SSDKAuthTypeSSO)
                 case SSDKPlatformType.TypeWechat:
                     appInfo.SSDKSetupWeChatByAppId("wx5dea74c0f35cc310", appSecret: "d2480b63c45f475b1de6e00b4f5dc9f0")
                 default:
@@ -112,6 +111,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+
 
 
 }

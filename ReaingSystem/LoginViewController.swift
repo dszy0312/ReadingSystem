@@ -33,7 +33,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         let uuid = checkUuid()
         print("uuid\(uuid)")
-        
+        print(self.usernameLabel.font.fontName)
         
         
 //        transitionDelegate.animationTransition.pointFrame =
@@ -48,26 +48,27 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.hidden = true
+        UIApplication.sharedApplication().statusBarHidden = true
+    }
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        UIApplication.sharedApplication().statusBarHidden = false
     }
     
     
     
     func textFieldDidBeginEditing(textField: UITextField) {
         if textField == usernameTF {
-            UIView.animateWithDuration(0.5, animations: { 
-                self.usernameLabel.center.x += self.view.frame.width / 2
+            UIView.animateWithDuration(0.5, animations: {
+                self.usernameLabel.center.x += self.view.frame.width
                 self.usernameLabel.alpha = 0
             })
             
         } else if textField == passwordTF {
             UIView.animateWithDuration(0.5, animations: {
-                self.passwordLabel.center.x += self.view.frame.width / 2
+                self.passwordLabel.center.x += self.view.frame.width
                 self.passwordLabel.alpha = 0
                 }, completion: { (_) in
-                    self.passwordLabel.center = self.passwordTF.center
-                    self.passwordLabel.textAlignment = NSTextAlignment.Right
-                    self.passwordLabel.text = "6~12"
-                    self.passwordLabel.alpha = 1
             })
         }
     }

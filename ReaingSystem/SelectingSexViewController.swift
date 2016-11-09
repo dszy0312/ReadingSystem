@@ -10,7 +10,7 @@ import UIKit
 
 private let reuseIdentifier = ["SexCell","HeaderView"]
 
-class SelectingSexViewController: UIViewController, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
+class SelectingSexViewController: UIViewController, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, SexMoreSelectDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -82,6 +82,8 @@ class SelectingSexViewController: UIViewController, UICollectionViewDataSource,U
         if kind == UICollectionElementKindSectionHeader {
             headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: reuseIdentifier[1], forIndexPath: indexPath) as! SelectingSexHeaderCollectionReusableView
             headerView?.setData(sexRootData.data2[indexPath.section])
+            headerView?.curSection = indexPath.section
+            headerView?.moreDelegate = self
         }
         
         return headerView!
@@ -127,6 +129,15 @@ class SelectingSexViewController: UIViewController, UICollectionViewDataSource,U
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    
+    //代理方法
+    func sectionSelect(section: Int) {
+        if let toVC = childVC("Category", vcName: "CategoryDetail") as? CategoryDetailViewController {
+            toVC.sexData = sexRootData.data2[section]
+            self.presentViewController(toVC, animated: true, completion: nil)
+        }
+
     }
 
     //MARK：私有方法

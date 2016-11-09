@@ -20,6 +20,7 @@ enum NetworkHealper {
     case Post
     case GetTest
     case GetTestWithParm
+    
 
     //获取JSON数据
     func receiveJSON(url: String,parameter: [String: AnyObject]? = [:], completion: (NSDictionary?, String?) -> Void) {
@@ -186,6 +187,17 @@ enum NetworkHealper {
             })
         }
     }
+    
+    //下载数据
+    func downloadData() {
+        switch self {
+        case .Get:
+            print("xiazai")
+        default:
+            break
+        }
+    }
+    
     //获取cookie
     func GetCookieStorage()->NSHTTPCookieStorage{
         return NSHTTPCookieStorage.sharedHTTPCookieStorage()

@@ -403,7 +403,7 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     func setImage(button: UIButton){
         let imageUrl = NSUserDefaults.standardUserDefaults().objectForKey("userImage") as? String
         if imageUrl == "center_photo" {
-            button.setImage(UIImage(named: imageUrl!), forState: .Normal)
+            button.setImage(UIImage(named: "personal"), forState: .Normal)
         } else {
             button.kf_setImageWithURL(NSURL(string: imageUrl!), forState: .Normal)
         }

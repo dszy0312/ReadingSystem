@@ -88,6 +88,9 @@ class JournalListViewController: UIViewController, UICollectionViewDelegate, UIC
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
         if kind == UICollectionElementKindSectionFooter {
             self.footerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: reuseIdentifier[2], forIndexPath: indexPath) as? FooterLoadingCollectionReusableView
+            for view in footerView!.subviews {
+                view.backgroundColor = UIColor.whiteColor()
+            }
         }
         return self.footerView!
     }

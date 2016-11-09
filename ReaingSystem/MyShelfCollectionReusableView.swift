@@ -19,21 +19,45 @@ class MyShelfCollectionReusableView: UICollectionReusableView {
     //最后访问时间
     @IBOutlet weak var timeLabel: UILabel!
     //图书数量
-    @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var totalButon: UIButton!
+    
+    @IBOutlet weak var backgroundImageView: UIImageView!
+    
     
     @IBAction func transitionAction(sender: UIButton) {
         
     }
     func setData(data: ReadedBook, count: Int) {
+        
         if data.bookImg == nil {
+            backgroundImageView.image = UIImage(named: "bookLoading")
             bookImageView.image = UIImage(named: "bookLoading")
         } else {
+            backgroundImageView.kf_setImageWithURL(NSURL(string: baseURl + data.bookImg), placeholderImage: UIImage(named: "bookLoading"))
             bookImageView.kf_setImageWithURL(NSURL(string: baseURl + data.bookImg), placeholderImage: UIImage(named: "bookLoading"))
         }
         bookTitleLabel.text = data.bookName
         bookSubTitleLabel.text = data.chapterName
         timeLabel.text = data.recentReadDate
-        totalLabel.text = "共\(count)本"
+        totalButon.setTitle("共\(count)本", forState: .Normal)
+        
+        for sub in backgroundImageView.subviews {
+            sub.removeFromSuperview()
+        }
+        //首先创建一个模糊效果
+        let blurEffect = UIBlurEffect(style: .ExtraLight)
+        //接着创建一个承载模糊效果的视图
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        //设置模糊视图的大小
+        blurView.frame.size = CGSize(width: self.frame.width, height: self.frame.height)
+        
+        //创建并添加vibrancy视图
+        let vibrancyView = UIVisualEffectView(effect:
+            UIVibrancyEffect(forBlurEffect: blurEffect))
+        vibrancyView.frame.size = CGSize(width: self.frame.width, height: self.frame.height)
+        blurView.contentView.addSubview(vibrancyView)
+        //添加模糊视图到页面view上（模糊视图下方都会有模糊效果）
+        self.backgroundImageView.addSubview(blurView)
     }
 
     

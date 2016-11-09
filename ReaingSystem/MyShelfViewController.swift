@@ -9,9 +9,9 @@
 import UIKit
 import Alamofire
 
-private var reuseIdentifier = ["ListSegue","DeleteSegue"]
+private var reuseIdentifier = ["ListSegue","DeleteSegue", "testSegue", "BookCell", "ListenCell", "SelectCell"]
 
-class MyShelfViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DeleteMyShelfDelegate {
+class MyShelfViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DeleteMyShelfDelegate, MyShelfBarDelegate {
     
 
     @IBOutlet weak var titleBarView: UIView!
@@ -30,21 +30,21 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     var readedBook: [ReadedBook]?
     //最近阅读书目数量
     var count = 0
-    //选中的单元格
-    var selectedRow: Int!
+    
+    //下载活着删除标记  0：下载， 1：删除
+    var selectIndex = 1 {
+        didSet {
+            if myBooks != nil {
+                self.performSegueWithIdentifier(reuseIdentifier[1], sender: self)
+            }
+        }
+    }
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
-        
-        //创建长按手势监听
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(collectionViewCellLongPress(_:)))
-        collectionView.addGestureRecognizer(longPress)
-//        //网络请求
-//        getMyShelf()
-
         // Do any additional setup after loading the view.
     }
 
@@ -83,7 +83,7 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
             newVC.count = self.count
             newVC.contentOffset = self.collectionView.contentOffset
             newVC.delegate = self
-            newVC.selectedRow = self.selectedRow
+            newVC.selectIndex = selectIndex
             
         }
     }
@@ -93,7 +93,7 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     //最近阅读图片选中
     @IBAction func bookSelectClick(sender: UIButton) {
-        if let toVC = childVC("ReadDetail", vcName: "BookIntroduceViewController") as? BookIntroduceViewController {
+        if let toVC = detailVC("ReadDetail", vcName: "BookIntroduceViewController") as? BookIntroduceViewController {
             toVC.selectedBookID = readedBook?.first?.bookID
             self.presentViewController(toVC, animated: true, completion: {
             })
@@ -118,7 +118,7 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     //MARK: collectionView dataSource delegate flowLayout
     //dataSource
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return myBooks == nil ? 1 : myBooks!.count + 1
+        return myBooks == nil ? 2 : myBooks!.count + 2
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -126,17 +126,32 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! MyShelfCollectionViewCell
-        if indexPath.row == collectionView.numberOfItemsInSection(0) - 1 {
+        //设定第一个单元格
+        if indexPath.row == 0 {
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier[5], forIndexPath: indexPath) as! MyShelfBarCollectionViewCell
+            cell.customDelegate = self
+            return cell
+            
+        } else if indexPath.row == collectionView.numberOfItemsInSection(0) - 1 {
+            //设定最后一个单元格
+            let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier[3], forIndexPath: indexPath) as! MyShelfCollectionViewCell
             cell.bookNameLabel.text = ""
             cell.bookImageView.image = UIImage(named: "addbook")
+            return cell
         } else {
-            //显示书架数据
-            cell.setData(self.myBooks![indexPath.row])
-            
+            //书籍单元格设置
+            if self.myBooks![indexPath.row - 1].category == "0001" {
+                let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier[3], forIndexPath: indexPath) as! MyShelfCollectionViewCell
+                    cell.setData(self.myBooks![indexPath.row - 1])
+                return cell
+            } else {
+                //音频单元格设置 『0002』
+                let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier[4], forIndexPath: indexPath) as! MyShelfListenCollectionViewCell
+                    cell.setData(self.myBooks![indexPath.row - 1])
+                return cell
+            }
         }
         
-        return cell
     }
     
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
@@ -158,7 +173,12 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
         return 0
     }
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSize(width: self.view.frame.width / 3, height: 170)
+        
+        if indexPath.row == 0 {
+            return CGSize(width: self.view.frame.width - 2, height: 40)
+        } else {
+            return CGSize(width: self.view.frame.width / 3 - 1, height: 170)
+        }
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
@@ -176,21 +196,35 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
         } else if readedBook?.count == 0 {
             size = CGSize(width: self.view.bounds.width, height: 1)
         } else {
-            size = CGSize(width: self.view.bounds.width, height: 156)
+            size = CGSize(width: self.view.bounds.width, height: 166)
         }
         return size
     }
     
     // delegate
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row == myBooks?.count {
+        if indexPath.row == 0 {
+            
+        } else if indexPath.row == myBooks!.count + 1 {
             if let pVC = self.parentViewController as? RootTabBarViewController {
                 pVC.tabBarView?.changeIndex(1)
             }
-        } else if let toVC = childVC("ReadDetail", vcName: "BookIntroduceViewController") as? BookIntroduceViewController {
-            toVC.selectedBookID = myBooks![indexPath.row].bookID
-            self.presentViewController(toVC, animated: true, completion: { 
-            })
+        } else {
+            //跳转书籍详情
+            if self.myBooks![indexPath.row - 1].category == "0001" {
+                if let toVC = detailVC("ReadDetail", vcName: "BookIntroduceViewController") as? BookIntroduceViewController {
+                    toVC.selectedBookID = myBooks![indexPath.row - 1].bookID
+                    self.presentViewController(toVC, animated: true, completion: {
+                    })
+                }
+            } else {
+                //跳转音频详情
+                if let toVC = detailVC("Listen", vcName: "ListenDetail") as? ListenDetailViewController {
+                    toVC.audioID = myBooks![indexPath.row - 1].bookID
+                    self.presentViewController(toVC, animated: true, completion: nil)
+                }
+            }
+            
         }
   
     }
@@ -211,12 +245,24 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
         collectionView.reloadData()
     }
+    
+    // MyShelfBarDelegate
+    func indexSend(index: Int) {
+        if index == 0 {
+            selectIndex = 0
+        } else {
+            selectIndex = 1
+        }
+    }
+    
+    
     //MARK: 响应事件
     //长按监听
+    /*
     func collectionViewCellLongPress(gesture: UILongPressGestureRecognizer) {
         let point = gesture.locationInView(self.collectionView)
         let indexPath = self.collectionView.indexPathForItemAtPoint(point)
-        if indexPath?.row == myBooks?.count {
+        guard indexPath!.row != 0 && indexPath!.row != myBooks!.count + 1 else {
             return
         }
         self.selectedRow = indexPath!.row
@@ -235,10 +281,10 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
         default:
             break
         }
-    }
+    } */
     //MARK：私有方法
     //页面跳转方法
-    func childVC(sbName: String, vcName: String) -> UIViewController {
+    func detailVC(sbName: String, vcName: String) -> UIViewController {
         var sb = UIStoryboard(name: sbName, bundle: nil)
         var vc = sb.instantiateViewControllerWithIdentifier(vcName)
         return vc
@@ -269,7 +315,7 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     func setImage(button: UIButton){
         let imageUrl = NSUserDefaults.standardUserDefaults().objectForKey("userImage") as? String
         if imageUrl == "center_photo" {
-            button.setImage(UIImage(named: imageUrl!), forState: .Normal)
+            button.setImage(UIImage(named: "personal"), forState: .Normal)
         } else {
             button.kf_setImageWithURL(NSURL(string: imageUrl!), forState: .Normal)
         }

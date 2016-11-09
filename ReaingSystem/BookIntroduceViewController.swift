@@ -28,6 +28,8 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var addShelfButton: UIButton!
     //目录列表
     @IBOutlet weak var tableView: UITableView!
+    
+    
 
     //书籍简介信息
     var selectedBookID: String! {
@@ -89,10 +91,33 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
     
     //加入书架
     @IBAction func addToMyShelf(sender: UIButton) {
-        if sender.backgroundColor != UIColor.grayColor() {
+        print(sender.selected)
+        if sender.selected == false {
             addToShelf()
         }
     }
+    
+    
+    @IBAction func shareClick(sender: UIButton) {
+        print(sender.selected)
+    }
+    
+    
+    
+    @IBAction func share2Click(sender: UIButton) {
+        let shareParames = NSMutableDictionary()
+        shareParames.SSDKSetupShareParamsByText("分享内容", images: UIImage(named: "login_logo"), url: NSURL(string: "https://www.bing.com"), title: "分享标题", type: SSDKContentType.WebPage)
+        ShareSDK.share(SSDKPlatformType.TypeQQ, parameters: shareParames) { (states, nil, entity, error) in
+            switch states {
+            case SSDKResponseState.Success: print("风向成功")
+            case SSDKResponseState.Fail: print("失败： \(error)")
+            case SSDKResponseState.Cancel: print("取消")
+            default:
+                break
+            }
+        }
+    }
+    
     
     @IBAction func selectChange(sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
@@ -120,6 +145,7 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
     //阅读跳转
     @IBAction func readingClick(sender: UIButton) {
         guard catalogue.count != 0 else {
+            
             return
         }
         self.clickFrom = 0
@@ -205,12 +231,9 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
             self.catalogue.appendContentsOf(self.bookData.rows)
             self.tableView.reloadData()
             //是否已加入书架
-//            self.isOnShelf = self.bookData.data.first?.isOnShelf == 0 ? false : true
             if self.bookData.data.first?.isOnShelf == 1 {
-                self.addShelfButton.backgroundColor = UIColor.grayColor()
-                self.addShelfButton.tintColor = UIColor.clearColor()
-                self.addShelfButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
                 self.addShelfButton.selected = true
+                self.addShelfButton.setImage(UIImage(named: "readDetail_onShelf"), forState: .Selected)
             }
             //视图初始化
             self.initView(self.bookData)
@@ -229,10 +252,8 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
             if let flag = dictionary!["flag"] as? Int {
                 print("flag= \(flag)")
                 if flag == 1 {
-                    self.addShelfButton.backgroundColor = UIColor.grayColor()
-                    self.addShelfButton.tintColor = UIColor.clearColor()
-                    self.addShelfButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
                     self.addShelfButton.selected = true
+                    self.addShelfButton.setImage(UIImage(named: "readDetail_onShelf"), forState: UIControlState.Selected)
                 } else {
                     print("添加未成功")
                 }

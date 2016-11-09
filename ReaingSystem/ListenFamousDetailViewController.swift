@@ -111,6 +111,7 @@ class ListenFamousDetailViewController: UIViewController, UITableViewDelegate, U
         if indexPath.section == 1 {
             let toVC = self.toVC("Listen", vcName: "ListenDetail") as! ListenDetailViewController
             toVC.audioData = listArray[indexPath.row]
+            toVC.audioID = listArray[indexPath.row].audioID
             self.presentViewController(toVC, animated: true, completion: { 
                 self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
             })

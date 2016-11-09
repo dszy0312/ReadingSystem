@@ -8,9 +8,22 @@
 
 import UIKit
 
+protocol SexMoreSelectDelegate {
+    func sectionSelect(section: Int)
+}
+
 class SelectingSexHeaderCollectionReusableView: UICollectionReusableView {
     
     @IBOutlet weak var titleLabel: UILabel!
+    
+    var moreDelegate: SexMoreSelectDelegate!
+    var curSection: Int!
+    
+    @IBAction func moreClick(sender: UIButton) {
+        
+        moreDelegate.sectionSelect(curSection)
+    }
+    
     
     func setData(data: SelectSexData2) {
         self.titleLabel.text = data.categoryName

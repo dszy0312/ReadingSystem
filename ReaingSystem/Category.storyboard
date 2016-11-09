@@ -207,7 +207,7 @@
         <!--Category Detail View Controller-->
         <scene sceneID="77R-S5-wBY">
             <objects>
-                <viewController id="vAz-2e-Aj9" customClass="CategoryDetailViewController" customModule="ReaingSystem" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CategoryDetail" id="vAz-2e-Aj9" customClass="CategoryDetailViewController" customModule="ReaingSystem" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FqX-Vc-VMA"/>
                         <viewControllerLayoutGuide type="bottom" id="JWM-1Y-tTq"/>
@@ -356,6 +356,6 @@
         <image name="addbook" width="320" height="420"/>
         <image name="bookLoading" width="228" height="310"/>
         <image name="go_back" width="120" height="120"/>
-        <image name="personal" width="44" height="44"/>
+        <image name="personal" width="50" height="50"/>
     </resources>
 </document>

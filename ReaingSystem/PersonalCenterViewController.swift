@@ -22,6 +22,8 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var backgroundView: UIView!
     
+    @IBOutlet weak var tableBackgroundView: UIView!
+    
     //是否展示个人中心
     var showing = false {
         didSet {
@@ -57,6 +59,9 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
+        
+        //背景颜色设置
+        colorsSet()
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(didPan(_:)))
         
@@ -107,6 +112,8 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! PersonalCenterTableViewCell
         cell.titleLabel.text = textArray[indexPath.row]
         cell.personalImage.image = UIImage(named: imageArray[indexPath.row])
+        cell.selectedBackgroundView = UIView(frame: cell.frame)
+        cell.selectedBackgroundView?.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.2)
         return cell
     }
     
@@ -165,6 +172,17 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
 //        if icon != "" {
 //           photoImageView.kf_setImageWithURL(NSURL(string: icon), placeholderImage: UIImage(named: "center_photo"))
 //        }
+    }
+    
+    //颜色渐变设置
+    func colorsSet() {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = self.tableBackgroundView.bounds
+        self.tableBackgroundView.layer.addSublayer(gradientLayer)
+        gradientLayer.colors = [UIColor.personalCenter_background_first().CGColor, UIColor.personalCenter_background_second().CGColor]
+        
+        gradientLayer.startPoint = CGPointMake(0.5, 0)
+        gradientLayer.endPoint = CGPointMake(0.5, 1)
     }
     
     //MARK:网络请求

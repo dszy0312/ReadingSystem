@@ -20,12 +20,28 @@ class CategoryDetailViewController: UIViewController, UITableViewDelegate, UITab
 
     
     
-    //分类数据（上级页面输入）
-    var selectedData: CategoryRow!
+    //分类数据（上级页面输入）(来自分类主页面)
+    var selectedData: CategoryRow! {
+        didSet {
+            categoryTitle = selectedData.categoryName
+            getNetworkData(selectedData.categoryID)
+        }
+    }
+    
+    //分类数据（来自精选，男女分类模块）
+    var sexData: SelectSexData2! {
+        didSet {
+            categoryTitle = sexData.categoryName
+            getNetworkData(sexData.categoryID)
+        }
+    }
+    
     //网络获取数据
     var detailData: CategoryDetailRoot!
     //数据数组
     var dataArray: [CategoryDetailRow] = []
+    //标题名
+    var categoryTitle: String!
     
     //当前页
     var page = 1
@@ -39,9 +55,7 @@ class CategoryDetailViewController: UIViewController, UITableViewDelegate, UITab
 
         tableView.dataSource = self
         tableView.delegate = self
-        
-        self.titleLabel.text = selectedData.categoryName
-        getNetworkData()
+        self.titleLabel.text = categoryTitle
         // Do any additional setup after loading the view.
     }
 
@@ -114,8 +128,8 @@ class CategoryDetailViewController: UIViewController, UITableViewDelegate, UITab
         }
     }
     //网络请求
-    func getNetworkData() {
-        NetworkHealper.GetWithParm.receiveJSON(URLHealper.getStoryList.introduce(), parameter: ["categoryID": self.selectedData.categoryID]) { (dictionary, error) in
+    func getNetworkData(id: String) {
+        NetworkHealper.GetWithParm.receiveJSON(URLHealper.getStoryList.introduce(), parameter: ["categoryID": id]) { (dictionary, error) in
             guard error == nil else {
                 print(error)
                 return

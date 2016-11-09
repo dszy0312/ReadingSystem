@@ -52,6 +52,9 @@ class JournalDListViewController: UIViewController, UITableViewDelegate, UITable
         tableView.dataSource = self
         
         tableView.tableFooterView = footerView
+        for view in footerView.subviews {
+            view.backgroundColor = UIColor.whiteColor()
+        }
         
         //self.view.layer.cornerRadius = 2
         self.view.layer.masksToBounds = true

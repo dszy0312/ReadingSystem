@@ -101,7 +101,23 @@ extension UIColor {
     public class func search_paper_type() -> UIColor {
         return UIColor(red: 99.0 / 255.0, green: 153.0 / 255.0, blue: 189.0 / 255.0, alpha: 1.0)
     }
-
     
+    //个人中心背景渐变颜色
+    public class func personalCenter_background_first() -> UIColor {
+        return UIColor(red: 106.0 / 255.0, green: 167.0 / 255.0, blue: 212.0 / 255.0, alpha: 1.0)
+    }
+    public class func personalCenter_background_second() -> UIColor {
+        return UIColor(red: 67.0 / 255.0, green: 151.0 / 255.0, blue: 213.0 / 255.0, alpha: 1.0)
+    }
+    
+    //我的书架，删除和下载按钮背景颜色
+    
+    public class func myShelf_delete_bg() -> UIColor {
+        return UIColor(red: 213.0 / 255.0, green: 97.0 / 255.0, blue: 96.0 / 255.0, alpha: 1.0)
+    }
+    
+    public class func myShelf_downLoad_bg() -> UIColor {
+        return UIColor(red: 115.0 / 255.0, green: 174.0 / 255.0, blue: 83.0 / 255.0, alpha: 1.0)
+    }
     
 }
