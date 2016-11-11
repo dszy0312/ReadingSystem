@@ -26,10 +26,8 @@ class JournalImageViewController: UIPageViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(customIndex)
         self.imageView = UIImageView(image: UIImage(named: "paper_background"))
         self.imageView.kf_setImageWithURL(NSURL(string: imageURL), placeholderImage: UIImage(named: "paper_background"))
-        print(imageURL)
         self.initImageInstance()
         self.initScrollViewContainer()
         self.setupGestureRecognizer()
@@ -46,14 +44,12 @@ class JournalImageViewController: UIPageViewController, UIScrollViewDelegate {
     }
     // 產生圖片
     func initImageInstance(){
-        print(imageView.bounds)
         self.imageView.contentMode = .ScaleAspectFit
     }
     
     // 產生 Scroll View
     func initScrollViewContainer(){
         self.scrollView = UIScrollView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.bounds.width, height: self.view.bounds.height))
-        print(self.scrollView.bounds.height)
         //        self.scrollView.backgroundColor = UIColor.blackColor()
         self.scrollView.contentSize = imageView.bounds.size
         self.scrollView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]

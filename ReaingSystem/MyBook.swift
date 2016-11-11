@@ -11,7 +11,8 @@ struct MyBook{
 	var bookImg : String!
 	var bookName : String!
     var category: String!
-    var bookImgData = UIImage(named: "bookLoading")
+    var chapterID: String!
+    var chapterName: String!
 
 
 	/**
@@ -23,6 +24,8 @@ struct MyBook{
 		bookImg = dictionary["bookImg"] as? String
 		bookName = dictionary["bookName"] as? String
         category = dictionary["prCategory"] as? String
+        chapterID = dictionary["chapterID"] as? String
+        chapterID = dictionary["chapterName"] as? String
 	}
 
 }

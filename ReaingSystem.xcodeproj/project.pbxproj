@@ -194,6 +194,14 @@
 		98B39B211DD17EF600DCB62D /* MyShelfBarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B39B201DD17EF600DCB62D /* MyShelfBarCollectionViewCell.swift */; };
 		98B39B231DD1D1C200DCB62D /* MyShelfListenCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B39B221DD1D1C200DCB62D /* MyShelfListenCollectionViewCell.swift */; };
 		98B39B251DD1DDBB00DCB62D /* DeleteMyShelfListenCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B39B241DD1DDBB00DCB62D /* DeleteMyShelfListenCollectionViewCell.swift */; };
+		98B39B481DD2C4A600DCB62D /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98B39B461DD2C4A600DCB62D /* Realm.framework */; };
+		98B39B491DD2C4A600DCB62D /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98B39B471DD2C4A600DCB62D /* RealmSwift.framework */; };
+		98B39B4A1DD2C4C700DCB62D /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98B39B461DD2C4A600DCB62D /* Realm.framework */; };
+		98B39B4B1DD2C4C700DCB62D /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 98B39B461DD2C4A600DCB62D /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		98B39B4C1DD2C4C700DCB62D /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98B39B471DD2C4A600DCB62D /* RealmSwift.framework */; };
+		98B39B4D1DD2C4C700DCB62D /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 98B39B471DD2C4A600DCB62D /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		98B39B501DD2C64C00DCB62D /* JournalRmList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B39B4F1DD2C64C00DCB62D /* JournalRmList.swift */; };
+		98B39B521DD2C7DF00DCB62D /* PaperRmSearchList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B39B511DD2C7DF00DCB62D /* PaperRmSearchList.swift */; };
 		98C186201D6704ED008FCB15 /* BookListBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C1861D1D6704ED008FCB15 /* BookListBook.swift */; };
 		98C186211D6704ED008FCB15 /* BookListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C1861E1D6704ED008FCB15 /* BookListData.swift */; };
 		98C186511D6A962C008FCB15 /* BookIntroduceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C186501D6A962C008FCB15 /* BookIntroduceViewController.swift */; };
@@ -218,6 +226,10 @@
 		98C21B951D93E80000628AE5 /* CategoryDetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C21B931D93E80000628AE5 /* CategoryDetailRow.swift */; };
 		98C21B971D93E84C00628AE5 /* CategoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C21B961D93E84C00628AE5 /* CategoryDetailViewController.swift */; };
 		98C21B991D93E97900628AE5 /* CategoryDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C21B981D93E97900628AE5 /* CategoryDetailTableViewCell.swift */; };
+		98C365131DD47483001BE71D /* ListenChildListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C365121DD47483001BE71D /* ListenChildListViewController.swift */; };
+		98C365151DD474B9001BE71D /* ListenChildListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C365141DD474B9001BE71D /* ListenChildListTableViewCell.swift */; };
+		98C365191DD47D16001BE71D /* ListenChildRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C365171DD47D16001BE71D /* ListenChildRoot.swift */; };
+		98C3651A1DD47D16001BE71D /* ListenChildRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C365181DD47D16001BE71D /* ListenChildRow.swift */; };
 		98C7ACC31D640C740077DDAB /* URLHealper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C7ACC21D640C740077DDAB /* URLHealper.swift */; };
 		98CD8A131DC042440047D8DC /* JournalClassifyData2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A111DC042440047D8DC /* JournalClassifyData2.swift */; };
 		98CD8A141DC042440047D8DC /* JournalClassifyRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98CD8A121DC042440047D8DC /* JournalClassifyRoot.swift */; };
@@ -277,6 +289,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				98B39B4D1DD2C4C700DCB62D /* RealmSwift.framework in Embed Frameworks */,
+				98B39B4B1DD2C4C700DCB62D /* Realm.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -490,6 +504,10 @@
 		98B39B201DD17EF600DCB62D /* MyShelfBarCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyShelfBarCollectionViewCell.swift; sourceTree = "<group>"; };
 		98B39B221DD1D1C200DCB62D /* MyShelfListenCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyShelfListenCollectionViewCell.swift; sourceTree = "<group>"; };
 		98B39B241DD1DDBB00DCB62D /* DeleteMyShelfListenCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteMyShelfListenCollectionViewCell.swift; sourceTree = "<group>"; };
+		98B39B461DD2C4A600DCB62D /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		98B39B471DD2C4A600DCB62D /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
+		98B39B4F1DD2C64C00DCB62D /* JournalRmList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalRmList.swift; sourceTree = "<group>"; };
+		98B39B511DD2C7DF00DCB62D /* PaperRmSearchList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaperRmSearchList.swift; sourceTree = "<group>"; };
 		98C1861D1D6704ED008FCB15 /* BookListBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookListBook.swift; sourceTree = "<group>"; };
 		98C1861E1D6704ED008FCB15 /* BookListData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookListData.swift; sourceTree = "<group>"; };
 		98C186501D6A962C008FCB15 /* BookIntroduceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookIntroduceViewController.swift; sourceTree = "<group>"; };
@@ -514,6 +532,10 @@
 		98C21B931D93E80000628AE5 /* CategoryDetailRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDetailRow.swift; sourceTree = "<group>"; };
 		98C21B961D93E84C00628AE5 /* CategoryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDetailViewController.swift; sourceTree = "<group>"; };
 		98C21B981D93E97900628AE5 /* CategoryDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryDetailTableViewCell.swift; sourceTree = "<group>"; };
+		98C365121DD47483001BE71D /* ListenChildListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenChildListViewController.swift; sourceTree = "<group>"; };
+		98C365141DD474B9001BE71D /* ListenChildListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenChildListTableViewCell.swift; sourceTree = "<group>"; };
+		98C365171DD47D16001BE71D /* ListenChildRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenChildRoot.swift; sourceTree = "<group>"; };
+		98C365181DD47D16001BE71D /* ListenChildRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenChildRow.swift; sourceTree = "<group>"; };
 		98C7ACC21D640C740077DDAB /* URLHealper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLHealper.swift; sourceTree = "<group>"; };
 		98CD8A111DC042440047D8DC /* JournalClassifyData2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalClassifyData2.swift; sourceTree = "<group>"; };
 		98CD8A121DC042440047D8DC /* JournalClassifyRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalClassifyRoot.swift; sourceTree = "<group>"; };
@@ -572,9 +594,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98B39B4A1DD2C4C700DCB62D /* Realm.framework in Frameworks */,
 				9879FB501DA3EDA8000B356F /* libsqlite3.tbd in Frameworks */,
 				9879FB4E1DA3ED9C000B356F /* ImageIO.framework in Frameworks */,
+				98B39B491DD2C4A600DCB62D /* RealmSwift.framework in Frameworks */,
 				9879FB4C1DA3ED8E000B356F /* JavaScriptCore.framework in Frameworks */,
+				98B39B4C1DD2C4C700DCB62D /* RealmSwift.framework in Frameworks */,
 				9879FB4A1DA3ED84000B356F /* libstdc++.tbd in Frameworks */,
 				9879FB481DA3ED7A000B356F /* libz.tbd in Frameworks */,
 				9879FB461DA3ED70000B356F /* libicucore.tbd in Frameworks */,
@@ -584,6 +609,7 @@
 				9879FB3D1DA3ED38000B356F /* libWeiboSDK.a in Frameworks */,
 				A9395151B9626E872FB8CC8B /* Pods_ReaingSystem.framework in Frameworks */,
 				9879FB371DA3ED38000B356F /* ShareSDK.framework in Frameworks */,
+				98B39B481DD2C4A600DCB62D /* Realm.framework in Frameworks */,
 				9879FB381DA3ED38000B356F /* ShareSDKExtension.framework in Frameworks */,
 				9879FB441DA3ED38000B356F /* ShareSDKConnector.framework in Frameworks */,
 				9879FB3A1DA3ED38000B356F /* ShareSDKUI.framework in Frameworks */,
@@ -620,6 +646,7 @@
 		980301BC1D7FF06600180FDA /* model */ = {
 			isa = PBXGroup;
 			children = (
+				98C365161DD47CA7001BE71D /* ChildList */,
 				986CD5B81D922589008D15FE /* famous */,
 				986CD5AF1D922230008D15FE /* sequence */,
 				986CD5A61D921432008D15FE /* category */,
@@ -639,6 +666,7 @@
 				980301D11D7FFE1300180FDA /* ListenCategoryCollectionViewCell.swift */,
 				980301D31D7FFE3A00180FDA /* ListenCategoryHeaderCollectionReusableView.swift */,
 				980301D51D8000FB00180FDA /* ListenSequenceTableViewCell.swift */,
+				98C365141DD474B9001BE71D /* ListenChildListTableViewCell.swift */,
 				980301D91D800CB700180FDA /* ListenFamousCollectionViewCell.swift */,
 				986CD5C11D922EF3008D15FE /* ListenFamousTableViewCell.swift */,
 				980301DB1D800CF100180FDA /* ListenFamousHeaderCollectionReusableView.swift */,
@@ -658,6 +686,7 @@
 				980301C31D7FF41100180FDA /* ListenAdviceCollectionViewController.swift */,
 				980301C51D7FF44F00180FDA /* ListenCategoryCollectionViewController.swift */,
 				980301C91D7FF4BB00180FDA /* ListenSequenceTableViewController.swift */,
+				98C365121DD47483001BE71D /* ListenChildListViewController.swift */,
 				980301CB1D7FF4EA00180FDA /* ListenFamousViewController.swift */,
 				986CD5BF1D922E2C008D15FE /* ListenFamousListViewController.swift */,
 				986CD5C91D9266C2008D15FE /* ListenFamousDetailViewController.swift */,
@@ -743,6 +772,7 @@
 				98CD8A321DC4A8B90047D8DC /* JournalDetailRow.swift */,
 				98CD8A3D1DC5F58F0047D8DC /* JournalDListRoot.swift */,
 				98CD8A3E1DC5F58F0047D8DC /* JournalDListRow.swift */,
+				98B39B4F1DD2C64C00DCB62D /* JournalRmList.swift */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -1045,6 +1075,7 @@
 				98A2EBAB1DACBFBA00039CCA /* PaperMainRoot.swift */,
 				986BFEFA1DADE71E00A45B39 /* PaperMainHotSpaceList.swift */,
 				986BFEF81DADE71600A45B39 /* PaperMainData.swift */,
+				98B39B511DD2C7DF00DCB62D /* PaperRmSearchList.swift */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -1103,6 +1134,8 @@
 		98B1678E1D4993E80001EDAC = {
 			isa = PBXGroup;
 			children = (
+				98B39B461DD2C4A600DCB62D /* Realm.framework */,
+				98B39B471DD2C4A600DCB62D /* RealmSwift.framework */,
 				9879FB131DA3ED38000B356F /* ShareSDK */,
 				984D26B21D87F38B00343145 /* Podfile */,
 				9879FB511DA3EDDF000B356F /* ReaingSystem-Bridging-Header.h */,
@@ -1281,6 +1314,15 @@
 			name = model;
 			sourceTree = "<group>";
 		};
+		98C365161DD47CA7001BE71D /* ChildList */ = {
+			isa = PBXGroup;
+			children = (
+				98C365171DD47D16001BE71D /* ListenChildRoot.swift */,
+				98C365181DD47D16001BE71D /* ListenChildRow.swift */,
+			);
+			name = ChildList;
+			sourceTree = "<group>";
+		};
 		98CF5F001D9149570025D458 /* advice */ = {
 			isa = PBXGroup;
 			children = (
@@ -1438,6 +1480,7 @@
 				98F9CCAE1D597FA900EEFFA4 /* Embed Frameworks */,
 				165A665170DA334E90DC6399 /* [CP] Embed Pods Frameworks */,
 				E9D3EDF0645EBA24560691FA /* [CP] Copy Pods Resources */,
+				98B39B4E1DD2C50F00DCB62D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1558,6 +1601,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		98B39B4E1DD2C50F00DCB62D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"";
+		};
 		E9D3EDF0645EBA24560691FA /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1588,6 +1644,7 @@
 				986BFEF91DADE71600A45B39 /* PaperMainData.swift in Sources */,
 				98949D3B1D757C0C001FD433 /* FindNewMagazineCollectionViewCell.swift in Sources */,
 				9879FB101DA3CEB0000B356F /* WelcomeViewController.swift in Sources */,
+				98B39B501DD2C64C00DCB62D /* JournalRmList.swift in Sources */,
 				986CD5C01D922E2C008D15FE /* ListenFamousListViewController.swift in Sources */,
 				984C76471D5BFD5E00B3588D /* InterestCollectionViewCell.swift in Sources */,
 				98123DB91D782C0500F416EA /* JournalViewController.swift in Sources */,
@@ -1630,6 +1687,7 @@
 				984C76981D5D726600B3588D /* PersonalTabBar.swift in Sources */,
 				989122531DB4DEB200FCE871 /* UIColor+Extension.swift in Sources */,
 				98D9CB301D615EA500510E08 /* SelectingDetailTableViewCell.swift in Sources */,
+				98C365151DD474B9001BE71D /* ListenChildListTableViewCell.swift in Sources */,
 				98D9D1191D62F02D00A9D740 /* Row.swift in Sources */,
 				980301CE1D7FF79600180FDA /* ListenAdviceCollectionViewCell.swift in Sources */,
 				9866C8501DC6D0F300EA4D52 /* SecondOverlayAnimationController.swift in Sources */,
@@ -1660,6 +1718,7 @@
 				980301E81D81094F00180FDA /* SelectingSexCollectionViewCell.swift in Sources */,
 				98B39B231DD1D1C200DCB62D /* MyShelfListenCollectionViewCell.swift in Sources */,
 				98EE33DE1D66DF0600FD2CC3 /* MyBook.swift in Sources */,
+				98C3651A1DD47D16001BE71D /* ListenChildRow.swift in Sources */,
 				981140E41D868D580028EF8C /* ListenReturnData.swift in Sources */,
 				980301D61D8000FB00180FDA /* ListenSequenceTableViewCell.swift in Sources */,
 				98B23BD31D9BC004006A009A /* String+Extension.swift in Sources */,
@@ -1695,6 +1754,7 @@
 				986CD6071D9388EA008D15FE /* FooterLoadingCollectionReusableView.swift in Sources */,
 				98A2EBAD1DACBFBA00039CCA /* PaperMainRoot.swift in Sources */,
 				981C9F131D8F8B93000FCC6C /* HotKeyRoot.swift in Sources */,
+				98C365131DD47483001BE71D /* ListenChildListViewController.swift in Sources */,
 				980301E41D80F97100180FDA /* TopListTableViewCell.swift in Sources */,
 				98C186731D6C3426008FCB15 /* DeleteMyShelfViewController.swift in Sources */,
 				98CD8A3A1DC5E1460047D8DC /* JournalDListViewController.swift in Sources */,
@@ -1708,6 +1768,7 @@
 				98F028531D6EEDFB00B8ECCE /* ReadedAdvice.swift in Sources */,
 				980301D01D7FF7BF00180FDA /* ListenAdviceHeaderCollectionReusableView.swift in Sources */,
 				98FCC5021DB0C7E800285B02 /* PaperCatalogueCollectionViewCell.swift in Sources */,
+				98C365191DD47D16001BE71D /* ListenChildRoot.swift in Sources */,
 				980301DA1D800CB700180FDA /* ListenFamousCollectionViewCell.swift in Sources */,
 				98C21B971D93E84C00628AE5 /* CategoryDetailViewController.swift in Sources */,
 				988CC2201DA8DA4D000C000A /* alertView.swift in Sources */,
@@ -1727,6 +1788,7 @@
 				98ED5BF71D8FED66005BC3CA /* HotListRow.swift in Sources */,
 				980E91661D51D11C000A19CA /* InterestViewController.swift in Sources */,
 				98E8724E1D8E8F35002783B9 /* SelectTopListRoot.swift in Sources */,
+				98B39B521DD2C7DF00DCB62D /* PaperRmSearchList.swift in Sources */,
 				98C21B911D93D15600628AE5 /* CategoryPrList.swift in Sources */,
 				989099E01DB7130500855063 /* JournalListViewController.swift in Sources */,
 				98949D601D767CB6001FD433 /* SearchingDefaultViewController.swift in Sources */,
@@ -1922,6 +1984,7 @@
 					"$(PROJECT_DIR)/ShareSDK/Support/Optional",
 					"$(PROJECT_DIR)/ShareSDK/Support/PlatformSDK/QQSDK",
 					"$(PROJECT_DIR)/ShareSDK/Support/Required",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ReaingSystem/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1963,6 +2026,7 @@
 					"$(PROJECT_DIR)/ShareSDK/Support/Optional",
 					"$(PROJECT_DIR)/ShareSDK/Support/PlatformSDK/QQSDK",
 					"$(PROJECT_DIR)/ShareSDK/Support/Required",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ReaingSystem/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

@@ -233,6 +233,8 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
         return true
     }
     
+
+    
     
     
     //MARK： 自定义delegate
@@ -302,7 +304,6 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
             //获取数据
             let myShelf = MyShelf(fromDictionary: dictionary!)
-            
             self.myBooks = myShelf.rows
             self.readedBook = myShelf.data
             self.count = myShelf.totalCount

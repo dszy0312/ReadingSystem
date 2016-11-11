@@ -32,7 +32,7 @@ class CategoryDetailTableViewCell: UITableViewCell {
     func setData(data: CategoryDetailRow) {
         nameLabel.text = data.bookName
         authorLabel.text = data.author
-        detailLabel.text = ""
+        detailLabel.text = data.bookBrief
         if data.bookImg == nil {
             bookImageView.image = UIImage(named: "bookLoading")
         } else {
@@ -43,7 +43,7 @@ class CategoryDetailTableViewCell: UITableViewCell {
     func setData(data: TopListBookRow) {
         nameLabel.text = data.bookName
         authorLabel.text = data.author
-        detailLabel.text = ""
+        detailLabel.text = data.bookBrief
         if data.bookImg == nil {
             bookImageView.image = UIImage(named: "bookLoading")
         } else {

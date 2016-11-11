@@ -14,6 +14,9 @@ class JournalListViewController: UIViewController, UICollectionViewDelegate, UIC
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    //模拟navigation跳转
+    var transitionDelegate = ReadedBookListTransitionDelegate()
+    
     var customIndex: Int!
     //当前选中ID
     var selectedIndex: String! {
@@ -35,6 +38,8 @@ class JournalListViewController: UIViewController, UICollectionViewDelegate, UIC
     var canLoad = false
     //热搜榜当前页
     var page = 1
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,10 +56,16 @@ class JournalListViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
         collectionView.registerNib(UINib(nibName: "FooterLoadingCollectionReusableView",bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: reuseIdentifier[2])
         
     }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        collectionView.contentOffset.y = 0
+    }
+    
+    
 
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -62,6 +73,8 @@ class JournalListViewController: UIViewController, UICollectionViewDelegate, UIC
             let toVC = segue.destinationViewController as! JournalDTViewController
             toVC.id = listData[selectedRow].isID
             toVC.mzID = listData[selectedRow].isMzID
+            toVC.transitioningDelegate = transitionDelegate
+            toVC.modalPresentationStyle = .Custom
         }
     }
     

@@ -22,6 +22,9 @@ class SelectingSexViewController: UIViewController, UICollectionViewDataSource,U
     //男女页面详情信息
     var sexDetailData: [String: SelectSexDetailRoot] = [:]
     
+    //模拟navigation跳转
+    var transitionDelegate = ReadedBookListTransitionDelegate()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -135,6 +138,8 @@ class SelectingSexViewController: UIViewController, UICollectionViewDataSource,U
     func sectionSelect(section: Int) {
         if let toVC = childVC("Category", vcName: "CategoryDetail") as? CategoryDetailViewController {
             toVC.sexData = sexRootData.data2[section]
+            toVC.transitioningDelegate = transitionDelegate
+            toVC.modalPresentationStyle = .Custom
             self.presentViewController(toVC, animated: true, completion: nil)
         }
 
@@ -166,7 +171,6 @@ class SelectingSexViewController: UIViewController, UICollectionViewDataSource,U
         }
     }
     func getDetailData(data: [SelectSexData2]) {
-        print("男生年出生\(data.count)")
         for i in 0..<data.count {
             NetworkHealper.GetWithParm.receiveJSON(URLHealper.getHotStoryByCategory.introduce(), parameter: ["categoryID": data[i].categoryID]) { (dictionary, error) in
                 guard error == nil else {

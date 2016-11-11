@@ -33,7 +33,6 @@ class MaskPresentTationController: UIPresentationController {
         print(imageView.center)
         
         var toVC = self.presentedViewController as! InterestViewController
-        print("\(toVC.sexButton.bounds),\(toVC.sexButton.center)")
         presentedViewController.transitionCoordinator()?.animateAlongsideTransition({ (_) in
             //toVC子类赋值在动画之后，xcode升级之后发生的变化，暂时写死
             self.changeView.frame = CGRect(x: 22.0, y: 40.0, width: 40.0, height: 40.0)

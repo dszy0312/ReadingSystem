@@ -61,7 +61,11 @@
                                             <constraint firstAttribute="height" constant="30" id="MPu-QI-tBL"/>
                                             <constraint firstAttribute="width" constant="214" id="gvr-DP-wOK"/>
                                         </constraints>
-                                        <state key="normal" image="paper_search" backgroundImage="paper_search_background"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="请输入搜索关键字" image="paper_search" backgroundImage="paper_search_background">
+                                            <color key="titleColor" red="0.44705882349999998" green="0.44705882349999998" blue="0.44705882349999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="searchClick:" destination="SyS-wo-kj5" eventType="touchUpInside" id="PdN-Xv-OiW"/>
                                         </connections>
@@ -463,18 +467,18 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="取消">
-                                            <color key="titleColor" red="0.26274509800000001" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="cancleClick:" destination="Zbb-Vk-ZsA" eventType="touchUpInside" id="QAg-s3-ch8"/>
                                         </connections>
                                     </button>
-                                    <searchBar contentMode="redraw" horizontalCompressionResistancePriority="749" placeholder="请输入搜索关键字" translatesAutoresizingMaskIntoConstraints="NO" id="Q8o-m2-Nh4">
+                                    <searchBar contentMode="redraw" horizontalCompressionResistancePriority="749" placeholder="请输入搜索关键字" backgroundImage="search-bg" translatesAutoresizingMaskIntoConstraints="NO" id="Q8o-m2-Nh4">
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                 </subviews>
-                                <color key="backgroundColor" red="0.92255353880000002" green="0.94466949079999996" blue="0.9637590815" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.4181046155" green="0.62975897140000003" blue="0.78406168980000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="Q8o-m2-Nh4" firstAttribute="leading" secondItem="fzH-ah-zGM" secondAttribute="leading" constant="8" id="Pb1-1k-bZw"/>
                                     <constraint firstItem="1Q0-zE-ngC" firstAttribute="leading" secondItem="Q8o-m2-Nh4" secondAttribute="trailing" constant="10" id="URF-oD-PrV"/>
@@ -729,7 +733,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VLQ-j3-sSv">
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="TzL-Xi-I2m">
                                     <size key="itemSize" width="113" height="56"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -803,7 +807,8 @@
         <image name="go_back" width="120" height="120"/>
         <image name="paper_search" width="15" height="15"/>
         <image name="paper_search_background" width="428" height="60"/>
-        <image name="personal" width="44" height="44"/>
+        <image name="personal" width="50" height="50"/>
+        <image name="search-bg" width="1" height="150"/>
         <image name="searchBarBackground2" width="123" height="42"/>
     </resources>
     <inferredMetricsTieBreakers>

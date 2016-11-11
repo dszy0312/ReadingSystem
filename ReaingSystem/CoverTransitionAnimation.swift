@@ -1,7 +1,7 @@
 //
 //  CoverTransitionAnimation.swift
 //  ReaingSystem
-//
+//  从右向左滑入
 //  Created by 魏辉 on 16/8/11.
 //  Copyright © 2016年 魏辉. All rights reserved.
 //
@@ -22,10 +22,6 @@ class CoverTransitionAnimation: NSObject, UIViewControllerAnimatedTransitioning 
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-//        
-//        guard let containerView = transitionContext.containerView(), fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey), toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) else{
-//            return
-//        }
         
         let containerView = transitionContext.containerView()
         let fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)

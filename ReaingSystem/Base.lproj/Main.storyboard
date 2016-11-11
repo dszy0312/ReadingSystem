@@ -543,12 +543,12 @@
                         <outlet property="containerView" destination="zWE-Af-lhF" id="tlT-vg-bE9"/>
                         <outlet property="nextButton" destination="Vwd-Ha-061" id="HT3-qg-UlD"/>
                         <outlet property="pageControl" destination="jNz-Eb-VLh" id="9Qz-DU-a5L"/>
-                        <segue destination="6uz-x3-J5q" kind="presentation" identifier="LeadingSegue" id="RQy-dK-0Ax"/>
+                        <segue destination="ZqK-df-VdE" kind="presentation" identifier="LeadingSegue" id="Qfr-OR-Tyd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q3M-6m-xlv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2954.4000000000001" y="-1375.8620689655174"/>
+            <point key="canvasLocation" x="-2018" y="-1272"/>
         </scene>
         <!--Welcome Page View Controller-->
         <scene sceneID="0j6-db-1AJ">
@@ -556,7 +556,7 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="bLP-CG-5SN" customClass="WelcomePageViewController" customModule="ReaingSystem" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ch6-9i-9lR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1943" y="-2116"/>
+            <point key="canvasLocation" x="-1222" y="-2113"/>
         </scene>
         <!--Sex View Controller-->
         <scene sceneID="VpC-hE-1U9">
@@ -634,12 +634,11 @@
                     <connections>
                         <outlet property="manImageButton" destination="lrj-BP-DaS" id="ndd-oD-dQE"/>
                         <outlet property="womanImageButton" destination="soz-Th-h38" id="aRt-KU-pVv"/>
-                        <segue destination="ZqK-df-VdE" kind="presentation" identifier="InterestSegue" id="AFA-wH-86e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TBN-ha-RIt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1772" y="-1271"/>
+            <point key="canvasLocation" x="-266" y="-2349"/>
         </scene>
         <!--Interest View Controller-->
         <scene sceneID="K3R-XK-hhD">
@@ -658,16 +657,6 @@
                                 <color key="textColor" red="0.26274509800000001" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QeN-iZ-6h8">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="Ole-LV-ffQ"/>
-                                    <constraint firstAttribute="height" constant="40" id="YhR-Xj-Kfr"/>
-                                </constraints>
-                                <state key="normal" backgroundImage="leading_女"/>
-                                <connections>
-                                    <action selector="backAction:" destination="ZqK-df-VdE" eventType="touchUpInside" id="pNx-2c-f2I"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q7S-JF-HNB">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="41" id="KW2-l1-V8i"/>
@@ -742,12 +731,8 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="QeN-iZ-6h8" firstAttribute="top" secondItem="CCJ-ft-Zy1" secondAttribute="bottom" constant="10" id="1uq-Df-tcP"/>
                             <constraint firstItem="fhM-e4-ODP" firstAttribute="leading" secondItem="gT8-HX-of6" secondAttribute="leadingMargin" constant="26" id="Bgd-cQ-FWR"/>
-                            <constraint firstItem="QeN-iZ-6h8" firstAttribute="centerY" secondItem="fhM-e4-ODP" secondAttribute="centerY" id="F7s-4O-TOX"/>
                             <constraint firstItem="fhM-e4-ODP" firstAttribute="top" secondItem="CCJ-ft-Zy1" secondAttribute="bottom" constant="29" id="FT8-Kh-kkw"/>
-                            <constraint firstItem="QeN-iZ-6h8" firstAttribute="leading" secondItem="gT8-HX-of6" secondAttribute="leadingMargin" constant="2" id="FtP-B3-DaR"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="QeN-iZ-6h8" secondAttribute="trailing" constant="6" id="IOL-PO-3oi"/>
                             <constraint firstItem="Q7S-JF-HNB" firstAttribute="centerX" secondItem="gT8-HX-of6" secondAttribute="centerX" id="Iwk-rj-Ehe"/>
                             <constraint firstItem="Tvn-1K-vkS" firstAttribute="top" secondItem="fhM-e4-ODP" secondAttribute="bottom" constant="26" id="WB3-rK-2OZ"/>
                             <constraint firstItem="fhM-e4-ODP" firstAttribute="centerX" secondItem="gT8-HX-of6" secondAttribute="centerX" id="XaZ-y8-hkh"/>
@@ -758,8 +743,6 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="1uq-Df-tcP"/>
-                                <exclude reference="IOL-PO-3oi"/>
                                 <exclude reference="Bgd-cQ-FWR"/>
                                 <exclude reference="dgE-tQ-VKo"/>
                             </mask>
@@ -767,7 +750,6 @@
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="Tvn-1K-vkS" id="cas-rt-tAa"/>
-                        <outlet property="sexButton" destination="QeN-iZ-6h8" id="Eyf-Or-7Ly"/>
                         <outlet property="startButton" destination="Q7S-JF-HNB" id="YdX-bc-fn2"/>
                         <segue destination="mmc-YY-Yf2" kind="presentation" identifier="DetailSegue" id="5id-js-pIV"/>
                     </connections>
@@ -1244,6 +1226,6 @@
         <image name="验证" width="34" height="44"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5pu-ET-A4k"/>
+        <segue reference="5id-js-pIV"/>
     </inferredMetricsTieBreakers>
 </document>

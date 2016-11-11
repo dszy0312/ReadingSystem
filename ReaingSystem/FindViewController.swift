@@ -23,6 +23,9 @@ class FindViewController: UIViewController, UICollectionViewDelegate, UICollecti
     //期刊数据
     var journalData: [FindData2] = []
     
+    //模拟navigation跳转
+    var transitionDelegate = ReadedBookListTransitionDelegate()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -152,6 +155,7 @@ class FindViewController: UIViewController, UICollectionViewDelegate, UICollecti
         case 1:
             if let toVC = detailVC("Listen", vcName: "ListenDetail") as? ListenDetailViewController {
                 toVC.audioID = listenData[indexPath.row].audioID
+                
                 self.presentViewController(toVC, animated: true, completion: nil)
             }
         case 2:
@@ -176,10 +180,14 @@ class FindViewController: UIViewController, UICollectionViewDelegate, UICollecti
         case 1:
             
             if let toVC = detailVC("Listen", vcName: "Listen") as? ListenViewController {
+                toVC.transitioningDelegate = transitionDelegate
+                toVC.modalPresentationStyle = .Custom
                 self.presentViewController(toVC, animated: true, completion: nil)
             }
         case 2:
             if let toVC = detailVC("Journal", vcName: "Journal") as? JournalViewController {
+                toVC.transitioningDelegate = transitionDelegate
+                toVC.modalPresentationStyle = .Custom
                 self.presentViewController(toVC, animated: true, completion: nil)
             }
         default:

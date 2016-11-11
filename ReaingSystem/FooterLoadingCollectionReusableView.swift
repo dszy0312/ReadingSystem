@@ -24,7 +24,7 @@ class FooterLoadingCollectionReusableView: UICollectionReusableView {
         self.loadingActivityView.startAnimating()
         self.loadingActivityView.alpha = 1
         self.loadingLabel.alpha = 1
-        self.loadingLabel.text = "加载中。。"
+        self.loadingLabel.text = "加载中……"
     }
     
     //结束加载

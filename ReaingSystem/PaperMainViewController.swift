@@ -43,6 +43,16 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
         }
     }
     
+    //版面选择
+    var selectedIndex: Int! {
+        didSet {
+            startTime()
+            viewLocationManage(1)
+            let childVC = self.getPaperShow()
+            childVC.setShowPage(selectedIndex)
+        }
+    }
+    
     //计时器
     var timer: NSTimer!
 
@@ -75,6 +85,14 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
         setImage(personalButton)
         startTime()
     }
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        endTime()
+        if editionButton.tag == 2 {
+            viewLocationManage(1)
+            self.editionButton.setTitle(currentEdition, forState: .Normal)
+        }
+    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == reuseIdentifier[0] {
@@ -86,9 +104,12 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
     }
 
     
-    
+    //日历按钮
     @IBAction func dateSelectedClick(sender: UIButton) {
-        
+        if editionButton.tag == 2 {
+            viewLocationManage(1)
+            self.editionButton.setTitle(currentEdition, forState: .Normal)
+        }
         performSegueWithIdentifier(reuseIdentifier[0], sender: self)
     }
     
@@ -102,40 +123,26 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
             }
         }
     }
-    
+    //版面按钮
     @IBAction func paperShowClick(sender: UIButton) {
+        //tag=1表示版面视图显示， tag=2表示版面选择框出现，tag=3表示列表视图显示
         if sender.tag == 1 {
             endTime()
             self.buttonView.alpha = 1
-            sender.tag = 2
-            self.view.bringSubviewToFront(self.backgroundView)
-            backgroundView.backgroundColor = UIColor.blackColor()
-            backgroundView.alpha = 0.3
-            self.view.bringSubviewToFront(self.editionSelectView)
-            self.view.bringSubviewToFront(self.buttonView)
+            viewLocationManage(2)
 
             self.currentEdition = sender.currentTitle!
             self.editionButton.setTitle("版面", forState: .Normal)
             
         } else if sender.tag == 2 {
             startTime()
-            sender.tag = 1
-            self.view.bringSubviewToFront(self.paperShowContainerView)
-            self.view.sendSubviewToBack(self.editionSelectView)
-            self.view.bringSubviewToFront(self.buttonView)
-            backgroundView.backgroundColor = UIColor.whiteColor()
-            backgroundView.alpha = 1
-            
+            viewLocationManage(1)
             self.editionButton.setTitle(currentEdition, forState: .Normal)
             
         } else if sender.tag == 3 {
             startTime()
-            sender.tag = 1
             self.catalogueButton.tag = 0
-            //位置设置
-            self.view.sendSubviewToBack(self.paperCatalogueContainerView)
-            self.view.bringSubviewToFront(self.paperShowContainerView)
-            self.view.bringSubviewToFront(self.buttonView)
+            viewLocationManage(1)
             //文字设置
             self.editionButton.setTitle(currentEdition, forState: .Normal)
             self.editionButton.setTitleColor(UIColor.mainColor(), forState: .Normal)
@@ -144,18 +151,13 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
         }
         
     }
-    
+    //目录按钮
     @IBAction func CatalogueShowClick(sender: UIButton) {
         
         if sender.tag == 0 && self.editionButton.tag == 1{
             startTime()
             sender.tag == 1
-            self.editionButton.tag = 3
-            
-            self.view.sendSubviewToBack(self.paperShowContainerView)
-            self.view.bringSubviewToFront(self.paperCatalogueContainerView)
-            self.view.bringSubviewToFront(self.buttonView)
-            
+            viewLocationManage(3)
             self.currentEdition = editionButton.currentTitle!
             self.editionButton.setTitle("版面", forState: .Normal)
             self.editionButton.setTitleColor(UIColor.defaultColor(), forState: .Normal)
@@ -185,6 +187,33 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
             button.setImage(UIImage(named: "personal"), forState: .Normal)
         } else {
             button.kf_setImageWithURL(NSURL(string: imageUrl!), forState: .Normal)
+        }
+    }
+    
+    //视图位置管理
+    func viewLocationManage(tag: Int) {
+        switch tag {
+        case 1:
+            self.editionButton.tag = 1
+            self.view.bringSubviewToFront(self.paperShowContainerView)
+            self.view.sendSubviewToBack(self.editionSelectView)
+            self.view.bringSubviewToFront(self.buttonView)
+            backgroundView.backgroundColor = UIColor.whiteColor()
+            backgroundView.alpha = 1
+        case 2:
+            self.editionButton.tag = 2
+            self.view.bringSubviewToFront(self.backgroundView)
+            backgroundView.backgroundColor = UIColor.blackColor()
+            backgroundView.alpha = 0.3
+            self.view.bringSubviewToFront(self.editionSelectView)
+            self.view.bringSubviewToFront(self.buttonView)
+        case 3:
+            self.editionButton.tag = 3
+            self.view.sendSubviewToBack(self.paperShowContainerView)
+            self.view.bringSubviewToFront(self.paperCatalogueContainerView)
+            self.view.bringSubviewToFront(self.buttonView)
+        default:
+            break
         }
     }
     

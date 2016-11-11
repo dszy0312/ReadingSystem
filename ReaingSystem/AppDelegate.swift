@@ -33,7 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NSUserDefaults.standardUserDefaults().registerDefaults(["userImage": "center_photo"])
         
         let isFirstLaunch = NSUserDefaults.standardUserDefaults().boolForKey("isFirstLaunch")
-        print(isFirstLaunch)
         if !isFirstLaunch {
             window = UIWindow(frame: UIScreen.mainScreen().bounds)
                     window?.makeKeyAndVisible()

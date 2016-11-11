@@ -12,6 +12,7 @@ struct CategoryDetailRow{
 	var bookName : String!
 	var isOnShelf : Int!
 	var recentReadDate : AnyObject!
+    var bookBrief: String!
 
 
 	/**
@@ -23,6 +24,7 @@ struct CategoryDetailRow{
 		bookImg = dictionary["bookImg"] as? String
 		bookName = dictionary["bookName"] as? String
         isOnShelf = dictionary["isOnShelf"] as? Int
+        bookBrief = dictionary["bookBrief"] as? String
 
 	}
 

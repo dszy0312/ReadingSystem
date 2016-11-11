@@ -36,6 +36,9 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     //跳转搜索页面
     var searchingTransitionDelegate = SearchingTransitionDelegate()
     
+    //模拟navigation跳转
+    var transitionDelegate = ReadedBookListTransitionDelegate()
+    
     
     //轮播图
     var imagesRow: [SelectRow]? = []
@@ -168,18 +171,26 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
             let toVC = self.toVC("Selecting", vcName: "SearchingSex") as! SelectingSexViewController
             toVC.classifyData = self.classifyData![indexPath.row]
             toVC.getData(toVC.classifyData.iconID)
+            toVC.transitioningDelegate = transitionDelegate
+            toVC.modalPresentationStyle = .Custom
             self.presentViewController(toVC, animated: true, completion: nil)
             
         case 2:
             print("出版页面开发中。。")
         case 3:
             let toVC = self.toVC("Listen", vcName: "Listen")
+            toVC.transitioningDelegate = transitionDelegate
+            toVC.modalPresentationStyle = .Custom
             self.presentViewController(toVC, animated: true, completion: nil)
         case 4:
             let toVC = self.toVC("Selecting", vcName: "TopList")
+            toVC.transitioningDelegate = transitionDelegate
+            toVC.modalPresentationStyle = .Custom
             self.presentViewController(toVC, animated: true, completion: nil)
         case 5:
             let toVC = self.toVC("Journal", vcName: "Journal")
+            toVC.transitioningDelegate = transitionDelegate
+            toVC.modalPresentationStyle = .Custom
             self.presentViewController(toVC, animated: true, completion: nil)
         case 6:
             print("书摘页面开发中。。")
@@ -201,7 +212,6 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     //MARK: tableView delegate dataSource
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(floorDatas.count)
         return floorDatas.count == 0 ? 1 : floorDatas.count + 1
     }
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -323,7 +333,6 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
                 print(error)
                 return
             }
-            print(dictionary)
             self.readAdvice = ReadedAdvice(fromDictionary: dictionary!)
             self.tableView.reloadData()
         }
@@ -387,7 +396,6 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
                 print(error)
                 return
             }
-            print(dictionary)
             let readedAdvice = ReadedAdvice(fromDictionary: dictionary!)
             print("askhduiasdh \(readedAdvice.curPage) \(readedAdvice.pageCount)")
             guard readedAdvice.pageCount >= readedAdvice.curPage else {

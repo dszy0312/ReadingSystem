@@ -86,7 +86,9 @@ class PaperEditionSelectViewController: UIViewController, UICollectionViewDataSo
     
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        
+        if let pVC = self.parentViewController as? PaperMainViewController {
+            pVC.selectedIndex = indexPath.row
+        }
     }
 
     /*

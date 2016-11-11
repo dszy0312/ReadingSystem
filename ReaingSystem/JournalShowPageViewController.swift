@@ -80,7 +80,7 @@ class JournalShowPageViewController: UIPageViewController, UIPageViewControllerD
             return
         }
         let cVC = pageViewController.viewControllers?.first as! JournalListViewController
-        cVC.getListData(idArray[cVC.customIndex])
+        cVC.selectedIndex = idArray[cVC.customIndex]
         let pVC = self.parentViewController as! JournalViewController
         pVC.curIndex = cVC.customIndex
     }

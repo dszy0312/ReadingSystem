@@ -46,33 +46,8 @@ class ListenPlayViewController: UIViewController {
             self.addShelfButton.selected = true
             self.addShelfButton.setImage(UIImage(named: "readDetail_onShelf_gray"), forState: .Selected)
         }
+        self.listenPlay(baseURl + listenData.dirList[index].audioUrl)
         
-        guard let url = NSURL(string: baseURl + listenData.dirList[index].audioUrl) else {
-            print("连接错误")
-            return
-        }
-        
-        playerItem = AVPlayerItem(URL: url)
-        //监听缓冲进度
-        playerItem.addObserver(self, forKeyPath: "loadedTimeRanges", options: NSKeyValueObservingOptions.New, context: nil)
-        //监听状态改变
-        playerItem.addObserver(self, forKeyPath: "status", options: NSKeyValueObservingOptions.New, context: nil)
-        
-        //将音频资源赋值给音频播放对象
-        self.avplayer = AVPlayer(playerItem: playerItem)
-        
-        self.link = CADisplayLink(target: self, selector: #selector(update(_:)))
-        self.link.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSDefaultRunLoopMode)
-
-        
-        //按下时
-        slider.addTarget(self, action: #selector(sliderTouchDown(_:)), forControlEvents: UIControlEvents.TouchDown)
-        //弹起时
-        slider.addTarget(self, action: #selector(sliderTouchUpOut(_:)), forControlEvents: UIControlEvents.TouchUpOutside)
-        slider.addTarget(self, action: #selector(sliderTouchUpOut(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        slider.addTarget(self, action: #selector(sliderTouchUpOut(_:)), forControlEvents: UIControlEvents.TouchCancel)
-        
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -86,32 +61,27 @@ class ListenPlayViewController: UIViewController {
     }
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        playerItem.removeObserver(self, forKeyPath: "loadedTimeRanges")
-        playerItem.removeObserver(self, forKeyPath: "status")
-        self.avplayer.pause()
-        self.link.paused = true
-        self.link.removeFromRunLoop(NSRunLoop.mainRunLoop(), forMode: NSDefaultRunLoopMode)
-        self.playerItem = nil
-        self.avplayer = nil
+        deleteListenData()
     }
+    /*
     deinit {
         playerItem.removeObserver(self, forKeyPath: "loadedTimeRanges")
         playerItem.removeObserver(self, forKeyPath: "status")
-    }
+    }*/
     
     @IBAction func backClick(sender: UIButton) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    //播放暂停按钮
     @IBAction func playClick(sender: UIButton) {
         playing = !playing
         if playing {
-            sender.setTitle("暂停", forState: UIControlState.Normal)
+            sender.setImage(UIImage(named: "listen_zanting"), forState: .Normal)
             if self.avplayer.status == AVPlayerStatus.ReadyToPlay {
                 self.avplayer.play()
             }
         } else {
-            sender
-            sender.setTitle("开始", forState: UIControlState.Normal)
+            sender.setImage(UIImage(named: "listen_play"), forState: .Normal)
             self.avplayer.pause()
         }
     }
@@ -122,12 +92,62 @@ class ListenPlayViewController: UIViewController {
         }
     }
     
+    @IBAction func beforeClick(sender: UIButton) {
+        guard index != 0 else {
+            return
+        }
+        index -= 1
+        deleteListenData()
+        listenPlay(baseURl + listenData.dirList[index].audioUrl)
+        self.titleLabel.text = listenData.dirList[index].chapterName
+        self.authorLabel.text = listenData.author
+    }
     
-    //私有方法 数据设置
+    @IBAction func afterClick(sender: UIButton) {
+        guard index != listenData.dirList.count - 1 else {
+            return
+        }
+        index += 1
+        deleteListenData()
+        listenPlay(baseURl + listenData.dirList[index].audioUrl)
+        self.titleLabel.text = listenData.dirList[index].chapterName
+        self.authorLabel.text = listenData.author
+    }
+    
+    
+    //MARK:私有方法
+    //数据设置
     func initData(listenData: ListenReturnData, index: Int) {
         self.listenData = listenData
         self.index = index
     }
+    //音频下载播放
+    func listenPlay(url: String) {
+        guard let url = NSURL(string: baseURl + listenData.dirList[index].audioUrl) else {
+            print("连接错误")
+            return
+        }
+        playerItem = AVPlayerItem(URL: url)
+        //监听缓冲进度
+        playerItem.addObserver(self, forKeyPath: "loadedTimeRanges", options: NSKeyValueObservingOptions.New, context: nil)
+        //监听状态改变
+        playerItem.addObserver(self, forKeyPath: "status", options: NSKeyValueObservingOptions.New, context: nil)
+        
+        //将音频资源赋值给音频播放对象
+        self.avplayer = AVPlayer(playerItem: playerItem)
+        
+        self.link = CADisplayLink(target: self, selector: #selector(update(_:)))
+        self.link.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSDefaultRunLoopMode)
+        
+        
+        //按下时
+        slider.addTarget(self, action: #selector(sliderTouchDown(_:)), forControlEvents: UIControlEvents.TouchDown)
+        //弹起时
+        slider.addTarget(self, action: #selector(sliderTouchUpOut(_:)), forControlEvents: UIControlEvents.TouchUpOutside)
+        slider.addTarget(self, action: #selector(sliderTouchUpOut(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        slider.addTarget(self, action: #selector(sliderTouchUpOut(_:)), forControlEvents: UIControlEvents.TouchCancel)
+    }
+    
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if keyPath == "loadedTimeRanges" {
@@ -217,6 +237,17 @@ class ListenPlayViewController: UIViewController {
         let durationSecond = CMTimeGetSeconds(timeRange.duration)
         let result = startSeconds + durationSecond
         return result
+    }
+    
+    //音频清理
+    func deleteListenData() {
+        playerItem.removeObserver(self, forKeyPath: "loadedTimeRanges")
+        playerItem.removeObserver(self, forKeyPath: "status")
+        self.avplayer.pause()
+        self.link.paused = true
+        self.link.removeFromRunLoop(NSRunLoop.mainRunLoop(), forMode: NSDefaultRunLoopMode)
+        self.playerItem = nil
+        self.avplayer = nil
     }
     
 

@@ -35,7 +35,7 @@ enum URLHealper {
     case myShelfURL
     //最近阅读列表接口
     case readedBooksURL
-    //从书架溢出某书籍（参数： bookList）
+    //从书架删除某书籍（参数： bookList）
     case removeBookFromShelf
     
     //MARK: 精选页面
@@ -84,6 +84,8 @@ enum URLHealper {
     case getVoiceCategory
     //听书排行页面
     case getVoiceRankList
+    //听书三级页面 (参数： CategoryID, pageIndex)
+    case getVoiceChildList
     //听书名家页面轮播
     case getVoiceLoopList
     //听书名家页面推荐的名人列表
@@ -206,6 +208,8 @@ enum URLHealper {
             return baseURl + "voice/GetCategory"
         case .getVoiceRankList:
             return baseURl + "Voice/GetRankList"
+        case .getVoiceChildList:
+            return baseURl + "voice/getlist"
         case .getVoiceLoopList:
             return baseURl + "Voice/GetLoopList"
         case .getVoiceTopAuthorList:

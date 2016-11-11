@@ -128,6 +128,12 @@ class ListenDetailViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if tableView.contentOffset.y < 0 {
+            tableView.contentOffset.y = 0
+        }
+    }
+    
     //MARK:网络请求
     //请求音频详情数据
     func getListenDetail(id: String) {

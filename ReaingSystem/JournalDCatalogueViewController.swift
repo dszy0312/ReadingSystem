@@ -47,7 +47,6 @@ class JournalDCatalogueViewController: UIViewController, UICollectionViewDelegat
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(detailData)
         
         return Int(detailData.isPageCount)!
     }

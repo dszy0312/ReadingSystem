@@ -145,7 +145,6 @@ class SearchingListViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     @IBAction func sequenceClick(sender: UIButton) {
-        print(sender.tag)
         if sender.tag == 0 {
             sender.tag = 1
             isAppeared = true
@@ -173,7 +172,6 @@ class SearchingListViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     @IBAction func classifyClick(sender: UIButton) {
-                print(sender.tag)
         if sender.tag == 0 {
             sender.tag = 1
             isAppeared = true

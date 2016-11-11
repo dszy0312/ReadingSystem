@@ -837,25 +837,25 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最近阅读" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4g3-Ce-Y0S">
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" red="0.26274509800000001" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YUu-g4-SRi">
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="dAe-Uj-5Up"/>
-                                            <constraint firstAttribute="width" constant="30" id="jyc-9n-Zxa"/>
+                                            <constraint firstAttribute="height" constant="44" id="dAe-Uj-5Up"/>
+                                            <constraint firstAttribute="width" constant="44" id="jyc-9n-Zxa"/>
                                         </constraints>
-                                        <state key="normal" image="go_back"/>
+                                        <state key="normal" image="go_back2"/>
                                         <connections>
                                             <action selector="backClick:" destination="EP8-EC-eEo" eventType="touchUpInside" id="Pgw-9s-cRJ"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.41960784309999999" green="0.63137254899999995" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="4g3-Ce-Y0S" firstAttribute="centerX" secondItem="IWE-U0-dDv" secondAttribute="centerX" id="4cf-ay-bc3"/>
                                     <constraint firstItem="YUu-g4-SRi" firstAttribute="centerY" secondItem="4g3-Ce-Y0S" secondAttribute="centerY" id="8yq-4R-dRm"/>
-                                    <constraint firstItem="YUu-g4-SRi" firstAttribute="leading" secondItem="IWE-U0-dDv" secondAttribute="leading" constant="10" id="IKR-GU-o0w"/>
+                                    <constraint firstItem="YUu-g4-SRi" firstAttribute="leading" secondItem="IWE-U0-dDv" secondAttribute="leading" id="IKR-GU-o0w"/>
                                     <constraint firstItem="4g3-Ce-Y0S" firstAttribute="centerY" secondItem="IWE-U0-dDv" secondAttribute="centerY" constant="10" id="Tjs-U0-lUG"/>
                                     <constraint firstAttribute="height" constant="64" id="ULQ-2D-Dgg"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="nKV-fU-XGH"/>
@@ -981,7 +981,7 @@
     <resources>
         <image name="bookLoading" width="228" height="310"/>
         <image name="check-normal" width="25" height="25"/>
-        <image name="go_back" width="120" height="120"/>
+        <image name="go_back2" width="50" height="50"/>
         <image name="more" width="12" height="12"/>
         <image name="myShelf_Listen" width="16" height="16"/>
         <image name="myShelf_delete" width="16" height="16"/>

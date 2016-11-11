@@ -116,9 +116,7 @@ class JournalDListViewController: UIViewController, UITableViewDelegate, UITable
         if canLoad == false || loading == true {
             return
         }
-        print("hah")
         if self.footerView!.frame.origin.y + self.footerView!.frame.height < (scrollView.contentOffset.y + scrollView.bounds.size.height)  {
-            print("开始刷新")
             self.loading = true
             self.footerView!.begain()
             self.addListData(mzID,page: self.page + 1)

@@ -12,7 +12,7 @@ struct TopListBookRow{
 	var bookName : String!
 	var bookOtherImg : String!
 	var isOnShelf : Int!
-
+    var bookBrief: String!
 
 	/**
 	 * 用字典来初始化一个实例并设置各个属性值
@@ -24,6 +24,7 @@ struct TopListBookRow{
 		bookName = dictionary["bookName"] as? String
 		bookOtherImg = dictionary["bookOtherImg"] as? String
 		isOnShelf = dictionary["isOnShelf"] as? Int
+        bookBrief = dictionary["bookBrief"] as? String
 
 	}
 

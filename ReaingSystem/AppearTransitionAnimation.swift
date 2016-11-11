@@ -1,7 +1,7 @@
 //
 //  AppearTransitionAnimation.swift
 //  ReaingSystem
-//  直接渐变转场
+//  直接渐变转场 
 //  Created by 魏辉 on 16/8/23.
 //  Copyright © 2016年 魏辉. All rights reserved.
 //

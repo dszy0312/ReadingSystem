@@ -28,6 +28,9 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
     // 选中数据
     var selectedData: CategoryRow!
     
+    //模拟navigation跳转
+    var transitionDelegate = ReadedBookListTransitionDelegate()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +54,8 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == reuseIdentifier[3] {
             let toVC = segue.destinationViewController as! CategoryDetailViewController
+            toVC.transitioningDelegate = transitionDelegate
+            toVC.modalPresentationStyle = .Custom
             toVC.selectedData = self.selectedData
         }
     }

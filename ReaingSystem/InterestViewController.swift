@@ -10,8 +10,6 @@
 import UIKit
 
 class InterestViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
-    //性别选择 true：男，false：女
-    var sex = true
     //兴趣标题是否选中
     var selected = false
     //选中兴趣标题存储
@@ -27,8 +25,6 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
     
     //开始按钮
     @IBOutlet weak var startButton: UIButton!
-    //性别按钮
-    @IBOutlet weak var sexButton: UIButton!
     //collection列表
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -38,13 +34,6 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
 
         collectionView.delegate = self
         collectionView.dataSource = self
-        //根据性别修改背景颜色
-        if sex {
-            sexButton.setBackgroundImage(UIImage(named: "leading_男"), forState: .Normal)
-        } else {
-            sexButton.setBackgroundImage(UIImage(named: "leading_女"), forState: .Normal)
-        }
-        
         //网络请求兴趣列表
         getInterests()
         // Do any additional setup after loading the view.
@@ -57,7 +46,6 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        print("真实数据：\(sexButton.center),\(sexButton.frame)")
     }
     
     //转场准备
@@ -83,7 +71,7 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
             return
         }
         
-        sendResult(sex, interestChosedSet: interestChosedSet)
+        sendResult(interestChosedSet)
         
     }
     //返回上一级
@@ -211,7 +199,7 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
 
     }
     //发送兴趣选择结果，跳转页面
-    func sendResult(sex: Bool, interestChosedSet: Set<String>) {
+    func sendResult(interestChosedSet: Set<String>) {
         var interestChosedArray: [String] = []
         //唯一标识码
         let uuid = checkUuid()
@@ -223,7 +211,7 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
         
         let parameters: [String: AnyObject] = [
             "uuid": uuid!,
-            "sex": sex == true ? 1 : 0,
+            "sex": 1,
             "interests": interestChosedArray
         ]
         NetworkHealper.Post.receiveJSON(URLHealper.interestsSendURL.introduce(), parameter: parameters) { (dictionary, error) in

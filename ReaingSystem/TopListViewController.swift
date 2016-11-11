@@ -16,6 +16,10 @@ class TopListViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     
     var topListRoot: SelectTopListRoot!
+    
+    //模拟navigation跳转
+    var transitionDelegate = ReadedBookListTransitionDelegate()
+
 
     //选中单元格
     var selectRow: Int!
@@ -25,6 +29,7 @@ class TopListViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.tableFooterView = UIView()
         getData()
 
         // Do any additional setup after loading the view.
@@ -40,6 +45,8 @@ class TopListViewController: UIViewController, UITableViewDelegate, UITableViewD
             let toVC = segue.destinationViewController as! TopListDetailViewController
             toVC.categoryID = topListRoot.rows[selectRow].topID
             toVC.categoryName = topListRoot.rows[selectRow].topName
+            toVC.transitioningDelegate = transitionDelegate
+            toVC.modalPresentationStyle = .Custom
             
         }
     }

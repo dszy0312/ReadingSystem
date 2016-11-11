@@ -37,7 +37,6 @@ class PaperImageViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(customIndex)
         self.imageView = UIImageView(image: UIImage(named: "paper_background"))
         self.imageView.kf_setImageWithURL(NSURL(string: baseURl + imageURL), placeholderImage: UIImage(named: "paper_background"))
         self.initImageInstance()

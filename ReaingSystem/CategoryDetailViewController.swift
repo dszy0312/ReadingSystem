@@ -24,6 +24,7 @@ class CategoryDetailViewController: UIViewController, UITableViewDelegate, UITab
     var selectedData: CategoryRow! {
         didSet {
             categoryTitle = selectedData.categoryName
+            categoryID = selectedData.categoryID
             getNetworkData(selectedData.categoryID)
         }
     }
@@ -32,6 +33,7 @@ class CategoryDetailViewController: UIViewController, UITableViewDelegate, UITab
     var sexData: SelectSexData2! {
         didSet {
             categoryTitle = sexData.categoryName
+            categoryID = sexData.categoryID
             getNetworkData(sexData.categoryID)
         }
     }
@@ -42,6 +44,8 @@ class CategoryDetailViewController: UIViewController, UITableViewDelegate, UITab
     var dataArray: [CategoryDetailRow] = []
     //标题名
     var categoryTitle: String!
+    //类别ID
+    var categoryID: String!
     
     //当前页
     var page = 1
@@ -144,7 +148,7 @@ class CategoryDetailViewController: UIViewController, UITableViewDelegate, UITab
     
     //下拉刷新请求
     func addingNetWorkData(page: Int) {
-        NetworkHealper.GetWithParm.receiveJSON(URLHealper.getStoryList.introduce(), parameter: ["categoryID": self.selectedData.categoryID, "PageIndex": page]) { (dictionary, error) in
+        NetworkHealper.GetWithParm.receiveJSON(URLHealper.getStoryList.introduce(), parameter: ["categoryID": self.categoryID, "PageIndex": page]) { (dictionary, error) in
             guard error == nil else {
                 print(error)
                 return

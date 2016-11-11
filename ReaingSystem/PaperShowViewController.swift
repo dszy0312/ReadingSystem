@@ -91,4 +91,13 @@ class PaperShowViewController: UIPageViewController, UIPageViewControllerDelegat
         }
     }
     
+    //当前页设置
+    func setShowPage(index: Int) {
+        if let firstVC = self.viewControllersAtIndex(index) {
+            self.setViewControllers([firstVC], direction: .Forward, animated: false, completion: nil)
+            let parVC = self.parentViewController as! PaperMainViewController
+            parVC.currentEdition = paperMainRow[index].newspaperImgTitle
+        }
+    }
+    
 }

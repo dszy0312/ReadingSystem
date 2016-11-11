@@ -41,8 +41,8 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
     //是否全选
     var isSelectAll = false {
         didSet {
-            self.collectionView.reloadData()
-            self.collectionView.contentOffset = contentOffset!
+                self.collectionView.reloadData()
+                self.collectionView.contentOffset = contentOffset!
         }
     }
     
@@ -51,6 +51,7 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
+        print(collectionView.contentOffset)
         
         //下载、删除按钮设置
         self.buttonInit()
@@ -108,7 +109,7 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
             cell.customDelegate = self
             return cell
             
-        } else if indexPath.row == collectionView.numberOfItemsInSection(0) - 1 {
+        } else if indexPath.row == myBooks!.count + 1 {
             //设定最后一个单元格
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier[0], forIndexPath: indexPath) as! DeleteMyShelfCollectionViewCell
             cell.bookNameLabel.text = ""
@@ -122,6 +123,7 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
                 //全选设置
                 if isSelectAll == true {
                     cell.isChosed = true
+                    cell.checkedImage.alpha = 1
                     if selectIndex == 0 {
                         cell.checkedImage.image = UIImage(named: "check-green")
                     } else {
@@ -148,7 +150,6 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
                 cell.setData(self.myBooks![indexPath.row - 1])
                 return cell
             }
-            
             
         }
     }
@@ -225,6 +226,10 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
     
     func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
         collectionView.setContentOffset(contentOffset!, animated: false)
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        self.contentOffset = scrollView.contentOffset
     }
     
     //MyShelfBarDelegate

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 private var reuseIdentifier = ["FromCell", "ShowCell"]
 
@@ -19,15 +20,7 @@ class PaperSearchViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBOutlet weak var historyButton: UIButton!
     //历史记录
-    var historyArray = ["习近平","中央政治局"] {
-        didSet {
-            if historyArray.count == 0 {
-               historyButton.setTitle("最近无搜索记录", forState: .Normal)
-            } else {
-                historyButton.setTitle("删除历史记录", forState: .Normal)
-            }
-        }
-    }
+    var historyArray: [PaperRmSearchList] = []
     //搜索记录
     var searchData: [PaperRow] = []
     //是否显示搜索记录
@@ -42,8 +35,9 @@ class PaperSearchViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        queryData()
         searchBar.delegate = self
-        searchBar.becomeFirstResponder()
+        //searchBar.becomeFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,6 +52,9 @@ class PaperSearchViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBAction func footerSetClick(sender: UIButton) {
         searchBar.resignFirstResponder()
+        deleteData()
+        tableView.reloadData()
+        
     }
     
     //MARK: tableView delegate dataSource
@@ -77,7 +74,7 @@ class PaperSearchViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if isSearched == false {
             let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier[0]) as! PaperSearchFromTableViewCell
-            cell.nameLabel.text = historyArray[indexPath.row]
+            cell.nameLabel.text = historyArray[indexPath.row].name
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier[1]) as! PaperSearchShowTableViewCell
@@ -89,30 +86,104 @@ class PaperSearchViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if isSearched == false {
-            return 50
+            return 40
         } else {
             return 80
+        }
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if isSearched == false {
+            historyArray = []
+            historyButton.setTitle("没有搜索数据", forState: .Normal)
+            let text = historyArray[indexPath.row].name
+            getNetworkData(text)
+            searchBar.resignFirstResponder()
+        } else {
+            
         }
     }
     
     //MARK: searchbar delegate
     func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
         isSearched = false
-        self.tableView.tableFooterView = footerView
+        queryData()
+        historyButton.setTitle("清除历史记录", forState: .Normal)
+        self.footerView.alpha = 1
         self.tableView.reloadData()
         return true
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        historyArray = []
+        historyButton.setTitle("没有搜索数据", forState: .Normal)
         getNetworkData(searchBar.text!)
+        addKeyText(searchBar.text!)
         searchBar.resignFirstResponder()
+    }
+    
+    
+    //scrollViewDelegate
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        searchBar.resignFirstResponder()
+        print("ceshi")
+    }
+    
+    
+    //历史记录查询
+    func queryData() {
+        historyArray = []
+        let realm = try! Realm()
+        let history = realm.objects(PaperRmSearchList.self)
+        for index in history {
+            historyArray.append(index)
+        }
+    }
+    
+    //搜索关键字存储
+    func addKeyText(text: String) {
+        let realm = try! Realm()
+        let rmSearch = PaperRmSearchList()
+        rmSearch.name = text
+        //判断是否存在
+        let history = realm.objects(PaperRmSearchList).filter(NSPredicate(format: "name = %@", text))
+        if history.count == 0 {
+            //判断数据是否大于6
+            let historys = realm.objects(PaperRmSearchList)
+            if historys.count == 6 {
+                try! realm.write({
+                    realm.delete(historys[0])
+                })
+            }
+            //添加数据
+            try! realm.write({
+                realm.add(rmSearch)
+            })
+        }
+    }
+    
+    //清除历史数据
+    func deleteData() {
+        let realm = try! Realm()
+        let history = realm.objects(PaperRmSearchList)
+        try! realm.write({
+            realm.delete(history)
+        })
+        historyArray = []
+    }
+    
+    //清空数据库
+    func deleteAll() {
+        let realm = try! Realm()
+        try! realm.write({
+            realm.deleteAll()
+        })
+        
     }
     
 
     //网络请求
     func getNetworkData(key: String) {
-        
-        print("参数\(key)")
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.getPaperList.introduce(), parameter: ["key":key]) { (dictionary, error) in
             guard error == nil else {
                 print(error)
@@ -122,7 +193,7 @@ class PaperSearchViewController: UIViewController, UITableViewDelegate, UITableV
             let root = PaperRoot(fromDictionary: dictionary!)
             self.searchData = root.rows
             self.isSearched = true
-            self.tableView.tableFooterView = UIView()
+            self.footerView.alpha = 0
             self.tableView.reloadData()
             
         }

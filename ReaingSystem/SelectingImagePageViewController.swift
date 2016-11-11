@@ -115,7 +115,6 @@ class SelectingImagePageViewController: UIPageViewController, UIPageViewControll
         guard completed == true else {
             return
         }
-        print("ceshishiyong: \(pageViewController.childViewControllers.count)")
         curIndex = (pageViewController.viewControllers?.first as! ImagesViewController).customIndex
         customDelegate?.imagesDidLoaded(curIndex, total: imagesRow!.count)
     }

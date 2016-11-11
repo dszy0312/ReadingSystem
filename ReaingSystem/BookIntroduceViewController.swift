@@ -91,7 +91,6 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
     
     //加入书架
     @IBAction func addToMyShelf(sender: UIButton) {
-        print(sender.selected)
         if sender.selected == false {
             addToShelf()
         }
@@ -245,12 +244,10 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
         let parm: [String: AnyObject] = [
             "prID": selectedBookID
         ]
-        print(selectedBookID)
         //用POST出错，未知原因
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.addToShelfURL.introduce(), parameter: parm, completion: { (dictionary, error) in
             
             if let flag = dictionary!["flag"] as? Int {
-                print("flag= \(flag)")
                 if flag == 1 {
                     self.addShelfButton.selected = true
                     self.addShelfButton.setImage(UIImage(named: "readDetail_onShelf"), forState: UIControlState.Selected)

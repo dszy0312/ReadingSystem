@@ -8,12 +8,18 @@
 
 import UIKit
 
-private let reuseIdentifier = ["CategoryCell", "HeaderView"]
+private let reuseIdentifier = ["CategoryCell", "HeaderView", "DetailSegue"]
 
 class ListenCategoryCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     //分类数据
     var categoryData: ListenCategoryRoot!
+    //模拟navigation跳转
+    var transitionDelegate = ReadedBookListTransitionDelegate()
+    
+    //选中IndexPath
+    var indexPath: NSIndexPath!
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,16 +31,16 @@ class ListenCategoryCollectionViewController: UICollectionViewController, UIColl
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        if segue.identifier == reuseIdentifier[2] {
+            let toVC = segue.destinationViewController as! ListenChildListViewController
+            toVC.categoryID = categoryData.returnData[indexPath.section].children[indexPath.row].categoryID
+            toVC.categoryTitle = categoryData.returnData[indexPath.section].children[indexPath.row].categoryName
+            toVC.transitioningDelegate = transitionDelegate
+            toVC.modalPresentationStyle = .Custom
+        }
     }
-    */
 
     // MARK: UICollectionViewDataSource
     
@@ -92,7 +98,15 @@ class ListenCategoryCollectionViewController: UICollectionViewController, UIColl
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
     }
+    
+    //delegate
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        self.indexPath = indexPath
+        self.performSegueWithIdentifier(reuseIdentifier[2], sender: self)
+    }
 
+    
+    //MARK: 私有方法
     //网络请求
     func getListenCategory() {
         NetworkHealper.Get.receiveJSON(URLHealper.getVoiceCategory.introduce()) { (dictionary, error) in

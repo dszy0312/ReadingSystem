@@ -59,7 +59,6 @@ class SexViewController: UIViewController {
             let newVC = segue.destinationViewController as! InterestViewController
             newVC.transitioningDelegate = transitionDelegate
             newVC.modalPresentationStyle = .Custom
-            newVC.sex = self.sex
         }
     }
     

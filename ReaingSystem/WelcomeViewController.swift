@@ -43,7 +43,7 @@ class WelcomeViewController: UIViewController {
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == reuseIdentifier[0] {
-            let newVC = segue.destinationViewController as! SexViewController
+            let newVC = segue.destinationViewController as! InterestViewController
             newVC.transitioningDelegate = transitionDelegate
             newVC.modalPresentationStyle = .Custom
         }
