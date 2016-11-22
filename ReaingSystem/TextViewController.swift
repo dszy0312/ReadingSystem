@@ -10,8 +10,8 @@ import UIKit
 
 class TextViewController: UIViewController, UITextViewDelegate {
     
-    //文字视图
-    @IBOutlet weak var textView: UITextView!
+    //文字视图    
+    @IBOutlet weak var textView: MyTextView!
     //页数
     @IBOutlet weak var pageLabel: UILabel!
     //电池

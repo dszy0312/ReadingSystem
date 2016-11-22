@@ -15,6 +15,8 @@ class ReadBookListViewController: UIViewController, UITableViewDelegate, UITable
     var bookListData: BookListBook!
     //数据数组
     var listArray: [BookListData] = []
+    //选中小数的目录数组
+    var catalogueData: [SummaryRow]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,12 +59,9 @@ class ReadBookListViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let toVC = childVC("ReadDetail", vcName: "BookIntroduceViewController") as? BookIntroduceViewController {
-            toVC.selectedBookID = listArray[indexPath.row].bookID
-            self.presentViewController(toVC, animated: true, completion: {
-                self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
-            })
-        }
+        
+        readCatalogue(listArray[indexPath.row].bookID, chapterID: listArray[indexPath.row].chapterID)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
     }
     
@@ -80,7 +79,7 @@ class ReadBookListViewController: UIViewController, UITableViewDelegate, UITable
 
     //MARK：私有方法
     //页面跳转方法
-    func childVC(sbName: String, vcName: String) -> UIViewController {
+    func detailVC(sbName: String, vcName: String) -> UIViewController {
         var sb = UIStoryboard(name: sbName, bundle: nil)
         var vc = sb.instantiateViewControllerWithIdentifier(vcName)
         return vc
@@ -101,5 +100,47 @@ class ReadBookListViewController: UIViewController, UITableViewDelegate, UITable
         })
         
     }
+    
+    //小说目录查询兼详情跳转
+    func readCatalogue(bookID: String?, chapterID: String?) {
+        NetworkHealper.GetWithParm.receiveJSON(URLHealper.getStoryDetail.introduce(), parameter: ["bookID":bookID!]) { (dictionary, error) in
+            //查询错误
+            guard error == nil else {
+                print(error)
+                alertMessage("提示", message: "跳转失败，请重试！", vc: self)
+                return
+            }
+            let root = MyShelfBookCatalogueRootRootClass(fromDictionary: dictionary!)
+            self.catalogueData = root.rows
+            //判断目录数量
+            if self.catalogueData.count != 0 {
+                //获取跳转视图控制器
+                if let toVC = self.detailVC("ReadDetail", vcName: "BookReadViewController") as? BookReadingViewController {
+                    UIApplication.sharedApplication().statusBarHidden = true
+                    //数据传递
+                    toVC.catalogue = self.catalogueData
+                    toVC.bookID = bookID
+                    if let chapterID = chapterID {
+                        //选中章节
+                        for i in 0..<self.catalogueData.count {
+                            if self.catalogueData[i].chapterID == chapterID {
+                                toVC.selectedChapter = i
+                            }
+                        }
+                    } else {
+                        toVC.selectedChapter = 0
+                    }
+                    //跳转
+                    self.presentViewController(toVC, animated: true, completion: {
+                    })
+                }
+            } else {
+                alertMessage("提示", message: "无数据！", vc: self)
+            }
+        }
+    }
+
+    
+    
 
 }

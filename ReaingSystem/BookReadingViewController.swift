@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import RealmSwift
 
-private let reuseIdentifier = ["ListSegue"]
+private let reuseIdentifier = ["ListSegue", "CommentSegue"]
 
 class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     
@@ -43,6 +44,12 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     @IBOutlet weak var setImage: UIImageView!
     //返回按钮
     @IBOutlet weak var backButton: UIButton!
+    //更多按钮
+    @IBOutlet weak var moreButton: UIButton!
+    
+    //更多出现的按钮的视图
+    @IBOutlet weak var moreShowView: UIView!
+    
     
     //当前翻页视图
     weak var currentViewController: ReadingPageViewController!
@@ -63,6 +70,8 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
                     setShowing = false
                 }
                 UIApplication.sharedApplication().statusBarHidden = true
+                self.moreButton.tag = 0
+                self.view.sendSubviewToBack(self.moreShowView)
                 UIView.animateWithDuration(0.5, delay: 0.0, options: [.CurveEaseIn], animations: {
                     self.headerView.center.y -= self.headerView.bounds.height
                     self.footerView.center.y += self.footerView.bounds.height
@@ -182,6 +191,14 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     
     //书本ID
     var bookID: String!
+    //书本名
+    var bookName: String!
+    //作者
+    var author: String!
+    var bookImage: UIImage!
+    
+    //是否是新建
+    var isNew = false
     
 
     override func viewDidLoad() {
@@ -190,8 +207,6 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTap(_:)))
         
         self.view.addGestureRecognizer(tapGesture)
-
-        
         self.currentViewController = self.storyboard?.instantiateViewControllerWithIdentifier(transitionStyle) as! ReadingPageViewController
         self.currentViewController!.view.translatesAutoresizingMaskIntoConstraints = false
         self.addChildViewController(self.currentViewController!)
@@ -206,25 +221,32 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
         //白天黑夜模式选择设置
         self.nightOrDaySet(dayIndex)
         self.dateButton.tag = dayIndex
-//        self.waitingView.begin()
-//        self.getNetworkData(catalogue[selectedChapter].chapterID, bookID: bookID)
         // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        self.waitingView.addLayer()
+        self.waitingView.begin()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        //设定位置
-        self.headerView.center.y =  -(self.headerView.bounds.height / 2)
-        self.footerView.center.y = self.view.frame.height + self.footerView.bounds.height / 2
-        self.setView.center.y = self.view.frame.height + self.setView.bounds.height / 2
-        self.waitingView.addLayer()
+        print("从哪进入、\(isNew)")
+        if isNew == true {
+            //设定位置
+            self.headerView.center.y =  -(self.headerView.bounds.height / 2)
+            self.footerView.center.y = self.view.frame.height + self.footerView.bounds.height / 2
+            self.setView.center.y = self.view.frame.height + self.setView.bounds.height / 2
+            self.getCatalogueData(selectedChapter, bookID: bookID)
+            self.isNew = false
+        } else {
+            isShow = false
+        }
         
-        self.waitingView.begin()
-        self.getNetworkData(catalogue[selectedChapter].chapterID, bookID: bookID)
+    }
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
         
     }
 
@@ -238,6 +260,10 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
             let toVC = segue.destinationViewController as! StoryListViewController
             toVC.catalogue = self.catalogue
             toVC.sendDelegate = self
+        } else if segue.identifier == reuseIdentifier[1] {
+            let toVC = segue.destinationViewController as! CommentViewController
+            toVC.bookID = bookID
+            toVC.bookType = "0001"
         }
     }
     //文本背景设置
@@ -296,7 +322,42 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
         print("减")
         textSize -= 1
     }
+    //更多按钮
+    @IBAction func moreClick(sender: UIButton) {
+        if sender.tag == 0 {
+            sender.tag = 1
+            self.view.bringSubviewToFront(self.moreShowView)
+        } else {
+            sender.tag = 0
+            self.view.sendSubviewToBack(self.moreShowView)
+        }
+    }
+    //评论跳转
+    @IBAction func commentClick(sender: UIButton) {
+        print("hah")
+        if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
+            if title == "个人中心" {
+                alertMessage("通知", message: "请登陆后查看评论！", vc: self)
+            } else {
+                self.performSegueWithIdentifier(reuseIdentifier[1], sender: self)
+                
+                
+            }
+        }
+    }
     
+    //分享跳转
+    @IBAction func shareClick(sender: UIButton) {
+        print("hahasdad")
+        alertShareMessage(self) { (type) in
+            guard let name = self.bookName, let image = self.bookImage, let id = self.bookID else {
+                alertMessage("提示", message: "数据不全，无法分享！", vc: self)
+                return
+            }
+            alertShare(id, name: name, author: self.author != "" ? self.author : "佚名", image: image,shareType: "appstory", form: "1", type: type)
+        }
+
+    }
     //字体设置
     //默认字体
     @IBAction func typeSetClick(sender: UIButton) {
@@ -348,7 +409,7 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     @IBAction func showListClick(sender: UIButton) {
         
         self.performSegueWithIdentifier(reuseIdentifier[0], sender: self)
-        self.isShow = false
+//        self.isShow = false
     }
     
     //私有代理
@@ -357,8 +418,10 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
         NSUserDefaults.standardUserDefaults().setInteger(1, forKey: "curPage")
         //同步 防止突然退出出错
         NSUserDefaults.standardUserDefaults().synchronize()
-//        self.waitingView.begin()
-//        self.getNetworkData(catalogue[selectedChapter].chapterID, bookID: bookID)
+        self.view.bringSubviewToFront(self.waitingView)
+        self.waitingView.addLayer()
+        self.waitingView.begin()
+        self.getCatalogueData(selectedChapter, bookID: bookID)
     }
     
     //添加子视图
@@ -426,6 +489,26 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
         }
     }
     
+    //章节获取
+    func getCatalogueData(index: Int, bookID: String) {
+            let realm = try! Realm()
+        if let book = realm.objectForPrimaryKey(MyShelfRmBook.self, key: bookID) {
+            print("来自本地数据库")
+            let chapters = book.chapters.filter("chapterID = '\(catalogue[index].chapterID)' ")
+            if let chapter = chapters.first {
+                self.titleLabel.text = chapter.chapterName
+                self.readText = chapter.chapterContent
+                self.waitingView.end()
+                self.view.sendSubviewToBack(self.waitingView)
+            } else {
+                self.getNetworkData(self.catalogue[index].chapterID, bookID: bookID)
+            }
+        } else {
+            self.getNetworkData(self.catalogue[index].chapterID, bookID: bookID)
+        }
+
+    }
+    
     //MARK:网络请求
     //获取简介
     func getNetworkData(chapterID: String, bookID: String) {
@@ -458,7 +541,7 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
             selectedChapter += 1
 
         }
-        getNetworkData(catalogue[selectedChapter].chapterID, bookID: bookID)
+        self.getCatalogueData(selectedChapter, bookID: bookID)
     }
     
     //设置颜色选择的边框
@@ -506,9 +589,6 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
             break
         }
     }
-    
-    
-
-    
+ 
 }
 

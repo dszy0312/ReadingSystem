@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		64851D171DE3F29C006D5386 /* MyShelfRmData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64851D161DE3F29C006D5386 /* MyShelfRmData.swift */; };
+		64851D231DE412F9006D5386 /* MyShelfDataRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64851D211DE412F9006D5386 /* MyShelfDataRoot.swift */; };
+		64851D241DE412F9006D5386 /* MyShelfDataRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64851D221DE412F9006D5386 /* MyShelfDataRow.swift */; };
 		980301BA1D7FB99500180FDA /* Listen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 980301B91D7FB99500180FDA /* Listen.storyboard */; };
 		980301C01D7FF0A700180FDA /* ListenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301BF1D7FF0A700180FDA /* ListenViewController.swift */; };
 		980301C21D7FF0FC00180FDA /* ListenTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301C11D7FF0FC00180FDA /* ListenTabViewController.swift */; };
@@ -29,6 +32,7 @@
 		980301EA1D81096600180FDA /* SelectingSexHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301E91D81096600180FDA /* SelectingSexHeaderCollectionReusableView.swift */; };
 		980301EC1D8157C800180FDA /* PersonalCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301EB1D8157C800180FDA /* PersonalCenterViewController.swift */; };
 		980301EE1D81583500180FDA /* PersonalCenterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980301ED1D81583500180FDA /* PersonalCenterTableViewCell.swift */; };
+		9804B9081DD9A3A2008232BB /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9804B9071DD9A3A2008232BB /* CommentViewController.swift */; };
 		9807A8791D90C07D00AB88A1 /* SearchingFooterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9807A8781D90C07D00AB88A1 /* SearchingFooterCollectionReusableView.swift */; };
 		9808CC841D826318000DB8E2 /* ListenDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9808CC831D826318000DB8E2 /* ListenDetailViewController.swift */; };
 		9808CC861D82653C000DB8E2 /* ListenCatalogueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9808CC851D82653C000DB8E2 /* ListenCatalogueTableViewCell.swift */; };
@@ -130,6 +134,7 @@
 		9879FB4C1DA3ED8E000B356F /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9879FB4B1DA3ED8E000B356F /* JavaScriptCore.framework */; };
 		9879FB4E1DA3ED9C000B356F /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9879FB4D1DA3ED9C000B356F /* ImageIO.framework */; };
 		9879FB501DA3EDA8000B356F /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9879FB4F1DA3EDA8000B356F /* libsqlite3.tbd */; };
+		9886E10D1DDC3E1C00E04F42 /* MyShelfBookCatalogueRootRootClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9886E10C1DDC3E1B00E04F42 /* MyShelfBookCatalogueRootRootClass.swift */; };
 		988958901DA7AB110072CE9D /* WaitingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9889588E1DA7AB110072CE9D /* WaitingView.swift */; };
 		988958911DA7AB110072CE9D /* WaitingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9889588F1DA7AB110072CE9D /* WaitingView.xib */; };
 		988CC2201DA8DA4D000C000A /* alertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 988CC21F1DA8DA4D000C000A /* alertView.swift */; };
@@ -271,6 +276,9 @@
 		98EE33D51D66DE6A00FD2CC3 /* MyShelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EE33D41D66DE6A00FD2CC3 /* MyShelf.swift */; };
 		98EE33DE1D66DF0600FD2CC3 /* MyBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EE33DD1D66DF0600FD2CC3 /* MyBook.swift */; };
 		98EE33E01D66DF2D00FD2CC3 /* ReadedBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EE33DF1D66DF2D00FD2CC3 /* ReadedBook.swift */; };
+		98EFAF0B1DDDA5B40068D9C8 /* MyTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EFAF0A1DDDA5B40068D9C8 /* MyTextView.swift */; };
+		98EFAF0F1DDE82020068D9C8 /* RefreshContents.xib in Resources */ = {isa = PBXBuildFile; fileRef = 98EFAF0E1DDE82020068D9C8 /* RefreshContents.xib */; };
+		98EFAF111DDE820E0068D9C8 /* RefreshContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98EFAF101DDE820E0068D9C8 /* RefreshContentsView.swift */; };
 		98F028101D6EA18E00B8ECCE /* ImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F0280F1D6EA18E00B8ECCE /* ImagesViewController.swift */; };
 		98F028141D6EA1A700B8ECCE /* ImageContent.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 98F028131D6EA1A700B8ECCE /* ImageContent.storyboard */; };
 		98F028531D6EEDFB00B8ECCE /* ReadedAdvice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98F028501D6EEDFB00B8ECCE /* ReadedAdvice.swift */; };
@@ -300,6 +308,9 @@
 /* Begin PBXFileReference section */
 		11E1E978A0B2C81212F8C229 /* Pods-ReaingSystem.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReaingSystem.release.xcconfig"; path = "Pods/Target Support Files/Pods-ReaingSystem/Pods-ReaingSystem.release.xcconfig"; sourceTree = "<group>"; };
 		5CC5780E6D56507A6FEA824A /* Pods_ReaingSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReaingSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		64851D161DE3F29C006D5386 /* MyShelfRmData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyShelfRmData.swift; sourceTree = "<group>"; };
+		64851D211DE412F9006D5386 /* MyShelfDataRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyShelfDataRoot.swift; sourceTree = "<group>"; };
+		64851D221DE412F9006D5386 /* MyShelfDataRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyShelfDataRow.swift; sourceTree = "<group>"; };
 		980301B91D7FB99500180FDA /* Listen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Listen.storyboard; sourceTree = "<group>"; };
 		980301BF1D7FF0A700180FDA /* ListenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenViewController.swift; sourceTree = "<group>"; };
 		980301C11D7FF0FC00180FDA /* ListenTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenTabViewController.swift; sourceTree = "<group>"; };
@@ -322,6 +333,7 @@
 		980301E91D81096600180FDA /* SelectingSexHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectingSexHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		980301EB1D8157C800180FDA /* PersonalCenterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalCenterViewController.swift; sourceTree = "<group>"; };
 		980301ED1D81583500180FDA /* PersonalCenterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalCenterTableViewCell.swift; sourceTree = "<group>"; };
+		9804B9071DD9A3A2008232BB /* CommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
 		9807A8781D90C07D00AB88A1 /* SearchingFooterCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchingFooterCollectionReusableView.swift; sourceTree = "<group>"; };
 		9808CC831D826318000DB8E2 /* ListenDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenDetailViewController.swift; sourceTree = "<group>"; };
 		9808CC851D82653C000DB8E2 /* ListenCatalogueTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenCatalogueTableViewCell.swift; sourceTree = "<group>"; };
@@ -439,6 +451,7 @@
 		9879FB4D1DA3ED9C000B356F /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		9879FB4F1DA3EDA8000B356F /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		9879FB511DA3EDDF000B356F /* ReaingSystem-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReaingSystem-Bridging-Header.h"; sourceTree = "<group>"; };
+		9886E10C1DDC3E1B00E04F42 /* MyShelfBookCatalogueRootRootClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyShelfBookCatalogueRootRootClass.swift; sourceTree = "<group>"; };
 		9889588E1DA7AB110072CE9D /* WaitingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitingView.swift; sourceTree = "<group>"; };
 		9889588F1DA7AB110072CE9D /* WaitingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WaitingView.xib; sourceTree = "<group>"; };
 		988CC21F1DA8DA4D000C000A /* alertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = alertView.swift; sourceTree = "<group>"; };
@@ -578,6 +591,11 @@
 		98EE33D41D66DE6A00FD2CC3 /* MyShelf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyShelf.swift; sourceTree = "<group>"; };
 		98EE33DD1D66DF0600FD2CC3 /* MyBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyBook.swift; sourceTree = "<group>"; };
 		98EE33DF1D66DF2D00FD2CC3 /* ReadedBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadedBook.swift; sourceTree = "<group>"; };
+		98EFAF0A1DDDA5B40068D9C8 /* MyTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTextView.swift; sourceTree = "<group>"; };
+		98EFAF0C1DDDA7960068D9C8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		98EFAF0D1DDDA7960068D9C8 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		98EFAF0E1DDE82020068D9C8 /* RefreshContents.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RefreshContents.xib; sourceTree = "<group>"; };
+		98EFAF101DDE820E0068D9C8 /* RefreshContentsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshContentsView.swift; sourceTree = "<group>"; };
 		98F0280F1D6EA18E00B8ECCE /* ImagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagesViewController.swift; sourceTree = "<group>"; };
 		98F028131D6EA1A700B8ECCE /* ImageContent.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ImageContent.storyboard; sourceTree = "<group>"; };
 		98F028501D6EEDFB00B8ECCE /* ReadedAdvice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadedAdvice.swift; sourceTree = "<group>"; };
@@ -619,6 +637,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		64851D181DE3F585006D5386 /* download */ = {
+			isa = PBXGroup;
+			children = (
+				64851D211DE412F9006D5386 /* MyShelfDataRoot.swift */,
+				64851D221DE412F9006D5386 /* MyShelfDataRow.swift */,
+			);
+			name = download;
+			sourceTree = "<group>";
+		};
 		9663EC35616749F0FDA967E9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -840,6 +867,8 @@
 		984C76521D5C658E00B3588D /* model */ = {
 			isa = PBXGroup;
 			children = (
+				64851D161DE3F29C006D5386 /* MyShelfRmData.swift */,
+				64851D181DE3F585006D5386 /* download */,
 				98C1862B1D67050D008FCB15 /* list */,
 				98C186591D6AA822008FCB15 /* bookSummary */,
 				98C1862A1D6704F9008FCB15 /* shelf */,
@@ -1195,6 +1224,8 @@
 				98B23BD41D9BC0B7006A009A /* BookReadingViewController.swift */,
 				98B23BD51D9BC0B7006A009A /* ReadingPageViewController.swift */,
 				98B23BD61D9BC0B7006A009A /* TextViewController.swift */,
+				98EFAF0A1DDDA5B40068D9C8 /* MyTextView.swift */,
+				9804B9071DD9A3A2008232BB /* CommentViewController.swift */,
 			);
 			name = cotroller;
 			sourceTree = "<group>";
@@ -1259,6 +1290,7 @@
 				98EE33D41D66DE6A00FD2CC3 /* MyShelf.swift */,
 				98EE33DF1D66DF2D00FD2CC3 /* ReadedBook.swift */,
 				98EE33DD1D66DF0600FD2CC3 /* MyBook.swift */,
+				9886E10C1DDC3E1B00E04F42 /* MyShelfBookCatalogueRootRootClass.swift */,
 			);
 			name = shelf;
 			sourceTree = "<group>";
@@ -1439,6 +1471,8 @@
 				98F0280F1D6EA18E00B8ECCE /* ImagesViewController.swift */,
 				98F028131D6EA1A700B8ECCE /* ImageContent.storyboard */,
 				988CC21F1DA8DA4D000C000A /* alertView.swift */,
+				98EFAF0E1DDE82020068D9C8 /* RefreshContents.xib */,
+				98EFAF101DDE820E0068D9C8 /* RefreshContentsView.swift */,
 				98B23BD11D9BBFF9006A009A /* extension */,
 				980E91691D51E7EB000A19CA /* Transition */,
 				986CD6041D938376008D15FE /* Loading */,
@@ -1553,6 +1587,7 @@
 				98B167BA1D49B11B0001EDAC /* Custom.storyboard in Resources */,
 				98B167A01D4993E80001EDAC /* Main.storyboard in Resources */,
 				98123DB51D78243100F416EA /* Journal.storyboard in Resources */,
+				98EFAF0F1DDE82020068D9C8 /* RefreshContents.xib in Resources */,
 				9879FB391DA3ED38000B356F /* ShareSDKUI.bundle in Resources */,
 				988958911DA7AB110072CE9D /* WaitingView.xib in Resources */,
 				98B1EAEB1D4EF34C00DD494A /* Paper.storyboard in Resources */,
@@ -1708,6 +1743,7 @@
 				98C21B8E1D93D09800628AE5 /* CategoryRoot.swift in Sources */,
 				980301E61D8107CB00180FDA /* SelectingSexViewController.swift in Sources */,
 				98C21B991D93E97900628AE5 /* CategoryDetailTableViewCell.swift in Sources */,
+				64851D231DE412F9006D5386 /* MyShelfDataRoot.swift in Sources */,
 				980E91681D51D128000A19CA /* SexViewController.swift in Sources */,
 				980301D41D7FFE3A00180FDA /* ListenCategoryHeaderCollectionReusableView.swift in Sources */,
 				98EE33E01D66DF2D00FD2CC3 /* ReadedBook.swift in Sources */,
@@ -1720,6 +1756,7 @@
 				98EE33DE1D66DF0600FD2CC3 /* MyBook.swift in Sources */,
 				98C3651A1DD47D16001BE71D /* ListenChildRow.swift in Sources */,
 				981140E41D868D580028EF8C /* ListenReturnData.swift in Sources */,
+				64851D241DE412F9006D5386 /* MyShelfDataRow.swift in Sources */,
 				980301D61D8000FB00180FDA /* ListenSequenceTableViewCell.swift in Sources */,
 				98B23BD31D9BC004006A009A /* String+Extension.swift in Sources */,
 				98123D921D77C85F00F416EA /* SearchingResultTableViewCell.swift in Sources */,
@@ -1727,6 +1764,7 @@
 				984C764D1D5C5D9D00B3588D /* CoverTransitionAnimation.swift in Sources */,
 				9866C8561DC71CFF00EA4D52 /* JournalDCatalogueViewController.swift in Sources */,
 				986CD5B71D92224D008D15FE /* ListenSequenceRoot.swift in Sources */,
+				64851D171DE3F29C006D5386 /* MyShelfRmData.swift in Sources */,
 				9866C8521DC6D5FD00EA4D52 /* JournalDTtransitionDelegate.swift in Sources */,
 				98522C9F1D5DC6E600F32FD5 /* HttpManager.swift in Sources */,
 				98EE33AD1D65AE6B00FD2CC3 /* KeychainUtility.swift in Sources */,
@@ -1743,6 +1781,7 @@
 				98C1868C1D6D704C008FCB15 /* SelectReturnData.swift in Sources */,
 				98C186511D6A962C008FCB15 /* BookIntroduceViewController.swift in Sources */,
 				9808CC861D82653C000DB8E2 /* ListenCatalogueTableViewCell.swift in Sources */,
+				98EFAF0B1DDDA5B40068D9C8 /* MyTextView.swift in Sources */,
 				98C186611D6AA845008FCB15 /* SummarySelectedBook.swift in Sources */,
 				984C764B1D5C2A5300B3588D /* MyShelfCollectionReusableView.swift in Sources */,
 				98EE33D51D66DE6A00FD2CC3 /* MyShelf.swift in Sources */,
@@ -1788,6 +1827,7 @@
 				98ED5BF71D8FED66005BC3CA /* HotListRow.swift in Sources */,
 				980E91661D51D11C000A19CA /* InterestViewController.swift in Sources */,
 				98E8724E1D8E8F35002783B9 /* SelectTopListRoot.swift in Sources */,
+				98EFAF111DDE820E0068D9C8 /* RefreshContentsView.swift in Sources */,
 				98B39B521DD2C7DF00DCB62D /* PaperRmSearchList.swift in Sources */,
 				98C21B911D93D15600628AE5 /* CategoryPrList.swift in Sources */,
 				989099E01DB7130500855063 /* JournalListViewController.swift in Sources */,
@@ -1804,6 +1844,7 @@
 				98C186791D6C4402008FCB15 /* AppearTransitionAnimation.swift in Sources */,
 				986CD5AE1D921523008D15FE /* ListenCategoryChildren.swift in Sources */,
 				98CD8A141DC042440047D8DC /* JournalClassifyRoot.swift in Sources */,
+				9804B9081DD9A3A2008232BB /* CommentViewController.swift in Sources */,
 				986CD5B61D92224D008D15FE /* ListenSequenceReturnData.swift in Sources */,
 				98CD8A281DC3317E0047D8DC /* PaperSearchShowTableViewCell.swift in Sources */,
 				9895FBB61D9BA5D000639EAB /* PaperDetailTitleTableViewCell.swift in Sources */,
@@ -1818,6 +1859,7 @@
 				980E91971D548D42000A19CA /* RegisterViewController.swift in Sources */,
 				98CD8A241DC1D8E90047D8DC /* JournalListRoot.swift in Sources */,
 				98CD8A1A1DC0803F0047D8DC /* SelectingFloorRow.swift in Sources */,
+				9886E10D1DDC3E1C00E04F42 /* MyShelfBookCatalogueRootRootClass.swift in Sources */,
 				98B1EAE51D4EF09100DD494A /* RootTabBarViewController.swift in Sources */,
 				9831196C1D8E7A3C00F81327 /* SelectSexRootData.swift in Sources */,
 				980301C41D7FF41100180FDA /* ListenAdviceCollectionViewController.swift in Sources */,
@@ -1869,6 +1911,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				98B1679F1D4993E80001EDAC /* Base */,
+				98EFAF0C1DDDA7960068D9C8 /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1877,6 +1920,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				98B167A41D4993E80001EDAC /* Base */,
+				98EFAF0D1DDDA7960068D9C8 /* zh-Hans */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1888,6 +1932,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1934,6 +1979,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";

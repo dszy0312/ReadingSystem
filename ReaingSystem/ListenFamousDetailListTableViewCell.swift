@@ -37,7 +37,8 @@ class ListenFamousDetailListTableViewCell: UITableViewCell {
         if data.audioImgUrl == nil {
             listenImageView.image = UIImage(named: "listen_image")
         } else {
-            listenImageView.kf_setImageWithURL(NSURL(string: baseURl + data.audioImgUrl), placeholderImage: UIImage(named: "listen_image"))
+            let url = baseURl + data.audioImgUrl
+            listenImageView.kf_setImageWithURL(NSURL(string: url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "listen_image"))
         }
     }
     

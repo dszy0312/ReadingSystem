@@ -31,7 +31,8 @@ class TopListTableViewCell: UITableViewCell {
         print(data.topID)
         titleLable.text = data.topName
         subtitleLabel.text = data.bookName
-        toListImage.kf_setImageWithURL(NSURL(string: baseURl + data.topImgUrl), placeholderImage: UIImage(named: "标题"))
+        let url = baseURl + data.topImgUrl
+        toListImage.kf_setImageWithURL(NSURL(string: url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "标题"))
         
     }
 

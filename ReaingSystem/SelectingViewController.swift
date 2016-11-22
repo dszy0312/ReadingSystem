@@ -14,6 +14,10 @@ enum Direction {
     case DirecRight
 }
 
+enum Forward {
+    case Up, Down
+}
+
 
 class SelectingViewController: UIViewController, UICollectionViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource, ImagesShowDelegate, UISearchBarDelegate, sendSelectingDataDelegate, BookSelectedDelegate, UIScrollViewDelegate{
 
@@ -62,12 +66,99 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     
     //名家数据当前页
     var page = 1
+    
+    //下拉刷新
+    var refreshControl: UIRefreshControl!
+    var forward: Forward!
+    
+    var customView: RefreshContentsView!
  
     override func viewDidLoad() {
         super.viewDidLoad()
         self.getFloorData(1)
         tableView.tableFooterView = footerView
+        //下拉刷新
+        refreshControl = UIRefreshControl()
+        
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        
+        //        refreshControl.addTarget(self, action: #selector(didUP(_:)), forControlEvents: .TouchUpOutside)
+        
+        refreshControl.backgroundColor = UIColor.clearColor()
+        refreshControl.tintColor = UIColor.clearColor()
+        
+        tableView.addSubview(refreshControl)
+        loadCustonRefreshContents()
     }
+    
+    func animateRefreshStep1() {
+        customView.pullRefreshLabel.text = "松手刷新"
+        UIView.animateWithDuration(0.1, animations: {
+            self.customView.forwardImage.transform = CGAffineTransformMakeRotation(CGFloat(-2 * M_PI))
+        })
+        
+    }
+    
+    func refreshData(refresh: UIRefreshControl) {
+        forward = Forward.Up
+        animateRefreshStep1()
+        
+    }
+    
+    func didUP(refresh: UIRefreshControl) {
+        
+        if forward == Forward.Up {
+            customView.pullRefreshLabel.text = "Loading..."
+            customView.forwardLabel.alpha = 0
+            customView.activityIndicator.alpha = 1
+            customView.activityIndicator.startAnimating()
+            
+            //模拟加载数据
+            for index in self.childViewControllers {
+                if let childVC = index as? SelectingImagePageViewController {
+                    childVC.getSelectingMessage()
+                }
+            }
+            
+        }
+    }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        print("停止下拉")
+        
+        if forward == Forward.Up {
+            forward = Forward.Down
+            customView.pullRefreshLabel.text = "Loading..."
+            customView.forwardImage.alpha = 0
+            customView.activityIndicator.alpha = 1
+            customView.activityIndicator.startAnimating()
+            
+            //模拟加载数据
+            for index in self.childViewControllers {
+                if let childVC = index as? SelectingImagePageViewController {
+                    childVC.getSelectingMessage()
+                }
+            }
+            
+        }
+    }
+    //下拉刷新
+    func loadCustonRefreshContents() {
+        let refreshContents = NSBundle.mainBundle().loadNibNamed("RefreshContents", owner: self, options: nil)
+        
+        customView = refreshContents![0] as! RefreshContentsView
+        //按照refreshControl的大小设置View的大小
+        customView.frame = refreshControl.bounds
+        customView.alpha = 0
+        customView.activityIndicator.alpha = 0
+        customView.forwardImage.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
+        refreshControl.addSubview(customView)
+    }
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        
+        forward = .Down
+    }
+
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -212,7 +303,11 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     //MARK: tableView delegate dataSource
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return floorDatas.count == 0 ? 1 : floorDatas.count + 1
+        if readedTitle == "" {
+            return floorDatas.count == 0 ? 0 : floorDatas.count
+        } else {
+            return floorDatas.count == 0 ? 1 : floorDatas.count + 1
+        }
     }
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -222,23 +317,28 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         let cell = tableView.dequeueReusableCellWithIdentifier("DetailCell") as! SelectingDetailTableViewCell
         cell.delegate = self
         cell.selectedDelegate = self
-        if indexPath.row == 0 {
-            if self.readAdvice != nil {
-                cell.count = 0
-                cell.cellTitle.text = "读过《\(self.readedTitle!)》的人还读过"
-                cell.setBookData(self.readAdvice)
-            }
-            return cell
+        if readedTitle == "" {
+            cell.count = indexPath.row + 1
+            cell.setFloorData(self.floorDatas[indexPath.row])
         } else {
-            cell.count = indexPath.row
-            cell.setFloorData(self.floorDatas[indexPath.row - 1])
+            if indexPath.row == 0 {
+                if self.readAdvice != nil {
+                    cell.count = 0
+                    cell.cellTitle.text = "读过《\(self.readedTitle!)》的人还读过"
+                    cell.setBookData(self.readAdvice)
+                }
+            } else {
+                cell.count = indexPath.row
+                cell.setFloorData(self.floorDatas[indexPath.row - 1])
+            }
+            
         }
         
         return cell
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-            return 220
+        return 220
 
     }
     
@@ -252,6 +352,9 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     
     //scroll delegate
     func scrollViewDidScroll(scrollView: UIScrollView) {
+        let al = ((scrollView.contentOffset.y + 64) * -1) / 60.0
+        customView.alpha = al
+        
         if canLoad == false || loading == true {
             return
         }
@@ -268,12 +371,18 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     //自定义代理  
     //ImagesShowDelegate
     func selectDataLoaded(data: SelectRootData) {
+        //停止刷新
+        self.refreshControl.endRefreshing()
+        
+        
         self.classifyData = data.data
         self.recommend = data.returnData
         self.readedTitle = data.data2 
         collectionView.reloadData()
         tableView.reloadData()
-        getReadedAdvice()
+        if readedTitle != "" {
+            getReadedAdvice()
+        }
     }
     
     //BookSelectedDelegate
@@ -328,7 +437,7 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     
     //网络请求
     func getReadedAdvice() {
-        NetworkHealper.Get.receiveJSON("http://lh.sdlq.org/story/GetStoryByRead") { (dictionary, error) in
+        NetworkHealper.Get.receiveJSON(URLHealper.getStoryByReadedURL.introduce()) { (dictionary, error) in
             guard error == nil else {
                 print(error)
                 return
@@ -397,7 +506,6 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
                 return
             }
             let readedAdvice = ReadedAdvice(fromDictionary: dictionary!)
-            print("askhduiasdh \(readedAdvice.curPage) \(readedAdvice.pageCount)")
             guard readedAdvice.pageCount >= readedAdvice.curPage else {
                 return
             }
@@ -413,7 +521,8 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         if imageUrl == "center_photo" {
             button.setImage(UIImage(named: "personal"), forState: .Normal)
         } else {
-            button.kf_setImageWithURL(NSURL(string: imageUrl!), forState: .Normal)
+            
+            button.kf_setImageWithURL(NSURL(string: imageUrl!.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), forState: .Normal)
         }
     }
 

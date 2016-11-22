@@ -33,7 +33,8 @@ class ListenChildListTableViewCell: UITableViewCell {
         authorLabel.text = data.author
         detailLabel.text = data.audioBrief
         if let url = data.audioImgUrl {
-            bookImageView.kf_setImageWithURL(NSURL(string: baseURl + url), placeholderImage: UIImage(named: "bookLoading"))
+            let urlStr = baseURl + url
+            bookImageView.kf_setImageWithURL(NSURL(string: urlStr.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "bookLoading"))
         } else {
             bookImageView.image = UIImage(named: "bookLoading")
         }

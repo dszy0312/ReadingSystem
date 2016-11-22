@@ -74,6 +74,9 @@ class ListenPlayViewController: UIViewController {
     }
     //播放暂停按钮
     @IBAction func playClick(sender: UIButton) {
+        guard  avplayer != nil  else {
+            return
+        }
         playing = !playing
         if playing {
             sender.setImage(UIImage(named: "listen_zanting"), forState: .Normal)
@@ -85,11 +88,19 @@ class ListenPlayViewController: UIViewController {
             self.avplayer.pause()
         }
     }
+    //加入书架
     @IBAction func addToShelf(sender: UIButton) {
         if sender.selected == false {
             
             self.addToShelf()
         }
+    }
+    //评论
+    @IBAction func commentClick(sender: UIButton) {
+        
+    }
+    //分享
+    @IBAction func shareClick(sender: UIButton) {
     }
     
     @IBAction func beforeClick(sender: UIButton) {
@@ -122,8 +133,9 @@ class ListenPlayViewController: UIViewController {
         self.index = index
     }
     //音频下载播放
-    func listenPlay(url: String) {
-        guard let url = NSURL(string: baseURl + listenData.dirList[index].audioUrl) else {
+    func listenPlay(urlStr: String) {
+        print(baseURl + listenData.dirList[index].audioUrl)
+        guard let url = NSURL(string: urlStr.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!) else {
             print("连接错误")
             return
         }

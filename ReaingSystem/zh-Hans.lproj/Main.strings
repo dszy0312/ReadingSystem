@@ -1,0 +1,81 @@
+
+/* Class = "UILabel"; text = "用户名"; ObjectID = "0zW-tp-GHw"; */
+"0zW-tp-GHw.text" = "用户名";
+
+/* Class = "UITextField"; placeholder = "手机验证码"; ObjectID = "2Kk-Le-Ytk"; */
+"2Kk-Le-Ytk.placeholder" = "手机验证码";
+
+/* Class = "UIButton"; normalTitle = "忘记密码？"; ObjectID = "6tD-dj-WPb"; */
+"6tD-dj-WPb.normalTitle" = "忘记密码？";
+
+/* Class = "UIButton"; normalTitle = "验证码"; ObjectID = "EEH-at-eZv"; */
+"EEH-at-eZv.normalTitle" = "验证码";
+
+/* Class = "UILabel"; text = "女"; ObjectID = "LNh-Je-XhA"; */
+"LNh-Je-XhA.text" = "女";
+
+/* Class = "UITextField"; placeholder = "手机号输入"; ObjectID = "OI5-rd-kf5"; */
+"OI5-rd-kf5.placeholder" = "手机号输入";
+
+/* Class = "UITextField"; placeholder = "重置密码"; ObjectID = "PgH-rW-LvN"; */
+"PgH-rW-LvN.placeholder" = "重置密码";
+
+/* Class = "UIButton"; normalTitle = "开启我的阅读之旅"; ObjectID = "Q7S-JF-HNB"; */
+"Q7S-JF-HNB.normalTitle" = "开启我的阅读之旅";
+
+/* Class = "UILabel"; text = "请选择性别"; ObjectID = "Ser-fa-BUO"; */
+"Ser-fa-BUO.text" = "请选择性别";
+
+/* Class = "UILabel"; text = "男"; ObjectID = "VkZ-g6-m1t"; */
+"VkZ-g6-m1t.text" = "男";
+
+/* Class = "UIButton"; normalTitle = "和飞鸟一起飞吧"; ObjectID = "Vwd-Ha-061"; */
+"Vwd-Ha-061.normalTitle" = "和飞鸟一起飞吧";
+
+/* Class = "UILabel"; text = "密码"; ObjectID = "YUD-1e-Hrr"; */
+"YUD-1e-Hrr.text" = "密码";
+
+/* Class = "UIButton"; normalTitle = "立即注册 >>"; ObjectID = "ce3-Ns-2fe"; */
+"ce3-Ns-2fe.normalTitle" = "立即注册 >>";
+
+/* Class = "UILabel"; text = "请选择感兴趣的类别"; ObjectID = "fhM-e4-ODP"; */
+"fhM-e4-ODP.text" = "请选择感兴趣的类别";
+
+/* Class = "UILabel"; text = "注册"; ObjectID = "gwM-tJ-jPP"; */
+"gwM-tJ-jPP.text" = "注册";
+
+/* Class = "UILabel"; text = "name"; ObjectID = "gxy-Sj-iOy"; */
+"gxy-Sj-iOy.text" = "name";
+
+/* Class = "UITextField"; placeholder = "确认密码"; ObjectID = "hGN-ql-1zE"; */
+"hGN-ql-1zE.placeholder" = "确认密码";
+
+/* Class = "UITextField"; placeholder = "手机号输入"; ObjectID = "i5n-U6-kBE"; */
+"i5n-U6-kBE.placeholder" = "手机号输入";
+
+/* Class = "UILabel"; text = "重置密码"; ObjectID = "iYw-jG-F9r"; */
+"iYw-jG-F9r.text" = "重置密码";
+
+/* Class = "UITextField"; placeholder = "确认密码"; ObjectID = "jIB-nT-TXf"; */
+"jIB-nT-TXf.placeholder" = "确认密码";
+
+/* Class = "UIButton"; normalTitle = "注册"; ObjectID = "jog-BG-Sz0"; */
+"jog-BG-Sz0.normalTitle" = "注册";
+
+/* Class = "UIButton"; normalTitle = "验证码"; ObjectID = "rQP-Ee-rVC"; */
+"rQP-Ee-rVC.normalTitle" = "验证码";
+
+/* Class = "UITextField"; placeholder = "手机验证码"; ObjectID = "rcI-UH-hrs"; */
+"rcI-UH-hrs.placeholder" = "手机验证码";
+
+/* Class = "UILabel"; text = "用户中心"; ObjectID = "sIx-rg-2HB"; */
+"sIx-rg-2HB.text" = "用户中心";
+
+/* Class = "UIButton"; normalTitle = "登 陆"; ObjectID = "taY-s1-rtU"; */
+"taY-s1-rtU.normalTitle" = "登 陆";
+
+/* Class = "UILabel"; text = "系统设置"; ObjectID = "uM1-9s-o5V"; */
+"uM1-9s-o5V.text" = "系统设置";
+
+/* Class = "UITextField"; placeholder = "设置密码"; ObjectID = "vn6-6b-4Zd"; */
+"vn6-6b-4Zd.placeholder" = "设置密码";

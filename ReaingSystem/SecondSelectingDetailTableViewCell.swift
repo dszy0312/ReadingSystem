@@ -128,7 +128,8 @@ class SecondSelectingDetailTableViewCell: UITableViewCell {
     //给UIImageView添加图片
     func addImage(imageView: UIImageView, imageURL: String?) {
         if let url = imageURL {
-            imageView.kf_setImageWithURL(NSURL(string: baseURl + url), placeholderImage: UIImage(named: "bookLoading"))
+            let urlStr = baseURl + url
+            imageView.kf_setImageWithURL(NSURL(string: urlStr.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "bookLoading"))
         } else {
             imageView.image = UIImage(named: "bookLoading")
             

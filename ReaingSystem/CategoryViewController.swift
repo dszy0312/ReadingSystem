@@ -36,9 +36,6 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
-        
-        self.getNetworkData()
-
         // Do any additional setup after loading the view.
     }
 
@@ -48,6 +45,7 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        self.getNetworkData()
         setImage(personalButton)
     }
     
@@ -176,6 +174,8 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     //数据格式化
     func formatData(datas: [CategoryRow]) {
+        self.sectionData = []
+        self.formatData = [:]
         var array = datas
         //获取标题数组
         print("总数\(array.count)")
@@ -203,12 +203,8 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
         if imageUrl == "center_photo" {
             button.setImage(UIImage(named: "personal"), forState: .Normal)
         } else {
-            button.kf_setImageWithURL(NSURL(string: imageUrl!), forState: .Normal)
+            button.kf_setImageWithURL(NSURL(string: imageUrl!.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), forState: .Normal)
         }
     }
-
-
-    
-    
 
 }

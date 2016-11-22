@@ -25,7 +25,8 @@ class SelectingSexCollectionViewCell: UICollectionViewCell {
             if data!.bookImg == nil {
                 bookImage.image = UIImage(named: "bookLoading")
             } else {
-                bookImage.kf_setImageWithURL(NSURL(string: baseURl + data!.bookImg), placeholderImage: UIImage(named: "bookLoading"))
+                let url = baseURl + data!.bookImg
+                bookImage.kf_setImageWithURL(NSURL(string: url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "bookLoading"))
             }
             
         }

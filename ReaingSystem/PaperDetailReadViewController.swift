@@ -44,6 +44,26 @@ class PaperDetailReadViewController: UIViewController, UITableViewDelegate, UITa
     @IBAction func backClick(sender: UIButton) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+    //分享
+    @IBAction func shareClick(sender: UIButton) {
+        alertShareMessage(self) { (type) in
+            alertShare(self.newsID, name: " ",  author: " ", image: nil,shareType: "appnewspaper", form: "1", type: type)
+        }
+        
+    }
+    //评论
+    @IBAction func commentClick(sender: UIButton) {
+        if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
+            if title == "个人中心" {
+                alertMessage("通知", message: "请登陆后查看评论！", vc: self)
+            } else {
+                let toVC  = self.detailVC("ReadDetail", vcName: "CommentViewController") as! CommentViewController
+                toVC.bookID = newsID
+                toVC.bookType = "appnewspaper"
+                self.presentViewController(toVC, animated: true, completion: nil)
+            }
+        }
+    }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -89,6 +109,14 @@ class PaperDetailReadViewController: UIViewController, UITableViewDelegate, UITa
     func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return false
     }
+    //MARK：私有方法
+    //页面跳转方法
+    func detailVC(sbName: String, vcName: String) -> UIViewController {
+        let sb = UIStoryboard(name: sbName, bundle: nil)
+        let vc = sb.instantiateViewControllerWithIdentifier(vcName)
+        return vc
+    }
+    
     
     //网络请求
     func getNetworkData(id: String) {
@@ -98,10 +126,14 @@ class PaperDetailReadViewController: UIViewController, UITableViewDelegate, UITa
                 return
             }
             self.newsData = PaperRoot(fromDictionary: dictionary!)
-            
+            print(dictionary)
             if self.newsData.rows.first?.npNewsImg != "" {
                 let images = self.newsData.rows.first?.npNewsImg
-                self.imageArray = images!.componentsSeparatedByString(",")
+                if images == nil {
+                    self.imageArray = []
+                } else {
+                    self.imageArray = images!.componentsSeparatedByString(",")
+                }
             }
             self.tableView?.reloadData()
             

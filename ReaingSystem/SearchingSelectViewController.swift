@@ -64,6 +64,14 @@ class SearchingSelectViewController: UIViewController, UITableViewDelegate, UITa
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! SearchingSelectTableViewCell
         cell.titleLabel.text = nameArray[indexPath.row]
+        switch self.formData! {
+        case 0:
+            cell.titleLabel.textAlignment = NSTextAlignment.Left
+        case 1:
+            cell.titleLabel.textAlignment = NSTextAlignment.Right
+        default:
+            break
+        }
         
         return cell
     }

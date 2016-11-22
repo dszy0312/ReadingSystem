@@ -5,7 +5,6 @@
 //  Created by 魏辉 on 16/8/17.
 //  Copyright © 2016年 魏辉. All rights reserved.
 //
-
 import Foundation
 import UIKit
 
@@ -37,6 +36,8 @@ enum URLHealper {
     case readedBooksURL
     //从书架删除某书籍（参数： bookList）
     case removeBookFromShelf
+    //书籍下载 (参数：bookID,chapterID, chapterID为空时下载本书所有内容)
+    case downloadBook
     
     //MARK: 精选页面
     //轮播图数据接口
@@ -166,6 +167,8 @@ enum URLHealper {
             return baseURl + "story/GetReadedList"
         case .removeBookFromShelf:
             return baseURl + "story/RemoveShelf"
+        case .downloadBook:
+            return baseURl + "/story/DownloadTxt"
         case .choicenessDataURL:
             return baseURl + "story/getjx"
         case .getStoryByReadedURL:

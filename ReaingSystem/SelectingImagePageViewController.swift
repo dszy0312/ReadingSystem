@@ -62,6 +62,9 @@ class SelectingImagePageViewController: UIPageViewController, UIPageViewControll
         // Dispose of any resources that can be recreated.
     }
     
+//    override func viewDidAppear(animated: Bool) {
+//        getSelectingMessage()
+//    }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         startTime()
@@ -188,6 +191,7 @@ class SelectingImagePageViewController: UIPageViewController, UIPageViewControll
     
     //MARK: 网络请求
     func getSelectingMessage() {
+        endTime()
         NetworkHealper.Get.receiveJSON(URLHealper.choicenessDataURL.introduce()) { (dictionary, error) in
             guard error == nil else {
                 print(error)

@@ -30,7 +30,8 @@ class CategoryImageCollectionViewCell: UICollectionViewCell {
         if url == nil {
             imageView.image = UIImage(named: "bookLoading")
         } else {
-            imageView.kf_setImageWithURL(NSURL(string: baseURl + url!), placeholderImage: UIImage(named: "bookLoading"))
+            let urlStr = baseURl + url!
+            imageView.kf_setImageWithURL(NSURL(string: urlStr.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "bookLoading"))
         }
     }
     

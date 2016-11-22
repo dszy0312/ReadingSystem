@@ -13,7 +13,8 @@ class JournalDCatalogueCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var pageImageView: UIImageView!
     
     func setData(url: String) {
-        pageImageView.kf_setImageWithURL(NSURL(string: url), placeholderImage: UIImage(named: "bookLoading"))
+        
+        pageImageView.kf_setImageWithURL(NSURL(string: url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "bookLoading"))
     }
 
 }

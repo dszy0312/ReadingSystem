@@ -59,7 +59,8 @@ class SearchingResultTableViewCell: UITableViewCell {
         if data.bookImg == nil {
             bookImgeView.image = UIImage(named: "bookLoading")
         } else {
-            bookImgeView.kf_setImageWithURL(NSURL(string: baseURl + data.bookImg), placeholderImage: UIImage(named: "bookLoading"))
+            let url = baseURl + data.bookImg
+            bookImgeView.kf_setImageWithURL(NSURL(string: url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "bookLoading"))
         }
     }
     

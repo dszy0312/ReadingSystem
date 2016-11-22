@@ -109,10 +109,12 @@ class ListenFamousDetailViewController: UIViewController, UITableViewDelegate, U
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 1 {
+            let cell = tableView.cellForRowAtIndexPath(indexPath) as! ListenFamousDetailListTableViewCell
             let toVC = self.toVC("Listen", vcName: "ListenDetail") as! ListenDetailViewController
             toVC.audioData = listArray[indexPath.row]
             toVC.audioID = listArray[indexPath.row].audioID
-            self.presentViewController(toVC, animated: true, completion: { 
+            toVC.image = cell.listenImageView.image
+            self.presentViewController(toVC, animated: true, completion: {
                 self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
             })
         }
@@ -143,7 +145,8 @@ class ListenFamousDetailViewController: UIViewController, UITableViewDelegate, U
         if data.authorImg == nil {
             self.authorImageView.image = UIImage(named: "bookLoading")
         } else {
-            self.authorImageView.kf_setImageWithURL(NSURL(string: baseURl + data.authorImg), placeholderImage: UIImage(named: "bookLoading"))
+            let url = baseURl + data.authorImg
+            self.authorImageView.kf_setImageWithURL(NSURL(string: url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "bookLoading"))
         }
 
     }

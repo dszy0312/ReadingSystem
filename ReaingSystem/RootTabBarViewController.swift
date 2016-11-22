@@ -28,13 +28,16 @@ class RootTabBarViewController: UITabBarController, ChangeTabBarDelegate, Hidden
         let count = viewControllers != nil ? viewControllers!.count : 0
         return count
     }
-    
+    //changeTabBarDelegate
     // 更改controller
     func changeIndex(index: Int) {
         print("index = \(index)")
         self.selectedIndex = index
     }
     
+    func loginAlert() {
+        alertMessage("提示", message: "请先登录然后查询", vc: self)
+    }
     
     
     //隐藏tabbar
@@ -99,63 +102,12 @@ class RootTabBarViewController: UITabBarController, ChangeTabBarDelegate, Hidden
         var array = NSBundle.mainBundle().loadNibNamed("PersonalTabBar", owner: self, options: nil)
         tabBarView = array![0] as? PersonalTabBar
         tabBarView?.delegate = self
-        tabBarView?.itemButton1.selected = true
-        tabBarView?.itemButton1.setBackgroundImage(UIImage(named: "反相-1"), forState: .Normal)
-        self.selectedIndex = 0
+        tabBarView?.itemButton2.selected = true
+        tabBarView?.itemButton2.setBackgroundImage(UIImage(named: "反相-2"), forState: .Normal)
+        self.selectedIndex = 1
         tabBarView?.frame = CGRect(x: 0, y: self.view.frame.height - 49, width: self.view.frame.width, height: 49)
         self.view.addSubview(tabBarView!)
-//        self.tabBar.hidden = true
-//        homeVC?.hiddenTabBar = self
     }
     
-//    
-//    func didPan(gesture: UIPanGestureRecognizer) {
-//        let translationX = panGesture.translationInView(view).x
-//        let translationAbs = translationX > 0 ? translationX : -translationX
-//        let progress = translationAbs / view.frame.width
-//        
-//        switch panGesture.state {
-//        case .Began:
-//            tabBarVCDelegate.interactive = true
-//            let velocityX = panGesture.velocityInView(view).x
-//            if velocityX < 0 {
-//                if selectedIndex < subControllerCount - 1 {
-//                    selectedIndex += 1
-//                }
-//            } else {
-//                if selectedIndex > 0 {
-//                    selectedIndex -= 1
-//                }
-//            }
-//        case .Changed:
-//            tabBarVCDelegate.interactionController.updateInteractiveTransition(progress)
-//        case .Cancelled, .Ended:
-//            if progress > 0.3 {
-//                //解决动画不正常问题
-//                tabBarVCDelegate.interactionController.completionSpeed = 0.99
-//                
-//                tabBarVCDelegate.interactionController.finishInteractiveTransition()
-//            } else {
-//                //转场取消后，UITabBarController 自动恢复了 selectedIndex 的值，不需要我们手动恢复
-//                tabBarVCDelegate.interactionController.completionSpeed = 0.99
-//                tabBarVCDelegate.interactionController.cancelInteractiveTransition()
-//            }
-//            tabBarVCDelegate.interactive = false
-//        default:
-//            break
-//        }
-//        
-//    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

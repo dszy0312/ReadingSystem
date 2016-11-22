@@ -21,7 +21,8 @@ class ListenFamousCollectionViewCell: UICollectionViewCell {
         if data.authorImg == nil {
             famousImageView.image = UIImage(named: "listen_image")
         } else {
-            famousImageView.kf_setImageWithURL(NSURL(string: baseURl + data.authorImg), placeholderImage: UIImage(named: "listen_image"))
+            let url = baseURl + data.authorImg
+            famousImageView.kf_setImageWithURL(NSURL(string: url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "listen_image"))
         }
     }
 

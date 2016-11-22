@@ -58,8 +58,8 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        getNetworkData("2016-09-20")
+        
+        getNetworkData("")
         
         // Do any additional setup after loading the view.
     }
@@ -178,7 +178,7 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
             return
         }
         print("\(data)")
-//        self.getNetworkData(data, key: key)
+        self.getNetworkData(data)
     }
     //设定个人中心图片
     func setImage(button: UIButton){
@@ -186,7 +186,8 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
         if imageUrl == "center_photo" {
             button.setImage(UIImage(named: "personal"), forState: .Normal)
         } else {
-            button.kf_setImageWithURL(NSURL(string: imageUrl!), forState: .Normal)
+            
+            button.kf_setImageWithURL(NSURL(string: imageUrl!.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), forState: .Normal)
         }
     }
     
@@ -226,10 +227,10 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
                 print(error)
                 return
             }
-            
+            self.paperMainRow = []
             let editionRoot = PaperMainRoot(fromDictionary: dictionary!)
             self.paperMainRow.appendContentsOf(editionRoot.data)
-            self.paperMainRow.appendContentsOf(editionRoot.data)
+            //self.paperMainRow.appendContentsOf(editionRoot.data)
             print(self.paperMainRow.count)
             
             let paperShow = self.getPaperShow()
@@ -247,7 +248,7 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
     func getCurrentDate() -> String {
         let date = NSDate()
         let formate = NSDateFormatter()
-        formate.dateFormat = "yyyy-mm-dd"
+        formate.dateFormat = "yyyy-MM-dd"
         let dateStr = formate.stringFromDate(date)
         return dateStr
     }

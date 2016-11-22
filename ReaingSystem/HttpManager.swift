@@ -123,6 +123,9 @@ enum NetworkHealper {
                 print(str)
                 completion(dic, error)
             })
+            
+        default:
+            break
         }
     }
     //获取NSData数据
@@ -185,14 +188,36 @@ enum NetworkHealper {
                 
                 completion(data, error)
             })
+        default:
+            break
         }
     }
     
     //下载数据
-    func downloadData() {
+    func downloadData(url: String,parameter: [String: AnyObject]? = [:], progress: (Int64?, Int64?, Int64?) -> Void, completion: (NSDictionary?, String?) -> Void) {
+        var err: String?
+        var dic: NSDictionary?
         switch self {
-        case .Get:
-            print("xiazai")
+        case .GetWithParm:
+            Alamofire.request(.GET, url, parameters: parameter).responseJSON(completionHandler: { (response) in
+                switch response.result {
+                case .Success:
+                    //确保返回值是一个json字符串，并能转换成NSDictionary
+                    guard let jsonDic = response.result.value as? NSDictionary else {
+                        err = "不是一个json字符串"
+                        completion(dic, err)
+                        return
+                    }
+                    dic = jsonDic
+                    
+                case .Failure(let _):
+                    err = "服务器出错"
+                }
+                completion(dic, err)
+            }).progress({ (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
+                progress(bytesRead, totalBytesRead, totalBytesExpectedToRead)
+            })
+            
         default:
             break
         }

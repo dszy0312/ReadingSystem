@@ -153,8 +153,10 @@ class FindViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 })
             }
         case 1:
+            let cell = collectionView.cellForItemAtIndexPath(indexPath) as! FindListenCollectionViewCell
             if let toVC = detailVC("Listen", vcName: "ListenDetail") as? ListenDetailViewController {
                 toVC.audioID = listenData[indexPath.row].audioID
+                toVC.image = cell.listenImage.image
                 
                 self.presentViewController(toVC, animated: true, completion: nil)
             }
@@ -209,7 +211,7 @@ class FindViewController: UIViewController, UICollectionViewDelegate, UICollecti
         if imageUrl == "center_photo" {
             button.setImage(UIImage(named: "personal"), forState: .Normal)
         } else {
-            button.kf_setImageWithURL(NSURL(string: imageUrl!), forState: .Normal)
+            button.kf_setImageWithURL(NSURL(string: imageUrl!.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), forState: .Normal)
         }
     }
     

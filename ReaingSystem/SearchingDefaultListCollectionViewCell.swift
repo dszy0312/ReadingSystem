@@ -50,7 +50,8 @@ class SearchingDefaultListCollectionViewCell: UICollectionViewCell {
         if data.bookImg == nil {
             bookImageLabel.image = UIImage(named: "bookLoading")
         } else {
-            bookImageLabel.kf_setImageWithURL(NSURL(string: baseURl + data.bookImg), placeholderImage: UIImage(named: "bookLoading"))
+            let url = baseURl + data.bookImg
+            bookImageLabel.kf_setImageWithURL(NSURL(string: url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "bookLoading"))
         }
     }
 }

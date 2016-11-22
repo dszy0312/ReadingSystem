@@ -16,7 +16,8 @@ class SelectingTitleCollectionViewCell: UICollectionViewCell {
     
     
     func setData(data: SelectData) {
-        titleImage.kf_setImageWithURL(NSURL(string: baseURl + data.iconUrl), placeholderImage: UIImage(named: "标题"))
+        let url = baseURl + data.iconUrl
+        titleImage.kf_setImageWithURL(NSURL(string: url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "标题"))
         titleName.text = data.iconName
     }
     

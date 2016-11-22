@@ -10,6 +10,7 @@ import UIKit
 
 protocol ChangeTabBarDelegate {
     func changeIndex(index: Int)
+    func loginAlert()
 }
 
 class PersonalTabBar: UIView {
@@ -33,7 +34,7 @@ class PersonalTabBar: UIView {
     @IBOutlet weak var itemButton5: UIButton!
     
     var delegate: ChangeTabBarDelegate?
-    var numberArray = [false, true, true, true, true]
+    var numberArray = [true, false, true, true, true]
     
     
     
@@ -75,13 +76,22 @@ class PersonalTabBar: UIView {
             }
             break
         case 3:
-            if numberArray[3] {
-                defaultChange()
-                numberArray[3] = false
-                selectionChange(itemButton4, imageName: "反相-4", isSelected: true)
-                
-                itemBackgroundImage.center = itemBackgroundView4.center
+            if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
+                if title == "个人中心" {
+                    delegate!.loginAlert()
+                    return
+                } else {
+                    if numberArray[3] {
+                        defaultChange()
+                        numberArray[3] = false
+                        selectionChange(itemButton4, imageName: "反相-4", isSelected: true)
+                        
+                        itemBackgroundImage.center = itemBackgroundView4.center
+                    }
+                    
+                }
             }
+
             break
         case 4:
             if numberArray[4] {
@@ -117,15 +127,5 @@ class PersonalTabBar: UIView {
         button.imageView?.image = UIImage(named: imageName)
         button.setBackgroundImage(UIImage(named: imageName), forState: .Normal)
     }
-
-    
-
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
 
 }

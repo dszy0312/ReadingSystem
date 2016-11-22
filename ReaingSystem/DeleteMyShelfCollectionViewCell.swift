@@ -21,7 +21,8 @@ class DeleteMyShelfCollectionViewCell: UICollectionViewCell {
         if data.bookImg == nil {
             bookImageView.image = UIImage(named: "bookLoading")
         } else {
-            bookImageView.kf_setImageWithURL(NSURL(string: baseURl + data.bookImg), placeholderImage: UIImage(named: "bookLoading"))
+            let url = baseURl + data.bookImg
+            bookImageView.kf_setImageWithURL(NSURL(string: url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "bookLoading"))
         }
         bookNameLabel.text = data.bookName
     }

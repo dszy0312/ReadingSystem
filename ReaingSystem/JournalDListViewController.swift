@@ -137,6 +137,7 @@ class JournalDListViewController: UIViewController, UITableViewDelegate, UITable
     
     //网络请求
     func getListData(id: String) {
+        print(id)
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.getJournalListIssue.introduce(), parameter: ["Mz_ID":id, "pageIndex": 1]) { (dictionary, error) in
             guard error == nil else {
                 print(error)

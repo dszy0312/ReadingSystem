@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -45,15 +46,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
         }
         
-//        window = UIWindow(frame: UIScreen.mainScreen().bounds)
-//        window?.makeKeyAndVisible()
-//        
-//        storyBoard = UIStoryboard(name: "Paper", bundle: nil)
-//        let rootController = storyBoard?.instantiateViewControllerWithIdentifier("PaperMain")
-//        
-//        if let window = self.window {
-//            window.rootViewController = rootController
-//        }
+                //数据迁移 schemaVersion: 版本号
+                let config = Realm.Configuration(schemaVersion: 2, migrationBlock: { (migration, oldSchemaVersion) in
+                    migration.enumerate("MyShelfRmBook", { (oldObject, newObject) in
+                        if oldSchemaVersion < 2 {
+                            newObject!["imageData"] = NSData()
+                        }
+                    })
+                })
+                Realm.Configuration.defaultConfiguration = config
 
         ShareSDK.registerApp("1720f399fc3e4", activePlatforms: [
                 SSDKPlatformType.TypeSinaWeibo.rawValue,

@@ -9,7 +9,7 @@
 import UIKit
 import Kingfisher
 
-private let reuseIdentifier = ["ReadDetailSegue"]
+private let reuseIdentifier = ["ReadDetailSegue", "CommentSegue"]
 
 class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     //封面
@@ -31,7 +31,7 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
     
     
 
-    //书籍简介信息
+//    书籍简介信息
     var selectedBookID: String! {
         didSet {
             getSummery(selectedBookID)
@@ -54,6 +54,8 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
         
+//        detailText.contentInset = UIEdgeInsetsMake(0, 10, 0, 5)
+        
         // Do any additional setup after loading the view.
     }
 
@@ -70,7 +72,11 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
         if segue.identifier == reuseIdentifier[0] {
             UIApplication.sharedApplication().statusBarHidden = true
             let toVC = segue.destinationViewController as! BookReadingViewController
+            toVC.isNew = true
             toVC.catalogue = self.catalogue
+            toVC.bookName = titleLabel.text
+            toVC.bookImage = bookImage.image
+            toVC.author = subTitleLabel.text != "" ? subTitleLabel.text! : "佚名"
             if clickFrom == 0 {
                 if let chapterID = bookData.data.first?.chapterID {
                     //选中章节
@@ -86,6 +92,10 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
                 toVC.selectedChapter = selectedRow
             }
             toVC.bookID = selectedBookID
+        } else if segue.identifier == reuseIdentifier[1] {
+            let toVC = segue.destinationViewController as! CommentViewController
+            toVC.bookID = selectedBookID
+            toVC.bookType = "appstory"
         }
     }
     
@@ -96,27 +106,28 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
-    
-    @IBAction func shareClick(sender: UIButton) {
-        print(sender.selected)
-    }
-    
-    
-    
-    @IBAction func share2Click(sender: UIButton) {
-        let shareParames = NSMutableDictionary()
-        shareParames.SSDKSetupShareParamsByText("分享内容", images: UIImage(named: "login_logo"), url: NSURL(string: "https://www.bing.com"), title: "分享标题", type: SSDKContentType.WebPage)
-        ShareSDK.share(SSDKPlatformType.TypeQQ, parameters: shareParames) { (states, nil, entity, error) in
-            switch states {
-            case SSDKResponseState.Success: print("风向成功")
-            case SSDKResponseState.Fail: print("失败： \(error)")
-            case SSDKResponseState.Cancel: print("取消")
-            default:
-                break
+    @IBAction func commentClick(sender: UIButton) {
+        if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
+            if title == "个人中心" {
+                alertMessage("通知", message: "请登陆后查看评论！", vc: self)
+            } else {
+                self.performSegueWithIdentifier(reuseIdentifier[1], sender: self)
+                
             }
         }
+        
+        
     }
     
+    @IBAction func shareClick(sender: UIButton) {
+        alertShareMessage(self) { (type) in
+            guard let name = self.titleLabel.text, let image = self.bookImage.image, let id = self.selectedBookID else {
+                alertMessage("提示", message: "数据不全，无法分享！", vc: self)
+                return
+            }
+            alertShare(id, name: name, author: self.subTitleLabel.text != "" ? self.subTitleLabel.text! : "佚名", image: image,shareType: "appstory", form: "1", type: type)
+        }
+    }
     
     @IBAction func selectChange(sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
@@ -187,6 +198,10 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
         return cell
     }
     
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 40
+    }
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.selectedRow = indexPath.row
         self.clickFrom = 1
@@ -199,7 +214,9 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
         if data.data.first!.bookImg == nil {
             bookImage.image = UIImage(named: "bookLoading")
         } else {
-            bookImage.kf_setImageWithURL(NSURL(string: baseURl + data.data.first!.bookImg), placeholderImage: UIImage(named: "bookLoading"))
+            let url = baseURl + data.data.first!.bookImg
+            print(url)
+            bookImage.kf_setImageWithURL(NSURL(string: url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "bookLoading"))
         }
         titleLabel.text = data.data.first?.bookName
         subTitleLabel.text = data.data.first?.author
@@ -246,6 +263,13 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
         ]
         //用POST出错，未知原因
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.addToShelfURL.introduce(), parameter: parm, completion: { (dictionary, error) in
+            
+            //查询错误
+            guard error == nil else {
+                print(error)
+                alertMessage("提示", message: "添加书架出错，请重新添加。", vc: self)
+                return
+            }
             
             if let flag = dictionary!["flag"] as? Int {
                 if flag == 1 {

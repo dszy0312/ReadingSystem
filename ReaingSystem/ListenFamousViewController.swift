@@ -135,12 +135,5 @@ class ListenFamousViewController: UIViewController, UICollectionViewDelegate, UI
             self.collectionView.reloadData()
             
         }
-        
-        
     }
-
-    
-    
-
-
 }

@@ -81,7 +81,8 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
         if imageUrl == "center_photo" {
             photoImageView.image = UIImage(named: imageUrl!)
         } else {
-            photoImageView.kf_setImageWithURL(NSURL(string: imageUrl!), placeholderImage: UIImage(named: "center_photo"))
+            
+            photoImageView.kf_setImageWithURL(NSURL(string: imageUrl!.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "center_photo"))
         }
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

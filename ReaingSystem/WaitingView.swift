@@ -32,6 +32,12 @@ class WaitingView: UIView {
     
     //添加layer
     func addLayer() {
+        if let subLayer = complexLoadingView.layer.sublayers {
+            for layer in subLayer {
+                layer.removeFromSuperlayer()
+            }
+        }
+        ovalShapLayer = CAShapeLayer()
         ovalShapLayer.strokeColor = UIColor.whiteColor().CGColor
         ovalShapLayer.fillColor = UIColor.clearColor().CGColor
         ovalShapLayer.lineWidth = 4
@@ -43,6 +49,7 @@ class WaitingView: UIView {
         ovalShapLayer.lineCap = kCALineCapRound
         
         complexLoadingView.layer.addSublayer(ovalShapLayer)
+        
     }
     
     //开始加载
@@ -78,13 +85,6 @@ class WaitingView: UIView {
                 self.ovalShapLayer.removeAllAnimations()
         }
     }
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
+    
 
 }

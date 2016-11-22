@@ -68,6 +68,7 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
     
     @IBAction func begainReadingClick(sender: UIButton) {
         guard interestChosedSet != [] else {
+            alertMessage("提示", message: "请选择至少一种类型", vc: self)
             return
         }
         

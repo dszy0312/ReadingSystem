@@ -13,6 +13,7 @@ struct MyBook{
     var category: String!
     var chapterID: String!
     var chapterName: String!
+    var hasLoaded = false
 
 
 	/**

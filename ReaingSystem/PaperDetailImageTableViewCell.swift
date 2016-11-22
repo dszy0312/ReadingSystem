@@ -25,7 +25,7 @@ class PaperDetailImageTableViewCell: UITableViewCell {
     
     
     func setData(url: String) {
-        pageImageView.kf_setImageWithURL(NSURL(string: url), placeholderImage: UIImage(named: "selecting"))
+        pageImageView.kf_setImageWithURL(NSURL(string: url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "selecting"))
         
     }
 

@@ -68,8 +68,10 @@ class ListenChildListViewController: UIViewController, UITableViewDelegate, UITa
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! ListenChildListTableViewCell
         if let toVC = childVC("Listen", vcName: "ListenDetail") as? ListenDetailViewController {
             toVC.audioID = dataArray[indexPath.row].audioID
+            toVC.image = cell.bookImageView.image
             self.presentViewController(toVC, animated: true, completion: {
                 self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
             })

@@ -67,10 +67,11 @@ class SelectingSexViewController: UIViewController, UICollectionViewDataSource,U
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier[0], forIndexPath: indexPath) as! SelectingSexCollectionViewCell
         if let detailRoot = sexDetailData[sexRootData.data2[indexPath.section].categoryID] {
             if let datas = detailRoot.data {
-                if datas.count != 6 {
+                if datas.count < indexPath.row + 1  {
                     cell.titleLabel.text = ""
+                    cell.bookImage.image = UIImage(named: "bookLoading")
                 } else {
-                    cell.setData(datas[indexPath.row])
+                        cell.setData(datas[indexPath.row])
                 }
                 
             }
@@ -94,9 +95,11 @@ class SelectingSexViewController: UIViewController, UICollectionViewDataSource,U
     
     // delegate
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        print("xuanzhong")
         guard let datas = sexDetailData[sexRootData.data2[indexPath.section].categoryID]?.data else {
             return
         }
+        print("选中\(sexDetailData)")
         guard datas.count >= indexPath.row + 1 else {
             return
         }

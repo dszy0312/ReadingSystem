@@ -50,6 +50,7 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
 //            strDictionary = [:]
             maxCount = countTest(textSize)
             paging(defaultString, page: 1, textSize: textSize, maxCount: maxCount)
+            
             var curPage = NSUserDefaults.standardUserDefaults().integerForKey("curPage")
             if curPage > totalPages {
                 curPage = totalPages
@@ -213,7 +214,6 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
         if totalHeight < height && textLenth < count {
             strDictionary[page] = text
             self.totalPages = page
-            
         } else {
             //极端情况，如果字母或者数字过多，每页包含的字符会变多
             while totalHeight < height {

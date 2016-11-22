@@ -29,7 +29,7 @@ class ImagesViewController: UIViewController {
     }
     
     func setImage(url: String) {
-        customImageView.kf_setImageWithURL(NSURL(string: url), placeholderImage: UIImage(named: "selecting"))
+        customImageView.kf_setImageWithURL(NSURL(string: url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "selecting"))
     }
 
 

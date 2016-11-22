@@ -542,7 +542,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="czl-3u-eB3">
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fc5-C2-gmt">
-                                        <state key="normal" title="综合排行">
+                                        <state key="normal" title="综合排序">
                                             <color key="titleColor" red="0.41960784309999999" green="0.63137254899999995" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -738,14 +738,14 @@
                                     <constraint firstAttribute="height" constant="200" id="f12-Zf-0nE"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="35" id="FyT-KH-pel" customClass="SearchingSelectTableViewCell" customModule="ReaingSystem" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="35" id="FyT-KH-pel" customClass="SearchingSelectTableViewCell" customModule="ReaingSystem" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="35"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FyT-KH-pel" id="wnV-6X-AD7">
                                             <frame key="frameInset" width="375" height="34"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="所有频道" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1sV-Dh-lB0">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="所有频道" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1sV-Dh-lB0">
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.26274509800000001" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -753,7 +753,8 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="1sV-Dh-lB0" firstAttribute="centerY" secondItem="wnV-6X-AD7" secondAttribute="centerY" id="1e0-0g-O1o"/>
-                                                <constraint firstItem="1sV-Dh-lB0" firstAttribute="leading" secondItem="wnV-6X-AD7" secondAttribute="leadingMargin" constant="27" id="qdk-Ot-i3e"/>
+                                                <constraint firstItem="1sV-Dh-lB0" firstAttribute="leading" secondItem="wnV-6X-AD7" secondAttribute="leading" constant="35" id="aeZ-gm-Gkp"/>
+                                                <constraint firstAttribute="trailing" secondItem="1sV-Dh-lB0" secondAttribute="trailing" constant="31" id="ryK-St-FLM"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -789,7 +790,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rCn-VZ-4Rh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3020" y="175"/>
+            <point key="canvasLocation" x="3020" y="174.51274362818592"/>
         </scene>
         <!--Top List View Controller-->
         <scene sceneID="fVk-Ux-VpT">

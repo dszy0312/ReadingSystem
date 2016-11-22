@@ -36,6 +36,9 @@ class PaperShowViewController: UIPageViewController, UIPageViewControllerDelegat
     //MARK: UIPageViewControllerDataSource delegate
     //DataSource
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+        guard paperMainRow.count != 0 else {
+            return nil
+        }
         guard var index = (viewController as! PaperImageViewController).customIndex else {
             return nil
         }
@@ -50,6 +53,10 @@ class PaperShowViewController: UIPageViewController, UIPageViewControllerDelegat
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+        guard paperMainRow.count != 0 else {
+            return nil
+        }
+        
         guard var index = (viewController as! PaperImageViewController).customIndex else {
             return nil
         }

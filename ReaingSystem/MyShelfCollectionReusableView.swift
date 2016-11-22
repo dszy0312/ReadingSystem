@@ -9,6 +9,10 @@
 import UIKit
 import Kingfisher
 
+protocol ReadedBookSelectDelegate {
+    func bookSelect(id: String, name: String, author: String, chapterID: String, image: UIImage)
+}
+
 class MyShelfCollectionReusableView: UICollectionReusableView {
     //图书封面
     @IBOutlet weak var bookImageView: UIImageView!
@@ -23,18 +27,27 @@ class MyShelfCollectionReusableView: UICollectionReusableView {
     
     @IBOutlet weak var backgroundImageView: UIImageView!
     
+    var customDelegate: ReadedBookSelectDelegate!
+    var bookData: ReadedBook!
     
     @IBAction func transitionAction(sender: UIButton) {
-        
+        customDelegate.bookSelect(bookData.bookID, name: bookData.bookName, author: bookData.author, chapterID: bookData.chapterID, image: bookImageView.image!)
     }
+    
+    @IBAction func bookSelectClick(sender: UIButton) {
+    }
+    
+    
     func setData(data: ReadedBook, count: Int) {
+        bookData = data
         
         if data.bookImg == nil {
             backgroundImageView.image = UIImage(named: "bookLoading")
             bookImageView.image = UIImage(named: "bookLoading")
         } else {
-            backgroundImageView.kf_setImageWithURL(NSURL(string: baseURl + data.bookImg), placeholderImage: UIImage(named: "bookLoading"))
-            bookImageView.kf_setImageWithURL(NSURL(string: baseURl + data.bookImg), placeholderImage: UIImage(named: "bookLoading"))
+            let url = baseURl + data.bookImg
+            backgroundImageView.kf_setImageWithURL(NSURL(string: url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "bookLoading"))
+            bookImageView.kf_setImageWithURL(NSURL(string: url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "bookLoading"))
         }
         bookTitleLabel.text = data.bookName
         bookSubTitleLabel.text = data.chapterName

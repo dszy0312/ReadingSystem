@@ -19,7 +19,8 @@ class FindListenCollectionViewCell: UICollectionViewCell {
     func setListenData(data: FindData) {
         titleLabel.text = data.audioName
         if let url = data.audioImgUrl {
-            showImage.kf_setImageWithURL(NSURL(string: baseURl + url), placeholderImage: UIImage(named: "bookLoading"))
+            let urlStr = baseURl + url
+            showImage.kf_setImageWithURL(NSURL(string: urlStr.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "bookLoading"))
         } else {
             showImage.image = UIImage(named: "bookLoading")
             

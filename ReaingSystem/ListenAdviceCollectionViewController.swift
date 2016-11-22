@@ -107,8 +107,10 @@ class ListenAdviceCollectionViewController: UICollectionViewController, UICollec
     
     //delegate
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! ListenAdviceCollectionViewCell
         if let toVC = childVC("Listen", vcName: "ListenDetail") as? ListenDetailViewController {
             toVC.audioID = adviceData.returnData[indexPath.section].prList[indexPath.row].audioID
+            toVC.image = cell.customImageView.image
             self.presentViewController(toVC, animated: true, completion: {
                 
             })

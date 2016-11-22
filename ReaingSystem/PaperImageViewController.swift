@@ -38,7 +38,8 @@ class PaperImageViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.imageView = UIImageView(image: UIImage(named: "paper_background"))
-        self.imageView.kf_setImageWithURL(NSURL(string: baseURl + imageURL), placeholderImage: UIImage(named: "paper_background"))
+        let url = baseURl + imageURL
+        self.imageView.kf_setImageWithURL(NSURL(string: url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "paper_background"))
         self.initImageInstance()
         self.initScrollViewContainer()
         self.setupGestureRecognizer()
@@ -72,7 +73,7 @@ class PaperImageViewController: UIViewController, UIScrollViewDelegate {
     
     // 產生 Scroll View
     func initScrollViewContainer(){
-        self.scrollView = UIScrollView(frame: CGRect(x: 0.0, y: 0.0, width: self.view.bounds.width, height: self.view.bounds.height))
+        self.scrollView = UIScrollView(frame: CGRect(x: 10.0, y: 0.0, width: self.view.bounds.width - 20, height: self.view.bounds.height))
         print(self.scrollView.bounds.height)
 //        self.scrollView.backgroundColor = UIColor.blackColor()
         self.scrollView.contentSize = imageView.bounds.size

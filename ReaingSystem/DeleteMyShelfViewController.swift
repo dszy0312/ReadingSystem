@@ -11,6 +11,7 @@ import UIKit
 protocol DeleteMyShelfDelegate: class {
     func valueOfContentOffSet(value: CGPoint)
     func deleteItem(index: Set<Int>)
+    func downLoadItem(index: Set<Int>)
 }
 
 private var reuseIdentifier = ["BookCell", "ListenCell", "SelectCell"]
@@ -64,11 +65,6 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func deleteClick(sender: UIButton) {
-        if index != [] {
-            deleteSend()
-        }
-    }
     //全选
     @IBAction func selectAllClick(sender: UIButton) {
         self.contentOffset = collectionView.contentOffset
@@ -81,12 +77,16 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
     }
     
     @IBAction func deleteOrDownLoadClick(sender: UIButton) {
+        guard index != [] else {
+            alertMessage("提示", message: "请选择至少一本书籍或者音频", vc: self)
+            return
+        }
         if sender.tag == 0 {
             print("下载")
+            delegate.downLoadItem(index!)
+            self.dismissViewControllerAnimated(true, completion: nil)
         } else {
-            if index != [] {
-                deleteSend()
-            }
+            deleteSend()
         }
     }
     
@@ -125,10 +125,10 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
                     cell.isChosed = true
                     cell.checkedImage.alpha = 1
                     if selectIndex == 0 {
+                        index?.insert(indexPath.row)
                         cell.checkedImage.image = UIImage(named: "check-green")
                     } else {
                         cell.checkedImage.image = UIImage(named: "check-red")
-                        index?.insert(indexPath.row)
                     }
                 }
                 
@@ -206,11 +206,11 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! DeleteMyShelfCollectionViewCell
         if cell.isChosed == false {
             cell.isChosed = true
+            index?.insert(indexPath.row)
             if selectIndex == 0 {
                 cell.checkedImage.image = UIImage(named: "check-green")
             } else {
                 cell.checkedImage.image = UIImage(named: "check-red")
-                index?.insert(indexPath.row)
             }
         } else if cell.isChosed == true {
             cell.isChosed = false
@@ -253,9 +253,8 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
     func deleteSend() {
         var arr: [String] = []
         for foo in index! {
-            arr.append(myBooks![foo].bookID)
+            arr.append(myBooks![foo - 1].bookID)
         }
-        print(arr)
         NetworkHealper.Post.receiveJSON(URLHealper.removeBookFromShelf.introduce(), parameter: ["bookIDList": arr]) { (dictionary, error) in
             guard error == nil else {
                 print(error)
@@ -272,5 +271,7 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
             }
         }
     }
+    
+    
     
 }

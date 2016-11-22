@@ -47,6 +47,7 @@ class ListenFamousListViewController: UIViewController, UITableViewDataSource, U
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        print(famousArray)
         // Dispose of any resources that can be recreated.
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -108,6 +109,7 @@ class ListenFamousListViewController: UIViewController, UITableViewDataSource, U
                 return
             }
             self.famousData = ListenFamousRoot(fromDictionary: dictionary!)
+//            print(dictionary)
             self.famousArray.appendContentsOf(self.famousData.rows)
             self.decideLoading(self.famousArray.count, total: self.famousData.totalCount)
             self.tableView.reloadData()

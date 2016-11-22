@@ -10,4 +10,15 @@ import UIKit
 
 class MyShelfListenCollectionViewCell: MyShelfCollectionViewCell {
     
+    func setListenData(data: MyBook) {
+        //已下载标志是否显示
+        print("是否已下载\(data.hasLoaded)")
+        if data.bookImg == nil {
+            bookImageView.image = UIImage(named: "bookLoading")
+        } else {
+            let url = baseURl + data.bookImg
+            bookImageView.kf_setImageWithURL(NSURL(string: url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "bookLoading"))
+        }
+        bookNameLabel.text = data.bookName
+    }
 }

@@ -23,7 +23,8 @@ class ListenAdviceCollectionViewCell: UICollectionViewCell {
         if data.audioImgUrl == nil {
             customImageView.image = UIImage(named: "listen_image")
         } else {
-            customImageView.kf_setImageWithURL(NSURL(string: baseURl + data.audioImgUrl), placeholderImage: UIImage(named: "listen_image"))
+            let url = baseURl + data.audioImgUrl
+            customImageView.kf_setImageWithURL(NSURL(string: url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "listen_image"))
         }
     }
     

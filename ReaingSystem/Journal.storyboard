@@ -116,7 +116,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SelectCell" id="0eZ-Pz-oFN" customClass="JournalSelectCollectionViewCell" customModule="ReaingSystem" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="-1" width="113" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="113" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="113" height="50"/>
@@ -231,7 +231,7 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="c7A-qP-uty">
-                                    <rect key="frame" x="0.0" y="208" width="375" height="50"/>
+                                    <rect key="frame" x="0.0" y="208" width="1000" height="50"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </collectionReusableView>
                             </collectionView>
@@ -339,19 +339,10 @@
                                                     <action selector="catalogueClick:" destination="SdX-IT-Jt0" eventType="touchUpInside" id="8e7-yk-yoI"/>
                                                 </connections>
                                             </button>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F0d-wt-Xse">
-                                                <color key="backgroundColor" red="0.63921568630000003" green="0.63921568630000003" blue="0.63921568630000003" alpha="1" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="0.5" id="aq6-7P-GyL"/>
-                                                </constraints>
-                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="F0d-wt-Xse" firstAttribute="top" secondItem="Kxr-tf-kPG" secondAttribute="top" id="1gP-Ap-4qj"/>
                                             <constraint firstItem="xjv-7E-zSz" firstAttribute="centerY" secondItem="Kxr-tf-kPG" secondAttribute="centerY" id="LWp-4Z-RsS"/>
-                                            <constraint firstAttribute="trailing" secondItem="F0d-wt-Xse" secondAttribute="trailing" id="Tok-tQ-Eoz"/>
-                                            <constraint firstItem="F0d-wt-Xse" firstAttribute="leading" secondItem="Kxr-tf-kPG" secondAttribute="leading" id="aBR-eA-gjT"/>
                                             <constraint firstItem="xjv-7E-zSz" firstAttribute="centerX" secondItem="Kxr-tf-kPG" secondAttribute="centerX" id="z8d-EN-Wxb"/>
                                         </constraints>
                                     </view>
@@ -371,13 +362,22 @@
                                             <constraint firstItem="RCE-fC-00x" firstAttribute="centerX" secondItem="Xzn-1S-MXh" secondAttribute="centerX" id="UCn-zL-Ai6"/>
                                         </constraints>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F0d-wt-Xse">
+                                        <color key="backgroundColor" red="0.63921568630000003" green="0.63921568630000003" blue="0.63921568630000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="0.5" id="aq6-7P-GyL"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Xzn-1S-MXh" secondAttribute="trailing" id="D7b-3n-dYG"/>
                                     <constraint firstItem="Kxr-tf-kPG" firstAttribute="width" secondItem="EUT-kN-V5z" secondAttribute="width" multiplier="1:2" id="HFz-gQ-RZS"/>
+                                    <constraint firstItem="F0d-wt-Xse" firstAttribute="leading" secondItem="EUT-kN-V5z" secondAttribute="leading" id="JgO-3c-lba"/>
                                     <constraint firstItem="Kxr-tf-kPG" firstAttribute="leading" secondItem="EUT-kN-V5z" secondAttribute="leading" id="Mgz-II-PJE"/>
                                     <constraint firstItem="Kxr-tf-kPG" firstAttribute="top" secondItem="EUT-kN-V5z" secondAttribute="top" id="Pfn-g1-MCO"/>
+                                    <constraint firstAttribute="trailing" secondItem="F0d-wt-Xse" secondAttribute="trailing" id="UbV-jB-4Gb"/>
+                                    <constraint firstItem="F0d-wt-Xse" firstAttribute="top" secondItem="EUT-kN-V5z" secondAttribute="top" id="XiG-Xb-QeZ"/>
                                     <constraint firstAttribute="height" constant="49" id="bWF-yE-iNP"/>
                                     <constraint firstAttribute="bottom" secondItem="Kxr-tf-kPG" secondAttribute="bottom" id="fov-S9-ink"/>
                                     <constraint firstAttribute="bottom" secondItem="Xzn-1S-MXh" secondAttribute="bottom" id="hom-9y-fPT"/>

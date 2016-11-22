@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-private var reuseIdentifier = ["FromCell", "ShowCell"]
+private var reuseIdentifier = ["FromCell", "ShowCell","DetailSegue"]
 
 class PaperSearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
@@ -25,7 +25,10 @@ class PaperSearchViewController: UIViewController, UITableViewDelegate, UITableV
     var searchData: [PaperRow] = []
     //是否显示搜索记录
     var isSearched = false
-
+    //选中内容所在位置
+    var selectedRow: Int!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -43,6 +46,13 @@ class PaperSearchViewController: UIViewController, UITableViewDelegate, UITableV
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == reuseIdentifier[2] {
+            let toVC = segue.destinationViewController as! PaperDetailReadViewController
+            toVC.newsID = searchData[selectedRow].npNewsID
+        }
     }
     
     @IBAction func cancleClick(sender: UIButton) {
@@ -94,13 +104,16 @@ class PaperSearchViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if isSearched == false {
-            historyArray = []
+            isSearched = true
             historyButton.setTitle("没有搜索数据", forState: .Normal)
             let text = historyArray[indexPath.row].name
             getNetworkData(text)
+            tableView.reloadData()
             searchBar.resignFirstResponder()
         } else {
-            
+            selectedRow = indexPath.row
+            self.performSegueWithIdentifier(reuseIdentifier[2], sender: self)
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
     }
     
@@ -115,7 +128,8 @@ class PaperSearchViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        historyArray = []
+        isSearched = true
+        tableView.reloadData()
         historyButton.setTitle("没有搜索数据", forState: .Normal)
         getNetworkData(searchBar.text!)
         addKeyText(searchBar.text!)
