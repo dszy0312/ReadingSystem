@@ -27,10 +27,10 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     @IBOutlet weak var headerView: UIView!
     //底部导航栏
     @IBOutlet weak var footerView: UIView!
-    
+    //黑天白天设置
     @IBOutlet weak var dateButton: UIButton!
     
-    
+    //等待动画视图
     @IBOutlet weak var waitingView: WaitingView!
     //颜色选择框
     @IBOutlet var colorsButton: [UIButton]!
@@ -46,6 +46,12 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     @IBOutlet weak var backButton: UIButton!
     //更多按钮
     @IBOutlet weak var moreButton: UIButton!
+    //评论按钮
+    @IBOutlet weak var commentButton: UIButton!
+    //分享按钮
+    @IBOutlet weak var shareButton: UIButton!
+    //详情跳转按钮
+    @IBOutlet weak var introduceButton: UIButton!
     
     //更多出现的按钮的视图
     @IBOutlet weak var moreShowView: UIView!
@@ -302,6 +308,8 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     
     //夜间模式
     @IBAction func nightChangeClick(sender: UIButton) {
+        
+        
         if sender.tag == 0 {
             sender.tag = 1
             backgroundIndex = 4
@@ -358,6 +366,10 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
         }
 
     }
+    //详情页跳转
+    @IBAction func introduceClick(sender: UIButton) {
+    }
+    
     //字体设置
     //默认字体
     @IBAction func typeSetClick(sender: UIButton) {
@@ -497,9 +509,11 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
             let chapters = book.chapters.filter("chapterID = '\(catalogue[index].chapterID)' ")
             if let chapter = chapters.first {
                 self.titleLabel.text = chapter.chapterName
-                self.readText = chapter.chapterContent
+                self.currentViewController.chapterText = chapter.chapterContent
+                currentViewController.titleName = chapter.chapterName
                 self.waitingView.end()
                 self.view.sendSubviewToBack(self.waitingView)
+                
             } else {
                 self.getNetworkData(self.catalogue[index].chapterID, bookID: bookID)
             }
@@ -523,7 +537,6 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
                 return
             }
             self.readData = StoryReadRoot(fromDictionary: dictionary!)
-        
             self.titleLabel.text = self.readData.rows.first?.chapterName
             self.readText = self.readData.rows.first?.chapterContent
             self.waitingView.end()
@@ -541,7 +554,8 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
             selectedChapter += 1
 
         }
-        self.getCatalogueData(selectedChapter, bookID: bookID)
+        self.getNetworkData(self.catalogue[index].chapterID, bookID: bookID)
+//        self.getCatalogueData(selectedChapter, bookID: bookID)
     }
     
     //设置颜色选择的边框
@@ -576,6 +590,11 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
             headerView.backgroundColor = UIColor.whiteColor()
             footerView.backgroundColor = UIColor.whiteColor()
             setView.backgroundColor = UIColor.whiteColor()
+            moreButton.setImage(UIImage(named: ""), forState: .Normal)
+            commentButton.setImage(UIImage(named: ""), forState: .Normal)
+            shareButton.setImage(UIImage(named: ""), forState: .Normal)
+            introduceButton.setImage(UIImage(named: ""), forState: .Normal)
+            
         case 1:
             nightOrDayImage.image = UIImage(named: "readDetail_day")
             setImage.image = UIImage(named: "readDetail_set_gray")
@@ -585,6 +604,10 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
             headerView.backgroundColor = UIColor.text_navigation_night()
             footerView.backgroundColor = UIColor.text_navigation_night()
             setView.backgroundColor = UIColor.text_navigation_night()
+            moreButton.setImage(UIImage(named: ""), forState: .Normal)
+            commentButton.setImage(UIImage(named: ""), forState: .Normal)
+            shareButton.setImage(UIImage(named: ""), forState: .Normal)
+            introduceButton.setImage(UIImage(named: ""), forState: .Normal)
         default:
             break
         }

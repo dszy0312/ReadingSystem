@@ -15,25 +15,49 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
     //当前视图控制器
 //    var curTextVC: TextViewController!
     var customIndex = 0
+    //章节数据设置: 读取本地时设置
+    var chapterText: String! {
+        didSet {
+            if chapterText == "" {
+                return
+            } else {
+                var page = 1
+                let textSize = CGFloat(NSUserDefaults.standardUserDefaults().floatForKey("textSize"))
+                strArray = splitedString(chapterText)
+                maxCount = countGet(customTextView.frame.width, height: customTextView.frame.height, textSize: textSize)
+                paging(1, textSize: textSize, maxCount: maxCount)
+                print("\(getDate())...\(self.index)")
+                if isPro == true {
+                    page = totalPages
+                    NSUserDefaults.standardUserDefaults().setInteger(totalPages, forKey: "curPage")
+                    //同步 防止突然退出出错
+                    NSUserDefaults.standardUserDefaults().synchronize()
+                }
+                if let firstVC = viewControllersAtIndex(page) {
+                    self.setViewControllers([firstVC], direction: .Forward, animated: false, completion: nil)
+                }
+            }
+        }
+    }
     //字符内容
     var defaultString: String! {
         didSet {
             if defaultString == "" {
                 return
             } else {
+                var page = 1
                 let textSize = CGFloat(NSUserDefaults.standardUserDefaults().floatForKey("textSize"))
-                print(defaultString.characters.count)
-                print(getDate())
                 strArray = splitedString(defaultString)
                 maxCount = countGet(customTextView.frame.width, height: customTextView.frame.height, textSize: textSize)
                  paging(1, textSize: textSize, maxCount: maxCount)
-                print("\(getDate())...\(customIndex)")
+                print("\(getDate())...\(self.index)")
                 if isPro == true {
+                    page = totalPages
                     NSUserDefaults.standardUserDefaults().setInteger(totalPages, forKey: "curPage")
                     //同步 防止突然退出出错
                     NSUserDefaults.standardUserDefaults().synchronize()
                 }
-                if let firstVC = viewControllersAtIndex(NSUserDefaults.standardUserDefaults().integerForKey("curPage")) {
+                if let firstVC = viewControllersAtIndex(page) {
                     self.setViewControllers([firstVC], direction: .Forward, animated: false, completion: nil)
                 }
             }
@@ -149,6 +173,7 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
         }
 
         if let childVC = pageViewController.viewControllers?.first as? TextViewController {
+            print(childVC.currentPage)
             NSUserDefaults.standardUserDefaults().setInteger(childVC.currentPage, forKey: "curPage")
             //同步 防止突然退出出错
             NSUserDefaults.standardUserDefaults().synchronize()
@@ -161,8 +186,8 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
                 
                 //章节跳转
                 let pVC = self.parentViewController as! BookReadingViewController
-                pVC.chapterChange(childVC.nextChapter)
                 pVC.view.bringSubviewToFront(pVC.waitingView)
+                pVC.chapterChange(childVC.nextChapter)
                 pVC.waitingView.begin()
             }
         }
@@ -173,6 +198,7 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
     
     //返回当前页的控制器
     func viewControllersAtIndex(page: Int) -> TextViewController? {
+        print("当前page\(page)")
         let storyboard = UIStoryboard.init(name: "ReadDetail", bundle: NSBundle.mainBundle())
         
         let textVC = storyboard.instantiateViewControllerWithIdentifier("TextViewController") as! TextViewController

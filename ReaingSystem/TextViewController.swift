@@ -68,7 +68,7 @@ class TextViewController: UIViewController, UITextViewDelegate {
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        self.removeFromParentViewController()
+//        self.removeFromParentViewController()
     }
 
     override func didReceiveMemoryWarning() {

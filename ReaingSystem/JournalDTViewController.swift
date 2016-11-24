@@ -76,6 +76,21 @@ class JournalDTViewController: UIViewController, JournalPageSelectDelegate, Jour
         self.performSegueWithIdentifier(reuseIdentifier[1], sender: self)
     }
     
+    @IBAction func commentClick(sender: UIButton) {
+        if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
+            if title == "个人中心" {
+                alertMessage("通知", message: "请登陆后查看评论！", vc: self)
+            } else {
+                let toVC  = self.detailVC("ReadDetail", vcName: "CommentViewController") as! CommentViewController
+                toVC.bookID = mzID
+                toVC.bookType = "appmagazine"
+                self.presentViewController(toVC, animated: true, completion: nil)
+            }
+        }
+
+    }
+    
+    
     //代理方法
     func sendIndex(index: Int) {
         let childVC = getChildVC()
@@ -86,7 +101,14 @@ class JournalDTViewController: UIViewController, JournalPageSelectDelegate, Jour
         getNetworkData(id)
     }
     
-    
+    //MARK：私有方法
+    //页面跳转方法
+    func detailVC(sbName: String, vcName: String) -> UIViewController {
+        let sb = UIStoryboard(name: sbName, bundle: nil)
+        let vc = sb.instantiateViewControllerWithIdentifier(vcName)
+        return vc
+    }
+
     //获取子类视图控制器
     func getChildVC() -> JournalDetailPageViewController {
         var childVC: JournalDetailPageViewController!

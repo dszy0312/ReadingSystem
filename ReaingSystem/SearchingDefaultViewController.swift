@@ -194,10 +194,20 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
             self.searchName = hotKeyData.rows[indexPath.row].categoryName
             performSegueWithIdentifier(searchResultSegue, sender: self)
         default:
-            if let toVC = childVC("ReadDetail", vcName: "BookIntroduceViewController") as? BookIntroduceViewController {
-                toVC.selectedBookID = hotListRows[indexPath.row].bookID
-                self.presentViewController(toVC, animated: true, completion: {
-                })
+            if hotListRows[indexPath.row].typeID == "0001" {
+                if let toVC = childVC("ReadDetail", vcName: "BookIntroduceViewController") as? BookIntroduceViewController {
+                    toVC.selectedBookID = hotListRows[indexPath.row].bookID
+                    self.presentViewController(toVC, animated: true, completion: {
+                    })
+                }
+            } else if hotListRows[indexPath.row].typeID == "0002" {
+                let cell = collectionView.cellForItemAtIndexPath(indexPath) as! SearchingDefaultListCollectionViewCell
+                if let toVC = childVC("Listen", vcName: "ListenDetail") as? ListenDetailViewController {
+                    toVC.audioID = hotListRows[indexPath.row].bookID
+                    toVC.image = cell.bookImageLabel.image
+                    self.presentViewController(toVC, animated: true, completion: {
+                    })
+                }
             }
         }
     }
