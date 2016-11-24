@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6409D81F1DE59E50009E0410 /* ReadRmData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6409D81E1DE59E50009E0410 /* ReadRmData.swift */; };
 		64851D171DE3F29C006D5386 /* MyShelfRmData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64851D161DE3F29C006D5386 /* MyShelfRmData.swift */; };
 		64851D231DE412F9006D5386 /* MyShelfDataRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64851D211DE412F9006D5386 /* MyShelfDataRoot.swift */; };
 		64851D241DE412F9006D5386 /* MyShelfDataRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64851D221DE412F9006D5386 /* MyShelfDataRow.swift */; };
@@ -308,6 +309,7 @@
 /* Begin PBXFileReference section */
 		11E1E978A0B2C81212F8C229 /* Pods-ReaingSystem.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReaingSystem.release.xcconfig"; path = "Pods/Target Support Files/Pods-ReaingSystem/Pods-ReaingSystem.release.xcconfig"; sourceTree = "<group>"; };
 		5CC5780E6D56507A6FEA824A /* Pods_ReaingSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReaingSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6409D81E1DE59E50009E0410 /* ReadRmData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadRmData.swift; sourceTree = "<group>"; };
 		64851D161DE3F29C006D5386 /* MyShelfRmData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyShelfRmData.swift; sourceTree = "<group>"; };
 		64851D211DE412F9006D5386 /* MyShelfDataRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyShelfDataRoot.swift; sourceTree = "<group>"; };
 		64851D221DE412F9006D5386 /* MyShelfDataRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyShelfDataRow.swift; sourceTree = "<group>"; };
@@ -1242,6 +1244,7 @@
 			isa = PBXGroup;
 			children = (
 				98B23BDB1D9BDDDC006A009A /* storyRead */,
+				6409D81E1DE59E50009E0410 /* ReadRmData.swift */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -1851,6 +1854,7 @@
 				98B23BD91D9BC0B8006A009A /* TextViewController.swift in Sources */,
 				986CD5BD1D922596008D15FE /* ListenFamousRoot.swift in Sources */,
 				9808CC881D82656E000DB8E2 /* ListenIntroduceTableViewCell.swift in Sources */,
+				6409D81F1DE59E50009E0410 /* ReadRmData.swift in Sources */,
 				989099D81DB6108300855063 /* UITextView+Extension.swift in Sources */,
 				98B23BDF1D9BDDF4006A009A /* StoryReadRow.swift in Sources */,
 				980301D21D7FFE1300180FDA /* ListenCategoryCollectionViewCell.swift in Sources */,

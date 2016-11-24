@@ -9,16 +9,25 @@
 import UIKit
 
 class ReadingPageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, UIScrollViewDelegate {
+    //循环计数，测试通途
+    var index  = 0
+    
     //当前视图控制器
 //    var curTextVC: TextViewController!
+    var customIndex = 0
     //字符内容
     var defaultString: String! {
         didSet {
             if defaultString == "" {
                 return
             } else {
-                maxCount = countTest(CGFloat(NSUserDefaults.standardUserDefaults().floatForKey("textSize")))
-                paging(defaultString, page: 1, textSize: CGFloat(NSUserDefaults.standardUserDefaults().floatForKey("textSize")), maxCount: maxCount)
+                let textSize = CGFloat(NSUserDefaults.standardUserDefaults().floatForKey("textSize"))
+                print(defaultString.characters.count)
+                print(getDate())
+                strArray = splitedString(defaultString)
+                maxCount = countGet(customTextView.frame.width, height: customTextView.frame.height, textSize: textSize)
+                 paging(1, textSize: textSize, maxCount: maxCount)
+                print("\(getDate())...\(customIndex)")
                 if isPro == true {
                     NSUserDefaults.standardUserDefaults().setInteger(totalPages, forKey: "curPage")
                     //同步 防止突然退出出错
@@ -30,6 +39,8 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
             }
         }
     }
+    //字符转化成数组
+    var strArray: [String] = []
     //章节名
     var titleName: String! {
         didSet {
@@ -48,8 +59,9 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
     var textSize: CGFloat! {
         didSet {
 //            strDictionary = [:]
-            maxCount = countTest(textSize)
-            paging(defaultString, page: 1, textSize: textSize, maxCount: maxCount)
+            strArray = splitedString(defaultString)
+            maxCount = countGet(customTextView.frame.width, height: customTextView.frame.height, textSize: textSize)
+            paging(1, textSize: textSize, maxCount: maxCount)
             
             var curPage = NSUserDefaults.standardUserDefaults().integerForKey("curPage")
             if curPage > totalPages {
@@ -71,6 +83,11 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
         super.viewDidLoad()
         dataSource = self
         delegate = self
+        //设定每页的页面尺寸
+        let width = self.view.bounds.size.width - 20.0
+        let height = self.view.bounds.size.height - 56.0
+        customTextView = UITextView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        customTextView.textAlignment = NSTextAlignment.Left
         // Do any additional setup after loading the view.
     }
     
@@ -181,142 +198,124 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
 
     }
  
-    func paging(str: String, page: Int, textSize: CGFloat, maxCount: Int){
-        //设定每页的页面尺寸
-        let width = self.view.bounds.size.width - 20.0
-        let height = self.view.bounds.size.height - 56.0
-        customTextView = UITextView(frame: CGRect(x: 0, y: 0, width: width, height: height))
-        customTextView.textAlignment = NSTextAlignment.Left
+    //分页算法
+    func paging(page: Int, textSize: CGFloat, maxCount: Int){
+        //每行字符数估值
+        let index = Int(customTextView.frame.width / textSize) / 2
         //字符串处理
-        var text = self.clearEndSpace(str)
-        text = self.clearHeaderSpace(text)
-        var pageText = ""
-        //每页字符数
-        var charsPerPage = 0
-        
+        self.clearEndSpace2()
+        self.clearHeaderSpace2()
         //字符总长度
-        var textLenth = text.characters.count
-        //每页的最大字数
-        var count = maxCount
-        
-        if textLenth < count {
-            pageText = text
-            count = textLenth
+        var textLenth = strArray.count
+        var pageText = ""
+        if maxCount < textLenth {
+            //截取字符串
+            pageText = cutString(maxCount)
+            //加载字符
+            customTextView.setText(pageText, size: textSize)
+            self.index += 1
+            //获取实际高度
+            let totalHeight = customTextView.contentSize.height
+            //等比截取后截取字符串
+            let newCount = Int(customTextView.frame.height * CGFloat(maxCount) / totalHeight)
+            //截取字符串
+            pageText = cutString(newCount)
+            //循环截取字符串
+            let pageCount = getSuitableCount(index, text: pageText, textSize: textSize)
+            strDictionary[page] = cutString(pageCount)
+            strArray.removeRange(Range(0..<pageCount))
+            //进入下一一页计算
+            paging(page + 1, textSize: textSize, maxCount: maxCount)
         } else {
-            var range = NSMakeRange(0, count)
-            pageText = text.substringWithRange(range)
-            
-        }
-        //计算文本字符串的总大小尺寸
-        customTextView.setText(pageText, size: textSize)
-        var totalHeight = customTextView.contentSize.height
-                
-        if totalHeight < height && textLenth < count {
-            strDictionary[page] = text
-            self.totalPages = page
-        } else {
-            //极端情况，如果字母或者数字过多，每页包含的字符会变多
-            while totalHeight < height {
-                if count < textLenth {
-                    count += 1
-                    var range = NSMakeRange(0, count)
-                    pageText = text.substringWithRange(range)
-                    customTextView.setText(pageText, size: textSize)
-                    totalHeight = customTextView.contentSize.height
-                } else {
-                    break
-                }
-                
-            }
-            //循环减字
-            while totalHeight > height {
-                count -= 1
-                var range = NSMakeRange(0, count)
-                pageText = text.substringWithRange(range)
-                customTextView.setText(pageText, size: textSize)
-                totalHeight = customTextView.contentSize.height
-                
-            }
-            //
-            var str = text.substringWithRange(NSMakeRange(0, count))
-            strDictionary[page] = str
-            //一个bug的修复，具体原因待查
-            if count == textLenth - 1 || count == textLenth{
-                self.totalPages = page
+            //截取字符串
+            pageText = cutString(textLenth)
+            customTextView.setText(pageText, size: textSize)
+            self.index += 1
+            var totalHeight = customTextView.contentSize.height
+            if totalHeight >= customTextView.frame.height {
+                //循环截取字符串
+                let pageCount = getSuitableCount(index, text: pageText, textSize: textSize)
+                strDictionary[page] = cutString(pageCount)
+                strArray.removeRange(Range(0..<pageCount))
+                //进入下一一页计算
+                paging(page + 1, textSize: textSize, maxCount: maxCount)
             } else {
-                let tex = text.substringWithRange(NSMakeRange(count, textLenth - count))
-                paging(tex, page: page + 1, textSize: textSize, maxCount: maxCount)
-                
+                strDictionary[page] = pageText
+                self.totalPages = page
+                print("第三次真的结束 、\(getDate())")
             }
         }
-        
     }
     
-    //每页长度检测
-    func countTest(textSize: CGFloat) -> Int{
-        let url = NSBundle.mainBundle().URLForResource("test3", withExtension: "txt")
-        //测试字体
-        var text = ""
-        do {
-            let data = try NSString(contentsOfURL: url! as NSURL, encoding: NSUTF8StringEncoding)
-            text = data as String!
-        } catch let erro as NSError {
-            print("\(erro.localizedDescription)")
-        }
-        
-        //设定每页的页面尺寸
-        let width = self.view.bounds.size.width - 20.0
-        let height = self.view.bounds.size.height - 56.0
-        customTextView = UITextView(frame: CGRect(x: 0, y: 0, width: width, height: height))
-        customTextView.textAlignment = NSTextAlignment.Left
-        //字符总长度
-        var textLenth = text.characters.count
+    
+    //计算每页字符串标准长度
+    func getSuitableCount(index: Int, text: String, textSize: CGFloat) -> Int {
+        var maxCount = text.characters.count
         //计算文本字符串的总大小尺寸
         customTextView.setText(text, size: textSize)
-        var totalHeight = customTextView.contentSize.height
-        
-        if totalHeight < height {
-            text += text
-            //字符总长度
-            textLenth = text.characters.count
-            //计算文本字符串的总大小尺寸
-            customTextView.setText(text, size: textSize)
-            totalHeight = customTextView.contentSize.height
+        self.index += 1
+        let totalHeight = customTextView.contentSize.height
+        //实际高度低于textView高度 加字符
+        if totalHeight < customTextView.frame.height {
+            if index == 0 {
+                return maxCount
+            }
+            maxCount += index
+            let pageText = cutString(maxCount)
+            maxCount = getSuitableCount(index / 2, text: pageText, textSize: textSize)
+            
+        } else { //实际高度超过或等于 textView高度 减字符
+            if index == 0 {
+                if strArray[maxCount - 1] == "\r" || strArray[maxCount - 1] == "\n" || strArray[maxCount - 1] == "\r\n" {
+                    return maxCount - 1
+                } else {
+                    return maxCount - 3
+                }
+            }
+            maxCount -= index
+            let pageText = cutString(maxCount)
+            maxCount = getSuitableCount(index / 2, text: pageText, textSize: textSize)
         }
-        //循环减字
-        while totalHeight > height {
-            textLenth -= 1
-            var range = NSMakeRange(0, textLenth)
-            text = text.substringWithRange(range)
-            customTextView.setText(text, size: textSize)
-            totalHeight = customTextView.contentSize.height
-        }
-        return text.characters.count
-        
+        return maxCount
     }
 
+    //截取字符串
+    func cutString(count: Int) -> String {
+        var pageText = ""
+        for i in 0..<count {
+            pageText += strArray[i]
+        }
+        return pageText
+    }
+
+    //每页长度检测
+    func countGet(width: CGFloat, height: CGFloat, textSize: CGFloat) -> Int {
+        let line = Int((height + textSize / 3 * 2) / (textSize / 3 * 5 + 3))
+        let count = Int(width / textSize)
+        return count * line
+    }
     
+    //拆分原始数据
+    func splitedString(string: String) -> [String] {
+        var result = [String]()
+        for character in string.characters {
+            result.append("\(character)")
+        }
+        return result
+    }
+
     //清除头部空行
-    func clearHeaderSpace(text: String) -> String {
-        var text = text
-        let header = text.substringWithRange(NSMakeRange(0, 1))
-        if header == "\r" || header == "\n"{
-            text = text.substringFromIndex(text.startIndex.advancedBy(1))
-            text = clearHeaderSpace(text)
-            return text
-        } else {
-            return text
+    func clearHeaderSpace2() {
+        if strArray[0] == "\r" || strArray[0] == "\n" || strArray[0] == "\r\n"{
+            strArray.removeAtIndex(0)
         }
     }
     
     //清除底部空格 重要，不然报错
-    func clearEndSpace(text: String) -> String{
-        var str = text
-        let tex = str.substringWithRange(NSMakeRange(text.characters.count - 2, 1))
-        if tex == " " || tex == "\r"{
-            str.removeAtIndex(str.endIndex.predecessor())
+    func clearEndSpace2(){
+        if strArray[strArray.count - 1] == " " || strArray[strArray.count - 1] == "\r"{
+            strArray.removeAtIndex(strArray.count - 1)
         }
-        return str
     }
 
     //更新页面
@@ -325,5 +324,14 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
             self.setViewControllers([firstVC], direction: .Forward, animated: false, completion: nil)
         }
     }
+    //计时
+    func getDate() -> String{
+        let date = NSDate()
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "ss:SSS"
+        let str = formatter.stringFromDate(date)
+        return str
+    }
+
     
 }

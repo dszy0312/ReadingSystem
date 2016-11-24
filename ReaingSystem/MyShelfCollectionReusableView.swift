@@ -30,11 +30,8 @@ class MyShelfCollectionReusableView: UICollectionReusableView {
     var customDelegate: ReadedBookSelectDelegate!
     var bookData: ReadedBook!
     
-    @IBAction func transitionAction(sender: UIButton) {
-        customDelegate.bookSelect(bookData.bookID, name: bookData.bookName, author: bookData.author, chapterID: bookData.chapterID, image: bookImageView.image!)
-    }
-    
     @IBAction func bookSelectClick(sender: UIButton) {
+        customDelegate.bookSelect(bookData.bookID, name: bookData.bookName, author: bookData.author, chapterID: bookData.chapterID, image: bookImageView.image!)
     }
     
     

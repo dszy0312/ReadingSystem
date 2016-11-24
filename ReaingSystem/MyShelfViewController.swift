@@ -103,7 +103,6 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     @IBAction func listClick(sender: UIButton) {
         self.performSegueWithIdentifier(reuseIdentifier[0], sender: self)
     }
-    //最近阅读图片选中
     
     //个人中心
     @IBAction func presonalShowClick(sender: UIButton) {
@@ -189,6 +188,7 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
         
 
         let headView = collectionView.dequeueReusableSupplementaryViewOfKind(UICollectionElementKindSectionHeader, withReuseIdentifier: "HeadView", forIndexPath: indexPath) as! MyShelfCollectionReusableView
+        headView.customDelegate = self
         //UI配置
         if let readedBook = self.readedBook?.first {
             headView.setData(readedBook, count: count)

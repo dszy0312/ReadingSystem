@@ -306,7 +306,6 @@
                                             </userDefinedRuntimeAttributes>
                                             <connections>
                                                 <action selector="listClick:" destination="AXg-pD-zyg" eventType="touchUpInside" id="LHA-ex-S7K"/>
-                                                <action selector="transitionAction:" destination="TM5-im-Qru" eventType="touchUpInside" id="9xQ-Rq-fcG"/>
                                             </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookLoading" translatesAutoresizingMaskIntoConstraints="NO" id="KJY-Ac-Meu">
@@ -343,7 +342,6 @@
                                             <rect key="frame" x="18" y="39" width="90" height="110"/>
                                             <connections>
                                                 <action selector="bookSelectClick:" destination="TM5-im-Qru" eventType="touchUpInside" id="CXf-il-5zs"/>
-                                                <action selector="bookSelectClick:" destination="AXg-pD-zyg" eventType="touchUpInside" id="oTN-lj-wTD"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今天 09:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TiH-gT-ADd">
@@ -1044,9 +1042,9 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
+                                                    <exclude reference="bun-1V-UHv"/>
                                                     <exclude reference="dMW-3C-UNH"/>
                                                     <exclude reference="hVS-xK-xy0"/>
-                                                    <exclude reference="bun-1V-UHv"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>

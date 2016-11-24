@@ -46,15 +46,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
         }
         
-                //数据迁移 schemaVersion: 版本号
-                let config = Realm.Configuration(schemaVersion: 2, migrationBlock: { (migration, oldSchemaVersion) in
-                    migration.enumerate("MyShelfRmBook", { (oldObject, newObject) in
-                        if oldSchemaVersion < 2 {
-                            newObject!["imageData"] = NSData()
-                        }
-                    })
-                })
-                Realm.Configuration.defaultConfiguration = config
+//                //数据迁移 schemaVersion: 版本号
+//                let config = Realm.Configuration(schemaVersion: 2, migrationBlock: { (migration, oldSchemaVersion) in
+//                    migration.enumerate("MyShelfRmBook", { (oldObject, newObject) in
+//                        if oldSchemaVersion < 2 {
+//                            newObject!["imageData"] = NSData()
+//                        }
+//                    })
+//                })
+//                Realm.Configuration.defaultConfiguration = config
 
         ShareSDK.registerApp("1720f399fc3e4", activePlatforms: [
                 SSDKPlatformType.TypeSinaWeibo.rawValue,
