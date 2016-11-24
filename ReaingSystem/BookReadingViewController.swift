@@ -149,28 +149,16 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
             self.typeSelect(typeIndex)
         }
     }
-    //字体选择的颜色设置
-    var textTypeColor = UIColor.text_typeSelect_day()
     //白天or黑夜模式设置
     var dayIndex: Int {
         get {
             let index = NSUserDefaults.standardUserDefaults().integerForKey("dayTypeIndex")
-            switch index {
-            case 0:
-                textTypeColor = UIColor.text_typeSelect_day()
-            case 1:
-                textTypeColor = UIColor.text_navigation_night()
-            default:
-                break
-            }
-            
+            self.nightOrDaySet(index)
             return index
         }
         set {
-            NSUserDefaults.standardUserDefaults().setInteger(newValue, forKey: "dayTypeIndex")
-            //同步
-            NSUserDefaults.standardUserDefaults().synchronize()
-            updatePage()
+//            updatePage()
+            print(dayIndex)
             self.nightOrDaySet(dayIndex)
         }
     }
@@ -222,10 +210,6 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
         
         //颜色选择设置
         self.colorSelect(backgroundIndex)
-        //字体选择设置
-        self.typeSelect(typeIndex)
-        //白天黑夜模式选择设置
-        self.nightOrDaySet(dayIndex)
         self.dateButton.tag = dayIndex
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -279,7 +263,7 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
         }
         backgroundIndex = 1
         dateButton.tag = 0
-        self.self.nightOrDaySet(0)
+        self.nightOrDaySet(0)
     }
     @IBAction func background2Click(sender: UIButton) {
         if isNightType == true {
@@ -287,7 +271,7 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
         }
         backgroundIndex = 2
         dateButton.tag = 0
-        self.self.nightOrDaySet(0)
+        self.nightOrDaySet(0)
     }
     @IBAction func background3Click(sender: UIButton) {
         if isNightType == true {
@@ -295,29 +279,34 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
         }
         backgroundIndex = 3
         dateButton.tag = 0
-        self.self.nightOrDaySet(0)
+        self.nightOrDaySet(0)
     }
     @IBAction func background4Click(sender: UIButton) {
         if isNightType == true {
             isNightType = false
         }
         backgroundIndex = 4
-        dateButton.tag = 0
-        self.self.nightOrDaySet(0)
+        dateButton.tag = 1
+        self.nightOrDaySet(1)
     }
     
     //夜间模式
     @IBAction func nightChangeClick(sender: UIButton) {
         
-        
         if sender.tag == 0 {
             sender.tag = 1
-            backgroundIndex = 4
+            if backgroundIndex != 4 {
+                backgroundIndex = 4
+            }
         } else {
             sender.tag = 0
-            backgroundIndex = 1
+            if backgroundIndex == 4 {
+                backgroundIndex = 1
+            }
         }
-        self.dayIndex = sender.tag
+        print(sender.tag)
+//        self.dayIndex = sender.tag
+        self.nightOrDaySet(sender.tag)
     }
     
     
@@ -570,16 +559,23 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     }
     //设置字体选择的选中颜色
     func typeSelect(index: Int) {
-        for button in typeButton {
-            button.setTitleColor(textTypeColor, forState: .Normal)
-            if button.tag == index {
+        typeButton.map({ (button) in
+            if button.tag == typeIndex {
                 button.setTitleColor(UIColor.mainColor(), forState: .Normal)
+            } else if dayIndex == 0 {
+                button.setTitleColor(UIColor.text_typeSelect_day(), forState: .Normal)
+            } else {
+                button.setTitleColor(UIColor.text_typeSelect_night(), forState: .Normal)
             }
-        }
-
+            
+        })
     }
     //白天or黑夜设置
     func nightOrDaySet(tag: Int) {
+        print("摄者\(tag)")
+        NSUserDefaults.standardUserDefaults().setInteger(tag, forKey: "dayTypeIndex")
+        //同步
+        NSUserDefaults.standardUserDefaults().synchronize()
         switch tag {
         case 0:
             nightOrDayImage.image = UIImage(named: "readDetail_night")
@@ -590,11 +586,17 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
             headerView.backgroundColor = UIColor.whiteColor()
             footerView.backgroundColor = UIColor.whiteColor()
             setView.backgroundColor = UIColor.whiteColor()
-            moreButton.setImage(UIImage(named: ""), forState: .Normal)
-            commentButton.setImage(UIImage(named: ""), forState: .Normal)
-            shareButton.setImage(UIImage(named: ""), forState: .Normal)
-            introduceButton.setImage(UIImage(named: ""), forState: .Normal)
-            
+            moreButton.setImage(UIImage(named: "readDetail_more"), forState: .Normal)
+            commentButton.setImage(UIImage(named: "readDetail_comment_blue"), forState: .Normal)
+            shareButton.setImage(UIImage(named: "readDetail_share_blue"), forState: .Normal)
+            introduceButton.setImage(UIImage(named: "readDetail_introduce_blue"), forState: .Normal)
+            typeButton.map({ (button) in
+                if button.tag == typeIndex {
+                    button.setTitleColor(UIColor.mainColor(), forState: .Normal)
+                } else {
+                    button.setTitleColor(UIColor.text_typeSelect_day(), forState: .Normal)
+                }
+            })
         case 1:
             nightOrDayImage.image = UIImage(named: "readDetail_day")
             setImage.image = UIImage(named: "readDetail_set_gray")
@@ -604,10 +606,17 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
             headerView.backgroundColor = UIColor.text_navigation_night()
             footerView.backgroundColor = UIColor.text_navigation_night()
             setView.backgroundColor = UIColor.text_navigation_night()
-            moreButton.setImage(UIImage(named: ""), forState: .Normal)
-            commentButton.setImage(UIImage(named: ""), forState: .Normal)
-            shareButton.setImage(UIImage(named: ""), forState: .Normal)
-            introduceButton.setImage(UIImage(named: ""), forState: .Normal)
+            moreButton.setImage(UIImage(named: "readDetail_more_gray"), forState: .Normal)
+            commentButton.setImage(UIImage(named: "readDetail_comment_black"), forState: .Normal)
+            shareButton.setImage(UIImage(named: "readDetail_share_black"), forState: .Normal)
+            introduceButton.setImage(UIImage(named: "readDetail_introduce_black"), forState: .Normal)
+            typeButton.map({ (button) in
+                if button.tag == typeIndex {
+                    button.setTitleColor(UIColor.mainColor(), forState: .Normal)
+                } else {
+                    button.setTitleColor(UIColor.text_typeSelect_night(), forState: .Normal)
+                }
+            })
         default:
             break
         }
