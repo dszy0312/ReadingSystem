@@ -144,7 +144,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                 print(flag)
                 if flag == 1 {
                     self.YZM = dictionary!["msg"] as! String
-                    print("验证码是\(self.YZM)")
                     self.YZMButton.alpha = 0.5
                     self.YZMButton.setTitle("\(self.time)秒", forState: UIControlState.Normal)
                     self.startTime()

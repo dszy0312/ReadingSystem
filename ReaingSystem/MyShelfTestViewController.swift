@@ -51,18 +51,18 @@ class MyShelfTestViewController: UIViewController {
     }
     
     func downloadData() {
-        NetworkHealper.GetWithParm.downloadData(URLHealper.downloadTxt.introduce(), parameter: ["bookID":"767A7197-E24B-4AAC-B668-8AA3664B690D"], progress: { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
-            //刷新进度条。
-            let percent = Float(totalBytesRead!) / Float(totalBytesExpectedToRead!)
-            print("进度\(percent)")
-            }) { (dic, error) in
-                guard error == nil else {
-                    print(error)
-                    return
-                }
-                print(dic)
-
-        }
+//        NetworkHealper.GetWithParm.downloadData(URLHealper.downloadTxt.introduce(), parameter: ["bookID":"767A7197-E24B-4AAC-B668-8AA3664B690D"], progress: { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
+//            //刷新进度条。
+//            let percent = Float(totalBytesRead!) / Float(totalBytesExpectedToRead!)
+//            print("进度\(percent)")
+//            }) { (dic, error) in
+//                guard error == nil else {
+//                    print(error)
+//                    return
+//                }
+//                print(dic)
+//
+//        }
     }
 
 

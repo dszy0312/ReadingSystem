@@ -50,7 +50,7 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
                 strArray = splitedString(defaultString)
                 maxCount = countGet(customTextView.frame.width, height: customTextView.frame.height, textSize: textSize)
                  paging(1, textSize: textSize, maxCount: maxCount)
-                print("\(getDate())...\(self.index)")
+                ("\(getDate())...\(self.index)")
                 if isPro == true {
                     page = totalPages
                     NSUserDefaults.standardUserDefaults().setInteger(totalPages, forKey: "curPage")
@@ -173,7 +173,6 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
         }
 
         if let childVC = pageViewController.viewControllers?.first as? TextViewController {
-            print(childVC.currentPage)
             NSUserDefaults.standardUserDefaults().setInteger(childVC.currentPage, forKey: "curPage")
             //同步 防止突然退出出错
             NSUserDefaults.standardUserDefaults().synchronize()
@@ -198,7 +197,6 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
     
     //返回当前页的控制器
     func viewControllersAtIndex(page: Int) -> TextViewController? {
-        print("当前page\(page)")
         let storyboard = UIStoryboard.init(name: "ReadDetail", bundle: NSBundle.mainBundle())
         
         let textVC = storyboard.instantiateViewControllerWithIdentifier("TextViewController") as! TextViewController

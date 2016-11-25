@@ -129,7 +129,6 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.row {
         case 0,1:
-            print("直接进入图书")
             if let toVC = toVC("ReadDetail", vcName: "BookIntroduceViewController") as? BookIntroduceViewController {
                 toVC.selectedBookID = formatData[sectionData[indexPath.section].categoryID]![indexPath.row].prList.first?.bookID
                 self.presentViewController(toVC, animated: true, completion: {
@@ -178,9 +177,7 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
         self.formatData = [:]
         var array = datas
         //获取标题数组
-        print("总数\(array.count)")
         for i in 0..<array.count {
-            print("\(i)")
             if array[i].isTopCategory == 1 {
                 self.sectionData.append(array[i])
             }

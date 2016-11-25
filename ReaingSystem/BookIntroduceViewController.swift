@@ -28,15 +28,16 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var addShelfButton: UIButton!
     //目录列表
     @IBOutlet weak var tableView: UITableView!
+    //等待视图
+    @IBOutlet weak var waitingView: WaitingView!
     
-    
+    //判断是否是从阅读详情直接创建
+    var isFromReadDetail = false
+    //回调传值代理
+    var customDelegate: ChapterSelectDelegate!
 
 //    书籍简介信息
-    var selectedBookID: String! {
-        didSet {
-            getSummery(selectedBookID)
-        }
-    }
+    var selectedBookID: String!
     //书籍数据
     var bookData: SummarySelectedBook!
     //书籍目录
@@ -53,10 +54,18 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
+        getSummery(selectedBookID)
+        self.view.bringSubviewToFront(waitingView)
         
 //        detailText.contentInset = UIEdgeInsetsMake(0, 10, 0, 5)
         
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.waitingView.addLayer()
+        self.waitingView.begin()
     }
 
     override func didReceiveMemoryWarning() {
@@ -105,7 +114,7 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
             addToShelf()
         }
     }
-    
+    //评论跳转
     @IBAction func commentClick(sender: UIButton) {
         if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
             if title == "个人中心" {
@@ -118,17 +127,23 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
         
         
     }
-    
+    //分享跳转
     @IBAction func shareClick(sender: UIButton) {
-        alertShareMessage(self) { (type) in
-            guard let name = self.titleLabel.text, let image = self.bookImage.image, let id = self.selectedBookID else {
-                alertMessage("提示", message: "数据不全，无法分享！", vc: self)
-                return
+        if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
+            if title == "个人中心" {
+                alertMessage("通知", message: "请登陆后进行分享！", vc: self)
+            } else {
+                alertShareMessage(self) { (type) in
+                    guard let name = self.titleLabel.text, let image = self.bookImage.image, let id = self.selectedBookID else {
+                        alertMessage("提示", message: "数据不全，无法分享！", vc: self)
+                        return
+                    }
+                    alertShare(id, name: name, author: self.subTitleLabel.text != "" ? self.subTitleLabel.text! : "佚名", image: image,shareType: "appstory", from: "1", type: type)
+                }
             }
-            alertShare(id, name: name, author: self.subTitleLabel.text != "" ? self.subTitleLabel.text! : "佚名", image: image,shareType: "appstory", form: "1", type: type)
         }
     }
-    
+    //选择框
     @IBAction func selectChange(sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
@@ -138,11 +153,24 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
             guard catalogue.count != 0 else {
                 return
             }
-            self.clickFrom = 0
-            self.performSegueWithIdentifier(reuseIdentifier[0], sender: self)
-            UIApplication.sharedApplication().statusBarHidden = true
-            sender.selectedSegmentIndex = selectedIndex
-            
+            if isFromReadDetail == true {
+                if let chapterID = bookData.data.first?.chapterID {
+                    //选中章节
+                    for i in 0..<catalogue.count {
+                        if catalogue[i].chapterID == chapterID {
+                            customDelegate.sendID(i)
+                        }
+                    }
+                } else {
+                    customDelegate.sendID(0)
+                }
+                self.dismissViewControllerAnimated(true, completion: nil)
+            } else {
+                self.clickFrom = 0
+                self.performSegueWithIdentifier(reuseIdentifier[0], sender: self)
+                UIApplication.sharedApplication().statusBarHidden = true
+                sender.selectedSegmentIndex = selectedIndex
+            }
             
         case 2:
             selectedIndex = 2
@@ -150,17 +178,6 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
         default:
             break
         }
-    }
-    
-    //阅读跳转
-    @IBAction func readingClick(sender: UIButton) {
-        guard catalogue.count != 0 else {
-            
-            return
-        }
-        self.clickFrom = 0
-        self.performSegueWithIdentifier(reuseIdentifier[0], sender: self)
-        UIApplication.sharedApplication().statusBarHidden = true
     }
     //显示目录
     @IBAction func findCatalogClick(sender: UIButton) {
@@ -203,9 +220,14 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.selectedRow = indexPath.row
-        self.clickFrom = 1
-        self.performSegueWithIdentifier(reuseIdentifier[0], sender: self)
+        if isFromReadDetail == true {
+            self.customDelegate.sendID(indexPath.row)
+            self.dismissViewControllerAnimated(true, completion: nil)
+        } else {
+            self.selectedRow = indexPath.row
+            self.clickFrom = 1
+            self.performSegueWithIdentifier(reuseIdentifier[0], sender: self)
+        }
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
@@ -215,7 +237,6 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
             bookImage.image = UIImage(named: "bookLoading")
         } else {
             let url = baseURl + data.data.first!.bookImg
-            print(url)
             bookImage.kf_setImageWithURL(NSURL(string: url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "bookLoading"))
         }
         titleLabel.text = data.data.first?.bookName
@@ -231,7 +252,6 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
         let parm: [String: AnyObject] = [
             "bookID": id
         ]
-
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.bookSummaryURL.introduce(), parameter: parm, completion: { (dictionary, error) in
             guard error == nil else {
                 print(error)
@@ -253,6 +273,8 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
             }
             //视图初始化
             self.initView(self.bookData)
+            self.waitingView.end()
+            self.view.sendSubviewToBack(self.waitingView)
         })
     }
     

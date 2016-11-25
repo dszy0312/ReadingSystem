@@ -12,7 +12,6 @@ class MyShelfListenCollectionViewCell: MyShelfCollectionViewCell {
     
     func setListenData(data: MyBook) {
         //已下载标志是否显示
-        print("是否已下载\(data.hasLoaded)")
         if data.bookImg == nil {
             bookImageView.image = UIImage(named: "bookLoading")
         } else {

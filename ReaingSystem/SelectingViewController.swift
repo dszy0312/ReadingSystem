@@ -124,7 +124,6 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     }
     
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        print("停止下拉")
         
         if forward == Forward.Up {
             forward = Forward.Down
@@ -290,7 +289,7 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
             print("手游页面开发中。。")
 //                self.transitionToVC("", vcName: "")
         default:
-            print("点击事件\(indexPath.row)")
+            break
         }
         
         
@@ -359,7 +358,6 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
             return
         }
         if self.footerView!.frame.origin.y + self.footerView!.frame.height < (scrollView.contentOffset.y + scrollView.bounds.size.height)  {
-            print("开始刷新")
             self.loading = true
             self.footerView!.begain()
             self.addFloorData(self.page + 1)
@@ -429,7 +427,6 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
             self.canLoad = true
         } else {
             self.canLoad = false
-            print("没有更多数据")
         }
     }
     
@@ -499,7 +496,6 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     }
     //获取分类推荐
     func getRecommendData(id: String, page: Int, count: Int) {
-        print("加载数据")
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.getJXStoryList.introduce(), parameter: ["categoryID": id, "pageIndex": page]) { (dictionary, error) in
             guard error == nil else {
                 print(error)

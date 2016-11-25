@@ -18,7 +18,6 @@ class PaperEditionSelectViewController: UIViewController, UICollectionViewDataSo
     //期刊数据
     var paperMainRow: [PaperMainData] = [] {
         didSet {
-            print("改变的时间： \(paperMainRow.count)")
             self.collectionView.reloadSections(NSIndexSet(index: 0))
 
         }
@@ -53,7 +52,6 @@ class PaperEditionSelectViewController: UIViewController, UICollectionViewDataSo
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier[1], forIndexPath: indexPath) as! PaperEditionCollectionViewCell
         cell.nameLabel.text = paperMainRow[indexPath.row].newspaperImgTitle
-        //print(paperMainRow[indexPath.section].newspaperImgTitle)
         return cell
         
     }
@@ -68,7 +66,6 @@ class PaperEditionSelectViewController: UIViewController, UICollectionViewDataSo
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         switch paperMainRow.count {
         case 4:
-            print("这里运行了一下")
             return CGSize(width: self.collectionView.frame.width - 2, height: 35)
         case 8:
             return CGSize(width: (self.collectionView.frame.width - 1) / 2, height: 35)

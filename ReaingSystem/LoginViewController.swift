@@ -176,8 +176,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         ShareSDK.getUserInfo(type) { (state, user, error) in
             if (state == SSDKResponseState.Success)
             {
-                print("这是：\(user.rawData)")
-                print("icon:\(user.icon)")
                 self.otherLoginSend(user.uid, nickName: user.nickname, userType: types, uuid: self.checkUuid()!, icon: user.icon)
             }
             else

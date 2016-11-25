@@ -177,7 +177,6 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
         guard data != "" else {
             return
         }
-        print("\(data)")
         self.getNetworkData(data)
     }
     //设定个人中心图片
@@ -221,7 +220,6 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
     
     //网络请求
     func getNetworkData(date: String) {
-        print("时间\(date)")
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.getPaperEditionList.introduce(), parameter: ["date":date]) { (dictionary, error) in
             guard error == nil else {
                 print(error)

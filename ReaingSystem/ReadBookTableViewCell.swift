@@ -22,6 +22,10 @@ class ReadBookTableViewCell: UITableViewCell {
     @IBOutlet weak var readTimeLabel: UILabel!
 
     @IBOutlet weak var cardView: UIView!
+    //书本ID
+    var bookID: String!
+    //章节ID
+    var chapterID: String!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -39,6 +43,8 @@ class ReadBookTableViewCell: UITableViewCell {
         bookWriterLabel.text = data.author
         bookChapterLabel.text = data.chapterName
         readTimeLabel.text = data.recentReadDate
+        bookID = data.bookID
+        chapterID = data.chapterID
         if data.bookImg == nil {
             bookImageView.image = UIImage(named: "bookLoading")
         } else {

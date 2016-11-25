@@ -51,6 +51,38 @@ class WaitingView: UIView {
         complexLoadingView.layer.addSublayer(ovalShapLayer)
         
     }
+    //比例加载
+    func loadingSet(percent: CGFloat) {
+        UIView.animateWithDuration(0.2) {
+            self.backgroundView.alpha = 1
+        }
+        if let layers = complexLoadingView.layer.sublayers {
+            for layer in layers {
+                layer.removeFromSuperlayer()
+            }
+        }
+        let radius: CGFloat = complexLoadingView.bounds.width / 2
+        let startAngle: CGFloat = 0.0
+        let endAngle: CGFloat = CGFloat(M_PI * 2) * percent
+        let path = UIBezierPath(arcCenter: CGPoint(x: complexLoadingView.frame.width / 2, y: complexLoadingView.frame.height / 2), radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+        let layer = CAShapeLayer()
+        layer.path = path.CGPath
+        layer.lineWidth = 8
+        layer.fillColor = UIColor.clearColor().CGColor
+        layer.strokeColor = UIColor.whiteColor().CGColor
+        self.complexLoadingView.layer.addSublayer(layer)
+    }
+    
+    //比例加载结束
+    func loadingStop() {
+        backgroundView.alpha = 0
+        if let layers = complexLoadingView.layer.sublayers {
+            for layer in layers {
+                layer.removeFromSuperlayer()
+            }
+        }
+    }
+
     
     //开始加载
     func begin() {

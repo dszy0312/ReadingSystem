@@ -811,12 +811,12 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="lnC-yG-gaa"/>
-                                <exclude reference="0qx-CC-YVX"/>
-                                <exclude reference="sYJ-vL-XZn"/>
                                 <exclude reference="Y1C-KB-nJG"/>
                                 <exclude reference="dfw-8m-cJp"/>
                                 <exclude reference="fYY-zu-C2c"/>
+                                <exclude reference="0qx-CC-YVX"/>
+                                <exclude reference="sYJ-vL-XZn"/>
+                                <exclude reference="lnC-yG-gaa"/>
                             </mask>
                         </variation>
                     </view>
@@ -1582,9 +1582,9 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
+                                                    <exclude reference="a0S-Yl-6uR"/>
                                                     <exclude reference="WOY-JE-bqr"/>
                                                     <exclude reference="hcH-Zm-FL7"/>
-                                                    <exclude reference="a0S-Yl-6uR"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>

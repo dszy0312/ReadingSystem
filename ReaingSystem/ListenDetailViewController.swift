@@ -83,12 +83,18 @@ class ListenDetailViewController: UIViewController, UITableViewDelegate, UITable
     }
     //分享
     @IBAction func shareClick(sender: UIButton) {
-        alertShareMessage(self) { (type) in
-            guard let name = self.titleLabel.text,  let image = self.image, let id = self.audioID else {
-                alertMessage("提示", message: "数据不全，无法分享！", vc: self)
-                return
+        if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
+            if title == "个人中心" {
+                alertMessage("通知", message: "请登陆后进行分享！", vc: self)
+            } else {
+                alertShareMessage(self) { (type) in
+                    guard let name = self.titleLabel.text,  let image = self.image, let id = self.audioID else {
+                        alertMessage("提示", message: "数据不全，无法分享！", vc: self)
+                        return
+                    }
+                    alertShare(id, name: name, author: self.listenData.author != "" ? self.audioData.author : "佚名", image: image,shareType: "appvoice", from: "1", type: type)
+                }
             }
-            alertShare(id, name: name, author: self.listenData.author != "" ? self.audioData.author : "佚名", image: image,shareType: "appvoice", form: "1", type: type)
         }
 
     }
@@ -98,6 +104,7 @@ class ListenDetailViewController: UIViewController, UITableViewDelegate, UITable
         if segue.identifier == "playSegue" {
             let toVC = segue.destinationViewController as! ListenPlayViewController
             toVC.initData(listenData, index:selectedIndex)
+            toVC.image = image
         }
     }
     
@@ -150,6 +157,8 @@ class ListenDetailViewController: UIViewController, UITableViewDelegate, UITable
     //delegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if segmentedControl.selectedSegmentIndex == 1 {
+            let cell = tableView.cellForRowAtIndexPath(indexPath) as! ListenCatalogueTableViewCell
+            
             selectedIndex = indexPath.row
             self.performSegueWithIdentifier("playSegue", sender: self)
             tableView.deselectRowAtIndexPath(indexPath, animated: true)

@@ -97,7 +97,6 @@ class TopListDetailViewController: UIViewController, UITableViewDelegate, UITabl
             self.canLoad = true
         } else {
             self.canLoad = false
-            print("没有更多数据")
         }
     }
     //网络请求

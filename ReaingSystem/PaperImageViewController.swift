@@ -74,7 +74,6 @@ class PaperImageViewController: UIViewController, UIScrollViewDelegate {
     // 產生 Scroll View
     func initScrollViewContainer(){
         self.scrollView = UIScrollView(frame: CGRect(x: 10.0, y: 0.0, width: self.view.bounds.width - 20, height: self.view.bounds.height))
-        print(self.scrollView.bounds.height)
 //        self.scrollView.backgroundColor = UIColor.blackColor()
         self.scrollView.contentSize = imageView.bounds.size
         self.scrollView.autoresizingMask = [UIViewAutoresizing.FlexibleWidth, UIViewAutoresizing.FlexibleHeight]
@@ -149,7 +148,6 @@ class PaperImageViewController: UIViewController, UIScrollViewDelegate {
             guard space.newspaperTxtHotSpace != "" else {
                 break
             }
-            print(space.newspaperTxtHotSpace)
             let splitedArray = space.newspaperTxtHotSpace.componentsSeparatedByString(",")
             let width = Int(splitedArray[2])! - Int(splitedArray[0])!
             let height = Int(splitedArray[3])! - Int(splitedArray[1])!

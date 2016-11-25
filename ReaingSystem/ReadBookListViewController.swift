@@ -59,8 +59,14 @@ class ReadBookListViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        readCatalogue(listArray[indexPath.row].bookID, chapterID: listArray[indexPath.row].chapterID)
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! ReadBookTableViewCell
+        let name = cell.bookTitleLabel.text
+        let image = cell.bookImageView.image
+        let author = cell.bookWriterLabel.text
+        let bookID = cell.bookID
+        let chapterID = cell.chapterID
+        //获取目录列表然后跳转
+        readCatalogue(bookID, name: name, author: author, image: image, chapterID: chapterID)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
     }
@@ -102,7 +108,7 @@ class ReadBookListViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     //小说目录查询兼详情跳转
-    func readCatalogue(bookID: String?, chapterID: String?) {
+    func readCatalogue(bookID: String?, name: String?, author: String?, image: UIImage?, chapterID: String?) {
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.getStoryDetail.introduce(), parameter: ["bookID":bookID!]) { (dictionary, error) in
             //查询错误
             guard error == nil else {
@@ -118,8 +124,14 @@ class ReadBookListViewController: UIViewController, UITableViewDelegate, UITable
                 if let toVC = self.detailVC("ReadDetail", vcName: "BookReadViewController") as? BookReadingViewController {
                     UIApplication.sharedApplication().statusBarHidden = true
                     //数据传递
+                    toVC.isFromShelf = true
                     toVC.catalogue = self.catalogueData
                     toVC.bookID = bookID
+                    toVC.author = author
+                    toVC.bookName = name
+                    toVC.bookImage = image
+                    toVC.isNew = true
+                    
                     if let chapterID = chapterID {
                         //选中章节
                         for i in 0..<self.catalogueData.count {

@@ -24,7 +24,6 @@ class CommentViewController: UIViewController, JavaScriptMethodProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(bookID)
         
         let requestString: String = "http://lh.sdlq.org/predemo/index.html?bookID=\(bookID)&bookType=\(bookType)"
         let requestURL: NSURL = NSURL(string: requestString)!

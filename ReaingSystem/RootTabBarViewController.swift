@@ -31,7 +31,6 @@ class RootTabBarViewController: UITabBarController, ChangeTabBarDelegate, Hidden
     //changeTabBarDelegate
     // 更改controller
     func changeIndex(index: Int) {
-        print("index = \(index)")
         self.selectedIndex = index
     }
     
@@ -42,7 +41,6 @@ class RootTabBarViewController: UITabBarController, ChangeTabBarDelegate, Hidden
     
     //隐藏tabbar
     func hiddenTabBar(isHidden: Bool) {
-        print("isHidden = \(isHidden)")
         self.tabBarView?.hidden = isHidden
     }
 

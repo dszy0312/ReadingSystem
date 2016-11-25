@@ -56,7 +56,8 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     //更多出现的按钮的视图
     @IBOutlet weak var moreShowView: UIView!
     
-    
+    //判断是否由书架进入
+    var isFromShelf = false
     //当前翻页视图
     weak var currentViewController: ReadingPageViewController!
     
@@ -222,7 +223,6 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        print("从哪进入、\(isNew)")
         if isNew == true {
             //设定位置
             self.headerView.center.y =  -(self.headerView.bounds.height / 2)
@@ -252,8 +252,9 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
             toVC.sendDelegate = self
         } else if segue.identifier == reuseIdentifier[1] {
             let toVC = segue.destinationViewController as! CommentViewController
+            
             toVC.bookID = bookID
-            toVC.bookType = "0001"
+            toVC.bookType = "appstory"
         }
     }
     //文本背景设置
@@ -331,38 +332,50 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     }
     //评论跳转
     @IBAction func commentClick(sender: UIButton) {
-        print("hah")
         if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
             if title == "个人中心" {
                 alertMessage("通知", message: "请登陆后查看评论！", vc: self)
             } else {
-                self.performSegueWithIdentifier(reuseIdentifier[1], sender: self)
-                
-                
+                self.performSegueWithIdentifier(reuseIdentifier[1], sender: self)  
             }
         }
     }
     
     //分享跳转
     @IBAction func shareClick(sender: UIButton) {
-        print("hahasdad")
-        alertShareMessage(self) { (type) in
-            guard let name = self.bookName, let image = self.bookImage, let id = self.bookID else {
-                alertMessage("提示", message: "数据不全，无法分享！", vc: self)
-                return
+        if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
+            if title == "个人中心" {
+                alertMessage("通知", message: "请登陆后进行分享！", vc: self)
+            } else {
+                alertShareMessage(self) { (type) in
+                    guard let name = self.bookName, let image = self.bookImage, let id = self.bookID else {
+                        alertMessage("提示", message: "数据不全，无法分享！", vc: self)
+                        return
+                    }
+                    alertShare(id, name: name, author: self.author != "" ? self.author : "佚名", image: image,shareType: "appstory", from: "1", type: type)
+                }
             }
-            alertShare(id, name: name, author: self.author != "" ? self.author : "佚名", image: image,shareType: "appstory", form: "1", type: type)
         }
 
     }
     //详情页跳转
     @IBAction func introduceClick(sender: UIButton) {
+        if isFromShelf == true {
+            if let toVC = detailVC("ReadDetail", vcName: "BookIntroduceViewController") as? BookIntroduceViewController {
+                toVC.selectedBookID = bookID
+                toVC.isFromReadDetail = true
+                toVC.customDelegate = self
+                self.presentViewController(toVC, animated: true, completion: {
+                })
+            }
+        } else {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
     
     //字体设置
     //默认字体
     @IBAction func typeSetClick(sender: UIButton) {
-        print("选择的字体\(sender.tag)")
         typeIndex = 1
     }
     //黑体
@@ -419,9 +432,9 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
         NSUserDefaults.standardUserDefaults().setInteger(1, forKey: "curPage")
         //同步 防止突然退出出错
         NSUserDefaults.standardUserDefaults().synchronize()
-        self.view.bringSubviewToFront(self.waitingView)
         self.waitingView.addLayer()
         self.waitingView.begin()
+        self.view.bringSubviewToFront(self.waitingView)
         self.getCatalogueData(selectedChapter, bookID: bookID)
     }
     
@@ -512,6 +525,14 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
 
     }
     
+    //页面跳转方法
+    func detailVC(sbName: String, vcName: String) -> UIViewController {
+        let sb = UIStoryboard(name: sbName, bundle: nil)
+        let vc = sb.instantiateViewControllerWithIdentifier(vcName)
+        return vc
+    }
+    
+    
     //MARK:网络请求
     //获取简介
     func getNetworkData(chapterID: String, bookID: String) {
@@ -572,7 +593,6 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     }
     //白天or黑夜设置
     func nightOrDaySet(tag: Int) {
-        print("摄者\(tag)")
         NSUserDefaults.standardUserDefaults().setInteger(tag, forKey: "dayTypeIndex")
         //同步
         NSUserDefaults.standardUserDefaults().synchronize()

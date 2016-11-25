@@ -23,6 +23,8 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     //文本音频选项
     @IBOutlet weak var readOrListenSegmented: UISegmentedControl!
     
+    @IBOutlet weak var waitingView: WaitingView!
+    
     //自定义转场代理
     //跳转阅读列表
     var transitionDelegate = ReadedBookListTransitionDelegate()
@@ -53,7 +55,7 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
-    
+        self.waitingView.bringSubviewToFront(self.waitingView)
         // Do any additional setup after loading the view.
     }
 
@@ -72,8 +74,8 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         UIApplication.sharedApplication().statusBarHidden = false
-//        //网络请求
-//        getMyShelf()
+        self.waitingView.addLayer()
+        self.waitingView.begin()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -235,12 +237,13 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     // delegate
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
-        guard showBooks.count != 0 else {
-            return
-        }
+//        guard showBooks.count != 0 else {
+//            return
+//        }
         if indexPath.row == 0 {
             
         } else if indexPath.row == showBooks.count + 1 {
+            print("点击事件")
             if let pVC = self.parentViewController as? RootTabBarViewController {
                 pVC.tabBarView?.changeIndex(1)
             }
@@ -380,23 +383,23 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
             self.readedBook = myShelf.data
             self.count = myShelf.totalCount
             self.collectionView.reloadData()
+            self.waitingView.end()
+            self.view.sendSubviewToBack(self.waitingView)
 
         }
     }
     
     //小说下载
     func downloadData(id: String, row: Int) {
-        print(id)
+        
         let indexPath = NSIndexPath(forRow: row, inSection: 0)
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! MyShelfCollectionViewCell
         let bookData = MyShelfRmBook()
         bookData.bookID = id
         bookData.bookName = cell.bookNameLabel.text!
         bookData.imageData = UIImagePNGRepresentation(cell.bookImageView.image!)!
-        NetworkHealper.GetWithParm.downloadData(URLHealper.downloadTxt.introduce(), parameter: ["bookID":id], progress: { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
-            //刷新进度条。
-            let percent = Float(totalBytesRead!) / Float(totalBytesExpectedToRead!)
-            //操作完成，调用主线程来刷新界面
+        NetworkHealper.GetWithParm.downloadData(URLHealper.downloadTxt.introduce(), parameter: ["bookID":id], progress: { (percent) in
+            //调用主线程来刷新界面
             dispatch_sync(dispatch_get_main_queue(), {
                 cell.percent = CGFloat(percent)
                 if percent == 1.0 {
@@ -430,13 +433,19 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     //小说目录查询兼详情跳转
     func readCatalogue(bookID: String?, name: String?, author: String?, image: UIImage?, chapterID: String?) {
+        self.waitingView.addLayer()
+        self.waitingView.begin()
+        self.view.bringSubviewToFront(self.waitingView)
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.getStoryDetail.introduce(), parameter: ["bookID":bookID!]) { (dictionary, error) in
+            self.waitingView.end()
+            self.view.sendSubviewToBack(self.waitingView)
             //查询错误
             guard error == nil else {
                 print(error)
                 alertMessage("提示", message: "跳转失败，请重试！", vc: self)
                 return
             }
+            
             let root = MyShelfBookCatalogueRootRootClass(fromDictionary: dictionary!)
             self.catalogueData = root.rows
             //判断目录数量
@@ -446,6 +455,7 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
                     UIApplication.sharedApplication().statusBarHidden = true
                     //数据传递
                     toVC.catalogue = self.catalogueData
+                    toVC.isFromShelf = true
                     toVC.bookID = bookID
                     toVC.author = author
                     toVC.bookName = name

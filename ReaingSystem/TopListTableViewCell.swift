@@ -28,7 +28,6 @@ class TopListTableViewCell: UITableViewCell {
     }
     
     func setData(data: SelectTopListRow) {
-        print(data.topID)
         titleLable.text = data.topName
         subtitleLabel.text = data.bookName
         let url = baseURl + data.topImgUrl

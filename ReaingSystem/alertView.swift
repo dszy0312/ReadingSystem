@@ -35,10 +35,10 @@ func alertShareMessage(vc: UIViewController, completion: (SSDKPlatformType) -> V
 }
 //id 分享内容的id, name: 标题，author: 作者，image: 图片， shartype: 分享类型（图书，音频，报纸，期刊，分别是【appappstory, appvoice, appnewspaper, appmagazine】）,from: 0表示分享的文本、1表示分享书籍或者有声小说, type: 目前是微信，微博，QQ三种
 //
-func alertShare(id: String, name: String, author: String, image: UIImage?, shareType: String,form: String, type: SSDKPlatformType) {
+func alertShare(id: String, name: String, author: String, image: UIImage?, shareType: String,from: String, type: SSDKPlatformType) {
     let shareParames = NSMutableDictionary()
-    shareParames.SSDKSetupShareParamsByText("\n\(author)", images:image, url: NSURL(string: "http://lh.sdlq.org/ShareContent/index.html?id=\(id)&shareType=appstory&type=1"), title: name, type: SSDKContentType.WebPage)
-    shareParames.SSDKSetupSinaWeiboShareParamsByText("\(name)http://lh.sdlq.org/ShareContent/index.html?id=\(id)&shareType=\(shareType)&type=\(form)", title: author, image: image, url: NSURL(string: "http://lh.sdlq.org/ShareContent/index.html?id=\(id)&shareType=appstory&type=1"), latitude: 0, longitude: 0, objectID: nil, type: SSDKContentType.Auto)
+    shareParames.SSDKSetupShareParamsByText("\n\(author)", images:image, url: NSURL(string: "http://lh.sdlq.org/ShareContent/index.html?id=\(id)&shareType=appstory&type=\(from)"), title: name, type: SSDKContentType.WebPage)
+    shareParames.SSDKSetupSinaWeiboShareParamsByText("\(name)http://lh.sdlq.org/ShareContent/index.html?id=\(id)&shareType=\(shareType)&type=\(from)", title: author, image: image, url: NSURL(string: "http://lh.sdlq.org/ShareContent/index.html?id=\(id)&shareType=appstory&type=\(from)"), latitude: 0, longitude: 0, objectID: nil, type: SSDKContentType.Auto)
     ShareSDK.share(type, parameters: shareParames) { (states, nil, entity, error) in
         switch states {
         case SSDKResponseState.Success: print("分享成功")
@@ -49,11 +49,10 @@ func alertShare(id: String, name: String, author: String, image: UIImage?, share
         }
     }
 }
-
+//报纸分享
 func alertShare2(id: String, name: String, author: String, image: UIImage?, shareType: String,form: String, type: SSDKPlatformType) {
     let shareParames = NSMutableDictionary()
-    shareParames.SSDKSetupShareParamsByText("\n\(author)", images:image, url: NSURL(string: "http://lh.sdlq.org/ShareContent/index.html?id=\(id)&shareType=appstory&type=1"), title: name, type: SSDKContentType.Text)
-//    shareParames.SSDKSetupSinaWeiboShareParamsByText("\(name)http://lh.sdlq.org/ShareContent/index.html?id=\(id)&shareType=\(shareType)&type=\(form)", title: author, image: image, url: NSURL(string: "http://lh.sdlq.org/ShareContent/index.html?id=\(id)&shareType=appstory&type=1"), latitude: 0, longitude: 0, objectID: nil, type: SSDKContentType.Auto)
+    shareParames.SSDKSetupShareParamsByText("\n\(author)", images:image, url: NSURL(string: "http://lhw.sdlq.org/Readingzone/PaperInfo/25BD6B2E-C573-42B4-82B6-53F6A64B459A?aid=\(id)"), title: name, type: SSDKContentType.Text)
     ShareSDK.share(type, parameters: shareParames) { (states, nil, entity, error) in
         switch states {
         case SSDKResponseState.Success: print("分享成功")

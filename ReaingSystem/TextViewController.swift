@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TextViewController: UIViewController, UITextViewDelegate {
+class TextViewController: UIViewController, UITextViewDelegate, MyTextViewShareDelegate {
     
     //文字视图    
     @IBOutlet weak var textView: MyTextView!
@@ -46,6 +46,7 @@ class TextViewController: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         batteryTest()
+        textView.customDelegate = self
         // Do any additional setup after loading the view.
     }
     
@@ -78,6 +79,33 @@ class TextViewController: UIViewController, UITextViewDelegate {
     
     override func prefersStatusBarHidden() -> Bool {
         return true
+    }
+    
+//    MyTextViewShareDelegate
+    func didShareText(range: UITextRange?) {
+        let beginning = textView.beginningOfDocument
+        let start = range?.start
+        let end = range?.end
+        let location = textView.offsetFromPosition(beginning, toPosition: start!)
+        let length = textView.offsetFromPosition(start!, toPosition: end!)
+        let ran = NSMakeRange(location, length)
+        let selectedText = (text as NSString).substringWithRange(ran)
+        if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
+            if title == "个人中心" {
+                alertMessage("通知", message: "请登陆后进行分享！", vc: self)
+            } else {
+                if let parVC = self.parentViewController?.parentViewController as? BookReadingViewController {
+                    guard let name = parVC.bookName, let image = parVC.bookImage, let id = parVC.bookID else {
+                        alertMessage("提示", message: "数据不全，无法分享！", vc: self)
+                        return
+                    }
+                    shareToNet(id, content: selectedText, name: name, author: parVC.author != "" ? parVC.author : "佚名", image: image)
+                } else {
+                    alertMessage("提示", message: "分享失败，请重试！", vc: self)
+                }
+
+            }
+        }
     }
     
     //电池检查
@@ -139,5 +167,23 @@ class TextViewController: UIViewController, UITextViewDelegate {
         typeImage.image = UIImage(named: imageName)
     }
     
-    
+    //分享请求
+    func shareToNet(bookID: String, content: String, name: String, author: String, image: UIImage) {
+        NetworkHealper.GetWithParm.receiveJSON(URLHealper.readTxtShare.introduce(), parameter: ["Pr_ID":bookID,"Content":content]) { (dic, error) in
+            guard error == nil else {
+                alertMessage("提示", message: "分享失败，请重试！", vc: self)
+                return
+            }
+            if let id = dic!["returnData"] as? String {
+                if id != "" {
+                        alertShareMessage(self) { (type) in
+                            alertShare(id, name: name, author: author, image: image,shareType: "appstory", from: "0", type: type)
+                        }
+                } else {
+                    alertMessage("提示", message: "分享失败，请重试！", vc: self)
+                }
+            }
+        }
+    }
+ 
 }

@@ -22,11 +22,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nzf-gX-H8W" customClass="WaitingView" customModule="ReaingSystem" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GVk-Qx-u65">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C1G-Hm-lQi">
-                                        <rect key="frame" x="15" y="27.5" width="30" height="30"/>
+                                        <rect key="frame" x="15" y="27" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="Aqh-Oh-Ky7"/>
                                             <constraint firstAttribute="width" constant="30" id="mIO-LL-1PR"/>
@@ -43,7 +47,7 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aHG-CM-hUm">
-                                        <rect key="frame" x="0.0" y="63.5" width="375" height="0.5"/>
+                                        <rect key="frame" x="0.0" y="64" width="375" height="0.0"/>
                                         <color key="backgroundColor" red="0.63921568630000003" green="0.63921568630000003" blue="0.63921568630000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="4rr-Fl-dHk"/>
@@ -66,7 +70,7 @@
                                         </connections>
                                     </segmentedControl>
                                     <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8A2-4Y-9t1">
-                                        <rect key="frame" x="337" y="27.5" width="30" height="30"/>
+                                        <rect key="frame" x="337" y="27" width="30" height="30"/>
                                         <state key="normal" title="test"/>
                                         <connections>
                                             <action selector="testClick:" destination="AXg-pD-zyg" eventType="touchUpInside" id="YXj-9n-yFy"/>
@@ -144,6 +148,7 @@
                                                 </label>
                                             </subviews>
                                         </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="tLD-aT-Gkx" firstAttribute="top" secondItem="8Jp-do-7Pc" secondAttribute="top" id="5qq-Dg-7Gj"/>
                                             <constraint firstItem="rOq-RA-pt3" firstAttribute="top" secondItem="Vy0-SW-guq" secondAttribute="topMargin" constant="11" id="82B-Me-MxT"/>
@@ -281,7 +286,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最近阅读" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xbX-0U-OSD">
-                                            <rect key="frame" x="25" y="5.5" width="65.5" height="19.5"/>
+                                            <rect key="frame" x="25" y="5" width="66" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.26274509800000001" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -327,13 +332,13 @@
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="书名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SVx-ff-nVt">
-                                            <rect key="frame" x="128" y="39" width="231" height="21.5"/>
+                                            <rect key="frame" x="128" y="39" width="231" height="22"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                             <color key="textColor" red="0.26274509800000001" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第一章 头脑特工队" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHn-jp-PiX">
-                                            <rect key="frame" x="128" y="65.5" width="231" height="19.5"/>
+                                            <rect key="frame" x="128" y="66" width="231" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -345,7 +350,7 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今天 09:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TiH-gT-ADd">
-                                            <rect key="frame" x="128" y="129.5" width="80.5" height="19.5"/>
+                                            <rect key="frame" x="128" y="129" width="81" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -399,11 +404,15 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="GVk-Qx-u65" firstAttribute="top" secondItem="KdL-HS-hI3" secondAttribute="top" id="GXn-J4-QLa"/>
+                            <constraint firstItem="nzf-gX-H8W" firstAttribute="leading" secondItem="KdL-HS-hI3" secondAttribute="leading" id="UuM-mR-lcy"/>
+                            <constraint firstItem="tlP-dI-0GT" firstAttribute="top" secondItem="nzf-gX-H8W" secondAttribute="bottom" id="adP-Xc-nGG"/>
                             <constraint firstAttribute="trailing" secondItem="GVk-Qx-u65" secondAttribute="trailing" id="c57-C1-7Kp"/>
                             <constraint firstItem="tlP-dI-0GT" firstAttribute="top" secondItem="5US-dx-4zu" secondAttribute="bottom" id="faV-fj-uVs"/>
+                            <constraint firstItem="nzf-gX-H8W" firstAttribute="top" secondItem="KdL-HS-hI3" secondAttribute="top" id="hDj-l9-VdA"/>
                             <constraint firstItem="5US-dx-4zu" firstAttribute="leading" secondItem="KdL-HS-hI3" secondAttribute="leading" id="iRl-sM-G2l"/>
                             <constraint firstItem="5US-dx-4zu" firstAttribute="top" secondItem="GVk-Qx-u65" secondAttribute="bottom" id="mCk-bk-rau"/>
                             <constraint firstItem="GVk-Qx-u65" firstAttribute="leading" secondItem="KdL-HS-hI3" secondAttribute="leading" id="vKC-ZZ-CcN"/>
+                            <constraint firstAttribute="trailing" secondItem="nzf-gX-H8W" secondAttribute="trailing" id="y3W-vK-sYp"/>
                             <constraint firstAttribute="trailing" secondItem="5US-dx-4zu" secondAttribute="trailing" id="yNd-lQ-9Pt"/>
                         </constraints>
                     </view>
@@ -412,6 +421,7 @@
                         <outlet property="personalButton" destination="C1G-Hm-lQi" id="Mfg-rx-Nvb"/>
                         <outlet property="readOrListenSegmented" destination="4Jl-K0-OjT" id="FMG-oC-JD4"/>
                         <outlet property="titleBarView" destination="GVk-Qx-u65" id="u35-uQ-Fck"/>
+                        <outlet property="waitingView" destination="nzf-gX-H8W" id="fJ3-wR-Cbr"/>
                         <segue destination="Zlh-hz-PNS" kind="presentation" identifier="DeleteSegue" id="K03-kY-Fdh"/>
                         <segue destination="EP8-EC-eEo" kind="presentation" identifier="ListSegue" id="Fjh-3b-Buv"/>
                         <segue destination="pGv-GR-IoL" kind="presentation" identifier="testSegue" id="6Se-hH-wXR"/>
@@ -878,14 +888,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6de-Tg-j1d">
-                                <rect key="frame" x="132" y="318.5" width="31" height="30"/>
+                                <rect key="frame" x="132" y="319" width="31" height="30"/>
                                 <state key="normal" title="下载"/>
                                 <connections>
                                     <action selector="downLoadClick:" destination="pGv-GR-IoL" eventType="touchUpInside" id="h7f-oV-8SL"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WoI-Tr-Q4I">
-                                <rect key="frame" x="212" y="318.5" width="31" height="30"/>
+                                <rect key="frame" x="212" y="319" width="31" height="30"/>
                                 <state key="normal" title="暂停"/>
                                 <connections>
                                     <action selector="cancleClick:" destination="pGv-GR-IoL" eventType="touchUpInside" id="Inp-EP-P7d"/>

@@ -99,7 +99,6 @@ class SelectingSexViewController: UIViewController, UICollectionViewDataSource,U
         guard let datas = sexDetailData[sexRootData.data2[indexPath.section].categoryID]?.data else {
             return
         }
-        print("选中\(sexDetailData)")
         guard datas.count >= indexPath.row + 1 else {
             return
         }

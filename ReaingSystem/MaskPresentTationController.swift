@@ -30,7 +30,6 @@ class MaskPresentTationController: UIPresentationController {
         changeView.frame = imageView.frame
         changeView.image = imageView.image
         
-        print(imageView.center)
         
         var toVC = self.presentedViewController as! InterestViewController
         presentedViewController.transitionCoordinator()?.animateAlongsideTransition({ (_) in

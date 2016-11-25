@@ -124,6 +124,8 @@ enum URLHealper {
     case downloadTxt
     //根据小说章节id得到该章节内容（参数名称：bookID,chapterID）
     case readTxt
+    //分享选中的文本保存到数据库 (参数： Pr_ID: 小说ID, Content: 要分享的文本 )
+    case readTxtShare
     
     //MARK: 发现页面
     //获取发现数据
@@ -243,6 +245,8 @@ enum URLHealper {
             return baseURl + "/story/DownloadTxt"
         case .readTxt:
             return baseURl + "Story/ReadTxt"
+        case .readTxtShare:
+            return baseURl + "pr/Saveshare"
         case .getFindList:
             return baseURl + "Find/List"
         }

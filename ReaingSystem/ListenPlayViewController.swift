@@ -37,6 +37,9 @@ class ListenPlayViewController: UIViewController {
     var sliding = false
     //是否在播放
     var playing = true
+    //音频封面
+    var image: UIImage!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,10 +100,33 @@ class ListenPlayViewController: UIViewController {
     }
     //评论
     @IBAction func commentClick(sender: UIButton) {
-        
+        if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
+            if title == "个人中心" {
+                alertMessage("通知", message: "请登陆后查看评论！", vc: self)
+            } else {
+                let toVC  = self.detailVC("ReadDetail", vcName: "CommentViewController") as! CommentViewController
+                toVC.bookID = listenData.audioID
+                toVC.bookType = "appvoice"
+                self.presentViewController(toVC, animated: true, completion: nil)
+                
+            }
+        }
     }
     //分享
     @IBAction func shareClick(sender: UIButton) {
+        if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
+            if title == "个人中心" {
+                alertMessage("通知", message: "请登陆后进行分享！", vc: self)
+            } else {
+                alertShareMessage(self) { (type) in
+                    guard let name = self.listenData.audioName,  let image = self.image, let id = self.listenData.audioID else {
+                        alertMessage("提示", message: "数据不全，无法分享！", vc: self)
+                        return
+                    }
+                    alertShare(id, name: name, author: self.listenData.author != "" ? self.listenData.author : "佚名", image: image,shareType: "appvoice", from: "1", type: type)
+                }
+            }
+        }
     }
     
     @IBAction func beforeClick(sender: UIButton) {
@@ -126,7 +152,14 @@ class ListenPlayViewController: UIViewController {
     }
     
     
-    //MARK:私有方法
+    //MARK：私有方法
+    //页面跳转方法
+    func detailVC(sbName: String, vcName: String) -> UIViewController {
+        var sb = UIStoryboard(name: sbName, bundle: nil)
+        var vc = sb.instantiateViewControllerWithIdentifier(vcName)
+        return vc
+    }
+
     //数据设置
     func initData(listenData: ListenReturnData, index: Int) {
         self.listenData = listenData
@@ -272,7 +305,6 @@ class ListenPlayViewController: UIViewController {
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.addToShelfURL.introduce(), parameter: parm, completion: { (dictionary, error) in
             
             if let flag = dictionary!["flag"] as? Int {
-                print("flag= \(flag)")
                 if flag == 1 {
                     self.addShelfButton.selected = true
                     self.addShelfButton.setImage(UIImage(named: "readDetail_onShelf_gray"), forState: UIControlState.Selected)

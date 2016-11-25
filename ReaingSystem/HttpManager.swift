@@ -194,7 +194,7 @@ enum NetworkHealper {
     }
     
     //下载数据
-    func downloadData(url: String,parameter: [String: AnyObject]? = [:], progress: (Int64?, Int64?, Int64?) -> Void, completion: (NSDictionary?, String?) -> Void) {
+    func downloadData(url: String,parameter: [String: AnyObject]? = [:], progress: (CGFloat) -> Void, completion: (NSDictionary?, String?) -> Void) {
         var err: String?
         var dic: NSDictionary?
         switch self {
@@ -215,7 +215,10 @@ enum NetworkHealper {
                 }
                 completion(dic, err)
             }).progress({ (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
-                progress(bytesRead, totalBytesRead, totalBytesExpectedToRead)
+                print(totalBytesRead)
+                //刷新进度条。
+                let percent = Float(totalBytesRead) / Float(totalBytesExpectedToRead)
+                progress(CGFloat(percent))
             })
             
         default:
