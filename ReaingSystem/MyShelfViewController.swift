@@ -398,6 +398,7 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
         bookData.bookID = id
         bookData.bookName = cell.bookNameLabel.text!
         bookData.imageData = UIImagePNGRepresentation(cell.bookImageView.image!)!
+        bookData.downLoad = true
         NetworkHealper.GetWithParm.downloadData(URLHealper.downloadTxt.introduce(), parameter: ["bookID":id], progress: { (percent) in
             //调用主线程来刷新界面
             dispatch_sync(dispatch_get_main_queue(), {

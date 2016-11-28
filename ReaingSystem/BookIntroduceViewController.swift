@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import RealmSwift
 
 private let reuseIdentifier = ["ReadDetailSegue", "CommentSegue"]
 
@@ -39,7 +40,11 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
 //    书籍简介信息
     var selectedBookID: String!
     //书籍数据
+    //标志数据来自哪一方 0: 网络数据， 1：本地数据
+    var dataFrom = 0
     var bookData: SummarySelectedBook!
+    //书籍本地数据
+    var locationBookData: MyShelfRmBook!
     //书籍目录
     var catalogue: [SummaryRow] = []
     //选中章节
@@ -54,8 +59,15 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
-        getSummery(selectedBookID)
         self.view.bringSubviewToFront(waitingView)
+        //判断本地是否存在
+        let realm = try! Realm()
+        let book = realm.objectForPrimaryKey(MyShelfRmBook.self, key: selectedBookID)
+        if let book = book {
+            locationInitView(book)
+        } else {
+            getSummery(selectedBookID)
+        }
         
 //        detailText.contentInset = UIEdgeInsetsMake(0, 10, 0, 5)
         
@@ -74,10 +86,6 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        guard self.bookData.data != nil else {
-            print("没有数据")
-            return
-        }
         if segue.identifier == reuseIdentifier[0] {
             UIApplication.sharedApplication().statusBarHidden = true
             let toVC = segue.destinationViewController as! BookReadingViewController
@@ -86,16 +94,27 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
             toVC.bookName = titleLabel.text
             toVC.bookImage = bookImage.image
             toVC.author = subTitleLabel.text != "" ? subTitleLabel.text! : "佚名"
+            //详情点击入口
             if clickFrom == 0 {
-                if let chapterID = bookData.data.first?.chapterID {
-                    //选中章节
-                    for i in 0..<catalogue.count {
+                var chapterID: String = ""
+                //数据来自什么地方
+                if dataFrom == 0 {
+                    guard bookData.data != nil else {
+                        print("没有数据")
+                        return
+                    }
+                    if let id = bookData.data.first?.chapterID {
+                        chapterID = id
+                    }
+                } else {
+                    if locationBookData.readedChapterID != "" {
+                        chapterID = locationBookData.readedChapterID
+                    }
+                }
+                for i in 0..<catalogue.count {
                         if catalogue[i].chapterID == chapterID {
                             toVC.selectedChapter = i
                         }
-                    }
-                } else {
-                    toVC.selectedChapter = 0
                 }
             } else {
                 toVC.selectedChapter = selectedRow
@@ -244,14 +263,54 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
         readingTimeLabel.text = data.data.first?.recentReadDate
         viewTitleLabel.text = data.data.first?.bookName
     }
+    
+    //本地数据的初始化
+    func locationInitView(book: MyShelfRmBook) {
+        print("本地数据")
+        dataFrom = 1
+        locationBookData = book
+        if book.imageURL == "" {
+            bookImage.image = UIImage(named: "bookLoading")
+        } else {
+            let url = baseURl + book.imageURL
+            bookImage.kf_setImageWithURL(NSURL(string: url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "bookLoading"))
+        }
+        titleLabel.text = book.bookName
+        subTitleLabel.text = book.author
+        readingTimeLabel.text = book.readDate
+        viewTitleLabel.text = book.bookName
+        //简介
+        detailText.text = book.bookBrief
+        detailText.reloadInputViews()
+        
+        //是否已加入书架
+        if book.isOnShelf == 1 {
+            self.addShelfButton.selected = true
+            self.addShelfButton.setImage(UIImage(named: "readDetail_onShelf"), forState: .Selected)
+        }
+        //目录
+        catalogue = book.chapters.map({ (chapter) -> SummaryRow in
+            return SummaryRow(chapterID: chapter.chapterID, chapterName: chapter.chapterName)
+        })
+        tableView.reloadData()
+        
+        self.waitingView.end()
+        self.view.sendSubviewToBack(self.waitingView)
+        
+    }
 
     
     //MARK:网络请求
     //获取简介
     func getSummery(id: String) {
+        print("网络获取")
         let parm: [String: AnyObject] = [
             "bookID": id
         ]
+        //本地持久化准备
+        let locationBook = MyShelfRmBook()
+        locationBook.bookID = id
+        locationBook.downLoad = false
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.bookSummaryURL.introduce(), parameter: parm, completion: { (dictionary, error) in
             guard error == nil else {
                 print(error)
@@ -275,6 +334,28 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
             self.initView(self.bookData)
             self.waitingView.end()
             self.view.sendSubviewToBack(self.waitingView)
+            locationBook.bookName = self.bookData.data.first!.bookName ?? ""
+            locationBook.imageURL = self.bookData.data.first!.bookImg ?? ""
+            locationBook.author = self.bookData.data.first!.author ?? ""
+            locationBook.bookBrief = self.bookData.data.first!.bookBrief ?? ""
+            locationBook.readDate = self.bookData.data.first!.recentReadDate ?? ""
+            locationBook.isOnShelf = self.bookData.data.first!.isOnShelf ?? 0
+            locationBook.readedChapterID = self.bookData.data.first!.chapterID ?? ""
+            if let rows = self.bookData.rows {
+                for index in rows {
+                    let chater = Chapter()
+                    chater.chapterID = index.chapterID
+                    chater.chapterName = index.chapterName
+                    locationBook.chapters.append(chater)
+                }
+            }
+            //本地存储
+            let realm = try! Realm()
+            try! realm.write({
+                realm.add(locationBook, update: true)
+            })
+            
+            
         })
     }
     

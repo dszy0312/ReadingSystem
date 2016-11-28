@@ -507,20 +507,21 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     func getCatalogueData(index: Int, bookID: String) {
             let realm = try! Realm()
         if let book = realm.objectForPrimaryKey(MyShelfRmBook.self, key: bookID) {
-            print("来自本地数据库")
-            let chapters = book.chapters.filter("chapterID = '\(catalogue[index].chapterID)' ")
-            if let chapter = chapters.first {
-                self.titleLabel.text = chapter.chapterName
-                self.currentViewController.chapterText = chapter.chapterContent
-                currentViewController.titleName = chapter.chapterName
-                self.waitingView.end()
-                self.view.sendSubviewToBack(self.waitingView)
-                
+            if book.downLoad == true {
+                print("来自本地数据库")
+                let chapters = book.chapters.filter("chapterID = '\(catalogue[index].chapterID)' ")
+                if let chapter = chapters.first {
+                    self.titleLabel.text = chapter.chapterName
+                    self.currentViewController.chapterText = chapter.chapterContent
+                    currentViewController.titleName = chapter.chapterName
+                    self.waitingView.end()
+                    self.view.sendSubviewToBack(self.waitingView)
+                } else {
+                    self.getNetworkData(self.catalogue[index].chapterID, bookID: bookID)
+                }
             } else {
                 self.getNetworkData(self.catalogue[index].chapterID, bookID: bookID)
             }
-        } else {
-            self.getNetworkData(self.catalogue[index].chapterID, bookID: bookID)
         }
 
     }
