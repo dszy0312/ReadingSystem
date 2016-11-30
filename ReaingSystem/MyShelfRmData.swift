@@ -20,6 +20,7 @@ class MyShelfRmBook: Object {
     dynamic var imageData = NSData()
     dynamic var downLoad = false
     dynamic var readedChapterID = ""
+    dynamic var readedPage = 1
     let chapters = List<Chapter>()
     
     override static func indexedProperties() -> [String] {
@@ -32,23 +33,25 @@ class MyShelfRmBook: Object {
 }
 
 class Chapter: Object {
-    dynamic var chapterName = ""
+    //因为chapterID 不唯一，现设置特殊ID进行标示 标示 bookID + chapterID
+    dynamic var specialID = ""
     dynamic var chapterID = ""
+    dynamic var bookID = ""
+    dynamic var chapterName = ""
     dynamic var chapterContent = ""
     let pages = List<chapterPageDetail>()
     let owner = LinkingObjects(fromType: MyShelfRmBook.self, property: "chapters")
     override static func primaryKey() -> String? {
-        return "chapterID"
+        return "specialID"
     }
 }
 
 class chapterPageDetail: Object {
-    dynamic var page = 0
+    dynamic var page = 1
     dynamic var detail = ""
+    dynamic var chapterID = ""
+    dynamic var bookID = ""
     let owner = LinkingObjects(fromType: Chapter.self, property: "pages")
-    override static func primaryKey() -> String? {
-        return "page"
-    }
 }
 
 

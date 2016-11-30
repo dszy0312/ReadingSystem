@@ -49,8 +49,8 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
     var catalogue: [SummaryRow] = []
     //选中章节
     var selectedRow: Int!
-    //详情点击来自：0代表阅读按钮，1代表目录单元格
-    var clickFrom: Int!
+    //详情点击来自：true代表阅读按钮，false代表目录单元格
+    var clickFrom = false
     //选择的segmented
     var selectedIndex = 0
 
@@ -87,6 +87,7 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == reuseIdentifier[0] {
+            
             UIApplication.sharedApplication().statusBarHidden = true
             let toVC = segue.destinationViewController as! BookReadingViewController
             toVC.isNew = true
@@ -94,32 +95,9 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
             toVC.bookName = titleLabel.text
             toVC.bookImage = bookImage.image
             toVC.author = subTitleLabel.text != "" ? subTitleLabel.text! : "佚名"
-            //详情点击入口
-            if clickFrom == 0 {
-                var chapterID: String = ""
-                //数据来自什么地方
-                if dataFrom == 0 {
-                    guard bookData.data != nil else {
-                        print("没有数据")
-                        return
-                    }
-                    if let id = bookData.data.first?.chapterID {
-                        chapterID = id
-                    }
-                } else {
-                    if locationBookData.readedChapterID != "" {
-                        chapterID = locationBookData.readedChapterID
-                    }
-                }
-                for i in 0..<catalogue.count {
-                        if catalogue[i].chapterID == chapterID {
-                            toVC.selectedChapter = i
-                        }
-                }
-            } else {
-                toVC.selectedChapter = selectedRow
-            }
+            toVC.selectedChapter = selectedRow
             toVC.bookID = selectedBookID
+            toVC.clickFrom = self.clickFrom
         } else if segue.identifier == reuseIdentifier[1] {
             let toVC = segue.destinationViewController as! CommentViewController
             toVC.bookID = selectedBookID
@@ -173,19 +151,28 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
                 return
             }
             if isFromReadDetail == true {
-                if let chapterID = bookData.data.first?.chapterID {
-                    //选中章节
-                    for i in 0..<catalogue.count {
-                        if catalogue[i].chapterID == chapterID {
-                            customDelegate.sendID(i)
-                        }
-                    }
-                } else {
-                    customDelegate.sendID(0)
-                }
+//                
+//                if let chapterID = bookData.data.first?.chapterID {
+//                    //选中章节
+//                    for i in 0..<catalogue.count {
+//                        if catalogue[i].chapterID == chapterID {
+//                            customDelegate.sendID(i)
+//                        }
+//                    }
+//                } else {
+//                    customDelegate.sendID(0)
+//                }
                 self.dismissViewControllerAnimated(true, completion: nil)
             } else {
-                self.clickFrom = 0
+                guard locationBookData.readedChapterID != "" else {
+                    return
+                }
+                for i in 0..<catalogue.count {
+                    if catalogue[i].chapterID == locationBookData.readedChapterID {
+                        selectedRow = i
+                    }
+                }
+                self.clickFrom = true
                 self.performSegueWithIdentifier(reuseIdentifier[0], sender: self)
                 UIApplication.sharedApplication().statusBarHidden = true
                 sender.selectedSegmentIndex = selectedIndex
@@ -244,7 +231,6 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
             self.dismissViewControllerAnimated(true, completion: nil)
         } else {
             self.selectedRow = indexPath.row
-            self.clickFrom = 1
             self.performSegueWithIdentifier(reuseIdentifier[0], sender: self)
         }
         self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
@@ -307,10 +293,6 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
         let parm: [String: AnyObject] = [
             "bookID": id
         ]
-        //本地持久化准备
-        let locationBook = MyShelfRmBook()
-        locationBook.bookID = id
-        locationBook.downLoad = false
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.bookSummaryURL.introduce(), parameter: parm, completion: { (dictionary, error) in
             guard error == nil else {
                 print(error)
@@ -334,6 +316,12 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
             self.initView(self.bookData)
             self.waitingView.end()
             self.view.sendSubviewToBack(self.waitingView)
+            //本地存储
+            let realm = try! Realm()
+            //本地持久化准备
+            let locationBook = MyShelfRmBook()
+            locationBook.bookID = id
+            locationBook.downLoad = false
             locationBook.bookName = self.bookData.data.first!.bookName ?? ""
             locationBook.imageURL = self.bookData.data.first!.bookImg ?? ""
             locationBook.author = self.bookData.data.first!.author ?? ""
@@ -344,13 +332,13 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
             if let rows = self.bookData.rows {
                 for index in rows {
                     let chater = Chapter()
+                    chater.specialID = "\(id)\(index.chapterID)"
                     chater.chapterID = index.chapterID
+                    chater.bookID = id
                     chater.chapterName = index.chapterName
                     locationBook.chapters.append(chater)
                 }
             }
-            //本地存储
-            let realm = try! Realm()
             try! realm.write({
                 realm.add(locationBook, update: true)
             })

@@ -7,20 +7,21 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ReadingPageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, UIScrollViewDelegate {
     //循环计数，测试通途
     var index  = 0
     
     //当前视图控制器
-//    var curTextVC: TextViewController!
-    var customIndex = 0
+    var curTextVC: TextViewController!
     //章节数据设置: 读取本地时设置
     var chapterText: String! {
         didSet {
             if chapterText == "" {
                 return
             } else {
+                
                 var page = 1
                 let textSize = CGFloat(NSUserDefaults.standardUserDefaults().floatForKey("textSize"))
                 strArray = splitedString(chapterText)
@@ -47,8 +48,11 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
             } else {
                 var page = 1
                 let textSize = CGFloat(NSUserDefaults.standardUserDefaults().floatForKey("textSize"))
+                print("开始、|\(getDate())")
+                
                 strArray = splitedString(defaultString)
-                maxCount = countGet(customTextView.frame.width, height: customTextView.frame.height, textSize: textSize)
+                print(strArray.count)
+                maxCount = countGet(customTextView.frame.width, height: customTextView.frame.height, textSize: textSize) * 2
                  paging(1, textSize: textSize, maxCount: maxCount)
                 ("\(getDate())...\(self.index)")
                 if isPro == true {
@@ -65,15 +69,6 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
     }
     //字符转化成数组
     var strArray: [String] = []
-    //章节名
-    var titleName: String! {
-        didSet {
-            for  childVC in self.childViewControllers {
-                let chVC = childVC as! TextViewController
-                chVC.namedTitle(titleName)
-            }
-        }
-    }
     //总页数
     var totalPages = 0
     //每个页面展示的最多字数
@@ -82,7 +77,6 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
     //字体大小
     var textSize: CGFloat! {
         didSet {
-//            strDictionary = [:]
             strArray = splitedString(defaultString)
             maxCount = countGet(customTextView.frame.width, height: customTextView.frame.height, textSize: textSize)
             paging(1, textSize: textSize, maxCount: maxCount)
@@ -102,6 +96,11 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
     var strDictionary: [Int : String] = [:]
     
     var customTextView: UITextView!
+    
+    //章节ID
+    var chapterID: String!
+    //书籍ID
+    var bookID: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -173,27 +172,103 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
         }
 
         if let childVC = pageViewController.viewControllers?.first as? TextViewController {
-            NSUserDefaults.standardUserDefaults().setInteger(childVC.currentPage, forKey: "curPage")
-            //同步 防止突然退出出错
-            NSUserDefaults.standardUserDefaults().synchronize()
+            childVC.pageLabel.text = "第\(childVC.currentPage)/\(totalPages)页"
+            childVC.totalPage = totalPages
+            childVC.textView.text = strDictionary[childVC.currentPage]
+            childVC.textView.reloadInputViews()
+            childVC.namedTitle(chapterID, bookID: bookID)
+//            NSUserDefaults.standardUserDefaults().setInteger(childVC.currentPage, forKey: "curPage")
+//            //同步 防止突然退出出错
+//            NSUserDefaults.standardUserDefaults().synchronize()
             if childVC.nextChapter != nil {
+                curTextVC = childVC
                 if childVC.nextChapter == 0 {
                     isPro = true
                 } else {
                     isPro = false
                 }
-                
                 //章节跳转
                 let pVC = self.parentViewController as! BookReadingViewController
-                pVC.view.bringSubviewToFront(pVC.waitingView)
-                pVC.chapterChange(childVC.nextChapter)
                 pVC.waitingView.begin()
+                pVC.view.bringSubviewToFront(pVC.waitingView)
+                pVC.chapterChange(isPro)
             }
         }
 
     }
     
     //MARK: 私有方法
+    
+    //页面分页设置
+    func pagesSet(chapterID: String, bookID: String, text: String, isPro: Bool = false, clickFrom: Bool = false) {
+        self.strDictionary = [:]
+        self.chapterID = chapterID
+        self.bookID = bookID
+        var page = 1
+        let realm = try! Realm()
+         if let chapter = realm.objectForPrimaryKey(Chapter.self, key: "\(bookID)\(chapterID)")  {
+            if chapter.pages.count == 0 {
+                let textSize = CGFloat(NSUserDefaults.standardUserDefaults().floatForKey("textSize"))
+                print("开始、|\(getDate())")
+                strArray = splitedString(text)
+                print(strArray.count)
+                maxCount = countGet(customTextView.frame.width, height: customTextView.frame.height, textSize: textSize) * 2
+                paging(1, textSize: textSize, maxCount: maxCount)
+                
+                //本地数据修改
+                let pages = List<chapterPageDetail>()
+                for (index, value) in strDictionary {
+                    let page = chapterPageDetail()
+                    page.page = index
+                    page.detail = value
+                    page.chapterID = chapterID
+                    page.bookID = bookID
+                    pages.append(page)
+                }
+                try! realm.write({
+                    realm.create(Chapter.self, value: ["specialID": "\(bookID)\(chapterID)", "pages": pages], update: true)
+                })
+            } else {
+                print("本地有数据")
+                let pages = chapter.pages
+                for index in pages {
+                    strDictionary[index.page] = index.detail
+                }
+                totalPages = pages.count
+            }
+        }
+        //本地存储的阅读到的页面
+        if clickFrom == true {
+            if let  book = realm.objectForPrimaryKey(MyShelfRmBook.self, key: bookID) {
+                if book.readedPage <= totalPages {
+                    page = book.readedPage
+                }
+            }
+        }
+        //如果是向前翻页，跳转到最后一页
+        if isPro == true {
+            page = totalPages
+        }
+        for vc in self.childViewControllers {
+            vc.removeFromParentViewController()
+        }
+        if curTextVC != nil {
+            curTextVC.pageLabel.text = "第\(page)/\(totalPages)页"
+            curTextVC.currentPage = page
+            curTextVC.textView.text = strDictionary[page]
+            curTextVC.textView.reloadInputViews()
+            curTextVC.namedTitle(chapterID, bookID: bookID)
+            curTextVC.timeLabel.text = getDate()
+            curTextVC.nextChapter = nil
+            for vc in self.childViewControllers {
+                vc.removeFromParentViewController()
+            }
+        } else {
+            if let firstVC = viewControllersAtIndex(page) {
+                self.setViewControllers([firstVC], direction: .Forward, animated: false, completion: nil)
+            }
+        }
+    }
     
     //返回当前页的控制器
     func viewControllersAtIndex(page: Int) -> TextViewController? {
@@ -203,7 +278,8 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
         textVC.currentPage = page
         textVC.text = strDictionary[page]
         textVC.totalPage = totalPages
-        textVC.titleName = titleName
+        textVC.chapterID = chapterID
+        textVC.bookID = bookID
         
         return textVC
     }
@@ -217,7 +293,6 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
         textVC.totalPage = 1
         textVC.text = "加载中。。。"
         textVC.nextChapter = index
-        textVC.titleName = ""
         return textVC
 
     }
@@ -270,8 +345,6 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
             }
         }
     }
-    
-    
     //计算每页字符串标准长度
     func getSuitableCount(index: Int, text: String, textSize: CGFloat) -> Int {
         var maxCount = text.characters.count
@@ -290,15 +363,14 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
             
         } else { //实际高度超过或等于 textView高度 减字符
             if index == 0 {
-                if strArray[maxCount - 1] == "\r" || strArray[maxCount - 1] == "\n" || strArray[maxCount - 1] == "\r\n" {
-                    return maxCount - 1
-                } else {
-                    return maxCount - 3
-                }
+                maxCount -= 1
+                let pageText = cutString(maxCount)
+                maxCount = getSuitableCount(index / 2, text: pageText, textSize: textSize)
+            } else {
+                maxCount -= index
+                let pageText = cutString(maxCount)
+                maxCount = getSuitableCount(index / 2, text: pageText, textSize: textSize)
             }
-            maxCount -= index
-            let pageText = cutString(maxCount)
-            maxCount = getSuitableCount(index / 2, text: pageText, textSize: textSize)
         }
         return maxCount
     }

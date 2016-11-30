@@ -78,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 case SSDKPlatformType.TypeQQ:
                     appInfo.SSDKSetupQQByAppId("1105647136", appKey: "DMzffCKxQPx2E7Qz", authType: SSDKAuthTypeSSO)
                 case SSDKPlatformType.TypeWechat:
-                    appInfo.SSDKSetupWeChatByAppId("wx5dea74c0f35cc310", appSecret: "d2480b63c45f475b1de6e00b4f5dc9f0")
+                    appInfo.SSDKSetupWeChatByAppId("wxe9ce4450fa004a5a", appSecret: "19e3fdc990adcf3be7457da08507be37")
                 default:
                     break
                 }

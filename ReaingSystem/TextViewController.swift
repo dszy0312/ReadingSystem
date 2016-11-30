@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class TextViewController: UIViewController, UITextViewDelegate, MyTextViewShareDelegate {
     
@@ -32,16 +33,19 @@ class TextViewController: UIViewController, UITextViewDelegate, MyTextViewShareD
     }
     //显示的字符
     var text: String!
-    //章节名
-    var titleName: String!
     //当前页
     var currentPage: Int!
     //总页数
     var totalPage: Int!
-    //章节跳转标示
+    //章节是否是向前翻页 0 向前翻 1 向后翻
     var nextChapter: Int!
     //更新
     var upLoad = false
+    
+    //章节ID
+    var chapterID: String = ""
+    //书籍ID
+    var bookID: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,11 +56,8 @@ class TextViewController: UIViewController, UITextViewDelegate, MyTextViewShareD
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-//        UIApplication.sharedApplication().statusBarHidden = false
         pageLabel.text = "第\(currentPage)/\(totalPage)页"
-        if titleName != nil {
-            titleLabel.text = titleName
-        }
+        self.namedTitle(chapterID, bookID: bookID)
         timeLabel.text = getDate()
         textView.textAlignment = NSTextAlignment.Left
         textView.setText(text, size: textSize)
@@ -136,8 +137,13 @@ class TextViewController: UIViewController, UITextViewDelegate, MyTextViewShareD
     }
     
     //标题设置
-    func namedTitle(title: String) {
-        self.titleLabel.text = title
+    func namedTitle(chapterID: String, bookID: String) {
+        self.chapterID = chapterID
+        self.bookID = bookID
+        let realm = try! Realm()
+        if let chapter = realm.objectForPrimaryKey(Chapter.self, key: "\(bookID)\(chapterID)") {
+            self.titleLabel.text = chapter.chapterName
+        }
     }
     
     //设置颜色样式

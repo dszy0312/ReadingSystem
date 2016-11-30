@@ -171,14 +171,6 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     var catalogue: [SummaryRow]!
     //选中的章节
     var selectedChapter: Int = 0
-    
-    //小说内容
-    var readText: String! {
-        didSet {
-            currentViewController.defaultString = readText
-            currentViewController.titleName = titleLabel.text
-        }
-    }
     //是否为夜间模式
     var isNightType = false
     //翻页方式标记
@@ -194,6 +186,9 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     
     //是否是新建
     var isNew = false
+    
+    //详情点击来自：true代表阅读按钮，false代表目录单元格
+    var clickFrom = false
     
 
     override func viewDidLoad() {
@@ -398,7 +393,7 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
         newViewController.view.translatesAutoresizingMaskIntoConstraints = false
         self.cycleFromViewController(self.currentViewController!, toViewController: newViewController)
         self.currentViewController = newViewController
-        self.currentViewController.defaultString = readText
+//        self.currentViewController.defaultString = readText
     }
     
 
@@ -413,6 +408,13 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     }
     //返回
     @IBAction func backClick(sender: UIButton) {
+        let page = NSUserDefaults.standardUserDefaults().integerForKey("curPage")
+        let specialID = "\(bookID)\(self.catalogue[selectedChapter].chapterID)"
+        let realm = try! Realm()
+        try! realm.write({ 
+            realm.create(MyShelfRmBook.self, value: ["bookID": bookID, "readedChapterID": self.catalogue[selectedChapter].chapterID, "readedPage": page], update: true)
+        })
+        
         NSUserDefaults.standardUserDefaults().setInteger(1, forKey: "curPage")
         //同步 防止突然退出出错
         NSUserDefaults.standardUserDefaults().synchronize()
@@ -503,27 +505,20 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
         }
     }
     
-    //章节获取
-    func getCatalogueData(index: Int, bookID: String) {
-            let realm = try! Realm()
-        if let book = realm.objectForPrimaryKey(MyShelfRmBook.self, key: bookID) {
-            if book.downLoad == true {
-                print("来自本地数据库")
-                let chapters = book.chapters.filter("chapterID = '\(catalogue[index].chapterID)' ")
-                if let chapter = chapters.first {
-                    self.titleLabel.text = chapter.chapterName
-                    self.currentViewController.chapterText = chapter.chapterContent
-                    currentViewController.titleName = chapter.chapterName
-                    self.waitingView.end()
-                    self.view.sendSubviewToBack(self.waitingView)
-                } else {
-                    self.getNetworkData(self.catalogue[index].chapterID, bookID: bookID)
-                }
+    //章节获取 isPro: 是否是向前翻页
+    func getCatalogueData(index: Int, bookID: String, isPro: Bool = false) {
+        let realm = try! Realm()
+        if let chapter = realm.objectForPrimaryKey(Chapter.self, key: "\(bookID)\(catalogue[index].chapterID)") {
+            if chapter.chapterContent != "" {
+                self.currentViewController.pagesSet(chapter.chapterID, bookID: bookID, text: chapter.chapterContent, isPro: isPro, clickFrom: self.clickFrom)
+                self.waitingView.end()
+                self.view.sendSubviewToBack(self.waitingView)
             } else {
-                self.getNetworkData(self.catalogue[index].chapterID, bookID: bookID)
+                 self.getNetworkData(self.catalogue[index].chapterID, bookID: bookID, isPro: isPro)
             }
+        } else {
+            self.getNetworkData(self.catalogue[index].chapterID, bookID: bookID, isPro: isPro)
         }
-
     }
     
     //页面跳转方法
@@ -535,8 +530,8 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     
     
     //MARK:网络请求
-    //获取简介
-    func getNetworkData(chapterID: String, bookID: String) {
+    //获取简介 isPro: 是否是向前翻页
+    func getNetworkData(chapterID: String, bookID: String, isPro: Bool = false) {
         let parm: [String: AnyObject] = [
             "chapterID": chapterID,
             "bookID": bookID
@@ -547,26 +542,36 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
                 print(error)
                 return
             }
-            self.readData = StoryReadRoot(fromDictionary: dictionary!)
-            self.titleLabel.text = self.readData.rows.first?.chapterName
-            self.readText = self.readData.rows.first?.chapterContent
             self.waitingView.end()
             self.view.sendSubviewToBack(self.waitingView)
+            self.readData = StoryReadRoot(fromDictionary: dictionary!)
+            self.titleLabel.text = self.readData.rows.first?.chapterName
+//            self.readText = self.readData.rows.first?.chapterContent
+            if let content = self.readData.rows.first?.chapterContent {
+                self.currentViewController.pagesSet(chapterID, bookID: bookID, text: self.readData.rows.first!.chapterContent, isPro: isPro, clickFrom: self.clickFrom)
+                //            本地持久化
+                let realm = try! Realm()
+                try! realm.write({
+                    realm.create(Chapter.self, value: ["specialID": "\(bookID)\(chapterID)", "chapterContent": content], update: true)
+                })
+            } else {
+                alertMessage("提示", message: "没有内容！", vc: self)
+            }
+            
             
         })
     }
     
     //章节跳转
-    func chapterChange(index: Int){
-        if index == 0 {
+    func chapterChange(isPro: Bool){
+        print("是否向前滑动、\(isPro)")
+        if isPro == true {
             selectedChapter -= 1
-            
         } else {
             selectedChapter += 1
-
         }
-        self.getNetworkData(self.catalogue[index].chapterID, bookID: bookID)
-//        self.getCatalogueData(selectedChapter, bookID: bookID)
+        print("当前章节、\(selectedChapter)")
+        self.getCatalogueData(selectedChapter, bookID: bookID, isPro: isPro)
     }
     
     //设置颜色选择的边框
