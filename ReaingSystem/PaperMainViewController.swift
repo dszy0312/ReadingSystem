@@ -230,15 +230,18 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
             self.paperMainRow.appendContentsOf(editionRoot.data)
             //self.paperMainRow.appendContentsOf(editionRoot.data)
             print(self.paperMainRow.count)
-            
-            let paperShow = self.getPaperShow()
-            paperShow.paperMainRow = self.paperMainRow
-            
-            let paperCatalogue = self.getCatalogue()
-            paperCatalogue.paperMainRow = self.paperMainRow
-            
-            let paperEdition = self.getEdition()
-            paperEdition.paperMainRow = self.paperMainRow
+            if self.paperMainRow.count == 0 {
+                alertMessage("提示", message: "所选日期无数据，请重新选择！", vc: self)
+            } else {
+                let paperShow = self.getPaperShow()
+                paperShow.paperMainRow = self.paperMainRow
+                
+                let paperCatalogue = self.getCatalogue()
+                paperCatalogue.paperMainRow = self.paperMainRow
+                
+                let paperEdition = self.getEdition()
+                paperEdition.paperMainRow = self.paperMainRow
+            }
         }
     }
     

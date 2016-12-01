@@ -18,6 +18,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
         UIApplication.sharedApplication().statusBarHidden = true
+        let realm = try! Realm()
+        if let _ = realm.objectForPrimaryKey(ReadRmData.self, key: "123456") {
+            
+        } else {
+            let readData = ReadRmData()
+            readData.id = "123456"
+            readData.colorIndex = 1
+            readData.fontIndex = 1
+            readData.fontSize = 17
+            readData.timeIndex = 0
+            readData.changeTypeIndex = 0
+            try! realm.write({ 
+                realm.add(readData, update: true)
+            })
+        }
+        
         //阅读信息持久化
         NSUserDefaults.standardUserDefaults().setFloat(18, forKey: "textSize")
         NSUserDefaults.standardUserDefaults().registerDefaults(["backgroundIndex" : 1])
@@ -45,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         window.rootViewController = rootController
                     }
         }
-        
+    
 //                //数据迁移 schemaVersion: 版本号
 //                let config = Realm.Configuration(schemaVersion: 2, migrationBlock: { (migration, oldSchemaVersion) in
 //                    migration.enumerate("MyShelfRmBook", { (oldObject, newObject) in

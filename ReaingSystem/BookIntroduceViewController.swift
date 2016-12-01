@@ -65,13 +65,10 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
         let book = realm.objectForPrimaryKey(MyShelfRmBook.self, key: selectedBookID)
         if let book = book {
             locationInitView(book)
+            reloadSummary(selectedBookID)
         } else {
             getSummery(selectedBookID)
         }
-        
-//        detailText.contentInset = UIEdgeInsetsMake(0, 10, 0, 5)
-        
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -151,17 +148,6 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
                 return
             }
             if isFromReadDetail == true {
-//                
-//                if let chapterID = bookData.data.first?.chapterID {
-//                    //选中章节
-//                    for i in 0..<catalogue.count {
-//                        if catalogue[i].chapterID == chapterID {
-//                            customDelegate.sendID(i)
-//                        }
-//                    }
-//                } else {
-//                    customDelegate.sendID(0)
-//                }
                 self.dismissViewControllerAnimated(true, completion: nil)
             } else {
                 guard locationBookData.readedChapterID != "" else {
@@ -294,56 +280,79 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
             "bookID": id
         ]
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.bookSummaryURL.introduce(), parameter: parm, completion: { (dictionary, error) in
+            self.waitingView.end()
+            self.view.sendSubviewToBack(self.waitingView)
+            guard error == nil else {
+                alertMessage("提示", message: "没有数据!", vc: self)
+                return
+            }
+            //选中的图书数据赋值
+            self.bookData = SummarySelectedBook(fromDictionary: dictionary!)
+            if let data = self.bookData.data.first {
+                //简介
+                self.detailText.text = data.bookBrief
+                //刷新
+                self.detailText.reloadInputViews()
+                //章节目录
+                self.catalogue.appendContentsOf(self.bookData.rows)
+                self.tableView.reloadData()
+                //是否已加入书架
+                if self.bookData.data.first?.isOnShelf == 1 {
+                    self.addShelfButton.selected = true
+                    self.addShelfButton.setImage(UIImage(named: "readDetail_onShelf"), forState: .Selected)
+                }
+                //视图初始化
+                self.initView(self.bookData)
+                self.locationUpdata(data, catalogueData: self.bookData.rows)
+            } else {
+                alertMessage("提示", message: "没有数据!", vc: self)
+            }
+        })
+    }
+    
+    //本地数据更新
+    func reloadSummary(id: String) {
+        let parm: [String: AnyObject] = [
+            "bookID": id
+        ]
+        NetworkHealper.GetWithParm.receiveJSON(URLHealper.bookSummaryURL.introduce(), parameter: parm, completion: { (dictionary, error) in
             guard error == nil else {
                 print(error)
                 return
             }
             //选中的图书数据赋值
             self.bookData = SummarySelectedBook(fromDictionary: dictionary!)
-            //简介
-            self.detailText.text = self.bookData.data.first!.bookBrief
-            //刷新
-            self.detailText.reloadInputViews()
-            //章节目录
-            self.catalogue.appendContentsOf(self.bookData.rows)
-            self.tableView.reloadData()
-            //是否已加入书架
-            if self.bookData.data.first?.isOnShelf == 1 {
-                self.addShelfButton.selected = true
-                self.addShelfButton.setImage(UIImage(named: "readDetail_onShelf"), forState: .Selected)
+            if let data = self.bookData.data.first {
+                self.locationUpdata(data, catalogueData: self.bookData.rows)
             }
-            //视图初始化
-            self.initView(self.bookData)
-            self.waitingView.end()
-            self.view.sendSubviewToBack(self.waitingView)
-            //本地存储
-            let realm = try! Realm()
-            //本地持久化准备
-            let locationBook = MyShelfRmBook()
-            locationBook.bookID = id
-            locationBook.downLoad = false
-            locationBook.bookName = self.bookData.data.first!.bookName ?? ""
-            locationBook.imageURL = self.bookData.data.first!.bookImg ?? ""
-            locationBook.author = self.bookData.data.first!.author ?? ""
-            locationBook.bookBrief = self.bookData.data.first!.bookBrief ?? ""
-            locationBook.readDate = self.bookData.data.first!.recentReadDate ?? ""
-            locationBook.isOnShelf = self.bookData.data.first!.isOnShelf ?? 0
-            locationBook.readedChapterID = self.bookData.data.first!.chapterID ?? ""
-            if let rows = self.bookData.rows {
-                for index in rows {
-                    let chater = Chapter()
-                    chater.specialID = "\(id)\(index.chapterID)"
-                    chater.chapterID = index.chapterID
-                    chater.bookID = id
-                    chater.chapterName = index.chapterName
-                    locationBook.chapters.append(chater)
-                }
+        })
+    }
+    //本地持久化
+    func locationUpdata(data: SummaryData, catalogueData: [SummaryRow]) {
+        //本地存储
+        let realm = try! Realm()
+        //本地持久化准备
+        let locationBook = MyShelfRmBook()
+        locationBook.bookID = data.bookID
+        locationBook.bookName = data.bookName ?? ""
+        locationBook.imageURL = data.bookImg ?? ""
+        locationBook.author = data.author ?? ""
+        locationBook.bookBrief = data.bookBrief ?? ""
+        locationBook.readDate = data.recentReadDate ?? ""
+        locationBook.isOnShelf = data.isOnShelf ?? 0
+        locationBook.readedChapterID = data.chapterID ?? ""
+        if let rows = self.bookData.rows {
+            for index in rows {
+                let chater = Chapter()
+                chater.specialID = "\(data.bookID)\(index.chapterID)"
+                chater.chapterID = index.chapterID
+                chater.bookID = data.bookID
+                chater.chapterName = index.chapterName
+                locationBook.chapters.append(chater)
             }
-            try! realm.write({
-                realm.add(locationBook, update: true)
-            })
-            
-            
+        }
+        try! realm.write({
+            realm.add(locationBook, update: true)
         })
     }
     
@@ -373,7 +382,4 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
             }
         })
     }
-
-
-
 }

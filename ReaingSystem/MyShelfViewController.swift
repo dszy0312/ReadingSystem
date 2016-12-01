@@ -236,10 +236,7 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     // delegate
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        
-//        guard showBooks.count != 0 else {
-//            return
-//        }
+        print("点击事件")
         if indexPath.row == 0 {
             
         } else if indexPath.row == showBooks.count + 1 {
@@ -251,50 +248,27 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
             //跳转书籍详情
             if self.showBooks[indexPath.row - 1].category == "0001" {
                 let cell = collectionView.cellForItemAtIndexPath(indexPath) as! MyShelfCollectionViewCell
+                let name = cell.bookNameLabel.text
+                let image = cell.bookImageView.image
+                let author = cell.author
+                let bookID = cell.bookID
+                let chapterID = cell.chapterID
                 let realm = try! Realm()
-                let book = realm.objectForPrimaryKey(MyShelfRmBook.self, key: "\( self.showBooks[indexPath.row - 1].bookID)")
-                if book != nil {
-                    //获取跳转视图控制器
-                    if let toVC = self.detailVC("ReadDetail", vcName: "BookReadViewController") as? BookReadingViewController {
-                        UIApplication.sharedApplication().statusBarHidden = true
-                        //数据传递
-                        var catalogue: [SummaryRow] = []
-                        for chapter in book!.chapters {
+                if let book = realm.objectForPrimaryKey(MyShelfRmBook.self, key: "\( self.showBooks[indexPath.row - 1].bookID)") {
+                    if book.chapters.count == 0 {
+                        //获取目录列表然后跳转
+                        readCatalogue(bookID, name: name, author: author, image: image, chapterID: chapterID)
+                    } else {
+                        for chapter in book.chapters {
                             let cata = SummaryRow(chapterID: chapter.chapterID, chapterName: chapter.chapterName)
-                            catalogue.append(cata)
+                            catalogueData.append(cata)
                         }
-                        toVC.catalogue = catalogue
-                        toVC.bookID = book!.bookID
-                        toVC.author = " "
-                        toVC.bookName = book!.bookName
-                        toVC.bookImage = UIImage(data: book!.imageData)
-                        toVC.isNew = true
-                        
-                        if let chapterID = cell.chapterID {
-                            //选中章节
-                            for i in 0..<book!.chapters.count {
-                                if book!.chapters[i].chapterID == chapterID {
-                                    toVC.selectedChapter = i
-                                }
-                            }
-                        } else {
-                            toVC.selectedChapter = 0
-                        }
-                        //跳转
-                        self.presentViewController(toVC, animated: true, completion: {
-                        })
+                        //直接跳转
+                        self.detailTransition(bookID, name: name, author: author, image: image, chapterID: chapterID)
                     }
-
                 } else {
-                    let name = cell.bookNameLabel.text
-                    let image = cell.bookImageView.image
-                    let author = cell.author
-                    let bookID = cell.bookID
-                    let chapterID = cell.chapterID
-                    //获取目录列表然后跳转
-                    readCatalogue(bookID, name: name, author: author, image: image, chapterID: chapterID)
+                    print("sdasf")
                 }
-            
             } else {
                 //跳转音频详情
                 let cell = collectionView.cellForItemAtIndexPath(indexPath) as! MyShelfListenCollectionViewCell
@@ -312,11 +286,7 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
-    
 
-    
-    
-    
     //MARK： 自定义delegate
     func valueOfContentOffSet(value: CGPoint) {
         collectionView.setContentOffset(value, animated: false)
@@ -370,12 +340,25 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
             self.totalBooks = myShelf.rows
             self.showBooks = []
             for i in 0..<self.totalBooks!.count {
+                let realm = try! Realm()
                 if self.totalBooks![i].category == "000\(self.readOrListenSegmented.selectedSegmentIndex + 1)" {
-                    //本地的数据库查询
-                    let realm = try! Realm()
-                    let book = realm.objectForPrimaryKey(MyShelfRmBook.self, key: "\( self.totalBooks![i].bookID)")
-                    if book != nil {
-                         self.totalBooks![i].hasLoaded = true
+                    //书籍本地处理
+                    if self.totalBooks![i].category == "0001" {
+                        if let book = realm.objectForPrimaryKey(MyShelfRmBook.self, key: "\( self.totalBooks![i].bookID)") {
+                            self.totalBooks![i].hasLoaded = book.downLoad
+                        } else {
+                            let book = MyShelfRmBook()
+                            book.bookID = self.totalBooks![i].bookID
+                            book.bookName = self.totalBooks![i].bookName
+                            book.imageURL = self.totalBooks![i].bookImg
+                            book.isOnShelf = 1
+                            book.readedChapterID = self.totalBooks![i].chapterID
+                            try! realm.write({
+                                realm.add(book, update: true)
+                            })
+                        }
+                    } else { //音频本地处理
+                        
                     }
                     self.showBooks.append( self.totalBooks![i])
                 }
@@ -417,6 +400,7 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
             let downloadData = root.rows
             for index in downloadData {
                 let chapter = Chapter()
+                chapter.specialID = "\(id)\(index.chapterID)"
                 chapter.chapterID = index.chapterID
                 chapter.chapterName = index.chapterName
                 chapter.chapterContent = index.chapterContent
@@ -426,9 +410,7 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
             let realm = try! Realm()
             try! realm.write({ 
                 realm.add(bookData, update: true)
-            })
-            
-            
+            }) 
         }
     }
     
@@ -437,6 +419,8 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
         self.waitingView.addLayer()
         self.waitingView.begin()
         self.view.bringSubviewToFront(self.waitingView)
+        let bookData = MyShelfRmBook()
+        bookData.bookID = bookID!
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.getStoryDetail.introduce(), parameter: ["bookID":bookID!]) { (dictionary, error) in
             self.waitingView.end()
             self.view.sendSubviewToBack(self.waitingView)
@@ -446,40 +430,56 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
                 alertMessage("提示", message: "跳转失败，请重试！", vc: self)
                 return
             }
-            
             let root = MyShelfBookCatalogueRootRootClass(fromDictionary: dictionary!)
             self.catalogueData = root.rows
-            //判断目录数量
-            if self.catalogueData.count != 0 {
-                //获取跳转视图控制器
-                if let toVC = self.detailVC("ReadDetail", vcName: "BookReadViewController") as? BookReadingViewController {                    
-                    UIApplication.sharedApplication().statusBarHidden = true
-                    //数据传递
-                    toVC.catalogue = self.catalogueData
-                    toVC.isFromShelf = true
-                    toVC.bookID = bookID
-                    toVC.author = author
-                    toVC.bookName = name
-                    toVC.bookImage = image
-                    toVC.isNew = true
-                    
-                    if let chapterID = chapterID {
-                        //选中章节
-                        for i in 0..<self.catalogueData.count {
-                            if self.catalogueData[i].chapterID == chapterID {
-                                toVC.selectedChapter = i
-                            }
-                        }
-                    } else {
-                        toVC.selectedChapter = 0
-                    }
-                    //跳转
-                    self.presentViewController(toVC, animated: true, completion: {
-                    })
-                }
-            } else {
-                alertMessage("提示", message: "无数据！", vc: self)
+            for index in self.catalogueData {
+                let chapter = Chapter()
+                chapter.specialID = "\(bookID!)\(index.chapterID)"
+                chapter.chapterID = index.chapterID
+                chapter.chapterName = index.chapterName
+                chapter.bookID = bookID!
+                bookData.chapters.append(chapter)
             }
+            let realm = try! Realm()
+            try! realm.write({
+                realm.add(bookData, update: true)
+            })
+            self.detailTransition(bookID, name: name, author: author, image: image, chapterID: chapterID)
+        }
+    }
+    
+    //小说详情跳转
+    func detailTransition(bookID: String?, name: String?, author: String?, image: UIImage?, chapterID: String?) {
+        //判断目录数量
+        if self.catalogueData != nil {
+            //获取跳转视图控制器
+            if let toVC = self.detailVC("ReadDetail", vcName: "BookReadViewController") as? BookReadingViewController {
+                UIApplication.sharedApplication().statusBarHidden = true
+                //数据传递
+                toVC.catalogue = self.catalogueData
+                toVC.isFromShelf = true
+                toVC.bookID = bookID
+                toVC.author = author
+                toVC.bookName = name
+                toVC.bookImage = image
+                toVC.isNew = true
+                toVC.clickFrom = true
+                if let chapterID = chapterID {
+                    //选中章节
+                    for i in 0..<self.catalogueData.count {
+                        if self.catalogueData[i].chapterID == chapterID {
+                            toVC.selectedChapter = i
+                        }
+                    }
+                } else {
+                    toVC.selectedChapter = 0
+                }
+                //跳转
+                self.presentViewController(toVC, animated: true, completion: {
+                })
+            }
+        } else {
+            alertMessage("提示", message: "无数据！", vc: self)
         }
     }
     

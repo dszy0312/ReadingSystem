@@ -25,12 +25,7 @@ class TextViewController: UIViewController, UITextViewDelegate, MyTextViewShareD
     @IBOutlet weak var typeImage: UIImageView!
     
     //字体大小
-    var textSize: CGFloat!  {
-        get {
-            let size = NSUserDefaults.standardUserDefaults().floatForKey("textSize")
-            return CGFloat(size)
-        }
-    }
+    var textSize: Int = 17
     //显示的字符
     var text: String!
     //当前页
@@ -60,7 +55,7 @@ class TextViewController: UIViewController, UITextViewDelegate, MyTextViewShareD
         self.namedTitle(chapterID, bookID: bookID)
         timeLabel.text = getDate()
         textView.textAlignment = NSTextAlignment.Left
-        textView.setText(text, size: textSize)
+        textView.setText(text, size: CGFloat(textSize))
         self.setTextType()
     }
     

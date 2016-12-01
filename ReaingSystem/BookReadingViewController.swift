@@ -107,21 +107,7 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     }
     
     //文字大小 13 15 17 19
-    var textSize: CGFloat {
-        get {
-            return CGFloat(NSUserDefaults.standardUserDefaults().floatForKey("textSize"))
-        }
-        set {
-            if newValue >= 13 && newValue <= 21 {
-                NSUserDefaults.standardUserDefaults().setFloat(Float(newValue), forKey: "textSize")
-                //同步
-                NSUserDefaults.standardUserDefaults().synchronize()
-                setPageViewSize(newValue)
-            } else {
-                print( newValue)
-            }
-        }
-    }
+    var textSize: Int = 17
     
     //书页背景颜色
     var backgroundIndex: Int {
@@ -195,8 +181,15 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
         super.viewDidLoad()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTap(_:)))
-        
         self.view.addGestureRecognizer(tapGesture)
+        //本地数据获取
+        let realm = try! Realm()
+        if let readData = realm.objectForPrimaryKey(ReadRmData.self, key: "123456") {
+            transitionStyle = "ReadingPageView\(readData.changeTypeIndex)"
+            textSize = readData.fontSize
+            transitionSegment.selectedSegmentIndex = readData.changeTypeIndex
+        }
+        
         self.currentViewController = self.storyboard?.instantiateViewControllerWithIdentifier(transitionStyle) as! ReadingPageViewController
         self.currentViewController!.view.translatesAutoresizingMaskIntoConstraints = false
         self.addChildViewController(self.currentViewController!)
@@ -309,11 +302,33 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     //文字大小设置
     @IBAction func sizeAddClick(sender: UIButton) {
         print("加")
-        textSize += 1
+        if textSize < 21 {
+            textSize += 1
+            let realm = try! Realm()
+            try! realm.write({
+                realm.create(ReadRmData.self, value: ["id": "123456", "fontSize": textSize], update: true)
+            })
+            let pages = realm.objects(ChapterPageDetail)
+            try! realm.write({ 
+                realm.delete(pages)
+            })
+            self.getCatalogueData(selectedChapter, bookID: bookID)
+        }
     }
     @IBAction func sizeMinusClick(sender: UIButton) {
         print("减")
-        textSize -= 1
+        if textSize > 11 {
+            textSize -= 1
+            let realm = try! Realm()
+            try! realm.write({
+                realm.create(ReadRmData.self, value: ["id": "123456", "fontSize": textSize], update: true)
+            })
+            let pages = realm.objects(ChapterPageDetail)
+            try! realm.write({
+                realm.delete(pages)
+            })
+            self.getCatalogueData(selectedChapter, bookID: bookID)
+        }
     }
     //更多按钮
     @IBAction func moreClick(sender: UIButton) {
@@ -388,12 +403,18 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     
     //翻页方式
     @IBAction func pageChangeClick(sender: UISegmentedControl) {
+        
         self.transitionStyle = "ReadingPageView\(sender.selectedSegmentIndex)"
+        let realm = try! Realm()
+        try! realm.write({
+            realm.create(ReadRmData.self, value: ["id": "123456", "changeTypeIndex": sender.selectedSegmentIndex], update: true)
+        })
         let newViewController = self.storyboard?.instantiateViewControllerWithIdentifier(transitionStyle) as! ReadingPageViewController
         newViewController.view.translatesAutoresizingMaskIntoConstraints = false
         self.cycleFromViewController(self.currentViewController!, toViewController: newViewController)
         self.currentViewController = newViewController
-//        self.currentViewController.defaultString = readText
+        self.currentViewController.isTransitionChange = true
+        self.getCatalogueData(selectedChapter, bookID: bookID)
     }
     
 
@@ -418,7 +439,7 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
         NSUserDefaults.standardUserDefaults().setInteger(1, forKey: "curPage")
         //同步 防止突然退出出错
         NSUserDefaults.standardUserDefaults().synchronize()
-    self.dismissViewControllerAnimated(true, completion: nil)
+       self.dismissViewControllerAnimated(true, completion: nil)
         
     }
     //目录
@@ -491,12 +512,6 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
         return readingVC
 
     }
-    //设置文字大小
-    func setPageViewSize(size: CGFloat) {
-        if let toVC = getPageVC() {
-            toVC.textSize = size
-        }
-    }
     
     //更新页面
     func updatePage() {
@@ -510,6 +525,7 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
         let realm = try! Realm()
         if let chapter = realm.objectForPrimaryKey(Chapter.self, key: "\(bookID)\(catalogue[index].chapterID)") {
             if chapter.chapterContent != "" {
+                self.currentViewController.textSize = textSize
                 self.currentViewController.pagesSet(chapter.chapterID, bookID: bookID, text: chapter.chapterContent, isPro: isPro, clickFrom: self.clickFrom)
                 self.waitingView.end()
                 self.view.sendSubviewToBack(self.waitingView)
@@ -546,9 +562,9 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
             self.view.sendSubviewToBack(self.waitingView)
             self.readData = StoryReadRoot(fromDictionary: dictionary!)
             self.titleLabel.text = self.readData.rows.first?.chapterName
-//            self.readText = self.readData.rows.first?.chapterContent
             if let content = self.readData.rows.first?.chapterContent {
-                self.currentViewController.pagesSet(chapterID, bookID: bookID, text: self.readData.rows.first!.chapterContent, isPro: isPro, clickFrom: self.clickFrom)
+                self.currentViewController.textSize = self.textSize
+                self.currentViewController.pagesSet(chapterID, bookID: bookID, text: content, isPro: isPro, clickFrom: self.clickFrom)
                 //            本地持久化
                 let realm = try! Realm()
                 try! realm.write({

@@ -846,7 +846,7 @@
                                 </userDefinedRuntimeAttributes>
                             </collectionView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Paper_editionSelect" translatesAutoresizingMaskIntoConstraints="NO" id="1vH-GD-hCu">
-                                <rect key="frame" x="113" y="143" width="17" height="11"/>
+                                <rect key="frame" x="93" y="143" width="17" height="11"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="17" id="fjB-9M-JSU"/>
                                     <constraint firstAttribute="height" constant="11" id="wpv-8s-24U"/>
@@ -856,7 +856,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="VLQ-j3-sSv" secondAttribute="bottom" constant="11" id="H7B-D5-0cR"/>
-                            <constraint firstItem="1vH-GD-hCu" firstAttribute="centerX" secondItem="MTK-nN-uo9" secondAttribute="centerX" constant="-30" id="Y6X-Da-eSm"/>
+                            <constraint firstItem="1vH-GD-hCu" firstAttribute="centerX" secondItem="MTK-nN-uo9" secondAttribute="centerX" constant="-50" id="Y6X-Da-eSm"/>
                             <constraint firstItem="1vH-GD-hCu" firstAttribute="top" secondItem="VLQ-j3-sSv" secondAttribute="bottom" id="ana-ht-e1T"/>
                             <constraint firstItem="VLQ-j3-sSv" firstAttribute="top" secondItem="MTK-nN-uo9" secondAttribute="top" id="n9c-5d-v2W"/>
                             <constraint firstAttribute="trailing" secondItem="VLQ-j3-sSv" secondAttribute="trailing" id="qxd-H7-7q3"/>

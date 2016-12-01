@@ -39,19 +39,22 @@ class Chapter: Object {
     dynamic var bookID = ""
     dynamic var chapterName = ""
     dynamic var chapterContent = ""
-    let pages = List<chapterPageDetail>()
+    let pages = List<ChapterPageDetail>()
     let owner = LinkingObjects(fromType: MyShelfRmBook.self, property: "chapters")
     override static func primaryKey() -> String? {
         return "specialID"
     }
 }
 
-class chapterPageDetail: Object {
+class ChapterPageDetail: Object {
     dynamic var page = 1
     dynamic var detail = ""
     dynamic var chapterID = ""
     dynamic var bookID = ""
     let owner = LinkingObjects(fromType: Chapter.self, property: "pages")
+    override static func indexedProperties() -> [String] {
+        return ["chapterID", "bookID"]
+    }
 }
 
 
