@@ -96,9 +96,6 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
             newVC.delegate = self
             newVC.selectIndex = selectIndex
             
-        } else if segue.identifier == reuseIdentifier[2] {
-            let toVC = segue.destinationViewController as! MyShelfTestViewController
-            
         }
     }
     //最近阅读页
@@ -254,12 +251,13 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
                 let bookID = cell.bookID
                 let chapterID = cell.chapterID
                 let realm = try! Realm()
-                if let book = realm.objectForPrimaryKey(MyShelfRmBook.self, key: "\( self.showBooks[indexPath.row - 1].bookID)") {
+                if let book = realm.objectForPrimaryKey(MyShelfRmBook.self, key: cell.bookID) {
                     if book.chapters.count == 0 {
                         //获取目录列表然后跳转
-                        readCatalogue(bookID, name: name, author: author, image: image, chapterID: chapterID)
+                        readCatalogue(bookID, name: name, author: author, image: image, chapterID: chapterID, book: book)
                     } else {
                         for chapter in book.chapters {
+                            self.catalogueData = []
                             let cata = SummaryRow(chapterID: chapter.chapterID, chapterName: chapter.chapterName)
                             catalogueData.append(cata)
                         }
@@ -315,7 +313,22 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     //readedBookSelectDelegate
     //最近阅读图片选中
     func bookSelect(id: String, name: String, author: String, chapterID: String, image: UIImage) {
-        readCatalogue(id, name: name, author: author, image: image, chapterID: chapterID)
+        let realm = try! Realm()
+        if let book = realm.objectForPrimaryKey(MyShelfRmBook.self, key: id) {
+            if book.chapters.count == 0 {
+                //获取目录列表然后跳转
+                readCatalogue(id, name: name, author: author, image: image, chapterID: chapterID, book: book)
+            } else {
+                for chapter in book.chapters {
+                    let cata = SummaryRow(chapterID: chapter.chapterID, chapterName: chapter.chapterName)
+                    catalogueData.append(cata)
+                }
+                //直接跳转
+                self.detailTransition(id, name: name, author: author, image: image, chapterID: chapterID)
+            }
+        } else {
+            alertMessage("提示", message: "数据库读取错误，请重试！", vc: self)
+        }
     }
 
     //MARK：私有方法
@@ -339,8 +352,9 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
             let myShelf = MyShelf(fromDictionary: dictionary!)
             self.totalBooks = myShelf.rows
             self.showBooks = []
+            print(self.totalBooks)
+            let realm = try! Realm()
             for i in 0..<self.totalBooks!.count {
-                let realm = try! Realm()
                 if self.totalBooks![i].category == "000\(self.readOrListenSegmented.selectedSegmentIndex + 1)" {
                     //书籍本地处理
                     if self.totalBooks![i].category == "0001" {
@@ -353,6 +367,8 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
                             book.imageURL = self.totalBooks![i].bookImg
                             book.isOnShelf = 1
                             book.readedChapterID = self.totalBooks![i].chapterID
+    
+                            book.createdDate = Int(NSDate().timeIntervalSince1970)
                             try! realm.write({
                                 realm.add(book, update: true)
                             })
@@ -374,53 +390,54 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     //小说下载
     func downloadData(id: String, row: Int) {
-        
+        let realm = try! Realm()
         let indexPath = NSIndexPath(forRow: row, inSection: 0)
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! MyShelfCollectionViewCell
-        let bookData = MyShelfRmBook()
-        bookData.bookID = id
-        bookData.bookName = cell.bookNameLabel.text!
-        bookData.imageData = UIImagePNGRepresentation(cell.bookImageView.image!)!
-        bookData.downLoad = true
-        NetworkHealper.GetWithParm.downloadData(URLHealper.downloadTxt.introduce(), parameter: ["bookID":id], progress: { (percent) in
-            //调用主线程来刷新界面
-            dispatch_sync(dispatch_get_main_queue(), {
-                cell.percent = CGFloat(percent)
-                if percent == 1.0 {
-                    cell.hasLoaded = true
-                    self.showBooks[indexPath.row - 1].hasLoaded = true
+        if let cBook = realm.objectForPrimaryKey(MyShelfRmBook.self, key: id) {
+            let newBook = createNewBook(cBook)
+            newBook.imageData = UIImagePNGRepresentation(cell.bookImageView.image!)!
+            newBook.downLoad = true
+            newBook.createdDate = Int(NSDate().timeIntervalSince1970)
+            NetworkHealper.GetWithParm.downloadData(URLHealper.downloadTxt.introduce(), parameter: ["bookID":id], progress: { (percent) in
+                //调用主线程来刷新界面
+                dispatch_sync(dispatch_get_main_queue(), {
+                    cell.percent = CGFloat(percent)
+                    if percent == 1.0 {
+                        cell.hasLoaded = true
+                        self.showBooks[indexPath.row - 1].hasLoaded = true
+                    }
+                })
+            }) { (dic, error) in
+                guard error == nil else {
+                    print(error)
+                    return
                 }
-            })
-        }) { (dic, error) in
-            guard error == nil else {
-                print(error)
-                return
+                let root = MyShelfDataRoot(fromDictionary: dic!)
+                let downloadData = root.rows
+                newBook.chapters.removeAll()
+                for index in downloadData {
+                    let chapter = Chapter()
+                    chapter.specialID = "\(id)\(index.chapterID)"
+                    chapter.chapterID = index.chapterID
+                    chapter.chapterName = index.chapterName
+                    chapter.chapterContent = index.chapterContent
+                    newBook.chapters.append(chapter)
+                }
+                try! realm.write({ 
+                    realm.add(newBook, update: true)
+                }) 
             }
-            let root = MyShelfDataRoot(fromDictionary: dic!)
-            let downloadData = root.rows
-            for index in downloadData {
-                let chapter = Chapter()
-                chapter.specialID = "\(id)\(index.chapterID)"
-                chapter.chapterID = index.chapterID
-                chapter.chapterName = index.chapterName
-                chapter.chapterContent = index.chapterContent
-                bookData.chapters.append(chapter)
-            }
-            //本地存储
-            let realm = try! Realm()
-            try! realm.write({ 
-                realm.add(bookData, update: true)
-            }) 
         }
     }
     
     //小说目录查询兼详情跳转
-    func readCatalogue(bookID: String?, name: String?, author: String?, image: UIImage?, chapterID: String?) {
+    func readCatalogue(bookID: String?, name: String?, author: String?, image: UIImage?, chapterID: String?, book: MyShelfRmBook) {
         self.waitingView.addLayer()
         self.waitingView.begin()
         self.view.bringSubviewToFront(self.waitingView)
-        let bookData = MyShelfRmBook()
-        bookData.bookID = bookID!
+        //创建一个新的书籍对象，防止realm报错
+        let newBook = createNewBook(book)
+        newBook.createdDate = Int(NSDate().timeIntervalSince1970)
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.getStoryDetail.introduce(), parameter: ["bookID":bookID!]) { (dictionary, error) in
             self.waitingView.end()
             self.view.sendSubviewToBack(self.waitingView)
@@ -432,18 +449,23 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
             let root = MyShelfBookCatalogueRootRootClass(fromDictionary: dictionary!)
             self.catalogueData = root.rows
+            newBook.chapters.removeAll()
             for index in self.catalogueData {
                 let chapter = Chapter()
                 chapter.specialID = "\(bookID!)\(index.chapterID)"
                 chapter.chapterID = index.chapterID
                 chapter.chapterName = index.chapterName
                 chapter.bookID = bookID!
-                bookData.chapters.append(chapter)
+                newBook.chapters.append(chapter)
             }
             let realm = try! Realm()
-            try! realm.write({
-                realm.add(bookData, update: true)
-            })
+            do {
+                try realm.write({
+                    realm.add(newBook, update: true)
+                })
+            } catch {
+                print(error)
+            }
             self.detailTransition(bookID, name: name, author: author, image: image, chapterID: chapterID)
         }
     }
@@ -481,6 +503,26 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
         } else {
             alertMessage("提示", message: "无数据！", vc: self)
         }
+    }
+    
+    //创建本地新的书籍对象
+    func createNewBook(book: MyShelfRmBook) -> MyShelfRmBook {
+        let newBook = MyShelfRmBook()
+        newBook.bookID = book.bookID
+        newBook.bookName = book.bookName
+        newBook.bookBrief = book.bookBrief
+        newBook.readDate = book.readDate
+        newBook.author = book.author
+        newBook.isOnShelf = book.isOnShelf
+        newBook.imageURL = book.imageURL
+        newBook.imageData = book.imageData
+        newBook.downLoad = book.downLoad
+        newBook.readedChapterID = book.readedChapterID
+        newBook.readedPage = book.readedPage
+        newBook.isFromIntroduce = book.isFromIntroduce
+        newBook.createdDate = book.createdDate
+        newBook.chapters.appendContentsOf(book.chapters)
+        return newBook
     }
     
     //设定个人中心图片

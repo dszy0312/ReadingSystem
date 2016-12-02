@@ -62,12 +62,14 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
         self.view.bringSubviewToFront(waitingView)
         //判断本地是否存在
         let realm = try! Realm()
-        let book = realm.objectForPrimaryKey(MyShelfRmBook.self, key: selectedBookID)
-        if let book = book {
-            locationInitView(book)
-            reloadSummary(selectedBookID)
+        if let book = realm.objectForPrimaryKey(MyShelfRmBook.self, key: selectedBookID) {
+            if book.isFromIntroduce == false {
+                getSummery(selectedBookID, book: book)
+            } else {
+                locationInitView(book)
+            }
         } else {
-            getSummery(selectedBookID)
+            getSummery(selectedBookID, book: nil)
         }
     }
     
@@ -150,19 +152,25 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
             if isFromReadDetail == true {
                 self.dismissViewControllerAnimated(true, completion: nil)
             } else {
-                guard locationBookData.readedChapterID != "" else {
+                var chapterID = ""
+                if locationBookData != nil {
+                    chapterID = locationBookData.readedChapterID
+                } else if bookData != nil {
+                    chapterID = bookData.data.first!.chapterID
+                } else {
+                    sender.selectedSegmentIndex = selectedIndex
                     return
                 }
                 for i in 0..<catalogue.count {
-                    if catalogue[i].chapterID == locationBookData.readedChapterID {
+                    if catalogue[i].chapterID == chapterID {
                         selectedRow = i
                     }
                 }
                 self.clickFrom = true
                 self.performSegueWithIdentifier(reuseIdentifier[0], sender: self)
                 UIApplication.sharedApplication().statusBarHidden = true
-                sender.selectedSegmentIndex = selectedIndex
             }
+            sender.selectedSegmentIndex = selectedIndex
             
         case 2:
             selectedIndex = 2
@@ -274,7 +282,7 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
     
     //MARK:网络请求
     //获取简介
-    func getSummery(id: String) {
+    func getSummery(id: String, book: MyShelfRmBook?) {
         print("网络获取")
         let parm: [String: AnyObject] = [
             "bookID": id
@@ -303,36 +311,23 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
                 }
                 //视图初始化
                 self.initView(self.bookData)
-                self.locationUpdata(data, catalogueData: self.bookData.rows)
+                self.locationUpdata(data, catalogueData: self.bookData.rows, book: book)
             } else {
                 alertMessage("提示", message: "没有数据!", vc: self)
             }
         })
     }
-    
-    //本地数据更新
-    func reloadSummary(id: String) {
-        let parm: [String: AnyObject] = [
-            "bookID": id
-        ]
-        NetworkHealper.GetWithParm.receiveJSON(URLHealper.bookSummaryURL.introduce(), parameter: parm, completion: { (dictionary, error) in
-            guard error == nil else {
-                print(error)
-                return
-            }
-            //选中的图书数据赋值
-            self.bookData = SummarySelectedBook(fromDictionary: dictionary!)
-            if let data = self.bookData.data.first {
-                self.locationUpdata(data, catalogueData: self.bookData.rows)
-            }
-        })
-    }
     //本地持久化
-    func locationUpdata(data: SummaryData, catalogueData: [SummaryRow]) {
+    func locationUpdata(data: SummaryData, catalogueData: [SummaryRow], book: MyShelfRmBook?) {
         //本地存储
         let realm = try! Realm()
         //本地持久化准备
-        let locationBook = MyShelfRmBook()
+        var locationBook = MyShelfRmBook()
+        if let cBook = book {
+            locationBook.downLoad = cBook.downLoad
+            locationBook.imageData = cBook.imageData
+            locationBook.readedPage = cBook.readedPage
+        }
         locationBook.bookID = data.bookID
         locationBook.bookName = data.bookName ?? ""
         locationBook.imageURL = data.bookImg ?? ""
@@ -341,7 +336,11 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
         locationBook.readDate = data.recentReadDate ?? ""
         locationBook.isOnShelf = data.isOnShelf ?? 0
         locationBook.readedChapterID = data.chapterID ?? ""
+        locationBook.createdDate = Int(NSDate().timeIntervalSince1970)
+        locationBook.isFromIntroduce = true
+    
         if let rows = self.bookData.rows {
+            locationBook.chapters.removeAll()
             for index in rows {
                 let chater = Chapter()
                 chater.specialID = "\(data.bookID)\(index.chapterID)"
@@ -350,10 +349,10 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
                 chater.chapterName = index.chapterName
                 locationBook.chapters.append(chater)
             }
+            try! realm.write({
+                realm.add(locationBook, update: true)
+            })
         }
-        try! realm.write({
-            realm.add(locationBook, update: true)
-        })
     }
     
     //添加书架请求

@@ -161,6 +161,7 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
                 }
                 try! realm.write({
                     realm.create(Chapter.self, value: ["specialID": "\(bookID)\(chapterID)", "pages": pages], update: true)
+                    realm.create(MyShelfRmBook.self, value: ["bookID": bookID, "createdDate": Int(NSDate().timeIntervalSince1970)], update: true)
                 })
             } else {
                 print("本地有数据")
@@ -175,6 +176,7 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
         if clickFrom == true {
             if let  book = realm.objectForPrimaryKey(MyShelfRmBook.self, key: bookID) {
                 if book.readedPage <= totalPages {
+                    
                     page = book.readedPage
                 }
             }

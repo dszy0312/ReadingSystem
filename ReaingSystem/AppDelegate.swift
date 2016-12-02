@@ -33,6 +33,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 realm.add(readData, update: true)
             })
         }
+        //定时清理数据库数据 604800单位 秒  七天
+        let date = Int(NSDate().timeIntervalSince1970) - 604800
+        let books = realm.objects(MyShelfRmBook).filter("createdDate <= %@", date)
+        let chapters = List<Chapter>()
+        let pages = List<ChapterPageDetail>()
+        for book in books {
+            chapters.appendContentsOf(book.chapters)
+            let p = realm.objects(ChapterPageDetail).filter("bookID == '\(book.bookID)'")
+            pages.appendContentsOf(p)
+        }
+        print(pages)
+        try! realm.write({
+            realm.delete(books)
+            realm.delete(chapters)
+            realm.delete(pages)
+        })
         
         //阅读信息持久化
         NSUserDefaults.standardUserDefaults().setFloat(18, forKey: "textSize")

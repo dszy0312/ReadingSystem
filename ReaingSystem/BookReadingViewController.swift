@@ -306,7 +306,7 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
             textSize += 1
             let realm = try! Realm()
             try! realm.write({
-                realm.create(ReadRmData.self, value: ["id": "123456", "fontSize": textSize], update: true)
+                realm.create(ReadRmData.self, value: ["id": "123456", "fontSize": textSize, ], update: true)
             })
             let pages = realm.objects(ChapterPageDetail)
             try! realm.write({ 
@@ -433,7 +433,7 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
         let specialID = "\(bookID)\(self.catalogue[selectedChapter].chapterID)"
         let realm = try! Realm()
         try! realm.write({ 
-            realm.create(MyShelfRmBook.self, value: ["bookID": bookID, "readedChapterID": self.catalogue[selectedChapter].chapterID, "readedPage": page], update: true)
+            realm.create(MyShelfRmBook.self, value: ["bookID": bookID, "readedChapterID": self.catalogue[selectedChapter].chapterID, "readedPage": page, "createdDate": Int(NSDate().timeIntervalSince1970)], update: true)
         })
         
         NSUserDefaults.standardUserDefaults().setInteger(1, forKey: "curPage")
@@ -569,6 +569,7 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
                 let realm = try! Realm()
                 try! realm.write({
                     realm.create(Chapter.self, value: ["specialID": "\(bookID)\(chapterID)", "chapterContent": content], update: true)
+                    realm.create(MyShelfRmBook.self, value: ["bookID": bookID, "createdDate": Int(NSDate().timeIntervalSince1970)], update: true)
                 })
             } else {
                 alertMessage("提示", message: "没有内容！", vc: self)

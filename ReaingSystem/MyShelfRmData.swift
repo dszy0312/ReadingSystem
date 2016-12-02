@@ -20,7 +20,11 @@ class MyShelfRmBook: Object {
     dynamic var imageData = NSData()
     dynamic var downLoad = false
     dynamic var readedChapterID = ""
-    dynamic var readedPage = 1
+    dynamic var readedPage: Int = 1
+    //是否是从小说介绍页进行持久化
+    dynamic var isFromIntroduce = false
+    //数据修改时间
+    dynamic var createdDate: Int = 0
     let chapters = List<Chapter>()
     
     override static func indexedProperties() -> [String] {
