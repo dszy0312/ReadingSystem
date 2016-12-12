@@ -212,7 +212,6 @@
 		98B39B4B1DD2C4C700DCB62D /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 98B39B461DD2C4A600DCB62D /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		98B39B4C1DD2C4C700DCB62D /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 98B39B471DD2C4A600DCB62D /* RealmSwift.framework */; };
 		98B39B4D1DD2C4C700DCB62D /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 98B39B471DD2C4A600DCB62D /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		98B39B501DD2C64C00DCB62D /* JournalRmList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B39B4F1DD2C64C00DCB62D /* JournalRmList.swift */; };
 		98B39B521DD2C7DF00DCB62D /* PaperRmSearchList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B39B511DD2C7DF00DCB62D /* PaperRmSearchList.swift */; };
 		98C186201D6704ED008FCB15 /* BookListBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C1861D1D6704ED008FCB15 /* BookListBook.swift */; };
 		98C186211D6704ED008FCB15 /* BookListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C1861E1D6704ED008FCB15 /* BookListData.swift */; };
@@ -533,7 +532,6 @@
 		98B39B241DD1DDBB00DCB62D /* DeleteMyShelfListenCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteMyShelfListenCollectionViewCell.swift; sourceTree = "<group>"; };
 		98B39B461DD2C4A600DCB62D /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
 		98B39B471DD2C4A600DCB62D /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
-		98B39B4F1DD2C64C00DCB62D /* JournalRmList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JournalRmList.swift; sourceTree = "<group>"; };
 		98B39B511DD2C7DF00DCB62D /* PaperRmSearchList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaperRmSearchList.swift; sourceTree = "<group>"; };
 		98C1861D1D6704ED008FCB15 /* BookListBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookListBook.swift; sourceTree = "<group>"; };
 		98C1861E1D6704ED008FCB15 /* BookListData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookListData.swift; sourceTree = "<group>"; };
@@ -817,7 +815,6 @@
 				98CD8A321DC4A8B90047D8DC /* JournalDetailRow.swift */,
 				98CD8A3D1DC5F58F0047D8DC /* JournalDListRoot.swift */,
 				98CD8A3E1DC5F58F0047D8DC /* JournalDListRow.swift */,
-				98B39B4F1DD2C64C00DCB62D /* JournalRmList.swift */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -1701,7 +1698,6 @@
 				986BFEF91DADE71600A45B39 /* PaperMainData.swift in Sources */,
 				98949D3B1D757C0C001FD433 /* FindNewMagazineCollectionViewCell.swift in Sources */,
 				9879FB101DA3CEB0000B356F /* WelcomeViewController.swift in Sources */,
-				98B39B501DD2C64C00DCB62D /* JournalRmList.swift in Sources */,
 				986CD5C01D922E2C008D15FE /* ListenFamousListViewController.swift in Sources */,
 				984C76471D5BFD5E00B3588D /* InterestCollectionViewCell.swift in Sources */,
 				98123DB91D782C0500F416EA /* JournalViewController.swift in Sources */,

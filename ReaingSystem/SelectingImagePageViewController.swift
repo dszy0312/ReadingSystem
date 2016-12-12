@@ -216,7 +216,7 @@ class SelectingImagePageViewController: UIPageViewController, UIPageViewControll
             for i in 0..<self.imagesRow!.count {
                 if let img = self.imagesRow![i].bookOtherImg {
                     let imageURL = baseURl + img
-                    self.getImage(i, url: imageURL.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
+                    self.getImage(i, url: imageURL.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!, urlStr: imageURL)
                 }
             }
             
@@ -225,7 +225,7 @@ class SelectingImagePageViewController: UIPageViewController, UIPageViewControll
     }
 //    
     //请求轮播标题图片
-    func getImage(index: Int, url: String){
+    func getImage(index: Int, url: String, urlStr: String){
         NetworkHealper.Get.receiveData(url) { (data, error) in
             guard error == nil else {
                 print(error)
@@ -236,7 +236,7 @@ class SelectingImagePageViewController: UIPageViewController, UIPageViewControll
                 //设置显示页
                 self.setAppearedImage(0, isAnimated: false)
             } else {
-                print("不是图片")
+                print("不是图片、\(urlStr)")
             }
             
         }
