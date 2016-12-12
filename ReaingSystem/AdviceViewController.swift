@@ -75,7 +75,7 @@ class AdviceViewController: UIViewController, UITextViewDelegate {
 
     //意见发送到后台
     func sendAdvice(text: String) {
-        NetworkHealper.Post.receiveJSON(URLHealper.feedback.introduce(), parameter: ["Content": text]) { (dictionary, error) in
+        NetworkHealper.GetWithParm2.receiveJSON(URLHealper.feedback.introduce(), parameter: ["Content": text]) { (dictionary, error) in
             guard error == nil else {
                 print(error)
                 return

@@ -126,6 +126,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             alertMessage("系统提示", message: "密码不能为空！", vc: self)
             return
         }
+        print(checkUuid())
         loginSend(usernameTF.text!, password: passwordTF.text!, uuid: checkUuid()!)
     }
     
