@@ -52,6 +52,7 @@ class PaperSearchViewController: UIViewController, UITableViewDelegate, UITableV
         if segue.identifier == reuseIdentifier[2] {
             let toVC = segue.destinationViewController as! PaperDetailReadViewController
             toVC.newsID = searchData[selectedRow].npNewsID
+            toVC.sectionID = searchData[selectedRow].npEditionID
         }
     }
     
@@ -148,7 +149,7 @@ class PaperSearchViewController: UIViewController, UITableViewDelegate, UITableV
     func queryData() {
         historyArray = []
         let realm = try! Realm()
-        let history = realm.objects(PaperRmSearchList.self)
+        let history = realm.objects(PaperRmSearchList.self).filter("from == %@", 1)
         for index in history {
             historyArray.append(index)
         }
@@ -159,19 +160,22 @@ class PaperSearchViewController: UIViewController, UITableViewDelegate, UITableV
         let realm = try! Realm()
         let rmSearch = PaperRmSearchList()
         rmSearch.name = text
-        //判断是否存在
-        let history = realm.objects(PaperRmSearchList).filter(NSPredicate(format: "name = %@", text))
-        if history.count == 0 {
-            //判断数据是否大于6
-            let historys = realm.objects(PaperRmSearchList)
-            if historys.count == 6 {
-                try! realm.write({
-                    realm.delete(historys[0])
-                })
+        rmSearch.createdDate = Int(NSDate().timeIntervalSince1970)
+        rmSearch.from = 1
+        try! realm.write({
+            realm.add(rmSearch, update: true)
+        })
+        //判断数据超过六个之后，清除最早的那一个
+        let historys = realm.objects(PaperRmSearchList)
+        if historys.count > 6 {
+            var early = historys[0]
+            for history in historys {
+                if history.createdDate < early.createdDate {
+                    early = history
+                }
             }
-            //添加数据
-            try! realm.write({
-                realm.add(rmSearch)
+            try! realm.write({ 
+                realm.delete(early)
             })
         }
     }

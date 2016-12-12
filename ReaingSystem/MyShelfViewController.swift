@@ -233,11 +233,9 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     // delegate
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        print("点击事件")
         if indexPath.row == 0 {
             
         } else if indexPath.row == showBooks.count + 1 {
-            print("点击事件")
             if let pVC = self.parentViewController as? RootTabBarViewController {
                 pVC.tabBarView?.changeIndex(1)
             }
@@ -256,8 +254,8 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
                         //获取目录列表然后跳转
                         readCatalogue(bookID, name: name, author: author, image: image, chapterID: chapterID, book: book)
                     } else {
+                        self.catalogueData = []
                         for chapter in book.chapters {
-                            self.catalogueData = []
                             let cata = SummaryRow(chapterID: chapter.chapterID, chapterName: chapter.chapterName)
                             catalogueData.append(cata)
                         }
@@ -319,6 +317,7 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
                 //获取目录列表然后跳转
                 readCatalogue(id, name: name, author: author, image: image, chapterID: chapterID, book: book)
             } else {
+                catalogueData = []
                 for chapter in book.chapters {
                     let cata = SummaryRow(chapterID: chapter.chapterID, chapterName: chapter.chapterName)
                     catalogueData.append(cata)
@@ -352,7 +351,6 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
             let myShelf = MyShelf(fromDictionary: dictionary!)
             self.totalBooks = myShelf.rows
             self.showBooks = []
-            print(self.totalBooks)
             let realm = try! Realm()
             for i in 0..<self.totalBooks!.count {
                 if self.totalBooks![i].category == "000\(self.readOrListenSegmented.selectedSegmentIndex + 1)" {
@@ -360,11 +358,15 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
                     if self.totalBooks![i].category == "0001" {
                         if let book = realm.objectForPrimaryKey(MyShelfRmBook.self, key: "\( self.totalBooks![i].bookID)") {
                             self.totalBooks![i].hasLoaded = book.downLoad
+                            try! realm.write({
+                                book.setValue(1, forKey: "isOnShelf")
+                            })
                         } else {
                             let book = MyShelfRmBook()
                             book.bookID = self.totalBooks![i].bookID
                             book.bookName = self.totalBooks![i].bookName
                             book.imageURL = self.totalBooks![i].bookImg
+                            book.author = self.totalBooks![i].author
                             book.isOnShelf = 1
                             book.readedChapterID = self.totalBooks![i].chapterID
     
@@ -380,6 +382,25 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
                 }
             }
             self.readedBook = myShelf.data
+            if let book = myShelf.data.first {
+                if let bookData = realm.objectForPrimaryKey(MyShelfRmBook.self, key: "\( book.bookID)") {
+                    try! realm.write({
+                        bookData.setValue(book.chapterID, forKey: "readedChapterID")
+                    })
+                } else {
+                    let newBook = MyShelfRmBook()
+                    newBook.bookID = book.bookID
+                    newBook.bookName = book.bookName
+                    newBook.imageURL = book.bookImg
+                    newBook.isOnShelf = 0
+                    newBook.readedChapterID = book.chapterID
+                    newBook.createdDate = Int(NSDate().timeIntervalSince1970)
+                    try! realm.write({
+                        realm.add(newBook, update: true)
+                    })
+                }
+
+            }
             self.count = myShelf.totalCount
             self.collectionView.reloadData()
             self.waitingView.end()
@@ -394,6 +415,10 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
         let indexPath = NSIndexPath(forRow: row, inSection: 0)
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! MyShelfCollectionViewCell
         if let cBook = realm.objectForPrimaryKey(MyShelfRmBook.self, key: id) {
+            //保证不会重复下载
+            guard cBook.downLoad != true else {
+                return
+            }
             let newBook = createNewBook(cBook)
             newBook.imageData = UIImagePNGRepresentation(cell.bookImageView.image!)!
             newBook.downLoad = true
@@ -427,6 +452,8 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
                     realm.add(newBook, update: true)
                 }) 
             }
+        } else {
+            print("本书本地缓存出错")
         }
     }
     

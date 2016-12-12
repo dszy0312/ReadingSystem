@@ -126,10 +126,14 @@ enum URLHealper {
     case readTxt
     //分享选中的文本保存到数据库 (参数： Pr_ID: 小说ID, Content: 要分享的文本 )
     case readTxtShare
+    //保存小说的阅读记录 (bookID, chapterID)
+    case saveReadRecord
     
     //MARK: 发现页面
     //获取发现数据
     case getFindList
+    //MARK: 个人中心
+    case feedback
     
     
     func introduce() -> String {
@@ -247,8 +251,12 @@ enum URLHealper {
             return baseURl + "Story/ReadTxt"
         case .readTxtShare:
             return baseURl + "pr/Saveshare"
+        case .saveReadRecord:
+            return baseURl + "/Story/SaveReadRecord"
         case .getFindList:
             return baseURl + "Find/List"
+        case .feedback:
+            return baseURl + "Sug/Add"
         }
     }
 }

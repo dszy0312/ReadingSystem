@@ -11,4 +11,12 @@ import RealmSwift
 
 class PaperRmSearchList: Object {    
     dynamic var name = ""
+    //数据创建时间
+    dynamic var createdDate: Int = 0
+    //0 表示总的搜索， 1 表示报刊搜索
+    dynamic var from: Int = 0
+    
+    override static func primaryKey() -> String? {
+        return "name"
+    }
 }

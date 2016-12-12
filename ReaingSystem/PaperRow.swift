@@ -6,6 +6,7 @@ import Foundation
 
 struct PaperRow{
 
+    var npEditionID: String!
     var npEditionName : String!
     var npIssueName : String!
     var npNewsID : String!
@@ -18,6 +19,7 @@ struct PaperRow{
      * 用字典来初始化一个实例并设置各个属性值
      */
     init(fromDictionary dictionary: NSDictionary){
+        npEditionID = dictionary["npEditionID"] as? String
         npEditionName = dictionary["npEditionName"] as? String
         npIssueName = dictionary["npIssueName"] as? String
         npNewsID = dictionary["npNewsID"] as? String

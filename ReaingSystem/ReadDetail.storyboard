@@ -11,11 +11,6 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="lantinghei.TTF">
-            <string>FZLTHK--GBK1-0</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--我的书架-->
         <scene sceneID="sq0-KR-rO8">
@@ -107,8 +102,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="byp-oU-rjf">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AD9-V3-KQf">
-                                        <rect key="frame" x="171" y="30" width="34" height="24"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AD9-V3-KQf">
+                                        <rect key="frame" x="188" y="42" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -204,7 +199,7 @@
                                             <action selector="addToMyShelf:" destination="skg-ij-bKi" eventType="touchUpInside" id="aa3-s3-pxV"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="opT-p5-i3w">
+                                    <button opaque="NO" tag="1" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="opT-p5-i3w">
                                         <rect key="frame" x="250" y="0.0" width="125" height="49"/>
                                         <state key="normal" image="readDetail_share">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -807,7 +802,7 @@
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
                                                                         <connections>
-                                                                            <action selector="background1Click:" destination="e5M-KY-wLA" eventType="touchUpInside" id="FQt-TW-KqI"/>
+                                                                            <action selector="backgroundClick:" destination="e5M-KY-wLA" eventType="touchUpInside" id="uie-NN-xOA"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -842,7 +837,7 @@
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
                                                                         <connections>
-                                                                            <action selector="background2Click:" destination="e5M-KY-wLA" eventType="touchUpInside" id="m3V-vW-zlY"/>
+                                                                            <action selector="backgroundClick:" destination="e5M-KY-wLA" eventType="touchUpInside" id="EiZ-uE-H65"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -877,7 +872,7 @@
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
                                                                         <connections>
-                                                                            <action selector="background3Click:" destination="e5M-KY-wLA" eventType="touchUpInside" id="Mi0-Ac-2dG"/>
+                                                                            <action selector="backgroundClick:" destination="e5M-KY-wLA" eventType="touchUpInside" id="daR-To-e7U"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -912,7 +907,7 @@
                                                                             </userDefinedRuntimeAttribute>
                                                                         </userDefinedRuntimeAttributes>
                                                                         <connections>
-                                                                            <action selector="background4Click:" destination="e5M-KY-wLA" eventType="touchUpInside" id="gMI-Va-2Z8"/>
+                                                                            <action selector="backgroundClick:" destination="e5M-KY-wLA" eventType="touchUpInside" id="gsn-hG-uXb"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -1106,7 +1101,7 @@
                                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                                         </state>
                                                                         <connections>
-                                                                            <action selector="typeSetClick2:" destination="e5M-KY-wLA" eventType="touchUpInside" id="7y6-sa-pNy"/>
+                                                                            <action selector="typeSetClick:" destination="e5M-KY-wLA" eventType="touchUpInside" id="c0K-to-dWT"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -1130,7 +1125,7 @@
                                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                                         </state>
                                                                         <connections>
-                                                                            <action selector="typeSetClick3:" destination="e5M-KY-wLA" eventType="touchUpInside" id="lLr-GZ-iO2"/>
+                                                                            <action selector="typeSetClick:" destination="e5M-KY-wLA" eventType="touchUpInside" id="UAI-Bc-DPu"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -1154,7 +1149,7 @@
                                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                                         </state>
                                                                         <connections>
-                                                                            <action selector="typeSetClick4:" destination="e5M-KY-wLA" eventType="touchUpInside" id="Ymo-f7-tr0"/>
+                                                                            <action selector="typeSetClick:" destination="e5M-KY-wLA" eventType="touchUpInside" id="AQn-h5-NlY"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -1343,11 +1338,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nqD-3c-XjD">
-                                <rect key="frame" x="324" y="647" width="35" height="15"/>
+                                <rect key="frame" x="326" y="647" width="33" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="j13-Wh-rif"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="FZLTHK--GBK1-0" family="FZLanTingHei-R-GBK" pointSize="13"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.34734375000000001" green="0.34734375000000001" blue="0.34734375000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1376,7 +1371,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="4DN-Rj-OD7" customClass="MyTextView" customModule="ReaingSystem" customModuleProvider="target">
                                 <rect key="frame" x="10" y="30" width="355" height="611"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="FZLTHK--GBK1-0" family="FZLanTingHei-R-GBK" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="text_type_green" translatesAutoresizingMaskIntoConstraints="NO" id="tUh-N8-131">
@@ -1436,11 +1431,11 @@
         <image name="readDetail_more" width="50" height="50"/>
         <image name="readDetail_night" width="59" height="98"/>
         <image name="readDetail_set" width="59" height="98"/>
-        <image name="readDetail_share" width="41" height="42"/>
+        <image name="readDetail_share" width="47" height="49"/>
         <image name="readDetail_share_blue" width="45" height="45"/>
         <image name="text_type_green" width="112" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gwK-NE-0hD"/>
+        <segue reference="9Pb-0R-8fU"/>
     </inferredMetricsTieBreakers>
 </document>

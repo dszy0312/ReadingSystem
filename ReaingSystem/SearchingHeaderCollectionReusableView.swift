@@ -16,8 +16,6 @@ class SearchingHeaderCollectionReusableView: UICollectionReusableView {
         
     @IBOutlet weak var titleLabel: UILabel!
     
-    @IBOutlet weak var clearLabel: UILabel!
-    
     @IBOutlet weak var clearButton: UIButton!
     
     var countChoose = 0
@@ -37,9 +35,8 @@ class SearchingHeaderCollectionReusableView: UICollectionReusableView {
     
     func setData(title: String, clearName: String, imageName: String, alpha: CGFloat) {
         titleLabel.text = title
-        clearLabel.text = clearName
         clearButton.setImage(UIImage(named: imageName), forState: UIControlState.Normal)
-        clearLabel.alpha = alpha
+        clearButton.setTitle(clearName, forState: UIControlState.Normal)
         clearButton.alpha = alpha
     }
 }

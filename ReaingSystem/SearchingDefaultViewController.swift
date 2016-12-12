@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import RealmSwift
 
 private var reuseIdentifier = ["ShowSearchingSegue","FooterLoadingView"]
 
-class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, SearchingChangeDataDelegate {
+class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, SearchingChangeDataDelegate, SearchingListDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -21,7 +22,7 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
     var transitionDelegate = SearchingTransitionDelegate()
     
     //搜索历史
-    var myHotKeyData: HotKeyRoot!
+    var mySearchHistory: [PaperRmSearchList] = []
     //热搜词
     var hotKeyData: HotKeyRoot!
     //热搜词当前页
@@ -89,6 +90,9 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
             toVC.transitioningDelegate = transitioningDelegate
             toVC.modalPresentationStyle = .Custom
             toVC.getNetworkData(SearchingListClassify.All.introduceID(), order: SearchingListSequence.All.introduceID(), key: self.searchName)
+            toVC.cancelDelegate = self
+            self.addHistoryText(self.searchName)
+            searchbar.text = nil
             searchbar.resignFirstResponder()
         
         }
@@ -106,7 +110,7 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
         
         switch section {
         case 0:
-            return myHotKeyData != nil ? myHotKeyData.rows.count : 0
+            return mySearchHistory.count
         case 1:
             return hotKeyData != nil ? hotKeyData.rows.count : 0
         case 2:
@@ -118,17 +122,11 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("LoadingCell", forIndexPath: indexPath)
-        guard myHotKeyData != nil else {
-            
-            return cell
-        }
 
         switch indexPath.section {
         case 0:
             let cell1 = collectionView.dequeueReusableCellWithReuseIdentifier("HistoryCell", forIndexPath: indexPath) as! SearchingHistoryCollectionViewCell
-            if let datas = myHotKeyData.rows {
-                cell1.setData(datas[indexPath.row].categoryName)
-            }
+                cell1.setData(mySearchHistory[indexPath.row].name)
             return cell1
         case 1:
             let cell1 = collectionView.dequeueReusableCellWithReuseIdentifier("HistoryCell", forIndexPath: indexPath) as! SearchingHistoryCollectionViewCell
@@ -157,7 +155,7 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
             case 0:
                 headerView.backgroundColor = UIColor.whiteColor()
                 headerView.countChoose = 0
-                headerView.setData("历史记录", clearName: "清除", imageName: "select_qingchu", alpha: 1)
+                headerView.setData("历史记录", clearName: "清一下", imageName: "select_qingchu", alpha: 1)
             case 1:
                 headerView.backgroundColor = UIColor.whiteColor()
                 headerView.countChoose = 1
@@ -188,7 +186,7 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.section {
         case 0:
-            self.searchName = myHotKeyData.rows[indexPath.row].categoryName
+            self.searchName = mySearchHistory[indexPath.row].name
             performSegueWithIdentifier(searchResultSegue, sender: self)
         case 1:
             self.searchName = hotKeyData.rows[indexPath.row].categoryName
@@ -280,11 +278,20 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
     //代理方法
     func dataChange(tag: Int) {
         if tag == 0 {
-            print("清空")
+            let realm = try! Realm()
+            let history = realm.objects(PaperRmSearchList).filter("from == %@", 0)
+            try! realm.write({
+                realm.delete(history)
+            })
+            mySearchHistory = []
         } else if tag == 1 {
             
             self.getHotKeyData(hotKeyPage)
         }
+        self.collectionView.reloadData()
+    }
+    func didCancel() {
+        self.getMyHotKeyData()
     }
     
     //MARK: 私有方法
@@ -308,15 +315,39 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
     //MARK:网络请求
     //历史搜索记录
     func getMyHotKeyData() {
-        NetworkHealper.Get.receiveJSON(URLHealper.getMyHotKey.introduce()) { (dictionary, error) in
-            guard error == nil else {
-                print(error)
-                return
+        self.mySearchHistory = []
+        let realm = try! Realm()
+        let history = realm.objects(PaperRmSearchList.self).filter("from == %@", 0)
+        for index in history {
+            self.mySearchHistory.append(index)
+        }
+        self.collectionView.reloadData()
+    }
+    //搜索关键字存储
+    func addHistoryText(text: String) {
+        let realm = try! Realm()
+        let rmSearch = PaperRmSearchList()
+        rmSearch.name = text
+        rmSearch.createdDate = Int(NSDate().timeIntervalSince1970)
+        rmSearch.from = 0
+        try! realm.write({
+            realm.add(rmSearch, update: true)
+        })
+        //判断数据超过六个之后，清除最早的那一个
+        let historys = realm.objects(PaperRmSearchList)
+        if historys.count > 6 {
+            var early = historys[0]
+            for history in historys {
+                if history.createdDate < early.createdDate {
+                    early = history
+                }
             }
-            self.myHotKeyData = HotKeyRoot(fromDictionary: dictionary!)
-            self.collectionView.reloadData()
+            try! realm.write({
+                realm.delete(early)
+            })
         }
     }
+
     //热搜词记录
     func getHotKeyData(page: Int) {
         //保证page不要超限

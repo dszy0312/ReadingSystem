@@ -124,18 +124,7 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     }
     
     //字体设置
-    var typeIndex: Int {
-        get {
-            return NSUserDefaults.standardUserDefaults().integerForKey("textTypeIndex")
-        }
-        set {
-            NSUserDefaults.standardUserDefaults().setInteger(newValue, forKey: "textTypeIndex")
-            //同步
-            NSUserDefaults.standardUserDefaults().synchronize()
-            updatePage()
-            self.typeSelect(typeIndex)
-        }
-    }
+    var typeIndex: Int!
     //白天or黑夜模式设置
     var dayIndex: Int {
         get {
@@ -154,7 +143,11 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     var readData: StoryReadRoot!
     
     //书籍目录
-    var catalogue: [SummaryRow]!
+    var catalogue: [SummaryRow]! {
+        didSet {
+            print(catalogue)
+        }
+    }
     //选中的章节
     var selectedChapter: Int = 0
     //是否为夜间模式
@@ -187,6 +180,7 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
         if let readData = realm.objectForPrimaryKey(ReadRmData.self, key: "123456") {
             transitionStyle = "ReadingPageView\(readData.changeTypeIndex)"
             textSize = readData.fontSize
+            typeIndex = readData.fontIndex
             transitionSegment.selectedSegmentIndex = readData.changeTypeIndex
         }
         
@@ -246,37 +240,16 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
         }
     }
     //文本背景设置
-    @IBAction func background1Click(sender: UIButton) {
-        if isNightType == true {
-            isNightType = false
+    
+    @IBAction func backgroundClick(sender: UIButton) {
+        backgroundIndex = sender.tag
+        if sender.tag == 4 {
+            dateButton.tag = 1
+            self.nightOrDaySet(1)
+        } else {
+            dateButton.tag = 0
+            self.nightOrDaySet(0)
         }
-        backgroundIndex = 1
-        dateButton.tag = 0
-        self.nightOrDaySet(0)
-    }
-    @IBAction func background2Click(sender: UIButton) {
-        if isNightType == true {
-            isNightType = false
-        }
-        backgroundIndex = 2
-        dateButton.tag = 0
-        self.nightOrDaySet(0)
-    }
-    @IBAction func background3Click(sender: UIButton) {
-        if isNightType == true {
-            isNightType = false
-        }
-        backgroundIndex = 3
-        dateButton.tag = 0
-        self.nightOrDaySet(0)
-    }
-    @IBAction func background4Click(sender: UIButton) {
-        if isNightType == true {
-            isNightType = false
-        }
-        backgroundIndex = 4
-        dateButton.tag = 1
-        self.nightOrDaySet(1)
     }
     
     //夜间模式
@@ -293,15 +266,12 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
                 backgroundIndex = 1
             }
         }
-        print(sender.tag)
-//        self.dayIndex = sender.tag
         self.nightOrDaySet(sender.tag)
     }
     
     
     //文字大小设置
     @IBAction func sizeAddClick(sender: UIButton) {
-        print("加")
         if textSize < 21 {
             textSize += 1
             let realm = try! Realm()
@@ -312,7 +282,15 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
             try! realm.write({ 
                 realm.delete(pages)
             })
+            //当前页记录
+            let page = NSUserDefaults.standardUserDefaults().integerForKey("curPage")
+            let specialID = "\(bookID)\(self.catalogue[selectedChapter].chapterID)"
+            try! realm.write({
+                realm.create(MyShelfRmBook.self, value: ["bookID": bookID, "readedChapterID": self.catalogue[selectedChapter].chapterID, "readedPage": page, "createdDate": Int(NSDate().timeIntervalSince1970)], update: true)
+            })
+            self.clickFrom = true
             self.getCatalogueData(selectedChapter, bookID: bookID)
+            self.clickFrom = false
         }
     }
     @IBAction func sizeMinusClick(sender: UIButton) {
@@ -327,7 +305,15 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
             try! realm.write({
                 realm.delete(pages)
             })
+            //当前页记录
+            let page = NSUserDefaults.standardUserDefaults().integerForKey("curPage")
+            let specialID = "\(bookID)\(self.catalogue[selectedChapter].chapterID)"
+            try! realm.write({
+                realm.create(MyShelfRmBook.self, value: ["bookID": bookID, "readedChapterID": self.catalogue[selectedChapter].chapterID, "readedPage": page, "createdDate": Int(NSDate().timeIntervalSince1970)], update: true)
+            })
+            self.clickFrom = true
             self.getCatalogueData(selectedChapter, bookID: bookID)
+            self.clickFrom = false
         }
     }
     //更多按钮
@@ -384,23 +370,16 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     }
     
     //字体设置
-    //默认字体
+    //默认字体= 1 黑天=2 宋体=3 幼圆=4
     @IBAction func typeSetClick(sender: UIButton) {
-        typeIndex = 1
+        typeIndex = sender.tag
+        let realm = try! Realm()
+        try! realm.write({ 
+            realm.create(ReadRmData.self, value: ["id": "123456", "fontIndex": sender.tag], update: true)
+        })
+        updatePage()
+        self.typeSelect(sender.tag)
     }
-    //黑体
-    @IBAction func typeSetClick2(sender: UIButton) {
-        typeIndex = 2
-    }
-    //宋体
-    @IBAction func typeSetClick3(sender: UIButton) {
-        typeIndex = 3
-    }
-    //幼圆
-    @IBAction func typeSetClick4(sender: UIButton) {
-        typeIndex = 4
-    }
-    
     //翻页方式
     @IBAction func pageChangeClick(sender: UISegmentedControl) {
         
@@ -430,12 +409,14 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     //返回
     @IBAction func backClick(sender: UIButton) {
         let page = NSUserDefaults.standardUserDefaults().integerForKey("curPage")
+        //本地数据库更新
         let specialID = "\(bookID)\(self.catalogue[selectedChapter].chapterID)"
         let realm = try! Realm()
         try! realm.write({ 
             realm.create(MyShelfRmBook.self, value: ["bookID": bookID, "readedChapterID": self.catalogue[selectedChapter].chapterID, "readedPage": page, "createdDate": Int(NSDate().timeIntervalSince1970)], update: true)
         })
-        
+        //向后台发送数据
+        self.sendDataToServer(bookID, chapterID: self.catalogue[selectedChapter].chapterID)
         NSUserDefaults.standardUserDefaults().setInteger(1, forKey: "curPage")
         //同步 防止突然退出出错
         NSUserDefaults.standardUserDefaults().synchronize()
@@ -578,6 +559,23 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
             
         })
     }
+    //向后台发送数据，保存小说的阅读记录
+    func sendDataToServer(bookID: String, chapterID: String) {
+        NetworkHealper.GetWithParm2.receiveJSON(URLHealper.saveReadRecord.introduce(), parameter: ["bookID": bookID, "chapterID": chapterID]) { (dic, error) in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            if let flag = dic!["flag"] as? Int {
+                if flag == 1 {
+                    print(flag)
+                } else {
+                    print("数据发送失败")
+                }
+            }
+
+        }
+    }
     
     //章节跳转
     func chapterChange(isPro: Bool){
@@ -587,7 +585,6 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
         } else {
             selectedChapter += 1
         }
-        print("当前章节、\(selectedChapter)")
         self.getCatalogueData(selectedChapter, bookID: bookID, isPro: isPro)
     }
     

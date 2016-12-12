@@ -74,6 +74,7 @@ class ReadBookListViewController: UIViewController, UITableViewDelegate, UITable
                 //获取目录列表然后跳转
                 readCatalogue(bookID, name: name, author: author, image: image, chapterID: chapterID, book: book)
             } else {
+                catalogueData = []
                 for chapter in book.chapters {
                     let cata = SummaryRow(chapterID: chapter.chapterID, chapterName: chapter.chapterName)
                     catalogueData.append(cata)
@@ -122,8 +123,14 @@ class ReadBookListViewController: UIViewController, UITableViewDelegate, UITable
             //本地数据持久化
             let realm = try! Realm()
             for index in self.bookListData.data {
-                if let _ = realm.objectForPrimaryKey(MyShelfRmBook.self, key: index.bookID) {
-                    
+                if let book = realm.objectForPrimaryKey(MyShelfRmBook.self, key: index.bookID) {
+                    do {
+                        try realm.write({
+                            book.setValue(index.chapterID, forKey: "readedChapterID")
+                        })
+                    } catch {
+                        print(error)
+                    }
                 } else {
                     let newBook = MyShelfRmBook()
                     newBook.bookID = index.bookID

@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let readData = ReadRmData()
             readData.id = "123456"
             readData.colorIndex = 1
-            readData.fontIndex = 1
+            readData.fontIndex = 2
             readData.fontSize = 17
             readData.timeIndex = 0
             readData.changeTypeIndex = 0
@@ -43,7 +43,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let p = realm.objects(ChapterPageDetail).filter("bookID == '\(book.bookID)'")
             pages.appendContentsOf(p)
         }
-        print(pages)
         try! realm.write({
             realm.delete(books)
             realm.delete(chapters)
@@ -106,11 +105,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }) { (platformType, appInfo) in
                 switch platformType {
                 case SSDKPlatformType.TypeSinaWeibo:
-                    appInfo.SSDKSetupSinaWeiboByAppKey("4037468528", appSecret: "f2688540de16a6dc814144a692b2ba8e", redirectUri: "https://www.baidu.com", authType: SSDKAuthTypeSSO)
+                    appInfo.SSDKSetupSinaWeiboByAppKey("2311011347", appSecret: "8a8eb0b2a36abf0849180d47527dcdba", redirectUri: "https://www.baidu.com", authType: SSDKAuthTypeSSO)
                 case SSDKPlatformType.TypeQQ:
-                    appInfo.SSDKSetupQQByAppId("1105647136", appKey: "DMzffCKxQPx2E7Qz", authType: SSDKAuthTypeSSO)
+                    appInfo.SSDKSetupQQByAppId("1105790173", appKey: "q4tTEXP7zl46G0aX", authType: SSDKAuthTypeSSO)
                 case SSDKPlatformType.TypeWechat:
-                    appInfo.SSDKSetupWeChatByAppId("wxe9ce4450fa004a5a", appSecret: "19e3fdc990adcf3be7457da08507be37")
+                    appInfo.SSDKSetupWeChatByAppId("wxe9ce4450fa004a5a", appSecret: "394e3549fa0533a220e617ba4e33d3e6")
                 default:
                     break
                 }

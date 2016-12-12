@@ -27,6 +27,8 @@ class MyShelfCollectionReusableView: UICollectionReusableView {
     
     @IBOutlet weak var backgroundImageView: UIImageView!
     
+    
+    
     var customDelegate: ReadedBookSelectDelegate!
     var bookData: ReadedBook!
     

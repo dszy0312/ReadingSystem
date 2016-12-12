@@ -108,11 +108,6 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
         }
 
         if let childVC = pageViewController.viewControllers?.first as? TextViewController {
-            childVC.pageLabel.text = "第\(childVC.currentPage)/\(totalPages)页"
-            childVC.totalPage = totalPages
-            childVC.textView.text = strDictionary[childVC.currentPage]
-            childVC.textView.reloadInputViews()
-            childVC.namedTitle(chapterID, bookID: bookID)
             NSUserDefaults.standardUserDefaults().setInteger(childVC.currentPage, forKey: "curPage")
             //同步 防止突然退出出错
             NSUserDefaults.standardUserDefaults().synchronize()
@@ -176,7 +171,6 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
         if clickFrom == true {
             if let  book = realm.objectForPrimaryKey(MyShelfRmBook.self, key: bookID) {
                 if book.readedPage <= totalPages {
-                    
                     page = book.readedPage
                 }
             }
@@ -189,18 +183,14 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
         if isTransitionChange == true {
             page = NSUserDefaults.standardUserDefaults().integerForKey("curPage")
         }
-        if curTextVC != nil {
-            curTextVC.pageLabel.text = "第\(page)/\(totalPages)页"
-            curTextVC.currentPage = page
-            curTextVC.textView.text = strDictionary[page]
-            curTextVC.textView.reloadInputViews()
-            curTextVC.namedTitle(chapterID, bookID: bookID)
-            curTextVC.timeLabel.text = getDate()
-            curTextVC.nextChapter = nil
-        } else {
-            if let firstVC = viewControllersAtIndex(page) {
-                self.setViewControllers([firstVC], direction: .Forward, animated: false, completion: nil)
-            }
+        if let firstVC = viewControllersAtIndex(page) {
+            dispatch_async(dispatch_get_main_queue(), {
+                self.setViewControllers([firstVC], direction: .Forward, animated: false, completion: { (isFinished) in
+                    if isFinished {
+                        print("完成")
+                    }
+                })
+            })
         }
     }
     

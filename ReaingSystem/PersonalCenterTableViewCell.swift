@@ -13,6 +13,7 @@ class PersonalCenterTableViewCell: UITableViewCell {
     @IBOutlet weak var personalImage: UIImageView!
     
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var sizeLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

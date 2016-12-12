@@ -208,18 +208,17 @@ class SelectingImagePageViewController: UIPageViewController, UIPageViewControll
             //向前传值
             self.customDelegate?.imagesDidLoaded(self.curIndex, total: self.imagesRow!.count)
             self.customDelegate?.selectDataLoaded(selectRootData)
-            
-            
             //设置当前页
             self.setAppearedImage(0, isAnimated: false)
             //开始自动换图
             self.startTime()
 //            //获取轮播图片
             for i in 0..<self.imagesRow!.count {
-                let imageURL = baseURl + self.imagesRow![i].bookOtherImg
-                self.getImage(i, url: imageURL)
+                if let img = self.imagesRow![i].bookOtherImg {
+                    let imageURL = baseURl + img
+                    self.getImage(i, url: imageURL.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
+                }
             }
-
             
         }
 
@@ -242,13 +241,5 @@ class SelectingImagePageViewController: UIPageViewController, UIPageViewControll
             
         }
     }
-    
-
-    
-    
-    
-    
-
-
 
 }

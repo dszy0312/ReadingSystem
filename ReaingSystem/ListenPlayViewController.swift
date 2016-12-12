@@ -8,8 +8,11 @@
 
 import UIKit
 import AVFoundation
+import Kingfisher
 
-class ListenPlayViewController: UIViewController {
+private var reuseIdentifier = ["catalogueSegue"]
+
+class ListenPlayViewController: UIViewController, ChapterSelectDelegate {
     
     @IBOutlet weak var titleLabel: UILabel!
     
@@ -22,8 +25,17 @@ class ListenPlayViewController: UIViewController {
     @IBOutlet weak var progressView: UIProgressView!
     //开关键
     @IBOutlet weak var controlButton: UIButton!
-    
+    //添加到书架
     @IBOutlet weak var addShelfButton: UIButton!
+    //背景图片
+    @IBOutlet weak var backgroundImageView: UIImageView!
+    //歌曲封面
+    @IBOutlet weak var listenImageView: UIImageView!
+    //歌曲封面背景视图
+    @IBOutlet weak var listenImageBackground: UIView!
+    
+    //跳转目录列表
+    var transitionDelegate = ListenPlayCatalogueTransitionDelegate()
     
     //播放数据
     var listenData: ListenReturnData!
@@ -43,6 +55,11 @@ class ListenPlayViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let url = "\(baseURl)\(listenData.audioImgUrl)"
+        self.listenImageView.kf_setImageWithURL(NSURL(string: url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "listen_background"))
+        self.backgroundImageView.kf_setImageWithURL(NSURL(string: url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "listen_background"))
+        self.coverBackgroundImage()
         
         //是否已加入书架
         if self.listenData.isOnShelf == "1" {
@@ -66,11 +83,17 @@ class ListenPlayViewController: UIViewController {
         super.viewDidDisappear(animated)
         deleteListenData()
     }
-    /*
-    deinit {
-        playerItem.removeObserver(self, forKeyPath: "loadedTimeRanges")
-        playerItem.removeObserver(self, forKeyPath: "status")
-    }*/
+
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == reuseIdentifier[0] {
+            let toVC = segue.destinationViewController as! ListenPlayCatalogueViewController
+            toVC.transitioningDelegate = transitionDelegate
+            toVC.modalPresentationStyle = .Custom
+            toVC.sendDelegate = self
+            toVC.listenData = self.listenData
+        }
+    }
     
     @IBAction func backClick(sender: UIButton) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -107,6 +130,8 @@ class ListenPlayViewController: UIViewController {
                 let toVC  = self.detailVC("ReadDetail", vcName: "CommentViewController") as! CommentViewController
                 toVC.bookID = listenData.audioID
                 toVC.bookType = "appvoice"
+                toVC.transitioningDelegate = transitionDelegate
+                toVC.modalPresentationStyle = .Custom
                 self.presentViewController(toVC, animated: true, completion: nil)
                 
             }
@@ -150,8 +175,19 @@ class ListenPlayViewController: UIViewController {
         self.titleLabel.text = listenData.dirList[index].chapterName
         self.authorLabel.text = listenData.author
     }
+    //目录跳转
+    @IBAction func catalogueClick(sender: UIButton) {
+        self.performSegueWithIdentifier(reuseIdentifier[0], sender: self)
+    }
     
-    
+    //传值代理
+    func sendID(row: Int) {
+        print(row)
+        deleteListenData()
+        listenPlay(baseURl + listenData.dirList[row].audioUrl)
+        self.titleLabel.text = listenData.dirList[row].chapterName
+        self.authorLabel.text = listenData.author
+    }
     //MARK：私有方法
     //页面跳转方法
     func detailVC(sbName: String, vcName: String) -> UIViewController {
@@ -196,10 +232,11 @@ class ListenPlayViewController: UIViewController {
     
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if keyPath == "loadedTimeRanges" {
-            print("缓冲进度")
             let loadedTime = availableDurtionWithPlayerItem()
             let totalTime = CMTimeGetSeconds(playerItem.duration)
             let precent = loadedTime / totalTime
+            print("缓冲进度、]\(precent)")
+            
             //改变进度条
             self.progressView.progress = Float(precent)
         } else if keyPath == "status" {
@@ -253,6 +290,17 @@ class ListenPlayViewController: UIViewController {
         if !self.sliding {
             self.slider.value = Float(currentTime/totalTime)
         }
+        print("\(currentTime)\(totalTime)")
+        if currentTime == totalTime {
+            guard index != listenData.dirList.count - 1 else {
+                return
+            }
+            index += 1
+            deleteListenData()
+            listenPlay(baseURl + listenData.dirList[index].audioUrl)
+            self.titleLabel.text = listenData.dirList[index].chapterName
+            self.authorLabel.text = listenData.author
+        }
     }
     
     func sliderTouchDown(slider: UISlider) {
@@ -268,8 +316,6 @@ class ListenPlayViewController: UIViewController {
                 self.sliding = false
             })
         }
-        
-        
     }
     
     //缓冲进度
@@ -295,6 +341,24 @@ class ListenPlayViewController: UIViewController {
         self.avplayer = nil
     }
     
+    //背景图添加毛玻璃效果
+    func coverBackgroundImage() {
+        //首先创建一个模糊效果
+        let blurEffect = UIBlurEffect(style: .Dark)
+        //接着创建一个承载模糊效果的视图
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        //设置模糊视图的大小
+        blurView.frame.size = CGSize(width: self.view.frame.width, height: self.view.frame.height)
+        
+        //创建并添加vibrancy视图
+        let vibrancyView = UIVisualEffectView(effect:
+            UIVibrancyEffect(forBlurEffect: blurEffect))
+        vibrancyView.frame.size = CGSize(width: self.view.frame.width, height: self.view.frame.height)
+        blurView.contentView.addSubview(vibrancyView)
+        //添加模糊视图到页面view上（模糊视图下方都会有模糊效果）
+        self.backgroundImageView.addSubview(blurView)
+    }
+    
 
     //添加书架请求
     func addToShelf() {
@@ -315,5 +379,4 @@ class ListenPlayViewController: UIViewController {
             }
         })
     }
-
 }

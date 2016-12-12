@@ -97,7 +97,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="133" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TCf-zI-Tje">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="549"/>
                                 <color key="backgroundColor" red="0.98431372549019602" green="0.98431372549019602" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="B8r-qW-ftO">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="315"/>
@@ -198,7 +198,7 @@
                             <constraint firstItem="TCf-zI-Tje" firstAttribute="top" secondItem="bFP-Nc-1sC" secondAttribute="bottom" id="M2x-Ha-vB1"/>
                             <constraint firstItem="TCf-zI-Tje" firstAttribute="leading" secondItem="zTw-II-DVt" secondAttribute="leading" id="Tkx-N0-MLa"/>
                             <constraint firstItem="bFP-Nc-1sC" firstAttribute="top" secondItem="zTw-II-DVt" secondAttribute="top" id="dR9-Ts-SS0"/>
-                            <constraint firstItem="ckc-TQ-M9v" firstAttribute="top" secondItem="TCf-zI-Tje" secondAttribute="bottom" id="l8M-6g-Xbh"/>
+                            <constraint firstItem="ckc-TQ-M9v" firstAttribute="top" secondItem="TCf-zI-Tje" secondAttribute="bottom" constant="5" id="l8M-6g-Xbh"/>
                             <constraint firstItem="TCf-zI-Tje" firstAttribute="top" secondItem="lig-5u-H7T" secondAttribute="bottom" id="pyM-3j-vQc"/>
                         </constraints>
                         <variation key="default">
@@ -438,40 +438,32 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="历史记录" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esf-xb-i9A">
-                                            <rect key="frame" x="8" y="15" width="69.5" height="20.5"/>
+                                            <rect key="frame" x="8" y="15" width="70" height="21"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                             <color key="textColor" red="0.26274509800000001" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fob-UC-o2I">
-                                            <rect key="frame" x="352" y="17.5" width="15" height="15"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="15" id="7bq-l6-8IR"/>
-                                                <constraint firstAttribute="width" constant="15" id="ea7-c0-pDE"/>
-                                            </constraints>
-                                            <state key="normal" image="select_qingchu"/>
+                                            <rect key="frame" x="306" y="16" width="61" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <inset key="titleEdgeInsets" minX="-44" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            <inset key="imageEdgeInsets" minX="43" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            <state key="normal" title="清一下" image="select_qingchu">
+                                                <color key="titleColor" red="0.61880403757095337" green="0.61891061067581177" blue="0.61878997087478638" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
                                             <connections>
                                                 <action selector="selectClick:" destination="APj-nT-f70" eventType="touchUpInside" id="Xi5-2n-xC3"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="测试" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4tR-bc-lCi">
-                                            <rect key="frame" x="312" y="15" width="35" height="20.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="fob-UC-o2I" firstAttribute="centerY" secondItem="APj-nT-f70" secondAttribute="centerY" id="2dR-Gg-9bE"/>
                                         <constraint firstItem="esf-xb-i9A" firstAttribute="centerY" secondItem="APj-nT-f70" secondAttribute="centerY" id="EUf-Hb-eGR"/>
                                         <constraint firstItem="esf-xb-i9A" firstAttribute="leading" secondItem="APj-nT-f70" secondAttribute="leadingMargin" id="Kqd-nb-9hT"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="fob-UC-o2I" secondAttribute="trailing" id="MXU-OT-nV1"/>
-                                        <constraint firstItem="fob-UC-o2I" firstAttribute="leading" secondItem="4tR-bc-lCi" secondAttribute="trailing" constant="5" id="R4H-zc-VD4"/>
-                                        <constraint firstItem="4tR-bc-lCi" firstAttribute="centerY" secondItem="APj-nT-f70" secondAttribute="centerY" id="YHn-uK-Sgv"/>
                                     </constraints>
                                     <connections>
                                         <outlet property="clearButton" destination="fob-UC-o2I" id="Cm7-UM-jTR"/>
-                                        <outlet property="clearLabel" destination="4tR-bc-lCi" id="uuQ-20-ZX0"/>
                                         <outlet property="titleLabel" destination="esf-xb-i9A" id="4gU-rY-tzy"/>
                                     </connections>
                                 </collectionReusableView>
@@ -1019,20 +1011,20 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vLM-7o-WAf">
                                     <size key="itemSize" width="188" height="219"/>
-                                    <size key="headerReferenceSize" width="50" height="30"/>
+                                    <size key="headerReferenceSize" width="50" height="40"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SexCell" id="e2W-DP-MJ0" customClass="SelectingSexCollectionViewCell" customModule="ReaingSystem" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="30" width="159" height="205"/>
+                                        <rect key="frame" x="0.0" y="40" width="159" height="205"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="159" height="205"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="书籍名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dzw-m5-x7G">
-                                                    <rect key="frame" x="56.5" y="151.5" width="46" height="18"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="书籍名" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dzw-m5-x7G">
+                                                    <rect key="frame" x="34.5" y="152" width="90" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1061,6 +1053,7 @@
                                             <constraint firstItem="dzw-m5-x7G" firstAttribute="top" secondItem="aI9-N2-z8n" secondAttribute="bottom" constant="4" id="PFq-PK-H5Y"/>
                                             <constraint firstItem="aI9-N2-z8n" firstAttribute="centerY" secondItem="e2W-DP-MJ0" secondAttribute="centerY" constant="-10" id="ZOq-5m-zly"/>
                                             <constraint firstItem="aI9-N2-z8n" firstAttribute="centerX" secondItem="e2W-DP-MJ0" secondAttribute="centerX" id="j2Y-bH-7yj"/>
+                                            <constraint firstItem="dzw-m5-x7G" firstAttribute="width" secondItem="aI9-N2-z8n" secondAttribute="width" id="l6e-Mb-sca"/>
                                             <constraint firstItem="dzw-m5-x7G" firstAttribute="centerX" secondItem="e2W-DP-MJ0" secondAttribute="centerX" id="w7I-dh-Eb7"/>
                                         </constraints>
                                         <size key="customSize" width="159" height="205"/>
@@ -1071,17 +1064,17 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HeaderView" id="6VI-dS-arX" customClass="SelectingSexHeaderCollectionReusableView" customModule="ReaingSystem" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="精品小听" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="odi-zD-Xok">
-                                            <rect key="frame" x="22" y="6" width="61.5" height="18"/>
+                                            <rect key="frame" x="22" y="11" width="61.5" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.26274509800000001" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H8H-gu-49n">
-                                            <rect key="frame" x="322" y="0.0" width="45" height="30"/>
+                                            <rect key="frame" x="322" y="5" width="45" height="30"/>
                                             <state key="normal" title="更多 +">
                                                 <color key="titleColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
@@ -1140,7 +1133,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ujZ-jC-QH0">
-                                        <rect key="frame" x="171" y="30" width="33.5" height="24"/>
+                                        <rect key="frame" x="171" y="30" width="34" height="24"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1156,7 +1149,7 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OGY-tO-esH">
-                                        <rect key="frame" x="0.0" y="63.5" width="375" height="0.5"/>
+                                        <rect key="frame" x="0.0" y="64" width="375" height="0.0"/>
                                         <color key="backgroundColor" red="0.63921568630000003" green="0.63921568630000003" blue="0.63921568630000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="0.5" id="0jK-tQ-V5J"/>
@@ -1196,7 +1189,7 @@
                                                     <rect key="frame" x="3" y="2" width="369" height="133"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="作者" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NqQ-ja-mMO">
-                                                            <rect key="frame" x="130" y="39" width="31" height="18"/>
+                                                            <rect key="frame" x="130" y="40" width="31" height="18"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -1210,20 +1203,20 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rfi-6M-rzp">
-                                                    <rect key="frame" x="133" y="13.5" width="33" height="19.5"/>
+                                                    <rect key="frame" x="133" y="14" width="33" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.26274509800000001" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookLoading" translatesAutoresizingMaskIntoConstraints="NO" id="BCm-Fr-OKI">
-                                                    <rect key="frame" x="23" y="13.5" width="90" height="110"/>
+                                                    <rect key="frame" x="23" y="14" width="90" height="110"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="90" id="BY8-NN-YfV"/>
                                                         <constraint firstAttribute="height" constant="110" id="e7f-94-6gg"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="最近阅读：07-06 09:30" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="muh-2m-MVA">
-                                                    <rect key="frame" x="133" y="61" width="226" height="62.5"/>
+                                                    <rect key="frame" x="133" y="62" width="226" height="62"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1298,7 +1291,7 @@
         <image name="listen_paihang_test" width="100" height="100"/>
         <image name="personal" width="50" height="50"/>
         <image name="search-bg" width="1" height="150"/>
-        <image name="select_qingchu" width="30" height="30"/>
+        <image name="select_qingchu" width="15" height="15"/>
         <image name="selecting_search" width="22" height="22"/>
         <image name="标题" width="50" height="50"/>
     </resources>

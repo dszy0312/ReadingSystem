@@ -257,16 +257,13 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! SelectingTitleCollectionViewCell
         //页面跳转选择
         switch indexPath.row {
-        case 0,1:
+        case 0,1,2:
             let toVC = self.toVC("Selecting", vcName: "SearchingSex") as! SelectingSexViewController
             toVC.classifyData = self.classifyData![indexPath.row]
             toVC.getData(toVC.classifyData.iconID)
             toVC.transitioningDelegate = transitionDelegate
             toVC.modalPresentationStyle = .Custom
             self.presentViewController(toVC, animated: true, completion: nil)
-            
-        case 2:
-            print("出版页面开发中。。")
         case 3:
             let toVC = self.toVC("Listen", vcName: "Listen")
             toVC.transitioningDelegate = transitionDelegate
@@ -502,11 +499,16 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
                 return
             }
             let readedAdvice = ReadedAdvice(fromDictionary: dictionary!)
+            print("页数、\(readedAdvice.pageCount)")
             guard readedAdvice.pageCount >= readedAdvice.curPage else {
                 return
             }
+            if readedAdvice.pageCount == readedAdvice.curPage {
+                self.floorDatas[count - 1].currentPage = 0
+            } else {
+                self.floorDatas[count - 1].currentPage = page
+            }
             self.floorDatas[count - 1].prList = readedAdvice.rows
-            self.floorDatas[count - 1].currentPage = page
             self.tableView.reloadData()
         }
     }
@@ -522,8 +524,4 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         }
     }
 
-    
-
-
-    
 }

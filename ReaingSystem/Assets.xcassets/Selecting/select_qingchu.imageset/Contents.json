@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "select_qingchu.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "select_qingchu.png",
       "scale" : "2x"
     },
     {

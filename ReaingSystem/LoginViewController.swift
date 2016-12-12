@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import RealmSwift
 
 protocol LoginDelegate {
     func sendIndexs(name: String, icon: String)
@@ -201,6 +202,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             if let flag = dictionary!["flag"] as? Int {
                 if flag == 1 {
                     self.userSet(username, icon: "center_photo")
+                    //清除之前的下载记录
+                    let realm = try! Realm()
+                    let books = realm.objects(MyShelfRmBook).filter("isOnShelf == %@", 1)
+                    let allBooks = realm.objects(MyShelfRmBook)
+                    try! realm.write({
+                        books.setValue(false, forKey: "downLoad")
+                        books.setValue(0, forKey: "isOnShelf")
+                        allBooks.setValue(1, forKey: "readedPage")
+                    })
                     self.dismissViewControllerAnimated(true, completion: nil)
                 } else {
                     alertMessage("登陆失败", message: "请检查用户名和密码是否正确", vc: self)
@@ -222,6 +232,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             if let flag = dictionary!["flag"] as? Int {
                 if flag == 1 {
                     self.userSet(nickName, icon: icon)
+                    //清除之前的下载记录
+                    let realm = try! Realm()
+                    let books = realm.objects(MyShelfRmBook).filter("isOnShelf == %@", 1)
+                    let allBooks = realm.objects(MyShelfRmBook)
+                    try! realm.write({
+                        books.setValue(false, forKey: "downLoad")
+                        books.setValue(0, forKey: "isOnShelf")
+                        allBooks.setValue(1, forKey: "readedPage")
+                    })
                     self.dismissViewControllerAnimated(true, completion: nil)
                 } else {
                     alertMessage("登陆失败", message: "请重试！", vc: self)

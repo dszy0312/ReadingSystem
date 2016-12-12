@@ -8,13 +8,32 @@
 
 import UIKit
 
-class ReplaceViewController: UIViewController,UITableViewDelegate, UITableViewDataSource {
+class ReplaceViewController: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var usernameTF: UITextField!
     
+    @IBOutlet weak var YZMTF: UITextField!
+    
+    @IBOutlet weak var passwordTF: UITextField!
+    
+    @IBOutlet weak var rPasswordTF: UITextField!
+    
+    @IBOutlet weak var YZMButton: UIButton!
+    
+    //验证码
+    var YZM = ""
+    //自动跳转
+    var timer: NSTimer!
+    //60秒计时
+    var time = 60
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        usernameTF.delegate = self
+        YZMTF.delegate = self
+        passwordTF.delegate = self
+        rPasswordTF.delegate = self
 
         // Do any additional setup after loading the view.
     }
@@ -24,46 +43,125 @@ class ReplaceViewController: UIViewController,UITableViewDelegate, UITableViewDa
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.hidden = false
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.endTime()
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
-    }
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: UITableViewCell!
-        switch indexPath.row {
-        case 0:
-            cell = tableView.dequeueReusableCellWithIdentifier("Cell1")
-        case 1:
-            cell = tableView.dequeueReusableCellWithIdentifier("Cell2")
-        case 2:
-            cell = tableView.dequeueReusableCellWithIdentifier("Cell3")
-        case 3:
-            cell = tableView.dequeueReusableCellWithIdentifier("Cell4")
-            
-        default:
-            break
-        }
+    @IBAction func getYZMClick(sender: UIButton) {
         
-        return cell
+        guard usernameTF.text != "" else {
+            alertMessage("系统提示", message: "手机号不能为空！", vc: self)
+            return
+        }
+        if sender.titleLabel?.text == "验证码" {
+            sender.alpha = 0.5
+            sender.setTitle("\(time)秒", forState: UIControlState.Normal)
+            startTime()
+            getYZM(usernameTF.text!)
+        }
+
+    }
+    
+    @IBAction func resetClick(sender: UIButton) {
+        guard YZMTF.text == self.YZM else {
+            alertMessage("系统提示", message: "验证码错误！", vc: self)
+            return
+        }
+        guard passwordTF.text == rPasswordTF.text else {
+            alertMessage("系统提示", message: "密码设置错误！", vc: self)
+            return
+        }
+        resetSend(usernameTF.text!, password: passwordTF.text!, YZM: YZMTF.text!)
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    @IBAction func backClick(sender: UIButton) {
+        usernameTF.resignFirstResponder()
+        YZMTF.resignFirstResponder()
+        passwordTF.resignFirstResponder()
+        rPasswordTF.resignFirstResponder()
+        self.dismissViewControllerAnimated(true, completion: nil)
+        
     }
-    */
+    
+    //倒数读秒
+    func startTime() {
+        guard self.timer == nil else {
+            self.timer = nil
+            return
+        }
+        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(exchange), userInfo: nil, repeats: true)
+    }
+    func endTime() {
+        if timer != nil {
+            timer.invalidate()
+            self.timer = nil
+            self.YZMButton.alpha = 1
+            self.YZMButton.setTitle("验证码", forState: UIControlState.Normal)
+            self.time = 60
+        }
+    }
+    //移动图片位置
+    @objc private func exchange() {
+        guard time > 0 else {
+            endTime()
+            return
+        }
+        time -= 1
+        self.YZMButton.setTitle("\(time)秒", forState: UIControlState.Normal)
+    }
+    //textFieldDelegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        usernameTF.resignFirstResponder()
+        YZMTF.resignFirstResponder()
+        passwordTF.resignFirstResponder()
+        rPasswordTF.resignFirstResponder()
+        return true
+    }
 
+
+    
+    //MARK:网络请求
+    func getYZM(username: String) {
+        
+        NetworkHealper.GetWithParm2.receiveJSON(URLHealper.getYZHM.introduce(), parameter: ["mobile": username]) { (dictionary, error) in
+            //查询错误
+            guard error == nil else {
+                print(error)
+                return
+            }
+            
+            if let flag = dictionary!["flag"] as? Int {
+                print(flag)
+                if flag == 1 {
+                    self.YZM = dictionary!["msg"] as! String
+                } else {
+                    alertMessage("系统提示", message: "发送失败，请重试！", vc: self)
+                }
+            }
+
+        }
+    }
+    
+    func resetSend(username: String, password: String, YZM: String) {
+        NetworkHealper.GetWithParm2.receiveJSON(URLHealper.resetPassword.introduce(), parameter: ["phoneNumber": username, "password": password, "mobileYZHM": YZM]) { (dictionary, error) in
+            //查询错误
+            guard error == nil else {
+                print(error)
+                return
+            }
+            
+            if let flag = dictionary!["flag"] as? Int {
+                if flag == 1 {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                } else {
+                    alertMessage("系统提示", message: "发送失败，请重试！", vc: self)
+                }
+            }
+        }
+    }
+
+    
+    
 }

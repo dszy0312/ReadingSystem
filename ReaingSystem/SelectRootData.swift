@@ -12,8 +12,6 @@ struct SelectRootData{
 	var returnData : [SelectReturnData]!
 	var rows : [SelectRow]!
 
-
-
 	/**
 	 * 用字典来初始化一个实例并设置各个属性值
 	 */

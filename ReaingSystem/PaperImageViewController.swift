@@ -25,6 +25,8 @@ class PaperImageViewController: UIViewController, UIScrollViewDelegate {
     var imageURL: String!
     //当前版面
     var currentEdition: String!
+    //版面ID
+    var sectionID: String!
     //热区数据
     var hotSpaceList: [PaperMainHotSpaceList] = []
     //选中的热点
@@ -53,6 +55,7 @@ class PaperImageViewController: UIViewController, UIScrollViewDelegate {
         if segue.identifier == reuseIdentifier[0] {
             let toVC = segue.destinationViewController as! PaperDetailReadViewController
             toVC.newsID = selectHotSpace
+            toVC.sectionID = self.sectionID
         }
     }
     
@@ -60,6 +63,7 @@ class PaperImageViewController: UIViewController, UIScrollViewDelegate {
         customIndex = index
         imageURL = data.newspaperImgSrc
         currentEdition = data.newspaperImgTitle
+        sectionID = data.newspaperImgID
         hotSpaceList.appendContentsOf(data.hotSpaceList)
     }
     

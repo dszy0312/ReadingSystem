@@ -74,7 +74,11 @@ enum SearchingListSequence {
     }
 }
 
-class SearchingListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+protocol SearchingListDelegate {
+    func didCancel()
+}
+
+class SearchingListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     @IBOutlet weak var classifyButton: UIButton!
     
@@ -92,6 +96,8 @@ class SearchingListViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var footerView: FooterLoadingView!
     
     var selectNameArray: [String] = []
+    //取消代理
+    var cancelDelegate: SearchingListDelegate!
     
     //监听选择列表是否出现
     var isAppeared: Bool = false {
@@ -133,7 +139,8 @@ class SearchingListViewController: UIViewController, UITableViewDelegate, UITabl
         
         tableView.delegate = self
         tableView.dataSource = self
-        
+        searchBar.delegate = self
+        searchBar.text = searchName
         sequenceImage.transform = CGAffineTransformMakeRotation(CGFloat(M_PI))
         classifyImage.transform = CGAffineTransformMakeRotation(CGFloat(2 * M_PI))
         // Do any additional setup after loading the view.
@@ -200,11 +207,8 @@ class SearchingListViewController: UIViewController, UITableViewDelegate, UITabl
     
 
     @IBAction func cancleClick(sender: UIButton) {
+        cancelDelegate.didCancel()
         dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    
     }
     
     
@@ -248,6 +252,16 @@ class SearchingListViewController: UIViewController, UITableViewDelegate, UITabl
         }
 
     }
+    
+    //MARK: searchbar delegate
+    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+        return true
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        self.getNetworkData(SearchingListClassify.All.introduceID(), order: SearchingListSequence.All.introduceID(), key: self.searchBar.text!)
+    }
+
     
     //MARK: 私有方法
     //页面跳转方法

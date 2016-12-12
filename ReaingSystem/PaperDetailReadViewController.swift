@@ -20,6 +20,8 @@ class PaperDetailReadViewController: UIViewController, UITableViewDelegate, UITa
             getNetworkData(newsID)
         }
     }
+    //版面ID
+    var sectionID: String!
     //接口数据
     var newsData: PaperRoot!
     //图片数组
@@ -28,7 +30,6 @@ class PaperDetailReadViewController: UIViewController, UITableViewDelegate, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
-        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -51,7 +52,7 @@ class PaperDetailReadViewController: UIViewController, UITableViewDelegate, UITa
                 alertMessage("通知", message: "请登陆后查看评论！", vc: self)
             } else {
                 alertShareMessage(self) { (type) in
-                    alertShare2(self.newsID, name: " ",  author: " ", image: nil,shareType: "appnewspaper", form: "1", type: type)
+                    alertShare2(self.newsID, detail: " ", title: self.newsData.rows.first!.npNewsName, sectionID: self.sectionID, image: UIImage(named: "Icon-256"), type: type)
                 }
             }
         }
@@ -132,7 +133,7 @@ class PaperDetailReadViewController: UIViewController, UITableViewDelegate, UITa
                 return
             }
             self.newsData = PaperRoot(fromDictionary: dictionary!)
-            print(dictionary)
+            print(self.newsData.rows.first)
             if self.newsData.rows.first?.npNewsImg != "" {
                 let images = self.newsData.rows.first?.npNewsImg
                 if images == nil {

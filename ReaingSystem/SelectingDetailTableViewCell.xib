@@ -1,8 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -15,17 +18,20 @@
             <rect key="frame" x="0.0" y="0.0" width="439" height="244"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <frame key="frameInset" width="439" height="243"/>
+                <rect key="frame" x="0.0" y="0.0" width="439" height="243"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="看过《死亡通知单》的人还看过" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URE-Td-JpZ">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="看过《》的人还看过" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URE-Td-JpZ">
+                        <rect key="frame" x="8" y="18" width="423" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.26274509800000001" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ic-06-NRI">
+                        <rect key="frame" x="0.0" y="44" width="146.5" height="169.5"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookLoading" translatesAutoresizingMaskIntoConstraints="NO" id="0ch-uT-9Gd">
+                                <rect key="frame" x="28" y="25" width="90" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="90" id="OCQ-eW-h8V"/>
                                     <constraint firstAttribute="width" secondItem="0ch-uT-9Gd" secondAttribute="height" multiplier="90:120" id="wZj-z0-ra2"/>
@@ -43,6 +49,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7w3-0X-KwQ">
+                                <rect key="frame" x="28" y="25" width="90" height="120"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
                                         <real key="value" value="0.5"/>
@@ -70,8 +77,10 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pJu-ca-MpX">
+                        <rect key="frame" x="146.5" y="44" width="146" height="169.5"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookLoading" translatesAutoresizingMaskIntoConstraints="NO" id="vsd-Bc-dax">
+                                <rect key="frame" x="28" y="25" width="90" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="vsd-Bc-dax" secondAttribute="height" multiplier="90:120" id="AbK-ea-cSG"/>
                                     <constraint firstAttribute="width" constant="90" id="fkg-72-pBf"/>
@@ -89,6 +98,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Va3-4b-VLX">
+                                <rect key="frame" x="28" y="25" width="90" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="c1T-pl-d0P"/>
                                     <constraint firstAttribute="width" constant="90" id="gvO-2Q-T4j"/>
@@ -118,8 +128,10 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nmt-KP-SKr">
+                        <rect key="frame" x="292.5" y="44" width="146.5" height="169.5"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bookLoading" translatesAutoresizingMaskIntoConstraints="NO" id="TfU-JX-NNZ">
+                                <rect key="frame" x="28.5" y="25" width="90" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="90" id="eSO-gt-c91"/>
                                     <constraint firstAttribute="width" secondItem="TfU-JX-NNZ" secondAttribute="height" multiplier="90:120" id="faC-e3-IPW"/>
@@ -137,6 +149,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hPD-Gd-TDy">
+                                <rect key="frame" x="28.5" y="25" width="90" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="REa-Lc-0yW"/>
                                     <constraint firstAttribute="width" constant="90" id="hVj-bm-vbX"/>
@@ -166,14 +179,17 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qdr-yg-h3I">
+                        <rect key="frame" x="0.0" y="213.5" width="439" height="30"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kZJ-lP-iB2">
+                                <rect key="frame" x="15" y="10" width="409" height="0.5"/>
                                 <color key="backgroundColor" red="0.63921568630000003" green="0.63921568630000003" blue="0.63921568630000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="YrK-J1-cAE"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E0Q-bU-k4d">
+                                <rect key="frame" x="184.5" y="2.5" width="70" height="15"/>
                                 <color key="backgroundColor" red="0.98431372549999996" green="0.98431372549999996" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="4Mp-wb-vsV"/>

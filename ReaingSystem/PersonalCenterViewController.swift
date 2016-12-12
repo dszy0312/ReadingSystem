@@ -8,8 +8,9 @@
 
 import UIKit
 import Kingfisher
+import RealmSwift
 
-private let reuseIdentifier = ["LoginSegue","ChangePsdSegue"]
+private let reuseIdentifier = ["LoginSegue","ChangePsdSegue", "AdviceSegue", "AboutFlyBirdSegue"]
 
 class PersonalCenterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, LoginDelegate {
     
@@ -28,6 +29,7 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
     var showing = false {
         didSet {
             if showing == true {
+                self.downLoadSizeGet()
                 if self.containerView.center.x == self.view.center.x {
                     UIView.animateWithDuration(0.3, animations: { 
                         self.containerView.center.x = self.view.center.x + self.view.bounds.width * 0.8
@@ -51,6 +53,16 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
     var textArray = ["登陆/注册","清除缓存","意见反馈","关于飞鸟","切换账号","退出账号"]
     // 标题图
     var imageArray = ["center_01","center_02","center_03","center_04","center_05","center_06"]
+    
+    //本地缓存大小
+    var locationSize: String! {
+        didSet {
+            print(locationSize)
+            let indexPath = NSIndexPath(forRow: 1, inSection: 0)
+            let cell = tableView.cellForRowAtIndexPath(indexPath) as! PersonalCenterTableViewCell
+            cell.sizeLabel.text = locationSize
+        }
+    }
     
 
     override func viewDidLoad() {
@@ -89,6 +101,8 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
         if segue.identifier == reuseIdentifier[0] {
             let toVC = segue.destinationViewController as! LoginViewController
             toVC.loginDelegate = self
+        } else if segue.identifier == reuseIdentifier[2] {
+            let toVC = segue.destinationViewController as! AdviceViewController
         }
     }
     
@@ -112,6 +126,7 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! PersonalCenterTableViewCell
         cell.titleLabel.text = textArray[indexPath.row]
+        cell.sizeLabel.text = ""
         cell.personalImage.image = UIImage(named: imageArray[indexPath.row])
         cell.selectedBackgroundView = UIView(frame: cell.frame)
         cell.selectedBackgroundView?.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.2)
@@ -122,10 +137,12 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
         switch indexPath.row {
         case 0,4:
             self.performSegueWithIdentifier(reuseIdentifier[0], sender: self)
+        case 1:
+            self.downLoadDelete()
         case 2:
-            print("退出登陆")
+            self.performSegueWithIdentifier(reuseIdentifier[2], sender: self)
         case 3:
-            print("关于飞鸟")
+            self.performSegueWithIdentifier(reuseIdentifier[3], sender: self)
         case 5:
             logout()
         default:
@@ -138,7 +155,6 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
     func didPan(gesture: UIPanGestureRecognizer) {
         
         let point = gesture.translationInView(self.view)
-        print(point.x)
         self.containerView.center = CGPoint(x: self.containerView.center.x + point.x, y: self.containerView.center.y)
         //控制滑动范围
         if self.containerView.center.x < self.view.center.x {
@@ -150,7 +166,7 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
         gesture.setTranslation(CGPointZero, inView: self.view)
         
         if gesture.state == UIGestureRecognizerState.Ended {
-            
+            self.downLoadSizeGet()
             if containerView.center.x - view.center.x <= self.view.bounds.width * 0.4 {
                 UIView.animateWithDuration(0.2, animations: {
                     self.containerView.center.x = self.view.center.x
@@ -173,6 +189,31 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
 //        if icon != "" {
 //           photoImageView.kf_setImageWithURL(NSURL(string: icon), placeholderImage: UIImage(named: "center_photo"))
 //        }
+    }
+    
+    //缓存删除
+    func downLoadSizeGet() {
+        let cache = KingfisherManager.sharedManager.cache
+        cache.calculateDiskCacheSizeWithCompletionHandler { (size) in
+            let mSize = size / 1024 / 1024
+            if mSize < 1 {
+                let kSize = size / 1024
+                if kSize < 1 {
+                    self.locationSize = "\(size)B"
+                } else {
+                    self.locationSize = "\(kSize)KB"
+                }
+            } else {
+                self.locationSize = "\(mSize)MB"
+            }
+        }
+    }
+    func downLoadDelete() {
+        let cache = KingfisherManager.sharedManager.cache
+        cache.clearDiskCacheWithCompletionHandler {
+            self.downLoadSizeGet()
+            alertMessage("提示", message: "缓存清理完成！", vc: self)
+        }
     }
     
     //颜色渐变设置
@@ -208,8 +249,15 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
                     ShareSDK.cancelAuthorize(SSDKPlatformType.TypeQQ)
                     ShareSDK.cancelAuthorize(SSDKPlatformType.TypeSinaWeibo)
                     ShareSDK.cancelAuthorize(SSDKPlatformType.TypeWechat)
-                    
-                    print("发送成功")
+                    //清除之前的下载记录
+                    let realm = try! Realm()
+                    let books = realm.objects(MyShelfRmBook).filter("isOnShelf == %@", 1)
+                    let allBooks = realm.objects(MyShelfRmBook)
+                    try! realm.write({
+                        books.setValue(false, forKey: "downLoad")
+                        books.setValue(0, forKey: "isOnShelf")
+                        allBooks.setValue(1, forKey: "readedPage")
+                    })
                 } else {
                     alertMessage("系统提示", message: "发送失败，请重试！", vc: self)
                 }

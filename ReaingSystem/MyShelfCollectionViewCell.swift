@@ -40,7 +40,7 @@ class MyShelfCollectionViewCell: UICollectionViewCell {
     func setData(data: MyBook) {
         bookID = data.bookID
         chapterID = data.chapterID
-        author = "佚名"
+        author = data.author
         downLoadingView.alpha = 0
         //已下载标志是否显示
         if data.hasLoaded == true {

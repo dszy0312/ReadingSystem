@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 protocol DeleteMyShelfDelegate: class {
     func valueOfContentOffSet(value: CGPoint)
@@ -262,6 +263,25 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
             }
             if let flag = dictionary!["flag"] as? Int {
                 if flag == 1 {
+                    let realm = try! Realm()
+                    let books = List<MyShelfRmBook>()
+                    let chapters = List<Chapter>()
+                    let pages = List<ChapterPageDetail>()
+                    for bookID in arr {
+                        let book = realm.objectForPrimaryKey(MyShelfRmBook.self, key: bookID)
+                        books.append(book!)
+                    }
+                    for book in books {
+                        chapters.appendContentsOf(book.chapters)
+                        let p = realm.objects(ChapterPageDetail).filter("bookID == '\(book.bookID)'")
+                        pages.appendContentsOf(p)
+                    }
+                    try! realm.write({
+                        realm.delete(books)
+                        realm.delete(chapters)
+                        realm.delete(pages)
+                    })
+                    
                     self.delegate.valueOfContentOffSet(self.collectionView.contentOffset)
                     self.delegate.deleteItem(self.index!)
                     self.dismissViewControllerAnimated(true, completion: nil)
@@ -271,7 +291,5 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
             }
         }
     }
-    
-    
     
 }

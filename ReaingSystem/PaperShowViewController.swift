@@ -11,13 +11,7 @@ import UIKit
 class PaperShowViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
     
     //报刊数据
-    var paperMainRow: [PaperMainData] = [] {
-        didSet {
-            if let firstVC = self.viewControllersAtIndex(0) {
-                self.setViewControllers([firstVC], direction: .Forward, animated: false, completion: nil)
-            }
-        }
-    }
+    var paperMainRow: [PaperMainData] = [] 
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,8 +42,6 @@ class PaperShowViewController: UIPageViewController, UIPageViewControllerDelegat
             index -= 1
         }
         return self.viewControllersAtIndex(index)
-        
-        
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
@@ -95,6 +87,12 @@ class PaperShowViewController: UIPageViewController, UIPageViewControllerDelegat
             imagesVC?.setData(paperMainRow[index], index: index)
             return imagesVC
             
+        }
+    }
+    func update(data: [PaperMainData]) {
+        self.paperMainRow = data
+        if let firstVC = self.viewControllersAtIndex(0) {
+            self.setViewControllers([firstVC], direction: .Forward, animated: false, completion: nil)
         }
     }
     

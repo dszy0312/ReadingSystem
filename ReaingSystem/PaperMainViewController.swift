@@ -61,6 +61,9 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
         
         getNetworkData("")
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTap(_:)))
+        self.backgroundView.addGestureRecognizer(tapGesture)
+        
         // Do any additional setup after loading the view.
     }
     
@@ -154,7 +157,7 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
     //目录按钮
     @IBAction func CatalogueShowClick(sender: UIButton) {
         
-        if sender.tag == 0 && self.editionButton.tag == 1{
+        if sender.tag == 0 {
             startTime()
             sender.tag == 1
             viewLocationManage(3)
@@ -162,7 +165,6 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
             self.editionButton.setTitle("版面", forState: .Normal)
             self.editionButton.setTitleColor(UIColor.defaultColor(), forState: .Normal)
             self.catalogueButton.setTitleColor(UIColor.mainColor(), forState: .Normal)
-            
         }
         
     }
@@ -217,6 +219,12 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
         }
     }
     
+    func didTap(tap: UITapGestureRecognizer) {
+        startTime()
+        viewLocationManage(1)
+        self.editionButton.setTitle(currentEdition, forState: .Normal)
+    }
+    
     
     //网络请求
     func getNetworkData(date: String) {
@@ -225,16 +233,15 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
                 print(error)
                 return
             }
+            print(dictionary)
             self.paperMainRow = []
             let editionRoot = PaperMainRoot(fromDictionary: dictionary!)
             self.paperMainRow.appendContentsOf(editionRoot.data)
-            //self.paperMainRow.appendContentsOf(editionRoot.data)
-            print(self.paperMainRow.count)
             if self.paperMainRow.count == 0 {
                 alertMessage("提示", message: "所选日期无数据，请重新选择！", vc: self)
             } else {
                 let paperShow = self.getPaperShow()
-                paperShow.paperMainRow = self.paperMainRow
+                paperShow.update(self.paperMainRow)
                 
                 let paperCatalogue = self.getCatalogue()
                 paperCatalogue.paperMainRow = self.paperMainRow

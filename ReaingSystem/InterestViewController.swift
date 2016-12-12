@@ -204,7 +204,7 @@ class InterestViewController: UIViewController, UICollectionViewDelegate,UIColle
         var interestChosedArray: [String] = []
         //唯一标识码
         let uuid = checkUuid()
-        print(uuid)
+        print("uuid===\(uuid)")
         //兴趣选中数组
         for name in interestChosedSet {
             interestChosedArray.append(name)

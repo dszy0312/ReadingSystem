@@ -283,7 +283,6 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
     //MARK:网络请求
     //获取简介
     func getSummery(id: String, book: MyShelfRmBook?) {
-        print("网络获取")
         let parm: [String: AnyObject] = [
             "bookID": id
         ]

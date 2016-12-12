@@ -7,16 +7,30 @@
 //
 
 import UIKit
+import RealmSwift
 
 extension UITextView {
     func setText(text: String, size: CGFloat) {
         let style = NSMutableParagraphStyle()
         style.lineSpacing = size / 3 * 2
+        var fontName = "LiSu"
         
-        let attributes: [String: AnyObject] = [NSParagraphStyleAttributeName: style, NSFontAttributeName: UIFont(name: "FZLTHK--GBK1-0", size: size)!]
-        //let attributes: [String: AnyObject] = [NSParagraphStyleAttributeName: style, NSFontAttributeName: UIFont(name: "Reeji-CloudKaiXing-GBK", size: size)!]
-//        let attributes: [String: AnyObject] = [NSParagraphStyleAttributeName: style, NSFontAttributeName: UIFont(name: "MicrosoftYaHei", size: size)!]
-        
+        let realm = try! Realm()
+        if let readData = realm.objectForPrimaryKey(ReadRmData.self, key: "123456") {
+            switch readData.fontIndex {
+            case 1:
+                fontName = "LiSu"
+            case 2:
+                fontName = "SimHei"
+            case 3:
+                fontName = "SimSun"
+            case 4:
+                fontName = "YouYuan"
+            default:
+                break
+            }
+        }
+        let attributes: [String: AnyObject] = [NSParagraphStyleAttributeName: style, NSFontAttributeName: UIFont(name: fontName, size: size)!]
         self.attributedText = NSAttributedString(string: text, attributes: attributes)
     }
     

@@ -29,7 +29,7 @@ class ListenChildListTableViewCell: UITableViewCell {
     }
     //分类详细列表
     func setData(data: ListenChildRow) {
-        nameLabel.text = data.audioID
+        nameLabel.text = data.audioName
         authorLabel.text = data.author
         detailLabel.text = data.audioBrief
         if let url = data.audioImgUrl {
