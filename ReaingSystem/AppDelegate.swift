@@ -48,7 +48,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             realm.delete(chapters)
             realm.delete(pages)
         })
-        
+        //登陆角色级别
+        NSUserDefaults.standardUserDefaults().registerDefaults(["groupID" : 0])
         //阅读信息持久化
         NSUserDefaults.standardUserDefaults().setFloat(18, forKey: "textSize")
         NSUserDefaults.standardUserDefaults().registerDefaults(["backgroundIndex" : 1])

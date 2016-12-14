@@ -8,7 +8,7 @@
 
 import UIKit
 
-private var reuserIdentifier = ["registerSuccessSegue"]
+private var reuserIdentifier = ["registerSuccessSegue", "reuserIdentifier"]
 
 class RegisterViewController: UIViewController, UITextFieldDelegate {
     
@@ -165,6 +165,23 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                 return
             }
             
+            let cookie = NetworkHealper.GetWithParm2.GetCookieStorage()
+            for c in cookie.cookies! {
+                if c.name == "LhApp_CurrentMember" {
+                    let g = c.value.stringByReplacingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+                    let d = NSKeyedArchiver.archivedDataWithRootObject(g!)
+                    let h = NSKeyedUnarchiver.unarchiveObjectWithData(d)
+                    if  let f = NSKeyedUnarchiver.unarchiveObjectWithData(d) as? String {
+                        print(f)
+                        var data :NSData = f.dataUsingEncoding(NSUTF8StringEncoding)!
+                        var json :NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: UInt(0))) as! NSDictionary
+                        if let groupID = json["Group_ID"] as? Float{
+                            NSUserDefaults.standardUserDefaults().setFloat(groupID, forKey: "groupID")
+                            print(groupID)
+                        }
+                    }
+                }
+            }
             if let flag = dictionary!["flag"] as? Int {
                 if flag == 1 {
                     self.userSet(username, icon: "center_photo")

@@ -341,7 +341,13 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
     //更新页面
     func updatePage() {
         if let firstVC = viewControllersAtIndex(NSUserDefaults.standardUserDefaults().integerForKey("curPage")) {
-            self.setViewControllers([firstVC], direction: .Forward, animated: false, completion: nil)
+            dispatch_async(dispatch_get_main_queue(), {
+                self.setViewControllers([firstVC], direction: .Forward, animated: false, completion: { (isFinished) in
+                    if isFinished {
+                        print("完成")
+                    }
+                })
+            })
         }
     }
     //计时

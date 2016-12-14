@@ -13,7 +13,7 @@ import RealmSwift
 protocol LoginDelegate {
     func sendIndexs(name: String, icon: String)
 }
-
+private var reuserIdentifier = ["RegisterSegue"]
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
@@ -31,12 +31,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
         usernameTF.delegate = self
         passwordTF.delegate = self
-        
-        let uuid = checkUuid()
-        print("uuid\(uuid)")
-        print(self.usernameLabel.font.fontName)
-        
-        
 //        transitionDelegate.animationTransition.pointFrame =
         // Do any additional setup after loading the view.
     }
@@ -131,6 +125,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     
+    @IBAction func registerClick(sender: UIButton) {
+        self.performSegueWithIdentifier(reuserIdentifier[0], sender: self)
+    }
     
     
     
@@ -199,7 +196,23 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 print(error)
                 return
             }
-            
+            let cookie = NetworkHealper.GetWithParm2.GetCookieStorage()
+            for c in cookie.cookies! {
+                if c.name == "LhApp_CurrentMember" {
+                    let g = c.value.stringByReplacingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+                    let d = NSKeyedArchiver.archivedDataWithRootObject(g!)
+                    let h = NSKeyedUnarchiver.unarchiveObjectWithData(d)
+                    if  let f = NSKeyedUnarchiver.unarchiveObjectWithData(d) as? String {
+                        print(f)
+                        var data :NSData = f.dataUsingEncoding(NSUTF8StringEncoding)!
+                        var json :NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: UInt(0))) as! NSDictionary
+                        if let groupID = json["Group_ID"] as? Float{
+                            NSUserDefaults.standardUserDefaults().setFloat(groupID, forKey: "groupID")
+                            print(groupID)
+                        }
+                    }
+                }
+        }
             if let flag = dictionary!["flag"] as? Int {
                 if flag == 1 {
                     self.userSet(username, icon: "center_photo")
@@ -228,6 +241,24 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             guard error == nil else {
                 print(error)
                 return
+            }
+            
+            let cookie = NetworkHealper.GetWithParm2.GetCookieStorage()
+            for c in cookie.cookies! {
+                if c.name == "LhApp_CurrentMember" {
+                    let g = c.value.stringByReplacingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+                    let d = NSKeyedArchiver.archivedDataWithRootObject(g!)
+                    let h = NSKeyedUnarchiver.unarchiveObjectWithData(d)
+                    if  let f = NSKeyedUnarchiver.unarchiveObjectWithData(d) as? String {
+                        print(f)
+                        var data :NSData = f.dataUsingEncoding(NSUTF8StringEncoding)!
+                        var json :NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: UInt(0))) as! NSDictionary
+                        if let groupID = json["Group_ID"] as? Float{
+                            NSUserDefaults.standardUserDefaults().setFloat(groupID, forKey: "groupID")
+                            print(groupID)
+                        }
+                    }
+                }
             }
             
             if let flag = dictionary!["flag"] as? Int {

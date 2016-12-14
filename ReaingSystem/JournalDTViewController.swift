@@ -18,12 +18,12 @@ class JournalDTViewController: UIViewController, JournalPageSelectDelegate, Jour
     
     
     //期刊数据
-    var detailData: JournalDetailRow! {
+    var detailData: JournalDetailRoot! {
         didSet {
             let childVC = getChildVC()
             childVC.detailData = detailData
-            titleLabel.text = detailData.isMzIDText
-            subTitleLabel.text = detailData.isTitle
+            titleLabel.text = detailData.rows.first!.isMzIDText
+            subTitleLabel.text = detailData.rows.first!.isTitle
         }
     }
     
@@ -127,8 +127,7 @@ class JournalDTViewController: UIViewController, JournalPageSelectDelegate, Jour
                 print(error)
                 return
             }
-            let root = JournalDetailRoot(fromDictionary: dictionary!)
-            self.detailData = root.rows.first
+            self.detailData = JournalDetailRoot(fromDictionary: dictionary!)
         }
         
         

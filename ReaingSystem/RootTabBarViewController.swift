@@ -35,7 +35,7 @@ class RootTabBarViewController: UITabBarController, ChangeTabBarDelegate, Hidden
     }
     
     func loginAlert() {
-        alertMessage("提示", message: "请先登录然后查询", vc: self)
+        alertMessage("提示", message: "请登陆系统", vc: self)
     }
     
     

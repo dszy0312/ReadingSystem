@@ -144,6 +144,7 @@ class SelectingImagePageViewController: UIPageViewController, UIPageViewControll
         } else {
             imagesVC?.customImageView.image = imagesRow![index].imageData
             imagesVC?.customIndex = index
+            imagesVC?.bookID = imagesRow![index].bookID
             return imagesVC
             
         }

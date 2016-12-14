@@ -30,6 +30,7 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
     var myBooks: [MyBook]?
     //最近阅读的书
     var readedBook: [ReadedBook]?
+    
     //偏移量
     var contentOffset: CGPoint?
     //设置代理
@@ -87,7 +88,11 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
             delegate.downLoadItem(index!)
             self.dismissViewControllerAnimated(true, completion: nil)
         } else {
-            deleteSend()
+            if myBooks?.first?.category == "0001" {
+                self.deleteBookSend()
+            } else {
+                self.deleteListenSend()
+            }
         }
     }
     
@@ -251,7 +256,7 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
         }    }
     
     //删除书籍请求
-    func deleteSend() {
+    func deleteBookSend() {
         var arr: [String] = []
         for foo in index! {
             arr.append(myBooks![foo - 1].bookID)
@@ -282,6 +287,29 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
                         realm.delete(pages)
                     })
                     
+                    self.delegate.valueOfContentOffSet(self.collectionView.contentOffset)
+                    self.delegate.deleteItem(self.index!)
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                } else {
+                    print("发送失败")
+                }
+            }
+        }
+    }
+    
+    //删除书籍请求
+    func deleteListenSend() {
+        var arr: [String] = []
+        for foo in index! {
+            arr.append(myBooks![foo - 1].bookID)
+        }
+        NetworkHealper.Post.receiveJSON(URLHealper.removeBookFromShelf.introduce(), parameter: ["bookIDList": arr]) { (dictionary, error) in
+            guard error == nil else {
+                print(error)
+                return
+            }
+            if let flag = dictionary!["flag"] as? Int {
+                if flag == 1 {
                     self.delegate.valueOfContentOffSet(self.collectionView.contentOffset)
                     self.delegate.deleteItem(self.index!)
                     self.dismissViewControllerAnimated(true, completion: nil)

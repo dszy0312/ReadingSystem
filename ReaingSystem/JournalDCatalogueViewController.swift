@@ -19,7 +19,7 @@ class JournalDCatalogueViewController: UIViewController, UICollectionViewDelegat
     @IBOutlet weak var collectionView: UICollectionView!
     
     //期刊数据
-    var detailData: JournalDetailRow!
+    var detailData: JournalDetailRoot!
     //数据传递代理
     var pageSelectDelegate: JournalPageSelectDelegate!
 
@@ -48,12 +48,12 @@ class JournalDCatalogueViewController: UIViewController, UICollectionViewDelegat
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        return Int(detailData.isPageCount)!
+        return detailData.data.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier[0], forIndexPath: indexPath) as! JournalDCatalogueCollectionViewCell
-        cell.setData("\(baseURl)\(detailData.isContentPath)\(indexPath.row + 1).jpg")
+        cell.setData("\(baseURl)\(detailData.data[indexPath.row])")
         return cell
         
     }
@@ -80,16 +80,5 @@ class JournalDCatalogueViewController: UIViewController, UICollectionViewDelegat
         pageSelectDelegate.sendIndex(indexPath.row)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

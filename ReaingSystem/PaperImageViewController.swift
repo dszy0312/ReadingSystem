@@ -17,8 +17,8 @@ class PaperImageViewController: UIViewController, UIScrollViewDelegate {
 
     var imageView: UIImageView!
     var dImageView = UIImageView()
-    
-    
+    //角色等级ID
+    var groupID: Float!
     //当前页
     var customIndex: Int!
     //图片地址
@@ -39,6 +39,7 @@ class PaperImageViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        groupID = NSUserDefaults.standardUserDefaults().floatForKey("groupID")
         self.imageView = UIImageView(image: UIImage(named: "paper_background"))
         let url = baseURl + imageURL
         self.imageView.kf_setImageWithURL(NSURL(string: url.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!), placeholderImage: UIImage(named: "paper_background"))
@@ -118,9 +119,11 @@ class PaperImageViewController: UIViewController, UIScrollViewDelegate {
     
     // 加入偵測點擊兩下事件
     func setupGestureRecognizer() {
-        let singleTap = UITapGestureRecognizer(target: self, action: "singleTap:")
-        singleTap.numberOfTapsRequired = 1
-        scrollView.addGestureRecognizer(singleTap)
+            let singleTap = UITapGestureRecognizer(target: self, action: "singleTap:")
+            singleTap.numberOfTapsRequired = 1
+        if groupID == 2.0 {
+            scrollView.addGestureRecognizer(singleTap)
+        }
         
         let doubleTap = UITapGestureRecognizer(target: self, action: "handleDoubleTap:")
         doubleTap.numberOfTapsRequired = 2
@@ -153,10 +156,12 @@ class PaperImageViewController: UIViewController, UIScrollViewDelegate {
                 break
             }
             let splitedArray = space.newspaperTxtHotSpace.componentsSeparatedByString(",")
-            let width = Int(splitedArray[2])! - Int(splitedArray[0])!
-            let height = Int(splitedArray[3])! - Int(splitedArray[1])!
+            let width = Int(Double(splitedArray[2])!) - Int(Double(splitedArray[0])!)
+            let height = Int(Double(splitedArray[3])!) - Int(Double(splitedArray[1])!)
             
-            let rect = CGRect(x: Int(splitedArray[0])!, y: Int(splitedArray[1])!, width: width, height: height)
+            
+            
+            let rect = CGRect(x: Int(Double(splitedArray[0])!), y: Int(Double(splitedArray[1])!), width: width, height: height)
             let onSpace = CGRectContainsPoint(rect, point)
             if onSpace == true {
                 selectHotSpace = space.npNewsID

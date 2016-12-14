@@ -51,9 +51,8 @@ class PaperDetailReadViewController: UIViewController, UITableViewDelegate, UITa
             if title == "个人中心" {
                 alertMessage("通知", message: "请登陆后查看评论！", vc: self)
             } else {
-                alertShareMessage(self) { (type) in
-                    alertShare2(self.newsID, detail: " ", title: self.newsData.rows.first!.npNewsName, sectionID: self.sectionID, image: UIImage(named: "Icon-256"), type: type)
-                }
+                getShareURL()
+                
             }
         }
         
@@ -133,7 +132,6 @@ class PaperDetailReadViewController: UIViewController, UITableViewDelegate, UITa
                 return
             }
             self.newsData = PaperRoot(fromDictionary: dictionary!)
-            print(self.newsData.rows.first)
             if self.newsData.rows.first?.npNewsImg != "" {
                 let images = self.newsData.rows.first?.npNewsImg
                 if images == nil {
@@ -147,6 +145,19 @@ class PaperDetailReadViewController: UIViewController, UITableViewDelegate, UITa
         }
     }
     
+    //获取分享域名
+    func getShareURL() {
+        NetworkHealper.Get.receiveString(URLHealper.getPaperShareURL.introduce()) { (str, error) in
+            guard error == nil else {
+                alertMessage("提示", message: "分享失败，请重试！", vc: self)
+                return
+            }
+            let url = str
+            alertShareMessage(self) { (type) in
+                alertShare2(self.newsID, detail: " ", title: self.newsData.rows.first!.npNewsName, sectionID: self.sectionID, image: UIImage(named: "Icon-256"), type: type, baseURL: url!)
+            }
+        }
+    }
 
     
 

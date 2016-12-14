@@ -64,7 +64,7 @@ class ListenPlayViewController: UIViewController, ChapterSelectDelegate {
         //是否已加入书架
         if self.listenData.isOnShelf == "1" {
             self.addShelfButton.selected = true
-            self.addShelfButton.setImage(UIImage(named: "readDetail_onShelf_gray"), forState: .Selected)
+            self.addShelfButton.setImage(UIImage(named: "listen_onMyShelf"), forState: .Selected)
         }
         self.listenPlay(baseURl + listenData.dirList[index].audioUrl)
         
@@ -371,7 +371,7 @@ class ListenPlayViewController: UIViewController, ChapterSelectDelegate {
             if let flag = dictionary!["flag"] as? Int {
                 if flag == 1 {
                     self.addShelfButton.selected = true
-                    self.addShelfButton.setImage(UIImage(named: "readDetail_onShelf_gray"), forState: UIControlState.Selected)
+                    self.addShelfButton.setImage(UIImage(named: "listen_onMyShelf"), forState: UIControlState.Selected)
                 } else {
                     print("添加未成功")
                 }

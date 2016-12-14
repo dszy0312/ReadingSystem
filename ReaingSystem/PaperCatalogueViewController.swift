@@ -24,6 +24,8 @@ class PaperCatalogueViewController: UIViewController, UICollectionViewDelegate, 
     
     //选中文章ID
     var selectID = ""
+    //banmianID
+    var sectionID = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +43,7 @@ class PaperCatalogueViewController: UIViewController, UICollectionViewDelegate, 
         if segue.identifier == reuseIdentifier[2] {
             let toVC = segue.destinationViewController as! PaperDetailReadViewController
             toVC.newsID = selectID
+            toVC.sectionID = sectionID
         }
     }
     
@@ -74,6 +77,7 @@ class PaperCatalogueViewController: UIViewController, UICollectionViewDelegate, 
     // delegate
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         selectID = paperMainRow[indexPath.section].hotSpaceList[indexPath.row].npNewsID
+        sectionID = paperMainRow[indexPath.section].newspaperImgID
         self.performSegueWithIdentifier(reuseIdentifier[2], sender: self)
         
     }

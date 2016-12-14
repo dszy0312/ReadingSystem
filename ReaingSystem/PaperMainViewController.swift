@@ -42,6 +42,7 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
             editionButton.setTitle(currentEdition, forState: .Normal)
         }
     }
+    var groupID: Float!
     
     //版面选择
     var selectedIndex: Int! {
@@ -58,6 +59,8 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        groupID = NSUserDefaults.standardUserDefaults().floatForKey("groupID")
         
         getNetworkData("")
         
@@ -156,21 +159,34 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
     }
     //目录按钮
     @IBAction func CatalogueShowClick(sender: UIButton) {
-        
-        if sender.tag == 0 {
+        print(groupID)
+        if groupID == 1.0 {
             startTime()
-            sender.tag == 1
-            viewLocationManage(3)
-            self.currentEdition = editionButton.currentTitle!
-            self.editionButton.setTitle("版面", forState: .Normal)
-            self.editionButton.setTitleColor(UIColor.defaultColor(), forState: .Normal)
-            self.catalogueButton.setTitleColor(UIColor.mainColor(), forState: .Normal)
+            viewLocationManage(1)
+            self.editionButton.setTitle(currentEdition, forState: .Normal)
+            alertMessage("提示", message: "请前往当地邮局订阅联合日报!", vc: self)
+        } else {
+            if sender.tag == 0 {
+                startTime()
+                sender.tag == 1
+                viewLocationManage(3)
+                self.currentEdition = editionButton.currentTitle!
+                self.editionButton.setTitle("版面", forState: .Normal)
+                self.editionButton.setTitleColor(UIColor.defaultColor(), forState: .Normal)
+                self.catalogueButton.setTitleColor(UIColor.mainColor(), forState: .Normal)
+            }
+            
         }
+        
         
     }
     
     @IBAction func searchClick(sender: UIButton) {
-        self.performSegueWithIdentifier(reuseIdentifier[2], sender: self)
+        if groupID == 2.0 {
+            self.performSegueWithIdentifier(reuseIdentifier[2], sender: self)
+        } else {
+            alertMessage("提示", message: "请前往当地邮局订阅联合日报!", vc: self)
+        }
     }
     
     
@@ -233,7 +249,6 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
                 print(error)
                 return
             }
-            print(dictionary)
             self.paperMainRow = []
             let editionRoot = PaperMainRoot(fromDictionary: dictionary!)
             self.paperMainRow.appendContentsOf(editionRoot.data)
@@ -318,6 +333,4 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
         }
         endTime()
     }
-
-
 }

@@ -76,8 +76,8 @@ class PersonalTabBar: UIView {
             }
             break
         case 3:
-            if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
-                if title == "个人中心" {
+            let groupID = NSUserDefaults.standardUserDefaults().floatForKey("groupID")
+                if groupID == 0.0 {
                     delegate!.loginAlert()
                     return
                 } else {
@@ -90,8 +90,6 @@ class PersonalTabBar: UIView {
                     }
                     
                 }
-            }
-
             break
         case 4:
             if numberArray[4] {

@@ -231,7 +231,6 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("TitleCell", forIndexPath: indexPath) as! SelectingTitleCollectionViewCell
-        cell.titleName.text = "测试"
         if classifyData?.count != 0 {
             cell.setData(classifyData![indexPath.row])
         }

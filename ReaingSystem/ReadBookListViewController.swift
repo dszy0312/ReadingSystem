@@ -9,12 +9,18 @@
 import UIKit
 import RealmSwift
 
+protocol MyShelfListDismissDelegate {
+    func didDismiss()
+}
+
 class ReadBookListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     //列表数据
     var bookListData: BookListBook!
     @IBOutlet weak var waitingView: WaitingView!
+    //返回提醒代理
+    var dismissDelegate: MyShelfListDismissDelegate!
     
     //数据数组
     var listArray: [BookListData] = []
@@ -36,6 +42,7 @@ class ReadBookListViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func backClick(sender: UIButton) {
+        dismissDelegate.didDismiss()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     

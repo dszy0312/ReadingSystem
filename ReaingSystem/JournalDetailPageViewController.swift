@@ -11,7 +11,7 @@ import UIKit
 class JournalDetailPageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
 
     //期刊数据
-    var detailData: JournalDetailRow! {
+    var detailData: JournalDetailRoot! {
         didSet {
             if let firstVC = self.viewControllersAtIndex(0) {
                 self.setViewControllers([firstVC], direction: .Forward, animated: false, completion: nil)
@@ -63,7 +63,7 @@ class JournalDetailPageViewController: UIPageViewController, UIPageViewControlle
             return nil
         }
         
-        if index == Int(detailData.isPageCount)! - 1 {
+        if index == detailData.data.count - 1 {
             return nil
         } else {
             index += 1
@@ -87,11 +87,11 @@ class JournalDetailPageViewController: UIPageViewController, UIPageViewControlle
         let storyboard = UIStoryboard.init(name: "Journal", bundle: NSBundle.mainBundle())
         
         let imagesVC = storyboard.instantiateViewControllerWithIdentifier("JournalImageViewController") as? JournalImageViewController
-        if Int(detailData.isPageCount)! == 0 || index == Int(detailData.isPageCount)! {
+        if detailData.data.count == 0 || index == detailData.data.count {
             return nil
         } else {
             imagesVC?.customIndex = index
-            imagesVC?.imageURL = "\(baseURl)\(detailData.isContentPath)\(index + 1).jpg"
+            imagesVC?.imageURL = "\(baseURl)\(detailData.data[index])"
             return imagesVC
             
         }

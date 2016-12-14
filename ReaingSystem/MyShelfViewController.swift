@@ -10,9 +10,10 @@ import UIKit
 import Alamofire
 import RealmSwift
 
+
 private var reuseIdentifier = ["ListSegue","DeleteSegue", "testSegue", "BookCell", "ListenCell", "SelectCell"]
 
-class MyShelfViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DeleteMyShelfDelegate, MyShelfBarDelegate, ReadedBookSelectDelegate {
+class MyShelfViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DeleteMyShelfDelegate, MyShelfBarDelegate, ReadedBookSelectDelegate, MyShelfListDismissDelegate {
     
 
     @IBOutlet weak var titleBarView: UIView!
@@ -83,8 +84,8 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
             let newVC = segue.destinationViewController as! ReadBookListViewController
             newVC.transitioningDelegate = transitionDelegate
             newVC.modalPresentationStyle = .Custom
+            newVC.dismissDelegate = self
         } else if segue.identifier == reuseIdentifier[1] {
-            
             let newVC = segue.destinationViewController as! DeleteMyShelfViewController
             newVC.transitioningDelegate = deleteTransitionDelegate
             newVC.modalPresentationStyle = .Custom
@@ -328,6 +329,13 @@ class MyShelfViewController: UIViewController, UICollectionViewDelegate, UIColle
         } else {
             alertMessage("提示", message: "数据库读取错误，请重试！", vc: self)
         }
+    }
+    
+    //MyShelfListDismissDelegate
+    func didDismiss() {
+        //网络请求
+        getMyShelf()
+        setImage(personalButton)
     }
 
     //MARK：私有方法

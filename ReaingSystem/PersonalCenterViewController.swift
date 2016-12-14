@@ -50,7 +50,7 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     //标题数组
-    var textArray = ["登陆/注册","清除缓存","意见反馈","关于飞鸟","切换账号","退出账号"]
+    var textArray = ["登陆/注册","清除缓存","意见反馈","关于我们","切换账号","退出账号"]
     // 标题图
     var imageArray = ["center_01","center_02","center_03","center_04","center_05","center_06"]
     
@@ -219,7 +219,7 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
     //颜色渐变设置
     func colorsSet() {
         let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = self.tableBackgroundView.bounds
+        gradientLayer.frame = self.view.bounds
         self.tableBackgroundView.layer.addSublayer(gradientLayer)
         gradientLayer.colors = [UIColor.personalCenter_background_first().CGColor, UIColor.personalCenter_background_second().CGColor]
         
@@ -258,6 +258,8 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
                         books.setValue(0, forKey: "isOnShelf")
                         allBooks.setValue(1, forKey: "readedPage")
                     })
+                    //角色权限降级
+                    NSUserDefaults.standardUserDefaults().setFloat(0.0, forKey: "groupID")
                 } else {
                     alertMessage("系统提示", message: "发送失败，请重试！", vc: self)
                 }

@@ -9,6 +9,7 @@ struct JournalDetailRoot{
 	var flag : Int!
 	var msg : String!
 	var rows : [JournalDetailRow]!
+    var data : [String]!
 
 
 	/**
@@ -17,6 +18,7 @@ struct JournalDetailRoot{
 	init(fromDictionary dictionary: NSDictionary){
 		flag = dictionary["flag"] as? Int
 		msg = dictionary["msg"] as? String
+        data = dictionary["data"] as? [String]
 		rows = [JournalDetailRow]()
 		if let rowsArray = dictionary["rows"] as? [NSDictionary]{
 			for dic in rowsArray{

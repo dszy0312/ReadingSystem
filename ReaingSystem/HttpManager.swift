@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 import UIKit
 //后台总地址
-let baseURl = "http://lh.sdlq.org/"
+let baseURl = "http://app.lhwww.cn/"
 
 enum NetworkHealper {
     case Get
@@ -18,6 +18,7 @@ enum NetworkHealper {
     //登陆注册专用
     case GetWithParm2
     case Post
+    case PostWithURL
     case GetTest
     case GetTestWithParm
     
@@ -64,6 +65,7 @@ enum NetworkHealper {
                             dic = jsonDic
                         } else {
                             print("数据获取失败")
+                            error = "数据获取失败"
                         }
                     }
                     
@@ -111,6 +113,25 @@ enum NetworkHealper {
                 }
                 completion(dic, error)
             })
+        case .PostWithURL:
+            Alamofire.request(.POST, url, parameters: parameter, encoding: .URLEncodedInURL).responseJSON(completionHandler: { (response) in
+                
+                switch response.result {
+                case .Success:
+                    //确保返回值是一个json字符串，并能转换成NSDictionary
+                    guard let jsonDic = response.result.value as? NSDictionary else {
+                        error = "不是一个json字符串"
+                        completion(dic, error)
+                        return
+                    }
+                    dic = jsonDic
+                    
+                case .Failure(let _):
+                    error = "服务器出错"
+                }
+                completion(dic, error)
+            })
+
         case .GetTest:
             Alamofire.request(.GET, url).responseData(completionHandler: { (response) in
                 let str = NSString(data: response.result.value!, encoding: NSUTF8StringEncoding)
@@ -124,6 +145,25 @@ enum NetworkHealper {
                 completion(dic, error)
             })
             
+        default:
+            break
+        }
+    }
+    //获取字符串
+    func receiveString(url: String, completion: (String?, String?) -> Void) {
+        var error: String?
+        var str: String?
+        switch self {
+        case .Get:
+            Alamofire.request(.GET, url).responseString { (response) in
+                switch response.result {
+                case .Success:
+                    str = response.result.value
+                case .Failure(let e):
+                    error = "服务器出错"
+                }
+                completion(str, error)
+            }
         default:
             break
         }
