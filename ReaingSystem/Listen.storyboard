@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="wdf-sO-VTK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="wdf-sO-VTK">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -205,7 +205,7 @@
         <scene sceneID="aO2-Hr-La8">
             <objects>
                 <collectionViewController storyboardIdentifier="Category" id="5aU-aB-GS1" customClass="ListenCategoryCollectionViewController" customModule="ReaingSystem" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="JUj-RU-mDx">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="JUj-RU-mDx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -317,7 +317,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hpc-YG-RBG">
-                                        <rect key="frame" x="173" y="31" width="31" height="22"/>
+                                        <rect key="frame" x="172" y="31" width="31" height="22"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -474,7 +474,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yM7-gJ-5Vg">
-                                        <rect key="frame" x="250" y="0.0" width="125" height="49"/>
+                                        <rect key="frame" x="250" y="3" width="125" height="46"/>
                                         <state key="normal" image="readDetail_share">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -490,7 +490,7 @@
                                     <constraint firstItem="JLj-X9-M76" firstAttribute="leading" secondItem="ElV-cE-rYb" secondAttribute="trailing" id="J2s-Ru-W6M"/>
                                     <constraint firstAttribute="bottom" secondItem="ElV-cE-rYb" secondAttribute="bottom" id="LdH-su-kUg"/>
                                     <constraint firstItem="ElV-cE-rYb" firstAttribute="top" secondItem="ww2-kS-jqb" secondAttribute="top" id="NiM-9n-Grp"/>
-                                    <constraint firstItem="yM7-gJ-5Vg" firstAttribute="top" secondItem="ww2-kS-jqb" secondAttribute="top" id="QGm-fZ-nzS"/>
+                                    <constraint firstItem="yM7-gJ-5Vg" firstAttribute="top" secondItem="ww2-kS-jqb" secondAttribute="top" constant="3" id="QGm-fZ-nzS"/>
                                     <constraint firstItem="JLj-X9-M76" firstAttribute="width" secondItem="ElV-cE-rYb" secondAttribute="width" id="Rdm-Gu-hca"/>
                                     <constraint firstItem="ElV-cE-rYb" firstAttribute="leading" secondItem="ww2-kS-jqb" secondAttribute="leading" id="c33-uC-cNv"/>
                                     <constraint firstItem="JLj-X9-M76" firstAttribute="top" secondItem="ww2-kS-jqb" secondAttribute="top" id="chs-rT-wkn"/>
@@ -713,7 +713,7 @@
                                 </constraints>
                             </view>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vf0-er-pyG">
-                                <rect key="frame" x="70" y="389.5" width="238" height="1"/>
+                                <rect key="frame" x="70" y="390" width="238" height="1"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="3f5-xs-vRd"/>
                                 </constraints>
@@ -721,7 +721,7 @@
                                 <color key="trackTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </progressView>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="gAv-Ru-COh">
-                                <rect key="frame" x="68" y="374" width="242" height="31"/>
+                                <rect key="frame" x="68" y="375" width="242" height="31"/>
                                 <color key="minimumTrackTintColor" red="0.4181046155" green="0.62975897140000003" blue="0.78406168980000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="maximumTrackTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="thumbTintColor" red="0.4181046155" green="0.62975897140000003" blue="0.78406168980000002" alpha="1" colorSpace="calibratedRGB"/>

@@ -11,6 +11,8 @@
 		64851D171DE3F29C006D5386 /* MyShelfRmData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64851D161DE3F29C006D5386 /* MyShelfRmData.swift */; };
 		64851D231DE412F9006D5386 /* MyShelfDataRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64851D211DE412F9006D5386 /* MyShelfDataRoot.swift */; };
 		64851D241DE412F9006D5386 /* MyShelfDataRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64851D221DE412F9006D5386 /* MyShelfDataRow.swift */; };
+		6499A9811E0154F300095BBE /* welcome.png in Resources */ = {isa = PBXBuildFile; fileRef = 6499A9801E0154F300095BBE /* welcome.png */; };
+		6499A9831E0154FD00095BBE /* welcoming.png in Resources */ = {isa = PBXBuildFile; fileRef = 6499A9821E0154FD00095BBE /* welcoming.png */; };
 		64B36BF31DF6A91300B55F83 /* AdviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B36BF21DF6A91300B55F83 /* AdviceViewController.swift */; };
 		64B36BF51DF7B78300B55F83 /* ListenPlayCatalogueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B36BF41DF7B78300B55F83 /* ListenPlayCatalogueViewController.swift */; };
 		64B36BF71DF7BD4100B55F83 /* ListenPlayCatalogueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B36BF61DF7BD4100B55F83 /* ListenPlayCatalogueTableViewCell.swift */; };
@@ -318,6 +320,8 @@
 		64851D161DE3F29C006D5386 /* MyShelfRmData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyShelfRmData.swift; sourceTree = "<group>"; };
 		64851D211DE412F9006D5386 /* MyShelfDataRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyShelfDataRoot.swift; sourceTree = "<group>"; };
 		64851D221DE412F9006D5386 /* MyShelfDataRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyShelfDataRow.swift; sourceTree = "<group>"; };
+		6499A9801E0154F300095BBE /* welcome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = welcome.png; sourceTree = "<group>"; };
+		6499A9821E0154FD00095BBE /* welcoming.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = welcoming.png; sourceTree = "<group>"; };
 		64B36BF21DF6A91300B55F83 /* AdviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdviceViewController.swift; sourceTree = "<group>"; };
 		64B36BF41DF7B78300B55F83 /* ListenPlayCatalogueViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenPlayCatalogueViewController.swift; sourceTree = "<group>"; };
 		64B36BF61DF7BD4100B55F83 /* ListenPlayCatalogueTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListenPlayCatalogueTableViewCell.swift; sourceTree = "<group>"; };
@@ -656,6 +660,15 @@
 				64851D221DE412F9006D5386 /* MyShelfDataRow.swift */,
 			);
 			name = download;
+			sourceTree = "<group>";
+		};
+		6499A97B1E01547F00095BBE /* launchImages */ = {
+			isa = PBXGroup;
+			children = (
+				6499A9801E0154F300095BBE /* welcome.png */,
+				6499A9821E0154FD00095BBE /* welcoming.png */,
+			);
+			name = launchImages;
 			sourceTree = "<group>";
 		};
 		9663EC35616749F0FDA967E9 /* Frameworks */ = {
@@ -1481,6 +1494,7 @@
 		98EE33AB1D65ADFD00FD2CC3 /* healper */ = {
 			isa = PBXGroup;
 			children = (
+				6499A97B1E01547F00095BBE /* launchImages */,
 				989099E71DB768F800855063 /* test3.txt */,
 				64B36C0A1DF8294600B55F83 /* simli.ttf */,
 				64B36C021DF800B200B55F83 /* simhei.ttf */,
@@ -1590,6 +1604,7 @@
 			files = (
 				64B36C051DF800B200B55F83 /* simhei.ttf in Resources */,
 				9879FB401DA3ED38000B356F /* read_me.txt in Resources */,
+				6499A9831E0154FD00095BBE /* welcoming.png in Resources */,
 				64B36C0B1DF8294600B55F83 /* simli.ttf in Resources */,
 				64B36C061DF800B200B55F83 /* simsun.ttf in Resources */,
 				98E872511D8E969C002783B9 /* ReadDetail.storyboard in Resources */,
@@ -1608,6 +1623,7 @@
 				98123DB51D78243100F416EA /* Journal.storyboard in Resources */,
 				98EFAF0F1DDE82020068D9C8 /* RefreshContents.xib in Resources */,
 				9879FB391DA3ED38000B356F /* ShareSDKUI.bundle in Resources */,
+				6499A9811E0154F300095BBE /* welcome.png in Resources */,
 				988958911DA7AB110072CE9D /* WaitingView.xib in Resources */,
 				98B1EAEB1D4EF34C00DD494A /* Paper.storyboard in Resources */,
 				98B1EAED1D4EF35900DD494A /* Find.storyboard in Resources */,
@@ -1652,7 +1668,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		98B39B4E1DD2C50F00DCB62D /* ShellScript */ = {
@@ -1990,7 +2006,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -2031,7 +2047,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

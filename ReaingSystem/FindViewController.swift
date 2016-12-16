@@ -16,6 +16,9 @@ class FindViewController: UIViewController, UICollectionViewDelegate, UICollecti
     @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var personalButton: UIButton!
+    
+    @IBOutlet weak var waitingView: WaitingView!
+    
     //小说数据
     var readData: [FindRow] = []
     //听书数据
@@ -32,8 +35,15 @@ class FindViewController: UIViewController, UICollectionViewDelegate, UICollecti
         collectionView.delegate = self
         collectionView.dataSource = self
         getNetworkData()
+        self.view.bringSubviewToFront(self.waitingView)
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.waitingView.addLayer()
+        self.waitingView.begin()
+    }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -227,7 +237,9 @@ class FindViewController: UIViewController, UICollectionViewDelegate, UICollecti
             self.listenData.appendContentsOf(findRoot.data)
             self.journalData.appendContentsOf(findRoot.data2)
             self.collectionView.reloadData()
-
+            
+            self.waitingView.end()
+            self.view.sendSubviewToBack(self.waitingView)
         }
         
         

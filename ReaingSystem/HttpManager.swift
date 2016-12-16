@@ -255,7 +255,6 @@ enum NetworkHealper {
                 }
                 completion(dic, err)
             }).progress({ (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
-                print(totalBytesRead)
                 //刷新进度条。
                 let percent = Float(totalBytesRead) / Float(totalBytesExpectedToRead)
                 progress(CGFloat(percent))

@@ -16,6 +16,7 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var personalButton: UIButton!
+    @IBOutlet weak var waitingView: WaitingView!
     
     
     //分类页面数据
@@ -36,7 +37,13 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
+        self.view.bringSubviewToFront(waitingView)
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.waitingView.addLayer()
+        self.waitingView.begin()
     }
 
     override func didReceiveMemoryWarning() {
@@ -167,6 +174,9 @@ class CategoryViewController: UIViewController, UICollectionViewDelegate, UIColl
                 self.formatData(datas)
             }
             self.collectionView?.reloadData()
+            
+            self.waitingView.end()
+            self.view.sendSubviewToBack(self.waitingView)
             
         }
     }

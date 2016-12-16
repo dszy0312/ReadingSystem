@@ -24,8 +24,8 @@ class CommentViewController: UIViewController, JavaScriptMethodProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let requestString: String = "http://lh.sdlq.org/predemo/index.html?bookID=\(bookID)&bookType=\(bookType)"
+        print(bookID)
+        let requestString: String = "\(baseURl)predemo/index.html?bookID=\(bookID)&bookType=\(bookType)"
         let requestURL: NSURL = NSURL(string: requestString)!
         let request: NSURLRequest = NSURLRequest(URL: requestURL)
         webView?.loadRequest(request)

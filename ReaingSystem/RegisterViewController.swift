@@ -12,16 +12,18 @@ private var reuserIdentifier = ["registerSuccessSegue", "reuserIdentifier"]
 
 class RegisterViewController: UIViewController, UITextFieldDelegate {
     
-    
+    //用户名
     @IBOutlet weak var usernameTF: UITextField!
-    
+    //验证码输入框
     @IBOutlet weak var YZMTF: UITextField!
-    
+    //密码输入框
     @IBOutlet weak var passwordTF: UITextField!
-
+    //密码确认框
     @IBOutlet weak var rPasswordTF: UITextField!
     
-    @IBOutlet weak var YZMButton: UIButton!
+    @IBOutlet weak var YZMButton: UILabel!
+    
+    @IBOutlet weak var YZMRealButton: UIButton!
     
     
     //验证码
@@ -75,7 +77,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             alertMessage("系统提示", message: "请填写正确的手机号！", vc: self)
             return
         }
-        if sender.titleLabel?.text == "验证码" {
+        if YZMButton.text == "验证码" {
+            YZMRealButton.selected = false
             getYZM(usernameTF.text!)
             
         }
@@ -111,21 +114,22 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     }
     func endTime() {
         if timer != nil {
+            self.YZMRealButton.selected = true
             timer.invalidate()
             self.timer = nil
             self.YZMButton.alpha = 1
-            self.YZMButton.setTitle("验证码", forState: UIControlState.Normal)
+            self.YZMButton.text = "验证码"
             self.time = 60
         }
     }
-    //移动图片位置
+    //时间切换
     @objc private func exchange() {
         guard time > 0 else {
             endTime()
             return
         }
         time -= 1
-        self.YZMButton.setTitle("\(time)秒", forState: UIControlState.Normal)
+        self.YZMButton.text = "\(time)秒"
     }
 
     
@@ -145,13 +149,11 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                 if flag == 1 {
                     self.YZM = dictionary!["msg"] as! String
                     self.YZMButton.alpha = 0.5
-                    self.YZMButton.setTitle("\(self.time)秒", forState: UIControlState.Normal)
+                    self.YZMButton.text = "\(self.time)秒"
                     self.startTime()
                 } else {
-                    if let msg = dictionary!["msg"] as? String {
-                        alertMessage("系统提示", message: msg, vc: self)
-                    }
-                    print("发送失败")
+                    alertMessage("系统提示", message: "验证失败，请重试！", vc: self)
+                    self.YZMRealButton.selected = true
                 }
             }
         }
@@ -198,14 +200,5 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         NSUserDefaults.standardUserDefaults().setObject(icon, forKey: "userImage")
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

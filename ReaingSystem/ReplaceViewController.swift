@@ -18,7 +18,8 @@ class ReplaceViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var rPasswordTF: UITextField!
     
-    @IBOutlet weak var YZMButton: UIButton!
+    @IBOutlet weak var YZMLabel: UILabel!
+    @IBOutlet weak var YZMRealButton: UIButton!
     
     //验证码
     var YZM = ""
@@ -54,9 +55,13 @@ class ReplaceViewController: UIViewController, UITextFieldDelegate {
             alertMessage("系统提示", message: "手机号不能为空！", vc: self)
             return
         }
-        if sender.titleLabel?.text == "验证码" {
-            sender.alpha = 0.5
-            sender.setTitle("\(time)秒", forState: UIControlState.Normal)
+        guard usernameTF.text?.characters.count == 11 else {
+            alertMessage("系统提示", message: "请填写正确的手机号！", vc: self)
+            return
+        }
+        if YZMLabel.text == "验证码" {
+            YZMRealButton.selected = false
+            YZMLabel.alpha = 0.5
             startTime()
             getYZM(usernameTF.text!)
         }
@@ -97,19 +102,19 @@ class ReplaceViewController: UIViewController, UITextFieldDelegate {
         if timer != nil {
             timer.invalidate()
             self.timer = nil
-            self.YZMButton.alpha = 1
-            self.YZMButton.setTitle("验证码", forState: UIControlState.Normal)
+            self.YZMLabel.alpha = 1
+            self.YZMLabel.text = "验证码"
             self.time = 60
         }
     }
-    //移动图片位置
+    //时间切换
     @objc private func exchange() {
         guard time > 0 else {
             endTime()
             return
         }
         time -= 1
-        self.YZMButton.setTitle("\(time)秒", forState: UIControlState.Normal)
+        self.YZMLabel.text = "\(time)秒"
     }
     //textFieldDelegate
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -128,7 +133,8 @@ class ReplaceViewController: UIViewController, UITextFieldDelegate {
         NetworkHealper.GetWithParm2.receiveJSON(URLHealper.getYZHM.introduce(), parameter: ["mobile": username]) { (dictionary, error) in
             //查询错误
             guard error == nil else {
-                print(error)
+                alertMessage("系统提示", message: "发送失败，请重试！", vc: self)
+                self.YZMRealButton.selected = true
                 return
             }
             
@@ -136,8 +142,12 @@ class ReplaceViewController: UIViewController, UITextFieldDelegate {
                 print(flag)
                 if flag == 1 {
                     self.YZM = dictionary!["msg"] as! String
+                    self.YZMLabel.alpha = 0.5
+                    self.YZMLabel.text = "\(self.time)秒"
+                    self.startTime()
                 } else {
-                    alertMessage("系统提示", message: "发送失败，请重试！", vc: self)
+                    alertMessage("系统提示", message: "验证失败，请重试！", vc: self)
+                    self.YZMRealButton.selected = true
                 }
             }
 

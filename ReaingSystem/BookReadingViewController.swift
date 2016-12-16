@@ -133,8 +133,6 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
             return index
         }
         set {
-//            updatePage()
-            print(dayIndex)
             self.nightOrDaySet(dayIndex)
         }
     }
@@ -143,11 +141,7 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     var readData: StoryReadRoot!
     
     //书籍目录
-    var catalogue: [SummaryRow]! {
-        didSet {
-            print(catalogue)
-        }
-    }
+    var catalogue: [SummaryRow]! 
     //选中的章节
     var selectedChapter: Int = 0
     //是否为夜间模式

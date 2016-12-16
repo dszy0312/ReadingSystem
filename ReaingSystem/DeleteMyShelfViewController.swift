@@ -54,7 +54,6 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
-        print(collectionView.contentOffset)
         
         //下载、删除按钮设置
         self.buttonInit()
@@ -71,6 +70,13 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
     @IBAction func selectAllClick(sender: UIButton) {
         self.contentOffset = collectionView.contentOffset
         isSelectAll = true
+        index?.removeAll()
+        if myBooks != nil {
+            for i in 0..<myBooks!.count {
+                index?.insert(i + 1)
+            }
+            print(index)
+        }
     }
     //取消
     @IBAction func cancelClick(sender: UIButton) {
@@ -113,6 +119,8 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
         if indexPath.row == 0 {
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier[2], forIndexPath: indexPath) as! MyShelfBarCollectionViewCell
             cell.customDelegate = self
+            cell.downloadButton.alpha = 0
+            cell.deleteButton.alpha = 0
             return cell
             
         } else if indexPath.row == myBooks!.count + 1 {
@@ -263,7 +271,7 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
         }
         NetworkHealper.Post.receiveJSON(URLHealper.removeBookFromShelf.introduce(), parameter: ["bookIDList": arr]) { (dictionary, error) in
             guard error == nil else {
-                print(error)
+                alertMessage("系统提示", message: "\(error)", vc: self)
                 return
             }
             if let flag = dictionary!["flag"] as? Int {
@@ -297,7 +305,7 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
         }
     }
     
-    //删除书籍请求
+    //删除听书请求
     func deleteListenSend() {
         var arr: [String] = []
         for foo in index! {
@@ -305,7 +313,7 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
         }
         NetworkHealper.Post.receiveJSON(URLHealper.removeBookFromShelf.introduce(), parameter: ["bookIDList": arr]) { (dictionary, error) in
             guard error == nil else {
-                print(error)
+                alertMessage("系统提示", message: "\(error)", vc: self)
                 return
             }
             if let flag = dictionary!["flag"] as? Int {

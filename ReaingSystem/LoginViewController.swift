@@ -31,6 +31,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
         usernameTF.delegate = self
         passwordTF.delegate = self
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTap(_:)))
+        self.view.addGestureRecognizer(tap)
+        
 //        transitionDelegate.animationTransition.pointFrame =
         // Do any additional setup after loading the view.
     }
@@ -184,6 +188,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 }
             }
         }
+    }
+    
+    //点击监听
+    func didTap(tap: UITapGestureRecognizer) {
+        usernameTF.resignFirstResponder()
+        passwordTF.resignFirstResponder()
     }
 
     

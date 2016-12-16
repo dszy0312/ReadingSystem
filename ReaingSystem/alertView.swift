@@ -37,8 +37,8 @@ func alertShareMessage(vc: UIViewController, completion: (SSDKPlatformType) -> V
 //
 func alertShare(id: String, name: String, author: String, image: UIImage?, shareType: String,from: String, type: SSDKPlatformType) {
     let shareParames = NSMutableDictionary()
-    shareParames.SSDKSetupShareParamsByText("\n\(author)", images:image, url: NSURL(string: "http://app.lhwww.cn/ShareContent/index.html?id=\(id)&shareType=\(shareType)&type=\(from)"), title: name, type: SSDKContentType.WebPage)
-    shareParames.SSDKSetupSinaWeiboShareParamsByText("\(name)http://app.lhwww.cn/ShareContent/index.html?id=\(id)&shareType=\(shareType)&type=\(from)", title: author, image: image, url: NSURL(string: "http://app.lhwww.cn/ShareContent/index.html?id=\(id)&shareType=\(shareType)&type=\(from)"), latitude: 0, longitude: 0, objectID: nil, type: SSDKContentType.Auto)
+    shareParames.SSDKSetupShareParamsByText("\n\(author)", images:image, url: NSURL(string: "\(baseURl)ShareContent/index.html?id=\(id)&shareType=\(shareType)&type=\(from)"), title: name, type: SSDKContentType.WebPage)
+    shareParames.SSDKSetupSinaWeiboShareParamsByText("\(name)\(baseURl)ShareContent/index.html?id=\(id)&shareType=\(shareType)&type=\(from)", title: author, image: image, url: NSURL(string: "\(baseURl)ShareContent/index.html?id=\(id)&shareType=\(shareType)&type=\(from)"), latitude: 0, longitude: 0, objectID: nil, type: SSDKContentType.Auto)
     ShareSDK.share(type, parameters: shareParames) { (states, nil, entity, error) in
         switch states {
         case SSDKResponseState.Success: print("分享成功")

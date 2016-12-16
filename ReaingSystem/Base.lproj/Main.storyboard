@@ -374,14 +374,26 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="验证码" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TqE-cp-HCZ">
+                                        <rect key="frame" x="295.5" y="16.5" width="61" height="30"/>
+                                        <color key="backgroundColor" red="0.4181046155" green="0.62975897140000003" blue="0.78406168980000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EEH-at-eZv">
                                         <rect key="frame" x="296" y="16" width="61" height="30"/>
-                                        <color key="backgroundColor" red="0.27843137254901962" green="0.54117647058823526" blue="0.75294117647058822" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="x4n-ua-aQd"/>
                                             <constraint firstAttribute="width" constant="61" id="zZ7-Sa-0ps"/>
                                         </constraints>
-                                        <state key="normal" title="验证码">
+                                        <state key="normal">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -396,14 +408,18 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="TqE-cp-HCZ" firstAttribute="centerY" secondItem="EEH-at-eZv" secondAttribute="centerY" id="2M6-kD-5Ul"/>
                                     <constraint firstItem="suo-CE-kIt" firstAttribute="centerY" secondItem="8Jl-zc-iQs" secondAttribute="centerY" id="61x-Et-e1d"/>
                                     <constraint firstItem="i5n-U6-kBE" firstAttribute="centerY" secondItem="8Jl-zc-iQs" secondAttribute="centerY" id="ADm-ty-uzM"/>
                                     <constraint firstItem="EEH-at-eZv" firstAttribute="centerY" secondItem="8Jl-zc-iQs" secondAttribute="centerY" id="HAC-OS-DVX"/>
                                     <constraint firstAttribute="height" constant="62" id="K6W-d9-dpm"/>
+                                    <constraint firstItem="TqE-cp-HCZ" firstAttribute="centerX" secondItem="EEH-at-eZv" secondAttribute="centerX" id="KvJ-Vh-yhR"/>
                                     <constraint firstItem="i5n-U6-kBE" firstAttribute="leading" secondItem="suo-CE-kIt" secondAttribute="trailing" constant="10" id="Kx6-8F-Iis"/>
                                     <constraint firstItem="EEH-at-eZv" firstAttribute="leading" secondItem="i5n-U6-kBE" secondAttribute="trailing" constant="10" id="Olq-Vc-dAh"/>
                                     <constraint firstItem="suo-CE-kIt" firstAttribute="leading" secondItem="8Jl-zc-iQs" secondAttribute="leading" constant="14" id="p9a-Su-bWv"/>
                                     <constraint firstAttribute="trailing" secondItem="EEH-at-eZv" secondAttribute="trailing" constant="18" id="rg3-3z-lIX"/>
+                                    <constraint firstItem="TqE-cp-HCZ" firstAttribute="height" secondItem="EEH-at-eZv" secondAttribute="height" id="yPF-TS-sWP"/>
+                                    <constraint firstItem="TqE-cp-HCZ" firstAttribute="width" secondItem="EEH-at-eZv" secondAttribute="width" id="zDz-7s-tL8"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q9j-bE-MhF">
@@ -542,7 +558,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="YZMButton" destination="EEH-at-eZv" id="2cU-vM-Nrp"/>
+                        <outlet property="YZMButton" destination="TqE-cp-HCZ" id="vz5-xF-jkU"/>
+                        <outlet property="YZMRealButton" destination="EEH-at-eZv" id="5Qi-E7-y3C"/>
                         <outlet property="YZMTF" destination="2Kk-Le-Ytk" id="CVC-Df-NRf"/>
                         <outlet property="passwordTF" destination="vn6-6b-4Zd" id="9pe-tg-jzQ"/>
                         <outlet property="rPasswordTF" destination="hGN-ql-1zE" id="bdQ-8c-Pfx"/>
@@ -1353,14 +1370,26 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="验证码" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EXS-2I-Dfh">
+                                        <rect key="frame" x="295.5" y="15.5" width="61" height="30"/>
+                                        <color key="backgroundColor" red="0.4181046155" green="0.62975897140000003" blue="0.78406168980000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rQP-Ee-rVC">
                                         <rect key="frame" x="296" y="16" width="61" height="30"/>
-                                        <color key="backgroundColor" red="0.014873550609999999" green="0.41285213720000002" blue="0.50317708329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="61" id="Pp4-Is-eun"/>
                                             <constraint firstAttribute="height" constant="30" id="S8I-N2-pyn"/>
                                         </constraints>
-                                        <state key="normal" title="验证码">
+                                        <state key="normal">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
@@ -1375,7 +1404,11 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="EXS-2I-Dfh" firstAttribute="centerX" secondItem="rQP-Ee-rVC" secondAttribute="centerX" id="7Kp-mX-MWc"/>
+                                    <constraint firstItem="EXS-2I-Dfh" firstAttribute="height" secondItem="rQP-Ee-rVC" secondAttribute="height" id="8rb-d2-fzx"/>
+                                    <constraint firstItem="EXS-2I-Dfh" firstAttribute="centerY" secondItem="rQP-Ee-rVC" secondAttribute="centerY" id="9E5-bs-6LV"/>
                                     <constraint firstAttribute="height" constant="62" id="AXn-lU-0YD"/>
+                                    <constraint firstItem="EXS-2I-Dfh" firstAttribute="width" secondItem="rQP-Ee-rVC" secondAttribute="width" id="DGr-a6-2Fn"/>
                                     <constraint firstItem="OI5-rd-kf5" firstAttribute="leading" secondItem="HlQ-Jh-OYI" secondAttribute="trailing" constant="10" id="HT8-AR-s1Q"/>
                                     <constraint firstItem="OI5-rd-kf5" firstAttribute="centerY" secondItem="gKX-Zb-2oe" secondAttribute="centerY" id="Nv2-P7-L30"/>
                                     <constraint firstItem="rQP-Ee-rVC" firstAttribute="leading" secondItem="OI5-rd-kf5" secondAttribute="trailing" constant="10" id="Z5A-93-A4o"/>
@@ -1521,7 +1554,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="YZMButton" destination="rQP-Ee-rVC" id="mns-Vh-GUE"/>
+                        <outlet property="YZMLabel" destination="EXS-2I-Dfh" id="tcu-v7-SOC"/>
+                        <outlet property="YZMRealButton" destination="rQP-Ee-rVC" id="gzg-MY-Fyw"/>
                         <outlet property="YZMTF" destination="rcI-UH-hrs" id="tjn-WW-oii"/>
                         <outlet property="passwordTF" destination="PgH-rW-LvN" id="5mi-NZ-L9v"/>
                         <outlet property="rPasswordTF" destination="jIB-nT-TXf" id="Q1G-K6-yVu"/>

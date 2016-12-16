@@ -26,6 +26,5 @@ class DeleteMyShelfCollectionViewCell: UICollectionViewCell {
         }
         bookNameLabel.text = data.bookName
     }
-
     
 }
