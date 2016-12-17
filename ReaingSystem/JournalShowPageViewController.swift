@@ -23,6 +23,8 @@ class JournalShowPageViewController: UIPageViewController, UIPageViewControllerD
     //分类ID数组
     var idArray: [String] = [] {
         didSet {
+            //滑动开关
+            self.view.userInteractionEnabled = true
             if let firstVC = self.viewControllersAtIndex(0) {
                 firstVC.selectedIndex = idArray[0]
                 self.setViewControllers([firstVC], direction: .Forward, animated: false, completion: nil)
@@ -36,6 +38,8 @@ class JournalShowPageViewController: UIPageViewController, UIPageViewControllerD
         super.viewDidLoad()
         dataSource = self
         delegate = self
+        //滑动开关
+        self.view.userInteractionEnabled = false
         // Do any additional setup after loading the view.
     }
     

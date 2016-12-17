@@ -16,6 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var storyBoard: UIStoryboard?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        let infoDictionary = NSBundle.mainBundle().infoDictionary
+        let minorVersion :AnyObject? = infoDictionary! ["CFBundleShortVersionString"]
+        print("版本号\(minorVersion)")
 
         UIApplication.sharedApplication().statusBarHidden = true
         let realm = try! Realm()
@@ -51,14 +54,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //登陆角色级别
         NSUserDefaults.standardUserDefaults().registerDefaults(["groupID" : 0])
         //阅读信息持久化
-        NSUserDefaults.standardUserDefaults().setFloat(18, forKey: "textSize")
-        NSUserDefaults.standardUserDefaults().registerDefaults(["backgroundIndex" : 1])
-        //报纸搜索历史记录
-        NSUserDefaults.standardUserDefaults().registerDefaults(["history":[]])
-        NSUserDefaults.standardUserDefaults().registerDefaults(["textTypeIndex" : 1])
-        //小说阅读白天模式or黑夜模式
-        NSUserDefaults.standardUserDefaults().registerDefaults(["dayTypeIndex" : 0])        
-        NSUserDefaults.standardUserDefaults().setInteger(0, forKey: "transitionIndex")
         NSUserDefaults.standardUserDefaults().setInteger(1, forKey: "curPage")
         
         NSUserDefaults.standardUserDefaults().registerDefaults(["isFirstLaunch": true])
@@ -116,9 +111,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
         }
         
-    
-//        UITabBar.appearance().tintColor = UIColor(patternImage: UIImage(named: "shujia_heighLight")!)
-        // Override point for customization after application launch.
         return true
     }
 

@@ -10,10 +10,13 @@ import UIKit
 
 class AboutFlyBirdViewController: UIViewController {
 
+    @IBOutlet weak var versionLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let infoDictionary = NSBundle.mainBundle().infoDictionary
+        let version = infoDictionary! ["CFBundleShortVersionString"] as! String
+        versionLabel.text = "版本号：\(version)"
         // Do any additional setup after loading the view.
     }
 

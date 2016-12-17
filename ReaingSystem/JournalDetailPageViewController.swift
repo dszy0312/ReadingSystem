@@ -13,6 +13,10 @@ class JournalDetailPageViewController: UIPageViewController, UIPageViewControlle
     //期刊数据
     var detailData: JournalDetailRoot! {
         didSet {
+            if detailData.data.count == 0 {
+                self.view.userInteractionEnabled = false
+                print("禁止滑动")
+            }
             if let firstVC = self.viewControllersAtIndex(0) {
                 self.setViewControllers([firstVC], direction: .Forward, animated: false, completion: nil)
             }
