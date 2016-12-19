@@ -196,6 +196,7 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
                 if let toVC = childVC("ReadDetail", vcName: "BookIntroduceViewController") as? BookIntroduceViewController {
                     toVC.selectedBookID = hotListRows[indexPath.row].bookID
                     self.presentViewController(toVC, animated: true, completion: {
+                        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default
                     })
                 }
             } else if hotListRows[indexPath.row].typeID == "0002" {
@@ -204,6 +205,7 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
                     toVC.audioID = hotListRows[indexPath.row].bookID
                     toVC.image = cell.bookImageLabel.image
                     self.presentViewController(toVC, animated: true, completion: {
+                        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default
                     })
                 }
             }

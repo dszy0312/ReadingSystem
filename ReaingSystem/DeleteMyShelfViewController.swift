@@ -75,7 +75,6 @@ class DeleteMyShelfViewController: UIViewController, UICollectionViewDelegate, U
             for i in 0..<myBooks!.count {
                 index?.insert(i + 1)
             }
-            print(index)
         }
     }
     //取消

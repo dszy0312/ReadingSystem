@@ -141,7 +141,6 @@ class PaperSearchViewController: UIViewController, UITableViewDelegate, UITableV
     //scrollViewDelegate
     func scrollViewDidScroll(scrollView: UIScrollView) {
         searchBar.resignFirstResponder()
-        print("ceshi")
     }
     
     

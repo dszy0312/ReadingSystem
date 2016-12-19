@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         let infoDictionary = NSBundle.mainBundle().infoDictionary
         let minorVersion :AnyObject? = infoDictionary! ["CFBundleShortVersionString"]
-        print("版本号\(minorVersion)")
 
         UIApplication.sharedApplication().statusBarHidden = true
         let realm = try! Realm()

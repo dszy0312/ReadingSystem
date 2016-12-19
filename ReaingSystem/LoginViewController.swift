@@ -124,7 +124,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             alertMessage("系统提示", message: "密码不能为空！", vc: self)
             return
         }
-        print(checkUuid())
         loginSend(usernameTF.text!, password: passwordTF.text!, uuid: checkUuid()!)
     }
     
@@ -213,12 +212,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     let d = NSKeyedArchiver.archivedDataWithRootObject(g!)
                     let h = NSKeyedUnarchiver.unarchiveObjectWithData(d)
                     if  let f = NSKeyedUnarchiver.unarchiveObjectWithData(d) as? String {
-                        print(f)
                         var data :NSData = f.dataUsingEncoding(NSUTF8StringEncoding)!
                         var json :NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: UInt(0))) as! NSDictionary
                         if let groupID = json["Group_ID"] as? Float{
                             NSUserDefaults.standardUserDefaults().setFloat(groupID, forKey: "groupID")
-                            print(groupID)
                         }
                     }
                 }
@@ -260,12 +257,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     let d = NSKeyedArchiver.archivedDataWithRootObject(g!)
                     let h = NSKeyedUnarchiver.unarchiveObjectWithData(d)
                     if  let f = NSKeyedUnarchiver.unarchiveObjectWithData(d) as? String {
-                        print(f)
                         var data :NSData = f.dataUsingEncoding(NSUTF8StringEncoding)!
                         var json :NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: UInt(0))) as! NSDictionary
                         if let groupID = json["Group_ID"] as? Float{
                             NSUserDefaults.standardUserDefaults().setFloat(groupID, forKey: "groupID")
-                            print(groupID)
                         }
                     }
                 }

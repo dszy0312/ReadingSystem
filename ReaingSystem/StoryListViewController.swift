@@ -19,11 +19,7 @@ class StoryListViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var tableView: UITableView!
     
     //书籍目录
-    var catalogue: [SummaryRow] = [] {
-        didSet {
-            print(catalogue)
-        }
-    }
+    var catalogue: [SummaryRow] = []
     //选中章节
     var selectedRow: Int!
     //传值代理
@@ -66,12 +62,8 @@ class StoryListViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! SummaryListTableViewCell
         cell.nameLabel.text = catalogue[indexPath.row].chapterName
-        
-        // Configure the cell...
-        
         return cell
     }
-    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.dismissViewControllerAnimated(true) {
             self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
@@ -79,7 +71,4 @@ class StoryListViewController: UIViewController, UITableViewDelegate, UITableVie
             self.sendDelegate.sendID(indexPath.row)
         }
     }
-    
-
-
 }

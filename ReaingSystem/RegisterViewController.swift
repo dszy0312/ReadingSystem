@@ -145,7 +145,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
             }
             
             if let flag = dictionary!["flag"] as? Int {
-                print(flag)
                 if flag == 1 {
                     self.YZM = dictionary!["msg"] as! String
                     self.YZMButton.alpha = 0.5
@@ -174,7 +173,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                     let d = NSKeyedArchiver.archivedDataWithRootObject(g!)
                     let h = NSKeyedUnarchiver.unarchiveObjectWithData(d)
                     if  let f = NSKeyedUnarchiver.unarchiveObjectWithData(d) as? String {
-                        print(f)
                         var data :NSData = f.dataUsingEncoding(NSUTF8StringEncoding)!
                         var json :NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: UInt(0))) as! NSDictionary
                         if let groupID = json["Group_ID"] as? Float{

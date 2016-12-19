@@ -164,7 +164,6 @@ class JournalListViewController: UIViewController, UICollectionViewDelegate, UIC
 
     //网络请求
     func getListData(id: String) {
-        print(id)
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.getJournalList.introduce(), parameter: ["categoryID":id, "pageIndex": 1]) { (dictionary, error) in
             guard error == nil else {
                 print(error)
@@ -182,7 +181,6 @@ class JournalListViewController: UIViewController, UICollectionViewDelegate, UIC
         
     }
     func addListData(id: String, page: Int) {
-        print(id)
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.getJournalList.introduce(), parameter: ["categoryID":id, "pageIndex": page]) { (dictionary, error) in
             guard error == nil else {
                 print(error)

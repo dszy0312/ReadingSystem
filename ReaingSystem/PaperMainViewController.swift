@@ -61,7 +61,6 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
         super.viewDidLoad()
         
         groupID = NSUserDefaults.standardUserDefaults().floatForKey("groupID")
-        
         getNetworkData("")
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTap(_:)))
@@ -88,6 +87,7 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
     }
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        groupID = NSUserDefaults.standardUserDefaults().floatForKey("groupID")
         setImage(personalButton)
         startTime()
     }
@@ -158,8 +158,7 @@ class PaperMainViewController: UIViewController, ChangePaperDataDelegate {
         
     }
     //目录按钮
-    @IBAction func CatalogueShowClick(sender: UIButton) {
-        print(groupID)
+    @IBAction func CatalogueShowClick(sender: UIButton) {        
         if groupID == 1.0 {
             startTime()
             viewLocationManage(1)

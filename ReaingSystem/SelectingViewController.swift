@@ -498,7 +498,6 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
                 return
             }
             let readedAdvice = ReadedAdvice(fromDictionary: dictionary!)
-            print("页数、\(readedAdvice.pageCount)")
             guard readedAdvice.pageCount >= readedAdvice.curPage else {
                 return
             }

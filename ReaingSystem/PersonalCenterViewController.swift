@@ -57,7 +57,6 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
     //本地缓存大小
     var locationSize: String! {
         didSet {
-            print(locationSize)
             let indexPath = NSIndexPath(forRow: 1, inSection: 0)
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! PersonalCenterTableViewCell
             cell.sizeLabel.text = locationSize

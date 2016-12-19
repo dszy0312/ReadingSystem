@@ -151,6 +151,10 @@ class SearchingListViewController: UIViewController, UITableViewDelegate, UITabl
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(animated: Bool) {
+        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+    }
+    
     @IBAction func sequenceClick(sender: UIButton) {
         if sender.tag == 0 {
             sender.tag = 1
@@ -229,17 +233,30 @@ class SearchingListViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let toVC = childVC("ReadDetail", vcName: "BookIntroduceViewController") as? BookIntroduceViewController {
-            toVC.selectedBookID = listRows[indexPath.row].bookID
-            self.presentViewController(toVC, animated: true, completion: {
-                self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
-            })
+        if listRows[indexPath.row].typeID == "0001" {
+            if let toVC = childVC("ReadDetail", vcName: "BookIntroduceViewController") as? BookIntroduceViewController {
+                toVC.selectedBookID = listRows[indexPath.row].bookID
+                self.presentViewController(toVC, animated: true, completion: {
+                    UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default
+                })
+            }
+        } else if listRows[indexPath.row].typeID == "0002" {
+            let cell = tableView.cellForRowAtIndexPath(indexPath) as! SearchingResultTableViewCell
+            if let toVC = childVC("Listen", vcName: "ListenDetail") as? ListenDetailViewController {
+                toVC.audioID = listRows[indexPath.row].bookID
+                toVC.image = cell.bookImgeView.image
+                self.presentViewController(toVC, animated: true, completion: {
+                    UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default
+                })
+            }
         }
+
     }
     
     
     //当数据不足一屏幕是会出错，等待解决
     func scrollViewDidScroll(scrollView: UIScrollView) {
+        searchBar.resignFirstResponder()
         if canLoad == false || loading == true {
             return
         }
@@ -260,6 +277,7 @@ class SearchingListViewController: UIViewController, UITableViewDelegate, UITabl
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         self.getNetworkData(SearchingListClassify.All.introduceID(), order: SearchingListSequence.All.introduceID(), key: self.searchBar.text!)
+        self.searchBar.resignFirstResponder()
     }
 
     
@@ -315,8 +333,8 @@ class SearchingListViewController: UIViewController, UITableViewDelegate, UITabl
                 print(error)
                 return
             }
-            
             self.listData = HotListRoot(fromDictionary: dictionary!)
+            self.listRows = []
             self.listRows.appendContentsOf(self.listData.rows)
             self.decideLoading(self.listRows.count, total: self.listData.totalCount)
             self.tableView.reloadData()
@@ -347,8 +365,6 @@ class SearchingListViewController: UIViewController, UITableViewDelegate, UITabl
             self.decideLoading(self.listRows.count, total: self.listData.totalCount)
             self.footerView.end()
             self.tableView.reloadData()
-            
         }
     }
-    
 }

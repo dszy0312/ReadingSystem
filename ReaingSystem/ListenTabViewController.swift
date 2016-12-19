@@ -21,7 +21,6 @@ class ListenTabViewController: UITabBarController {
     
     // 更改controller
     func changeIndex(index: Int) {
-        print("index = \(index)")
         self.selectedIndex = index
     }
     

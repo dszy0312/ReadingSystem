@@ -140,7 +140,6 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
          if let chapter = realm.objectForPrimaryKey(Chapter.self, key: "\(bookID)\(chapterID)")  {
             if chapter.pages.count == 0 {
                 strArray = splitedString(text)
-                print(strArray.count)
                 maxCount = countGet(customTextView.frame.width, height: customTextView.frame.height, textSize: CGFloat(textSize)) * 2
                 paging(1, textSize: CGFloat(textSize), maxCount: maxCount)
                 
@@ -265,7 +264,6 @@ class ReadingPageViewController: UIPageViewController, UIPageViewControllerDeleg
             } else {
                 strDictionary[page] = pageText
                 self.totalPages = page
-                print("第三次真的结束 、\(getDate())")
             }
         }
     }

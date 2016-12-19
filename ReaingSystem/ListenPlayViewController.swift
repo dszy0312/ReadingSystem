@@ -203,7 +203,6 @@ class ListenPlayViewController: UIViewController, ChapterSelectDelegate {
     }
     //音频下载播放
     func listenPlay(urlStr: String) {
-        print(baseURl + listenData.dirList[index].audioUrl)
         guard let url = NSURL(string: urlStr.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!) else {
             print("连接错误")
             return

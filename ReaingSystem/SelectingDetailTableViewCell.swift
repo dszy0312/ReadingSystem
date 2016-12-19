@@ -51,7 +51,6 @@ class SelectingDetailTableViewCell: UITableViewCell {
     }
     
     @IBAction func changeAction(sender: UIButton) {
-        print(page)
         delegate.dataChanged(count, id: categoryID, page: page + 1)
     }
     //左

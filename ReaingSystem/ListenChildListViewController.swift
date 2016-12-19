@@ -135,7 +135,6 @@ class ListenChildListViewController: UIViewController, UITableViewDelegate, UITa
                 return
             }
             let detailData = ListenChildRoot(fromDictionary: dictionary!)
-            print(dictionary)
             self.dataArray.appendContentsOf(detailData.rows)
             self.decideLoading(self.dataArray.count, total: detailData.totalCount)
             self.footerView.end()

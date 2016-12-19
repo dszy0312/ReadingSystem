@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="wdf-sO-VTK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="wdf-sO-VTK">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -316,8 +316,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EqY-tu-h92">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hpc-YG-RBG">
-                                        <rect key="frame" x="172" y="31" width="31" height="22"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hpc-YG-RBG">
+                                        <rect key="frame" x="187.5" y="42" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -401,17 +401,18 @@
                                         <rect key="frame" x="0.0" y="261" width="375" height="53"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LvI-DB-phP" id="utE-eZ-Q4j">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="52"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="52.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第一章  头脑特工队" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cIf-Hl-ej6">
-                                                    <rect key="frame" x="27" y="16" width="148" height="21"/>
+                                                    <rect key="frame" x="27" y="16" width="333" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.26274509800000001" green="0.26274509800000001" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="cIf-Hl-ej6" secondAttribute="trailing" constant="7" id="30H-N5-a7R"/>
                                                 <constraint firstItem="cIf-Hl-ej6" firstAttribute="leading" secondItem="utE-eZ-Q4j" secondAttribute="leadingMargin" constant="19" id="XwA-an-Np8"/>
                                                 <constraint firstItem="cIf-Hl-ej6" firstAttribute="centerY" secondItem="utE-eZ-Q4j" secondAttribute="centerY" id="oZo-66-htx"/>
                                             </constraints>
@@ -425,7 +426,7 @@
                                         <rect key="frame" x="0.0" y="314" width="375" height="193"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Iw4-NG-CqA" id="7SH-qk-2VF">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="192"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="192.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="MHK-2F-zSV">
@@ -536,7 +537,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e40-M1-Vep" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3528.8000000000002" y="420.53973013493254"/>
+            <point key="canvasLocation" x="3528.8000000000002" y="419.64017991004499"/>
         </scene>
         <!--Listen Play View Controller-->
         <scene sceneID="CVH-NR-8Wj">
@@ -713,7 +714,7 @@
                                 </constraints>
                             </view>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Vf0-er-pyG">
-                                <rect key="frame" x="70" y="390" width="238" height="1"/>
+                                <rect key="frame" x="70" y="389.5" width="238" height="1"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="3f5-xs-vRd"/>
                                 </constraints>
@@ -721,7 +722,7 @@
                                 <color key="trackTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </progressView>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="gAv-Ru-COh">
-                                <rect key="frame" x="68" y="375" width="242" height="31"/>
+                                <rect key="frame" x="68" y="374" width="242" height="31"/>
                                 <color key="minimumTrackTintColor" red="0.4181046155" green="0.62975897140000003" blue="0.78406168980000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="maximumTrackTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="thumbTintColor" red="0.4181046155" green="0.62975897140000003" blue="0.78406168980000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -932,7 +933,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GKZ-Pm-jFR" id="fyD-ud-rI7">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FrO-aF-9wB">
@@ -1315,7 +1316,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="88"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Ov-OH-qgB" id="O7f-Ob-Tlm">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="87"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="87.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="listen_paihang_test" translatesAutoresizingMaskIntoConstraints="NO" id="G8T-gd-w1r">

@@ -182,7 +182,7 @@ class ListenDetailViewController: UIViewController, UITableViewDelegate, UITable
     //请求音频详情数据
     func getListenDetail(id: String) {
         //self.audioID = id
-        print(id)
+        print("\(URLHealper.getListenDetail.introduce())?audioID=\(id)")
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.getListenDetail.introduce(), parameter: ["audioID": id]) { (dic, error) in
             guard error == nil else {
                 print(error)
