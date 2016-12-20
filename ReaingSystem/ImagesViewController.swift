@@ -18,7 +18,8 @@ class ImagesViewController: UIViewController {
     var customImageView = UIImageView()
     //当前的bookID
     var bookID = ""
-
+    //当前音频ID
+    var listenID = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         imageView.image = customImageView.image
@@ -42,6 +43,12 @@ class ImagesViewController: UIViewController {
                 toVC.selectedBookID = bookID
                 self.presentViewController(toVC, animated: true, completion: {
                 })
+            }
+        } else if listenID != "" {
+            if let toVC = toVC("Listen", vcName: "ListenDetail") as? ListenDetailViewController {
+                toVC.audioID = listenID
+                toVC.image = imageView.image
+                self.presentViewController(toVC, animated: true, completion: nil)
             }
         }
     }

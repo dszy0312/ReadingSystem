@@ -124,11 +124,11 @@ class ListenImagePageViewController: UIPageViewController, UIPageViewControllerD
         if self.imageArray.count == 0 || index == self.imageArray.count {
             imagesVC?.customImageView.image = defaultImage
             imagesVC?.customIndex = 0
-            
             return imagesVC
         } else {
             imagesVC?.customImageView.image = imageArray[index].imageData
             imagesVC?.customIndex = index
+            imagesVC?.listenID = imageArray[index].audioID
             return imagesVC
             
         }
