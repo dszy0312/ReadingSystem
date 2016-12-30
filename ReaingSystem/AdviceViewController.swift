@@ -96,7 +96,6 @@ class AdviceViewController: UIViewController, UITextViewDelegate {
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if range.length < 200 {
-            print(textView.text)
             return true
         } else {
             return false

@@ -125,7 +125,7 @@ class ListenPlayViewController: UIViewController, ChapterSelectDelegate {
     @IBAction func commentClick(sender: UIButton) {
         if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
             if title == "个人中心" {
-                alertMessage("通知", message: "请登陆后查看评论！", vc: self)
+                alertMessage("通知", message: "请登录后查看评论！", vc: self)
             } else {
                 let toVC  = self.detailVC("ReadDetail", vcName: "CommentViewController") as! CommentViewController
                 toVC.bookID = listenData.audioID
@@ -141,7 +141,7 @@ class ListenPlayViewController: UIViewController, ChapterSelectDelegate {
     @IBAction func shareClick(sender: UIButton) {
         if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
             if title == "个人中心" {
-                alertMessage("通知", message: "请登陆后进行分享！", vc: self)
+                alertMessage("通知", message: "请登录后进行分享！", vc: self)
             } else {
                 alertShareMessage(self) { (type) in
                     guard let name = self.listenData.audioName,  let image = self.image, let id = self.listenData.audioID else {
@@ -289,7 +289,6 @@ class ListenPlayViewController: UIViewController, ChapterSelectDelegate {
         if !self.sliding {
             self.slider.value = Float(currentTime/totalTime)
         }
-        print("\(currentTime)\(totalTime)")
         if currentTime == totalTime {
             guard index != listenData.dirList.count - 1 else {
                 return

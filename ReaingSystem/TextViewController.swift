@@ -88,7 +88,7 @@ class TextViewController: UIViewController, UITextViewDelegate, MyTextViewShareD
         let selectedText = (text as NSString).substringWithRange(ran)
         if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
             if title == "个人中心" {
-                alertMessage("通知", message: "请登陆后进行分享！", vc: self)
+                alertMessage("通知", message: "请登录后进行分享！", vc: self)
             } else {
                 if let parVC = self.parentViewController?.parentViewController as? BookReadingViewController {
                     guard let name = parVC.bookName, let image = parVC.bookImage, let id = parVC.bookID else {

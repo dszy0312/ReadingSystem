@@ -220,9 +220,7 @@ class SelectingImagePageViewController: UIPageViewController, UIPageViewControll
                     self.getImage(i, url: imageURL.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!, urlStr: imageURL)
                 }
             }
-            
         }
-
     }
 //    
     //请求轮播标题图片
@@ -239,8 +237,6 @@ class SelectingImagePageViewController: UIPageViewController, UIPageViewControll
             } else {
                 print("不是图片、\(urlStr)")
             }
-            
         }
     }
-
 }

@@ -11,11 +11,13 @@ import Alamofire
 import UIKit
 //后台总地址
 let baseURl = "http://app.lhwww.cn/"
+//let baseURl = "http://lh.sdlq.org/"
+
 
 enum NetworkHealper {
     case Get
     case GetWithParm
-    //登陆注册专用
+    //登录注册专用
     case GetWithParm2
     case Post
     case PostWithURL
@@ -29,7 +31,6 @@ enum NetworkHealper {
         var dic: NSDictionary?
         switch self {
         case .Get:
-            
             Alamofire.request(.GET, url).responseJSON { (response) in
                 switch response.result {
                 case .Success:
@@ -43,7 +44,7 @@ enum NetworkHealper {
                     dic = jsonDic
 
                 case .Failure(let e):
-                    error = "服务器出错"
+                    error = "服务器出错\(e)"
                     print(e)
                 }
                 completion(dic, error)
@@ -131,20 +132,6 @@ enum NetworkHealper {
                 }
                 completion(dic, error)
             })
-
-        case .GetTest:
-            Alamofire.request(.GET, url).responseData(completionHandler: { (response) in
-                let str = NSString(data: response.result.value!, encoding: NSUTF8StringEncoding)
-                print(str)
-                completion(dic, error)
-            })
-        case .GetTestWithParm:
-            Alamofire.request(.GET, url, parameters: parameter).responseData(completionHandler: { (response) in
-                let str = NSString(data: response.result.value!, encoding: NSUTF8StringEncoding)
-                print(str)
-                completion(dic, error)
-            })
-            
         default:
             break
         }

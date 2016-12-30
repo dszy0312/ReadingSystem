@@ -69,6 +69,8 @@ class JournalImageViewController: UIPageViewController, UIScrollViewDelegate {
         let widthScale = scrollViewSize.width / imageViewSize.width
         let heightScale = scrollViewSize.height / imageViewSize.height
         scrollView.minimumZoomScale = min(widthScale, heightScale)
+        //2016.12.22 图片放大修改     魏辉
+        scrollView.maximumZoomScale = max(2, 2)
         
         // 設定一開始畫面出現時圖片的比例
         scrollView.zoomScale = min(widthScale, heightScale)

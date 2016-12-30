@@ -25,6 +25,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     var loginDelegate: LoginDelegate!
     
+    //是否正在登陆请求
+    var isLogin = false
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,8 +92,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 //头像
                 var icon: String!
                 //原始数据
-                print("这是：\(user.rawData)")
-                
                 if let ic = user.rawData["figureurl_qq_2"] as? String {
                     icon = ic
                 } else {
@@ -112,6 +113,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func backClick(sender: UIButton) {
+        guard isLogin == false else {
+            return
+        }
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -162,7 +166,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    //第三方登陆
+    //第三方登录
     func otherLogin(type: SSDKPlatformType) {
         var types = 0
         switch type {
@@ -198,11 +202,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     //MARK:网络请求
     func loginSend(username: String, password: String, nickName: String = "", userType: Int = 1, uuid: String) {
-        
+        isLogin = true
         NetworkHealper.GetWithParm2.receiveJSON(URLHealper.login.introduce(), parameter: ["userName": username, "password": password, "nickName": nickName, "userType": userType, "uuid": uuid]) { (dictionary, error) in
+            self.isLogin = false
             //查询错误
             guard error == nil else {
-                print(error)
+                alertMessage("登录失败", message: "请检网络！", vc: self)
                 return
             }
             let cookie = NetworkHealper.GetWithParm2.GetCookieStorage()
@@ -227,14 +232,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     let realm = try! Realm()
                     let books = realm.objects(MyShelfRmBook).filter("isOnShelf == %@", 1)
                     let allBooks = realm.objects(MyShelfRmBook)
+                    //清除搜索的历史记录
+                    let historySearch = realm.objects(PaperRmSearchList)
                     try! realm.write({
                         books.setValue(false, forKey: "downLoad")
                         books.setValue(0, forKey: "isOnShelf")
                         allBooks.setValue(1, forKey: "readedPage")
+                        realm.delete(historySearch)
                     })
+                    
                     self.dismissViewControllerAnimated(true, completion: nil)
                 } else {
-                    alertMessage("登陆失败", message: "请检查用户名和密码是否正确", vc: self)
+                    
+                    alertMessage("登录失败", message: "请检查用户名和密码是否正确", vc: self)
                     print("发送失败")
                 }
             }
@@ -242,11 +252,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     func otherLoginSend(username: String, password: String = "", nickName: String, userType: Int, uuid: String, icon: String) {
-        
+        isLogin = true
         NetworkHealper.GetWithParm2.receiveJSON(URLHealper.login.introduce(), parameter: ["userName": username, "password": password, "nickName": nickName, "userType": userType, "uuid": uuid]) { (dictionary, error) in
+            self.isLogin = false
             //查询错误
             guard error == nil else {
-                print(error)
+                alertMessage("登录失败", message: "请检网络！", vc: self)
                 return
             }
             
@@ -257,10 +268,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     let d = NSKeyedArchiver.archivedDataWithRootObject(g!)
                     let h = NSKeyedUnarchiver.unarchiveObjectWithData(d)
                     if  let f = NSKeyedUnarchiver.unarchiveObjectWithData(d) as? String {
+                        print(f)
                         var data :NSData = f.dataUsingEncoding(NSUTF8StringEncoding)!
                         var json :NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: UInt(0))) as! NSDictionary
                         if let groupID = json["Group_ID"] as? Float{
                             NSUserDefaults.standardUserDefaults().setFloat(groupID, forKey: "groupID")
+                            print(groupID)
                         }
                     }
                 }
@@ -273,28 +286,24 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     let realm = try! Realm()
                     let books = realm.objects(MyShelfRmBook).filter("isOnShelf == %@", 1)
                     let allBooks = realm.objects(MyShelfRmBook)
+                    //清除搜索的历史记录
+                    let historySearch = realm.objects(PaperRmSearchList)
                     try! realm.write({
                         books.setValue(false, forKey: "downLoad")
                         books.setValue(0, forKey: "isOnShelf")
                         allBooks.setValue(1, forKey: "readedPage")
+                        realm.delete(historySearch)
                     })
                     self.dismissViewControllerAnimated(true, completion: nil)
                 } else {
-                    alertMessage("登陆失败", message: "请重试！", vc: self)
+                    alertMessage("登录失败", message: "请重试！", vc: self)
                     print("发送失败")
                 }
             }
         }
     }
-    
-    
     func userSet(username: String, icon: String) {
         NSUserDefaults.standardUserDefaults().setObject(username, forKey: "userTitle")
         NSUserDefaults.standardUserDefaults().setObject(icon, forKey: "userImage")
     }
-    
-
-
-   
-
 }

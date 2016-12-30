@@ -163,9 +163,6 @@
 		98945D581D9A6C3700726E0B /* PaperTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98945D571D9A6C3700726E0B /* PaperTableViewCell.swift */; };
 		98945D5C1D9A6FB200726E0B /* PaperRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98945D5A1D9A6FB200726E0B /* PaperRoot.swift */; };
 		98945D5D1D9A6FB200726E0B /* PaperRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98945D5B1D9A6FB200726E0B /* PaperRow.swift */; };
-		98945D5F1D9A814F00726E0B /* PaperDateChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98945D5E1D9A814F00726E0B /* PaperDateChangeViewController.swift */; };
-		98945D611D9B515E00726E0B /* PaperViewTransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98945D601D9B515E00726E0B /* PaperViewTransitionDelegate.swift */; };
-		98945D651D9B5AA200726E0B /* OverlayAnimationControlller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98945D641D9B5AA100726E0B /* OverlayAnimationControlller.swift */; };
 		98945D671D9B5CCF00726E0B /* OverlayPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98945D661D9B5CCF00726E0B /* OverlayPresentationController.swift */; };
 		98949D381D757B3D001FD433 /* FindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98949D371D757B3D001FD433 /* FindViewController.swift */; };
 		98949D3B1D757C0C001FD433 /* FindNewMagazineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98949D3A1D757C0C001FD433 /* FindNewMagazineCollectionViewCell.swift */; };
@@ -487,9 +484,6 @@
 		98945D571D9A6C3700726E0B /* PaperTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaperTableViewCell.swift; sourceTree = "<group>"; };
 		98945D5A1D9A6FB200726E0B /* PaperRoot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaperRoot.swift; sourceTree = "<group>"; };
 		98945D5B1D9A6FB200726E0B /* PaperRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaperRow.swift; sourceTree = "<group>"; };
-		98945D5E1D9A814F00726E0B /* PaperDateChangeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaperDateChangeViewController.swift; sourceTree = "<group>"; };
-		98945D601D9B515E00726E0B /* PaperViewTransitionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaperViewTransitionDelegate.swift; sourceTree = "<group>"; };
-		98945D641D9B5AA100726E0B /* OverlayAnimationControlller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayAnimationControlller.swift; sourceTree = "<group>"; };
 		98945D661D9B5CCF00726E0B /* OverlayPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayPresentationController.swift; sourceTree = "<group>"; };
 		98949D371D757B3D001FD433 /* FindViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindViewController.swift; sourceTree = "<group>"; };
 		98949D3A1D757C0C001FD433 /* FindNewMagazineCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindNewMagazineCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -766,7 +760,6 @@
 		980E91691D51E7EB000A19CA /* Transition */ = {
 			isa = PBXGroup;
 			children = (
-				98945D641D9B5AA100726E0B /* OverlayAnimationControlller.swift */,
 				9866C84F1DC6D0F300EA4D52 /* SecondOverlayAnimationController.swift */,
 				98945D661D9B5CCF00726E0B /* OverlayPresentationController.swift */,
 				980E916E1D531FAB000A19CA /* BubbleAnimation.swift */,
@@ -1094,8 +1087,6 @@
 		98945D531D9A67F300726E0B /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				98945D601D9B515E00726E0B /* PaperViewTransitionDelegate.swift */,
-				98945D5E1D9A814F00726E0B /* PaperDateChangeViewController.swift */,
 				9895FBB31D9BA55C00639EAB /* PaperDetailReadViewController.swift */,
 				98A2EBA71DAC8D4000039CCA /* PaperMainViewController.swift */,
 				9891224D1DB4722D00FCE871 /* PaperEditionSelectViewController.swift */,
@@ -1707,7 +1698,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				98D9D11B1D62F0DE00A9D740 /* Interests.swift in Sources */,
-				98945D5F1D9A814F00726E0B /* PaperDateChangeViewController.swift in Sources */,
 				98D9CB3E1D61BD6100510E08 /* SelectingTitleCollectionViewCell.swift in Sources */,
 				986CD5BE1D922596008D15FE /* ListenFamousRow.swift in Sources */,
 				98B23BD81D9BC0B8006A009A /* ReadingPageViewController.swift in Sources */,
@@ -1877,7 +1867,6 @@
 				986CD5E11D92977E008D15FE /* FooterLoadingView.swift in Sources */,
 				98B23BE11D9BE39C006A009A /* StoryListViewController.swift in Sources */,
 				98D9CB2D1D6157F400510E08 /* SelectingViewController.swift in Sources */,
-				98945D651D9B5AA200726E0B /* OverlayAnimationControlller.swift in Sources */,
 				98ED5BF51D8FED43005BC3CA /* HotListRoot.swift in Sources */,
 				98C21B8F1D93D09800628AE5 /* CategoryRow.swift in Sources */,
 				98C186791D6C4402008FCB15 /* AppearTransitionAnimation.swift in Sources */,
@@ -1922,7 +1911,6 @@
 				9866C8581DC71DF300EA4D52 /* JournalDCatalogueCollectionViewCell.swift in Sources */,
 				98CD8A181DC0803F0047D8DC /* SelectingFloorPrList.swift in Sources */,
 				986CD5D01D926B62008D15FE /* ListenFamousDetailIntroduceTableViewCell.swift in Sources */,
-				98945D611D9B515E00726E0B /* PaperViewTransitionDelegate.swift in Sources */,
 				9879FB121DA3CEDF000B356F /* WelcomePageViewController.swift in Sources */,
 				98CD8A131DC042440047D8DC /* JournalClassifyData2.swift in Sources */,
 				98949D381D757B3D001FD433 /* FindViewController.swift in Sources */,

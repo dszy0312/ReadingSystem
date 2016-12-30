@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ZTF-Xn-bW1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ZTF-Xn-bW1">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -151,7 +151,7 @@
                                         <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kAu-RR-f2k">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="150" id="mVO-gT-Vct"/>
+                                                <constraint firstAttribute="width" secondItem="kAu-RR-f2k" secondAttribute="height" multiplier="5:2" id="sKJ-ep-7jL"/>
                                             </constraints>
                                             <connections>
                                                 <segue destination="AZD-nj-hon" kind="embed" identifier="ImagesSegue" id="jId-TI-t0p"/>
@@ -211,6 +211,7 @@
                     <connections>
                         <outlet property="collectionView" destination="YHC-cM-sJ7" id="WeP-J2-p87"/>
                         <outlet property="footerView" destination="MqR-Sm-iu8" id="v9i-wg-JjA"/>
+                        <outlet property="headerView" destination="B8r-qW-ftO" id="CF9-mH-rBp"/>
                         <outlet property="pageController" destination="mlR-fL-eNP" id="jAT-eQ-ziI"/>
                         <outlet property="personalButton" destination="qsA-uR-Ahf" id="zxf-tQ-M5Y"/>
                         <outlet property="searchButton" destination="uCo-dc-aSa" id="NFU-i8-Mve"/>

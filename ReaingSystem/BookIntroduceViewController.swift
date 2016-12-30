@@ -60,6 +60,10 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
         self.view.bringSubviewToFront(waitingView)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         //判断本地是否存在
         let realm = try! Realm()
         if let book = realm.objectForPrimaryKey(MyShelfRmBook.self, key: selectedBookID) {
@@ -71,10 +75,6 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
         } else {
             getSummery(selectedBookID, book: nil)
         }
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
         self.waitingView.addLayer()
         self.waitingView.begin()
     }
@@ -114,7 +114,7 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
     @IBAction func commentClick(sender: UIButton) {
         if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
             if title == "个人中心" {
-                alertMessage("通知", message: "请登陆后查看评论！", vc: self)
+                alertMessage("通知", message: "请登录后查看评论！", vc: self)
             } else {
                 self.performSegueWithIdentifier(reuseIdentifier[1], sender: self)
                 
@@ -127,7 +127,7 @@ class BookIntroduceViewController: UIViewController, UITableViewDelegate, UITabl
     @IBAction func shareClick(sender: UIButton) {
         if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
             if title == "个人中心" {
-                alertMessage("通知", message: "请登陆后进行分享！", vc: self)
+                alertMessage("通知", message: "请登录后进行分享！", vc: self)
             } else {
                 alertShareMessage(self) { (type) in
                     guard let name = self.titleLabel.text, let image = self.bookImage.image, let id = self.selectedBookID else {

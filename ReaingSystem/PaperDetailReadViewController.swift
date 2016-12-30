@@ -49,7 +49,7 @@ class PaperDetailReadViewController: UIViewController, UITableViewDelegate, UITa
     @IBAction func shareClick(sender: UIButton) {
         if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
             if title == "个人中心" {
-                alertMessage("通知", message: "请登陆后查看评论！", vc: self)
+                alertMessage("通知", message: "请登录后查看评论！", vc: self)
             } else {
                 getShareURL()
                 
@@ -61,7 +61,7 @@ class PaperDetailReadViewController: UIViewController, UITableViewDelegate, UITa
     @IBAction func commentClick(sender: UIButton) {
         if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
             if title == "个人中心" {
-                alertMessage("通知", message: "请登陆后进行分享！", vc: self)
+                alertMessage("通知", message: "请登录后进行分享！", vc: self)
             } else {
                 let toVC  = self.detailVC("ReadDetail", vcName: "CommentViewController") as! CommentViewController
                 toVC.bookID = newsID

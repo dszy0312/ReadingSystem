@@ -162,7 +162,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
         NetworkHealper.GetWithParm2.receiveJSON(URLHealper.registerNewUser.introduce(), parameter: ["phoneNumber": username, "password": password, "mobileYZHM": YZM]) { (dictionary, error) in
             //查询错误
             guard error == nil else {
-                print(error)
+                //2016.12.21修改，错误提示    魏辉
+                alertMessage("系统提示", message: "\(error)", vc: self)
                 return
             }
             
@@ -177,7 +178,6 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                         var json :NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(rawValue: UInt(0))) as! NSDictionary
                         if let groupID = json["Group_ID"] as? Float{
                             NSUserDefaults.standardUserDefaults().setFloat(groupID, forKey: "groupID")
-                            print(groupID)
                         }
                     }
                 }

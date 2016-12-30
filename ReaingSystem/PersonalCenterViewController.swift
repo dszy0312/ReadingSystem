@@ -24,10 +24,16 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
     @IBOutlet weak var backgroundView: UIView!
     
     @IBOutlet weak var tableBackgroundView: UIView!
+    //是否来自滑动变换
+    var isFromPan = false
     
     //是否展示个人中心
     var showing = false {
         didSet {
+            guard isFromPan == false else {
+                isFromPan = false
+                return
+            }
             if showing == true {
                 self.downLoadSizeGet()
                 if self.containerView.center.x == self.view.center.x {
@@ -50,7 +56,7 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     //标题数组
-    var textArray = ["登陆/注册","清除缓存","意见反馈","关于我们","切换账号","退出账号"]
+    var textArray = ["登录/注册","清除缓存","意见反馈","关于我们","切换账号","退出账号"]
     // 标题图
     var imageArray = ["center_01","center_02","center_03","center_04","center_05","center_06"]
     
@@ -70,12 +76,12 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
-        
+        //添加点击响应
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTap(_:)))
+        self.backgroundView.addGestureRecognizer(tapGesture)
         //背景颜色设置
         colorsSet()
-        
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(didPan(_:)))
-        
         self.view.addGestureRecognizer(panGesture)
         // Do any additional setup after loading the view.
     }
@@ -166,20 +172,27 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
         
         if gesture.state == UIGestureRecognizerState.Ended {
             self.downLoadSizeGet()
+            self.isFromPan = true
             if containerView.center.x - view.center.x <= self.view.bounds.width * 0.4 {
-                UIView.animateWithDuration(0.2, animations: {
+                UIView.animateWithDuration(0.1, animations: {
                     self.containerView.center.x = self.view.center.x
-                    self.backgroundView.alpha = 0
+                    }, completion: { (bool) in
+                        self.backgroundView.alpha = 0
+                        self.showing = false
                 })
             } else if containerView.center.x - view.center.x > self.view.bounds.width * 0.4 {
                 UIView.animateWithDuration(0.1, animations: {
                     self.containerView.center.x = self.view.center.x + self.view.bounds.width * 0.8
-                    self.backgroundView.alpha = 1
+                    }, completion: { (bool) in
+                        self.backgroundView.alpha = 1
+                        self.showing = true
                 })
             }
             
         }
-
+    }
+    func didTap(tap: UITapGestureRecognizer) {
+        self.showing = false
     }
     
     //私有代理方法
@@ -244,7 +257,7 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
                     NSUserDefaults.standardUserDefaults().setObject("center_photo", forKey: "userImage")
                     
                     self.refreshMyShelfVC()
-                    //取消登陆授权
+                    //取消登录授权
                     ShareSDK.cancelAuthorize(SSDKPlatformType.TypeQQ)
                     ShareSDK.cancelAuthorize(SSDKPlatformType.TypeSinaWeibo)
                     ShareSDK.cancelAuthorize(SSDKPlatformType.TypeWechat)
@@ -252,13 +265,18 @@ class PersonalCenterViewController: UIViewController, UITableViewDataSource, UIT
                     let realm = try! Realm()
                     let books = realm.objects(MyShelfRmBook).filter("isOnShelf == %@", 1)
                     let allBooks = realm.objects(MyShelfRmBook)
+                    //搜索历史记录
+                    let searchHistory = realm.objects(PaperRmSearchList)
                     try! realm.write({
                         books.setValue(false, forKey: "downLoad")
                         books.setValue(0, forKey: "isOnShelf")
                         allBooks.setValue(1, forKey: "readedPage")
+                        //搜索历史记录清理
+                        realm.delete(searchHistory)
                     })
                     //角色权限降级
-                    NSUserDefaults.standardUserDefaults().setFloat(0.0, forKey: "groupID")
+                    NSUserDefaults.standardUserDefaults().setFloat(1.0, forKey: "groupID")
+                    
                 } else {
                     alertMessage("系统提示", message: "发送失败，请重试！", vc: self)
                 }

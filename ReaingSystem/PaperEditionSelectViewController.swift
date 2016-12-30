@@ -15,11 +15,36 @@ class PaperEditionSelectViewController: UIViewController, UICollectionViewDataSo
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var editionSelectImageView: UIImageView!
+    
+    @IBOutlet weak var dateSelectImageView: UIImageView!
     //期刊数据
     var paperMainRow: [PaperMainData] = [] {
         didSet {
-            self.collectionView.reloadSections(NSIndexSet(index: 0))
-
+            collectionView.reloadData()
+        }
+    }
+    //期刊日期数据
+    var paperDateRow: [String] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    //当前期刊日期
+    var currentDate: String = "" 
+    //当前版面
+    var currentEdition: String = ""
+    //显示的是日期数据还是期刊版面数据   true=版面  false=日期
+    var isShowEdition = true {
+        didSet {
+            if isShowEdition == true {
+                editionSelectImageView.alpha = 1
+                dateSelectImageView.alpha = 0
+            } else {
+                editionSelectImageView.alpha = 0
+                dateSelectImageView.alpha = 1
+            }
+            collectionView.reloadData()
         }
     }
 
@@ -28,6 +53,8 @@ class PaperEditionSelectViewController: UIViewController, UICollectionViewDataSo
 
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
+        editionSelectImageView.alpha = 1
+        dateSelectImageView.alpha = 0
         // Do any additional setup after loading the view.
     }
 
@@ -44,14 +71,30 @@ class PaperEditionSelectViewController: UIViewController, UICollectionViewDataSo
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        
-        return paperMainRow.count
+        if isShowEdition == true {
+            return paperMainRow.count
+        } else {
+            return paperDateRow.count
+        }
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier[1], forIndexPath: indexPath) as! PaperEditionCollectionViewCell
-        cell.nameLabel.text = paperMainRow[indexPath.row].newspaperImgTitle
+        if isShowEdition == true {
+            cell.nameLabel.text = paperMainRow[indexPath.row].newspaperImgTitle
+            if cell.nameLabel.text == self.currentEdition {
+                cell.nameLabel.textColor = UIColor.mainColor()
+            } else {
+                cell.nameLabel.textColor = UIColor.blackColor()
+            }
+        } else {
+            cell.nameLabel.text = paperDateRow[indexPath.row]
+            if cell.nameLabel.text == self.currentDate {
+                cell.nameLabel.textColor = UIColor.mainColor()
+            } else {
+                cell.nameLabel.textColor = UIColor.blackColor()
+            }
+        }
         return cell
         
     }
@@ -64,15 +107,19 @@ class PaperEditionSelectViewController: UIViewController, UICollectionViewDataSo
         return 1
     }
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        switch paperMainRow.count {
-        case 4:
-            return CGSize(width: self.collectionView.frame.width - 2, height: 35)
-        case 8:
+        if isShowEdition == true {
+            switch paperMainRow.count {
+            case 4:
+                return CGSize(width: self.collectionView.frame.width - 2, height: 35)
+            case 8:
+                return CGSize(width: (self.collectionView.frame.width - 1) / 2, height: 35)
+            case 16:
+                return CGSize(width: (self.collectionView.frame.width - 3) / 4, height: 35)
+            default:
+                return CGSize(width: self.collectionView.frame.width - 2, height: 35)
+            }
+        } else {
             return CGSize(width: (self.collectionView.frame.width - 1) / 2, height: 35)
-        case 16:
-            return CGSize(width: (self.collectionView.frame.width - 3) / 4, height: 35)
-        default:
-            return CGSize(width: self.collectionView.frame.width - 2, height: 35)
         }
         
     }
@@ -84,7 +131,11 @@ class PaperEditionSelectViewController: UIViewController, UICollectionViewDataSo
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if let pVC = self.parentViewController as? PaperMainViewController {
-            pVC.selectedIndex = indexPath.row
+            if isShowEdition == true {
+                pVC.selectedIndex = indexPath.row
+            } else {
+                pVC.selectedDateIndex = indexPath.row
+            }
         }
     }
 

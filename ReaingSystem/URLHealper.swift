@@ -13,7 +13,7 @@ enum URLHealper {
     case getYZHM
     //注册
     case registerNewUser
-    //登陆
+    //登录
     case login
     //重置密码
     case resetPassword
@@ -147,7 +147,7 @@ enum URLHealper {
         //注册
         case .registerNewUser:
             return baseURl + "/user/Register"
-        //登陆
+        //登录
         case .login:
             return baseURl + "/user/login"
         //重置密码

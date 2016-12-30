@@ -71,7 +71,7 @@ class ListenDetailViewController: UIViewController, UITableViewDelegate, UITable
     @IBAction func commentClick(sender: UIButton) {
         if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
             if title == "个人中心" {
-                alertMessage("通知", message: "请登陆后查看评论！", vc: self)
+                alertMessage("通知", message: "请登录后查看评论！", vc: self)
             } else {
                 let toVC  = self.detailVC("ReadDetail", vcName: "CommentViewController") as! CommentViewController
                 toVC.bookID = audioID
@@ -85,7 +85,7 @@ class ListenDetailViewController: UIViewController, UITableViewDelegate, UITable
     @IBAction func shareClick(sender: UIButton) {
         if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
             if title == "个人中心" {
-                alertMessage("通知", message: "请登陆后进行分享！", vc: self)
+                alertMessage("通知", message: "请登录后进行分享！", vc: self)
             } else {
                 alertShareMessage(self) { (type) in
                     guard let name = self.titleLabel.text,  let image = self.image, let id = self.audioID else {
@@ -181,8 +181,6 @@ class ListenDetailViewController: UIViewController, UITableViewDelegate, UITable
 
     //请求音频详情数据
     func getListenDetail(id: String) {
-        //self.audioID = id
-        print("\(URLHealper.getListenDetail.introduce())?audioID=\(id)")
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.getListenDetail.introduce(), parameter: ["audioID": id]) { (dic, error) in
             guard error == nil else {
                 print(error)
@@ -210,7 +208,6 @@ class ListenDetailViewController: UIViewController, UITableViewDelegate, UITable
         NetworkHealper.GetWithParm.receiveJSON(URLHealper.addToShelfURL.introduce(), parameter: parm, completion: { (dictionary, error) in
             
             if let flag = dictionary!["flag"] as? Int {
-                print("flag= \(flag)")
                 if flag == 1 {
                     self.addShelfButton.selected = true
                     self.addShelfButton.setImage(UIImage(named: "readDetail_onShelf"), forState: UIControlState.Selected)

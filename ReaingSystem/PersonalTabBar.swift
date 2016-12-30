@@ -76,20 +76,12 @@ class PersonalTabBar: UIView {
             }
             break
         case 3:
-            let groupID = NSUserDefaults.standardUserDefaults().floatForKey("groupID")
-                if groupID == 0.0 {
-                    delegate!.loginAlert()
-                    return
-                } else {
-                    if numberArray[3] {
-                        defaultChange()
-                        numberArray[3] = false
-                        selectionChange(itemButton4, imageName: "反相-4", isSelected: true)
-                        
-                        itemBackgroundImage.center = itemBackgroundView4.center
-                    }
-                    
-                }
+            if numberArray[3] {
+                defaultChange()
+                numberArray[3] = false
+                selectionChange(itemButton4, imageName: "反相-4", isSelected: true)
+                itemBackgroundImage.center = itemBackgroundView4.center
+            }
             break
         case 4:
             if numberArray[4] {

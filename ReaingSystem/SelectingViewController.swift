@@ -31,9 +31,11 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     @IBOutlet weak var searchButton: UIButton!
     //个人中心按钮
     @IBOutlet weak var personalButton: UIButton!
-    
+    //顶部视图
+    @IBOutlet weak var headerView: UIView!
     //底部视图
     @IBOutlet weak var footerView: FooterLoadingView!
+    
     
     //搜索页转场标示
     private let delegateSegue = "SearchingSegue"
@@ -77,6 +79,8 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
         super.viewDidLoad()
         self.getFloorData(1)
         tableView.tableFooterView = footerView
+        //顶部视图动态高度
+        headerView.frame.size.height = self.view.bounds.width / 5 * 2 + 165
         //下拉刷新
         refreshControl = UIRefreshControl()
         

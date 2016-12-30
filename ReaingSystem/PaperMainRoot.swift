@@ -9,6 +9,7 @@ struct PaperMainRoot{
     var data : [PaperMainData]!
     var flag : Int!
     var msg : String!
+    var data2: [String]!
     
     
     /**
@@ -21,6 +22,10 @@ struct PaperMainRoot{
                 let value = PaperMainData(fromDictionary: dic)
                 data.append(value)
             }
+        }
+        data2 = [String]()
+        if let data2Array = dictionary["data2"] as? [String] {
+            data2 = data2Array
         }
         flag = dictionary["flag"] as? Int
         msg = dictionary["msg"] as? String

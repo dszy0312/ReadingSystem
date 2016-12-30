@@ -324,7 +324,7 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     @IBAction func commentClick(sender: UIButton) {
         if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
             if title == "个人中心" {
-                alertMessage("通知", message: "请登陆后查看评论！", vc: self)
+                alertMessage("通知", message: "请登录后查看评论！", vc: self)
             } else {
                 self.performSegueWithIdentifier(reuseIdentifier[1], sender: self)  
             }
@@ -335,7 +335,7 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     @IBAction func shareClick(sender: UIButton) {
         if let title = NSUserDefaults.standardUserDefaults().objectForKey("userTitle") as? String {
             if title == "个人中心" {
-                alertMessage("通知", message: "请登陆后进行分享！", vc: self)
+                alertMessage("通知", message: "请登录后进行分享！", vc: self)
             } else {
                 alertShareMessage(self) { (type) in
                     guard let name = self.bookName, let image = self.bookImage, let id = self.bookID else {
@@ -573,7 +573,6 @@ class BookReadingViewController: UIViewController, ChapterSelectDelegate {
     
     //章节跳转
     func chapterChange(isPro: Bool){
-        print("是否向前滑动、\(isPro)")
         if isPro == true {
             selectedChapter -= 1
         } else {
