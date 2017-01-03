@@ -31,6 +31,7 @@ class SearchingResultTableViewCell: UITableViewCell {
     }
     
     func setData(data: HotListRow) {
+        print(data.bookName)
         bookTitleLabel.text = data.bookName
         bookAuthorLabel.text = data.author
         bookIntroduceLabel.text = data.bookBrief

@@ -238,6 +238,7 @@ class SearchingListViewController: UIViewController, UITableViewDelegate, UITabl
                 toVC.selectedBookID = listRows[indexPath.row].bookID
                 self.presentViewController(toVC, animated: true, completion: {
                     UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default
+                    tableView.deselectRowAtIndexPath(indexPath, animated: true)
                 })
             }
         } else if listRows[indexPath.row].typeID == "0002" {
