@@ -25,6 +25,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     var loginDelegate: LoginDelegate!
     
+    //渐隐渐现跳转
+    var appearTransitionDelegate = AppearTransitionDelegate()
+    
     //是否正在登陆请求
     var isLogin = false
     
@@ -38,6 +41,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let tap = UITapGestureRecognizer(target: self, action: #selector(didTap(_:)))
         self.view.addGestureRecognizer(tap)
         
+        
 //        transitionDelegate.animationTransition.pointFrame =
         // Do any additional setup after loading the view.
     }
@@ -45,6 +49,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if let helperVC = toVC("Helper", vcName: "LoginHelperViewController") as? LoginHelperViewController {
+            helperVC.transitioningDelegate = appearTransitionDelegate
+            helperVC.modalPresentationStyle = .Custom
+            self.presentViewController(helperVC, animated: true, completion: nil)
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -198,8 +210,15 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         usernameTF.resignFirstResponder()
         passwordTF.resignFirstResponder()
     }
-
     
+    //MARK：私有方法
+    //页面跳转方法
+    func toVC(sbName: String, vcName: String) -> UIViewController {
+        let sb = UIStoryboard(name: sbName, bundle: nil)
+        let vc = sb.instantiateViewControllerWithIdentifier(vcName)
+        return vc
+    }
+
     //MARK:网络请求
     func loginSend(username: String, password: String, nickName: String = "", userType: Int = 1, uuid: String) {
         isLogin = true

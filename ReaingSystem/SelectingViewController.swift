@@ -39,8 +39,8 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     
     //搜索页转场标示
     private let delegateSegue = "SearchingSegue"
-    //跳转搜索页面
-    var searchingTransitionDelegate = SearchingTransitionDelegate()
+    //渐隐渐现跳转
+    var appearTransitionDelegate = AppearTransitionDelegate()
     
     //模拟navigation跳转
     var transitionDelegate = ReadedBookListTransitionDelegate()
@@ -179,6 +179,11 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         setImage(personalButton)
+        if let helperVC = toVC("Helper", vcName: "SelectingHelperViewController") as? SelectingHelperViewController {
+            helperVC.transitioningDelegate = appearTransitionDelegate
+            helperVC.modalPresentationStyle = .Custom
+            self.presentViewController(helperVC, animated: true, completion: nil)
+        }
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -200,7 +205,7 @@ class SelectingViewController: UIViewController, UICollectionViewDelegate,UIColl
             toVC.customDelegate = self
         } else if segue.identifier == delegateSegue {
             let toVC = segue.destinationViewController as! SearchingDefaultViewController
-            toVC.transitioningDelegate = searchingTransitionDelegate
+            toVC.transitioningDelegate = appearTransitionDelegate
             toVC.modalPresentationStyle = .Custom
         }
 

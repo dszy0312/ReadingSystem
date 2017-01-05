@@ -105,6 +105,12 @@ class ReplaceViewController: UIViewController, UITextFieldDelegate {
             self.YZMLabel.alpha = 1
             self.YZMLabel.text = "验证码"
             self.time = 60
+        } else {
+            print("ceshi ")
+            self.timer = nil
+            self.YZMLabel.alpha = 1
+            self.YZMLabel.text = "验证码"
+            self.time = 60
         }
     }
     //时间切换

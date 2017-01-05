@@ -58,6 +58,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NSUserDefaults.standardUserDefaults().registerDefaults(["isFirstLaunch": true])
         NSUserDefaults.standardUserDefaults().registerDefaults(["userTitle": "个人中心"])
         NSUserDefaults.standardUserDefaults().registerDefaults(["userImage": "center_photo"])
+        //导航指引默认值
+        NSUserDefaults.standardUserDefaults().registerDefaults(["selectAppear": false])
+        NSUserDefaults.standardUserDefaults().registerDefaults(["loginAppear": false])
+        
         
         let isFirstLaunch = NSUserDefaults.standardUserDefaults().boolForKey("isFirstLaunch")
         if !isFirstLaunch {

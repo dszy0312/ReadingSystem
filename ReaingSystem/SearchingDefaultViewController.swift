@@ -18,8 +18,8 @@ class SearchingDefaultViewController: UIViewController, UICollectionViewDelegate
     @IBOutlet weak var searchbar: UISearchBar!
     //跳转查询结果页面标示
     var searchResultSegue = "ShowSearchingSegue"
-    
-    var transitionDelegate = SearchingTransitionDelegate()
+    //渐隐渐现跳转
+    var transitionDelegate = AppearTransitionDelegate()
     
     //搜索历史
     var mySearchHistory: [PaperRmSearchList] = []
