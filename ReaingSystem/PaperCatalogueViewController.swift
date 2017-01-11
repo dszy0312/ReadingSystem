@@ -43,7 +43,7 @@ class PaperCatalogueViewController: UIViewController, UICollectionViewDelegate, 
         if segue.identifier == reuseIdentifier[2] {
             let toVC = segue.destinationViewController as! PaperDetailReadViewController
             toVC.newsID = selectID
-            toVC.sectionID = sectionID
+//            toVC.sectionID = sectionID
         }
     }
     

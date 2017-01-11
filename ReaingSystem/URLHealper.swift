@@ -137,6 +137,8 @@ enum URLHealper {
     
     //MARK: 获取报纸分享域名
     case getPaperShareURL
+    //MARK: 获取新的报纸分享域名
+    case getNewPaperShareURL
     
     
     func introduce() -> String {
@@ -262,6 +264,8 @@ enum URLHealper {
             return baseURl + "Sug/Add"
         case .getPaperShareURL:
             return baseURl + "pr/getPcHomeUrl"
+        case .getNewPaperShareURL:
+            return baseURl + "pr/getPcHomeNewUrl"
         }
     }
 }

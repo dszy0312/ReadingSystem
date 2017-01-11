@@ -56,7 +56,6 @@ class PaperImageViewController: UIViewController, UIScrollViewDelegate {
         if segue.identifier == reuseIdentifier[0] {
             let toVC = segue.destinationViewController as! PaperDetailReadViewController
             toVC.newsID = selectHotSpace
-            toVC.sectionID = self.sectionID
         }
     }
     

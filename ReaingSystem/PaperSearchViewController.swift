@@ -52,7 +52,6 @@ class PaperSearchViewController: UIViewController, UITableViewDelegate, UITableV
         if segue.identifier == reuseIdentifier[2] {
             let toVC = segue.destinationViewController as! PaperDetailReadViewController
             toVC.newsID = searchData[selectedRow].npNewsID
-            toVC.sectionID = searchData[selectedRow].npEditionID
         }
     }
     

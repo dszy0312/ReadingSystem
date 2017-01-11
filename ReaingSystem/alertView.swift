@@ -34,7 +34,6 @@ func alertShareMessage(vc: UIViewController, completion: (SSDKPlatformType) -> V
     vc.presentViewController(alertController, animated: true, completion: nil)
 }
 //id 分享内容的id, name: 标题，author: 作者，image: 图片， shartype: 分享类型（图书，音频，报纸，期刊，分别是【appappstory, appvoice, appnewspaper, appmagazine】）,from: 0表示分享的文本、1表示分享书籍或者有声小说, type: 目前是微信，微博，QQ三种
-//
 func alertShare(id: String, name: String, author: String, image: UIImage?, shareType: String,from: String, type: SSDKPlatformType) {
     let shareParames = NSMutableDictionary()
     shareParames.SSDKSetupShareParamsByText("\n\(author)", images:image, url: NSURL(string: "\(baseURl)ShareContent/index.html?id=\(id)&shareType=\(shareType)&type=\(from)"), title: name, type: SSDKContentType.WebPage)
@@ -50,10 +49,10 @@ func alertShare(id: String, name: String, author: String, image: UIImage?, share
     }
 }
 //报纸分享
-func alertShare2(id: String, detail: String, title: String, sectionID: String, image: UIImage?, type: SSDKPlatformType, baseURL: String) {
+func alertShare2(id: String, detail: String, title: String, image: UIImage?, type: SSDKPlatformType, baseURL: String) {
     let shareParames = NSMutableDictionary()
-    shareParames.SSDKSetupShareParamsByText("\n\(detail)", images:image, url: NSURL(string: "\(baseURL)\(sectionID)?aid=\(id)"), title: title, type: SSDKContentType.WebPage)
-    shareParames.SSDKSetupSinaWeiboShareParamsByText("\(title)\(baseURL)\(sectionID)?aid=\(id)", title: title, image: image, url: NSURL(string: "\(baseURL)\(sectionID)?aid=\(id)"), latitude: 0, longitude: 0, objectID: nil, type: SSDKContentType.Auto)
+    shareParames.SSDKSetupShareParamsByText("\n\(detail)", images:image, url: NSURL(string: "\(baseURL)?id=\(id)&lx=paper"), title: title, type: SSDKContentType.WebPage)
+    shareParames.SSDKSetupSinaWeiboShareParamsByText("\(title)\(baseURL)?id=\(id)&lx=paper", title: title, image: image, url: NSURL(string: "\(baseURL)?id=\(id)&lx=paper"), latitude: 0, longitude: 0, objectID: nil, type: SSDKContentType.Auto)
     ShareSDK.share(type, parameters: shareParames) { (states, nil, entity, error) in
         switch states {
         case SSDKResponseState.Success: print("分享成功")
