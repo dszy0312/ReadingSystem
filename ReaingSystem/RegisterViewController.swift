@@ -32,8 +32,20 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
     var timer: NSTimer!
     //60秒计时
     var time = 60
-    
-    
+    //开始计时
+    var isStart = false {
+        didSet {
+            if isStart == true {
+                if self.timer != nil {
+                    self.timer?.invalidate()
+                    self.timer = nil
+                }
+                self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(exchange), userInfo: nil, repeats: true)
+                isStart = false
+            }
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         usernameTF.delegate = self
@@ -149,7 +161,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                     self.YZM = dictionary!["msg"] as! String
                     self.YZMButton.alpha = 0.5
                     self.YZMButton.text = "\(self.time)秒"
-                    self.startTime()
+                    self.isStart = true
                 } else {
                     alertMessage("系统提示", message: "验证失败，请重试！", vc: self)
                     self.YZMRealButton.selected = true

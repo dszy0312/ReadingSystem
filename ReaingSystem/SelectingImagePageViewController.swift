@@ -168,7 +168,6 @@ class SelectingImagePageViewController: UIPageViewController, UIPageViewControll
             self.timer = nil
             return
         }
-
         timer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: #selector(exchange), userInfo: nil, repeats: true)
     }
     func endTime() {
@@ -211,7 +210,7 @@ class SelectingImagePageViewController: UIPageViewController, UIPageViewControll
             self.customDelegate?.selectDataLoaded(selectRootData)
             //设置当前页
             self.setAppearedImage(0, isAnimated: false)
-            //开始自动换图
+            //开始轮播
             self.startTime()
 //            //获取轮播图片
             for i in 0..<self.imagesRow!.count {

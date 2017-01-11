@@ -10,8 +10,8 @@ import Foundation
 import Alamofire
 import UIKit
 //后台总地址
-//let baseURl = "http://app.lhwww.cn/"
-let baseURl = "http://lh.sdlq.org/"
+let baseURl = "http://app.lhwww.cn/"
+//let baseURl = "http://lh.sdlq.org/"
 //let baseURl = "http://192.168.0.111/"
 
 

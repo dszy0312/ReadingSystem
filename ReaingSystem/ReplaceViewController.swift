@@ -24,9 +24,22 @@ class ReplaceViewController: UIViewController, UITextFieldDelegate {
     //验证码
     var YZM = ""
     //自动跳转
-    var timer: NSTimer!
+    var timer: NSTimer?
     //60秒计时
     var time = 60
+    //开始计时
+    var isStart = false {
+        didSet {
+            if isStart == true {
+                if self.timer != nil {
+                    self.timer?.invalidate()
+                    self.timer = nil
+                }
+                self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(exchange), userInfo: nil, repeats: true)
+                isStart = false
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,17 +109,11 @@ class ReplaceViewController: UIViewController, UITextFieldDelegate {
             self.timer = nil
             return
         }
-        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(exchange), userInfo: nil, repeats: true)
+        self.timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(exchange), userInfo: nil, repeats: true)
     }
     func endTime() {
         if timer != nil {
-            timer.invalidate()
-            self.timer = nil
-            self.YZMLabel.alpha = 1
-            self.YZMLabel.text = "验证码"
-            self.time = 60
-        } else {
-            print("ceshi ")
+            timer!.invalidate()
             self.timer = nil
             self.YZMLabel.alpha = 1
             self.YZMLabel.text = "验证码"
@@ -150,7 +157,7 @@ class ReplaceViewController: UIViewController, UITextFieldDelegate {
                     self.YZM = dictionary!["msg"] as! String
                     self.YZMLabel.alpha = 0.5
                     self.YZMLabel.text = "\(self.time)秒"
-                    self.startTime()
+                    self.isStart = true
                 } else {
                     alertMessage("系统提示", message: "验证失败，请重试！", vc: self)
                     self.YZMRealButton.selected = true
