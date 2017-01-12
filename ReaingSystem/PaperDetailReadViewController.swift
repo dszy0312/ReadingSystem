@@ -8,8 +8,6 @@
 
 import UIKit
 
-private let reuseIdentifier = ["titleCell","detailCell","imageCell"]
-
 class PaperDetailReadViewController: UIViewController, UIWebViewDelegate {
     @IBOutlet weak var webView: UIWebView!
     
@@ -79,14 +77,14 @@ class PaperDetailReadViewController: UIViewController, UIWebViewDelegate {
         js += "script.type = 'text/javascript';"
         js += "script.text = \"function ResizeImages() { "
         js += "var myimg;"
-        js += "var maxwidth=\(self.view.frame.width - 35);" //屏幕宽度
+        js += "var maxwidth=\(self.view.frame.width - 28);" //屏幕宽度
         js += "for(i=0;i <document.images.length;i++){"
         js += "myimg = document.images[i];"
         js += "myimg.height = maxwidth / (myimg.width/myimg.height);"
         js += "myimg.width = maxwidth;"
         js += "}"
         js += "}\";"
-        js += "document.getElementsByTagName('p')[0].appendChild(script);"
+        js += "document.body.appendChild(script);"
         
         //添加js
         webView.stringByEvaluatingJavaScriptFromString(js)
